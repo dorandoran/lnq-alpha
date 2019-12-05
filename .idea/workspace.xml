@@ -2,24 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebeb11bd-3c0f-4116-879f-18214056e540" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/theme.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/babel.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AuthSubmit.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AuthSubmit.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/context/AuthContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/AuthContext.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/createDataContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/createDataContext.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/navigationRef.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigationRef.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/createScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/createScreen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/homeScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/homeScreen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/loginScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/loginScreen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/profileScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/profileScreen.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/signupScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/signupScreen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/firebase.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +70,7 @@
       <option name="presentableId" value="Default" />
       <updated>1575430313483</updated>
       <workItem from="1575430314802" duration="6256000" />
-      <workItem from="1575472868754" duration="31657000" />
+      <workItem from="1575472868754" duration="32236000" />
     </task>
     <servers />
   </component>

@@ -29,7 +29,7 @@ const SignupScreen = () => {
 		return alert('Please make sure all fields are filled out')
 	  }
 	  if (password === confirmPass) {
-		signup({ email, password })
+		signup({ email, password, username })
 	  }
   }
 

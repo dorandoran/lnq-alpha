@@ -7,7 +7,7 @@ import { navigate } from '../navigationRef'
 const authReducer = (state, action) => {
   switch(action.type) {
   case 'SIGN_UP':
-    return { ...state, token: action.payload }
+    return { ...state, userId: action.payload }
   case 'ADD_USER_INFO':
   	return { ...state, userInfo: action.payload }
   case 'ADD_ERROR':
@@ -40,13 +40,14 @@ const getCurrentUserInfo = dispatch => async ({ name, username }) => {
   }
 }
 
-const signup = dispatch => async ({ email, password }) => {
+const signup = dispatch => async ({ email, password, username }) => {
   try {
-    await firebase.auth().createUserWithEmailAndPassword(email, password)
+    const response = await firebase.auth().createUserWithEmailAndPassword(email, password)
+  	await response.user.updateProfile({ displayName: username })
     await firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        const token = user.uid
-	  	dispatch({ type: 'SIGN_UP', payload: token })
+        const userId = user.uid
+	  	dispatch({ type: 'SIGN_UP', payload: userId })
       } else {
       	// user is logged out
 	  }
@@ -64,5 +65,5 @@ const signin = dispatch => () => {
 export const { Context, Provider } = createDataContext(
   authReducer,
   { signin, signup, getCurrentUserInfo, passwordValidation, clearErrorMessage },
-  { token: null, errorMessage: null, userInfo: {} }
+  { userId: null, errorMessage: null, userInfo: {} }
 )
