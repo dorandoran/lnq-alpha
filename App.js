@@ -33,7 +33,7 @@ const switchNavigator = createSwitchNavigator({
 
 const AppContainer = createAppContainer(switchNavigator)
 
-export default () => {
+const App = () => {
   initializeFirebase()
 
   return (
@@ -45,3 +45,4 @@ export default () => {
   )
 }
 
+export default App

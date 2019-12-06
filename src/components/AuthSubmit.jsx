@@ -9,11 +9,11 @@ const AuthSubmit = ({ submitButtonTitle, navigationRoute, routeContent, navigati
   return (
     <>
       <Spacer>
-		  <Button
-			  buttonStyle={{ backgroundColor: '#0C1D27' }}
-			  title={submitButtonTitle}
-			  onPress={onSubmit}
-		  />
+        <Button
+          buttonStyle={{ backgroundColor: '#0C1D27' }}
+          title={submitButtonTitle}
+          onPress={onSubmit}
+        />
       </Spacer>
       <Spacer>
         <TouchableOpacity onPress={() => navigation.navigate(navigationRoute)}>
