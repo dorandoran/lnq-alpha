@@ -4,7 +4,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import Spacer from './Spacer'
 import { withNavigation } from 'react-navigation'
-import { Context as AuthContext } from '../context/AuthContext'
 
 const AuthSubmit = ({ submitButtonTitle, navigationRoute, routeContent, navigation, onSubmit }) => {
   return (
