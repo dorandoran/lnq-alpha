@@ -1,13 +1,13 @@
+import React from 'react'
+import { theme } from '@src/theme'
+import { ThemeProvider } from 'react-native-elements'
+
 // Navigators
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-// navigationRef utility tool that will help us use navigation outside of our screens
 import { setNavigator } from './src/navigationRef'
 import { Provider as AuthProvider } from './src/context/AuthContext'
-import React from 'react'
-import { theme } from '@src/theme'
-import { ThemeProvider } from 'react-native-elements'
 
 // Screens
 import LoginScreen from '@screens/loginScreen'
@@ -31,16 +31,15 @@ const switchNavigator = createSwitchNavigator({
   })
 })
 
-const App = createAppContainer(switchNavigator)
+const AppContainer = createAppContainer(switchNavigator)
 
 export default () => {
   initializeFirebase()
 
-  // setNavigator helper func that will allow us to use navigate prop in Context files
   return (
     <AuthProvider>
       <ThemeProvider theme={theme}>
-        <App ref={navigator => setNavigator(navigator)} />
+        <AppContainer ref={navigator => setNavigator(navigator)} />
       </ThemeProvider>
     </AuthProvider>
   )

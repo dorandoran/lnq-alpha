@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
@@ -6,27 +6,7 @@ import Spacer from './Spacer'
 import { withNavigation } from 'react-navigation'
 import { Context as AuthContext } from '../context/AuthContext'
 
-const AuthSubmit = ({ submitButtonTitle, navigationRoute, routeContent, navigation, onSubmit, compare }) => {
-  const { state } = useContext(AuthContext)
-
-
-  // checks if password and confirm password is the same
-  // let submitButtonHandler
-  // if (state.errorMessage) {
-  //   submitButtonHandler = (<Button
-  //     buttonStyle={{ backgroundColor: '#0C1D27' }}
-  //     title={submitButtonTitle}
-  //     onPress={() => {}}
-  //   />)
-  // } else {
-  //   submitButtonHandler = (<Button
-  //     buttonStyle={{ backgroundColor: '#0C1D27' }}
-  //     title={submitButtonTitle}
-  //     onPress={onSubmit}
-  //   />)
-  // }
-
-
+const AuthSubmit = ({ submitButtonTitle, navigationRoute, routeContent, navigation, onSubmit }) => {
   return (
     <>
       <Spacer>
@@ -84,8 +64,7 @@ AuthSubmit.propTypes = {
   navigationRoute: PropTypes.string,
   routeContent: PropTypes.string,
   navigation: PropTypes.object,
-  onSubmit: PropTypes.func,
-  compare: PropTypes.bool
+  onSubmit: PropTypes.func
 }
 
 export default withNavigation(AuthSubmit)
