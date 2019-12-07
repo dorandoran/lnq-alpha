@@ -14,6 +14,7 @@ const AuthProvider = (props) => {
 
   const register = async ({ email, password, username }) => {
     try {
+      clearErr()
       setIsLoading(true)
       const response = await firebase.auth().createUserWithEmailAndPassword(email, password)
       await response.user.updateProfile({ displayName: username })
@@ -27,6 +28,7 @@ const AuthProvider = (props) => {
 
   const login = async ({ email, password }) => {
     try {
+      clearErr()
       setIsLoading(true)
       const response = await firebase.auth().signInWithEmailAndPassword(email, password)
       setIsLoading(false)

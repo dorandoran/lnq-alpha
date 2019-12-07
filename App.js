@@ -2,8 +2,8 @@ import React from 'react'
 import { theme } from '@src/theme'
 import { ThemeProvider } from 'react-native-elements'
 
-import AppProviders from './src/context'
-import { useUser } from './src/context/user-context'
+import AppProviders from '@context'
+import { useUser } from '@context/user-context'
 
 import AuthenticatedApp from './AuthenticatedApp'
 import UnAuthenticatedApp from './UnAthenticatedApp'

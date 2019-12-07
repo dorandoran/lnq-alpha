@@ -1,26 +1,26 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
-import Spacer from '../common/Spacer'
+import Spacer from '@common/Spacer'
 import { withNavigation } from 'react-navigation'
-import { useAuth } from '../../context/auth-context'
+import { useAuth } from '@context/auth-context'
 
 const AuthSubmit = ({ submitButtonTitle, navigationRoute, routeContent, navigation, onSubmit }) => {
   const { isLoading } = useAuth()
 
   return (
-    <>
+    <Fragment>
       <Spacer>
         {isLoading
           ? <Button
             loading={true}
-            buttonStyle={{ backgroundColor: '#0C1D27' }}
+            buttonStyle={styles.submitButtonStyle}
             title={submitButtonTitle}
             onPress={onSubmit}
           />
           : <Button
-            buttonStyle={{ backgroundColor: '#0C1D27' }}
+            buttonStyle={styles.submitButtonStyle}
             title={submitButtonTitle}
             onPress={onSubmit}
           />}
@@ -41,7 +41,7 @@ const AuthSubmit = ({ submitButtonTitle, navigationRoute, routeContent, navigati
           <Button buttonStyle={styles.authButtonsGg} title="GOOGLE" />
         </View>
       </Spacer>
-    </>
+    </Fragment>
   )
 }
 
@@ -57,6 +57,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 20,
     color: '#BE0000'
+  },
+  submitButtonStyle: {
+    backgroundColor: '#0C1D27'
   },
   authButtonsFb: {
     width: 150,

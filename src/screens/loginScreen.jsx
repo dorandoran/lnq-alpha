@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TextInput } from 'react-native'
-import AuthSubmit from '../components/auth/AuthSubmit'
-import Spacer from '../components/common/Spacer'
-import { useAuth } from '../context/auth-context'
+import AuthSubmit from '@auth/AuthSubmit'
+import Spacer from '@common/Spacer'
+import { useAuth } from '@context/auth-context'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -15,7 +15,6 @@ const LoginScreen = () => {
     if (err) {
       alert(err)
     }
-    // error cleanup
     return clearErr()
   }, [err])
 
@@ -26,7 +25,7 @@ const LoginScreen = () => {
   return (
     <View style={styles.containerStyle}>
       <Spacer>
-        <Text style={{ fontWeight: 'bold', fontSize: 50, alignSelf: 'center' }}>LNQ</Text>
+        <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
       </Spacer>
       <Spacer>
         <TextInput
@@ -64,6 +63,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginBottom: 30
+  },
+  logoPlaceholderStyle: {
+    fontWeight: 'bold',
+    fontSize: 50,
+    alignSelf: 'center'
   },
   inputStyle: {
     backgroundColor: '#eee',

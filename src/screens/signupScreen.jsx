@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TextInput } from 'react-native'
-import Spacer from '../components/common/Spacer'
-import AuthSubmit from '../components/auth/AuthSubmit'
-import { useAuth } from '../context/auth-context'
+import Spacer from '@common/Spacer'
+import AuthSubmit from '@auth/AuthSubmit'
+import { useAuth } from '@context/auth-context'
 
 const SignupScreen = () => {
   const [email, setEmail] = useState('')
@@ -18,7 +18,6 @@ const SignupScreen = () => {
     if (err) {
       alert(err)
     }
-    // error cleanup
     return clearErr()
   }, [err])
 
@@ -36,7 +35,7 @@ const SignupScreen = () => {
     <View style={styles.containerStyle}>
       <Spacer>
         <Text
-          style={{ fontWeight: 'bold', fontSize: 50, alignSelf: 'center' }}
+          style={styles.logoPlaceholderStyle}
         >
 			LNQ
         </Text>
@@ -108,6 +107,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginBottom: 30
+  },
+  logoPlaceholderStyle: {
+    fontWeight: 'bold',
+    fontSize: 50,
+    alignSelf: 'center'
   },
   inputStyle: {
     backgroundColor: '#eee',
