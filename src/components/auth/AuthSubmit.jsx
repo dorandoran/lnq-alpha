@@ -2,18 +2,28 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
-import Spacer from './Spacer'
+import Spacer from '../common/Spacer'
 import { withNavigation } from 'react-navigation'
+import { useAuth } from '../../context/auth-context'
 
 const AuthSubmit = ({ submitButtonTitle, navigationRoute, routeContent, navigation, onSubmit }) => {
+  const { isLoading } = useAuth()
+
   return (
     <>
       <Spacer>
-        <Button
-          buttonStyle={{ backgroundColor: '#0C1D27' }}
-          title={submitButtonTitle}
-          onPress={onSubmit}
-        />
+        {isLoading
+          ? <Button
+            loading={true}
+            buttonStyle={{ backgroundColor: '#0C1D27' }}
+            title={submitButtonTitle}
+            onPress={onSubmit}
+          />
+          : <Button
+            buttonStyle={{ backgroundColor: '#0C1D27' }}
+            title={submitButtonTitle}
+            onPress={onSubmit}
+          />}
       </Spacer>
       <Spacer>
         <TouchableOpacity onPress={() => navigation.navigate(navigationRoute)}>

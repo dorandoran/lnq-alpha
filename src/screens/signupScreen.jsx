@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TextInput } from 'react-native'
-import Spacer from '../components/Spacer'
-import AuthSubmit from '../components/AuthSubmit'
-import { Context as AuthContext } from '../context/AuthContext'
+import Spacer from '../components/common/Spacer'
+import AuthSubmit from '../components/auth/AuthSubmit'
+import { useAuth } from '../context/auth-context'
 
 const SignupScreen = () => {
   const [email, setEmail] = useState('')
@@ -12,31 +12,25 @@ const SignupScreen = () => {
   const [username, setUsername] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
 
-  const { state, signup, getCurrentUserInfo, passwordValidation, clearErrorMessage } = useContext(AuthContext)
+  const { register, err, clearErr } = useAuth()
 
   useEffect(() => {
-    if (state.errorMessage) {
-      alert(state.errorMessage)
+    if (err) {
+      alert(err)
     }
-
     // error cleanup
-    return clearErrorMessage()
-  }, [state.errorMessage])
+    return clearErr()
+  }, [err])
 
   const submitButtonHandler = () => {
-	  passwordValidation({ password, confirmPass })
-	  if (name.length <= 0 || username.length <= 0) {
-		return alert('Please make sure all fields are filled out')
-	  }
-	  if (password === confirmPass) {
-		signup({ email, password, username })
-	  }
+    if (name.length <= 0 || username.length <= 0) {
+      return alert('Please make sure all fields are filled out')
+    }
+    if (password !== confirmPass) {
+      return alert('Passwords need to match')
+    }
+    register({ email, password, username })
   }
-
-  // stores user name and username in global state for future use
-  useEffect(() => {
-    getCurrentUserInfo({ name, username })
-  }, [name, username])
 
   return (
     <View style={styles.containerStyle}>

@@ -1,10 +1,28 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TextInput } from 'react-native'
-import AuthSubmit from '../components/AuthSubmit'
-import Spacer from '../components/Spacer'
+import AuthSubmit from '../components/auth/AuthSubmit'
+import Spacer from '../components/common/Spacer'
+import { useAuth } from '../context/auth-context'
 
 const LoginScreen = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const { login, err, clearErr } = useAuth()
+
+  useEffect(() => {
+    if (err) {
+      alert(err)
+    }
+    // error cleanup
+    return clearErr()
+  }, [err])
+
+  const submitButtonHandler = () => {
+    login({ email, password })
+  }
+
   return (
     <View style={styles.containerStyle}>
       <Spacer>
@@ -16,6 +34,8 @@ const LoginScreen = () => {
           autoCorrect={false}
           autoCapitalize="none"
           placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
         />
       </Spacer>
       <Spacer>
@@ -25,13 +45,15 @@ const LoginScreen = () => {
           autoCapitalize="none"
           placeholder="Password"
           secureTextEntry
+          value={password}
+          onChangeText={setPassword}
         />
       </Spacer>
       <AuthSubmit
         submitButtonTitle="Login"
         navigationRoute="Signup"
         routeContent="New user? Sign up here"
-        onSubmit={() => {}}
+        onSubmit={submitButtonHandler}
       />
     </View>
   )

@@ -2,46 +2,30 @@ import React from 'react'
 import { theme } from '@src/theme'
 import { ThemeProvider } from 'react-native-elements'
 
-// Navigators
-import { createAppContainer, createSwitchNavigator } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
-import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { setNavigator } from './src/navigationRef'
-import { Provider as AuthProvider } from './src/context/AuthContext'
+import AppProviders from './src/context'
+import { useUser } from './src/context/user-context'
 
-// Screens
-import LoginScreen from '@screens/loginScreen'
-import SignupScreen from '@screens/signupScreen'
-import HomeScreen from '@screens/homeScreen'
-import ProfileScreen from '@screens/profileScreen'
-import CreateScreen from '@screens/createScreen'
+import AuthenticatedApp from './AuthenticatedApp'
+import UnAuthenticatedApp from './UnAthenticatedApp'
 
 // Services
 import { initializeFirebase } from '@services/firebase'
 
-const switchNavigator = createSwitchNavigator({
-  authFlow: createStackNavigator({
-    Login: LoginScreen,
-    Signup: SignupScreen
-  }),
-  mainFlow: createBottomTabNavigator({
-    Home: HomeScreen,
-    Profile: ProfileScreen,
-    Create: CreateScreen,
-  })
-})
+const AppContainer = () => {
+  const user = useUser()
 
-const AppContainer = createAppContainer(switchNavigator)
+  return user ? <AuthenticatedApp/> : <UnAuthenticatedApp/>
+}
 
 const App = () => {
   initializeFirebase()
 
   return (
-    <AuthProvider>
-      <ThemeProvider theme={theme}>
-        <AppContainer ref={navigator => setNavigator(navigator)} />
-      </ThemeProvider>
-    </AuthProvider>
+    <ThemeProvider theme={theme}>
+      <AppProviders>
+        <AppContainer />
+      </AppProviders>
+    </ThemeProvider>
   )
 }
 
