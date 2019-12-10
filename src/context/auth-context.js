@@ -7,6 +7,7 @@ const AuthProvider = (props) => {
   const [isLoading, setIsLoading] = useState(false)
   const [err, setErr] = useState('')
   const [user, setUser] = useState('')
+  const [success, setSuccess] = useState(false)
 
   const clearErr = () => {
     setErr('')
@@ -40,7 +41,30 @@ const AuthProvider = (props) => {
     }
   }
 
-  return <AuthContext.Provider value={{ user, register, login, err, isLoading, clearErr }} {...props} />
+  const passReset = async ({ email }) => {
+    try {
+      clearErr()
+      setIsLoading(true)
+      await firebase.auth().sendPasswordResetEmail(email)
+      setSuccess(true)
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      setSuccess(false)
+      setErr(error)
+    }
+  }
+
+  return <AuthContext.Provider value={{
+    user,
+    register,
+    login,
+    passReset,
+    success,
+    err,
+    isLoading,
+    clearErr
+  }} {...props} />
 }
 
 const useAuth = () => {
