@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
