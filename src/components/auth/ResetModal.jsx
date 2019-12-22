@@ -105,17 +105,13 @@ const styles = StyleSheet.create({
     zIndex: 99,
     alignSelf: 'center',
     justifyContent: 'center',
-    top: Dimensions.get('window').height / 4,
-    borderRadius: 20,
-    bottom: 0,
-    left: 0,
-    right: 0
+    borderRadius: 20
   },
   modalBackdrop: {
     position: 'absolute',
     zIndex: 98,
     backgroundColor: 'grey',
-    opacity: 0.2,
+    opacity: 0.75,
     flex: 1,
     top: 0,
     bottom: 0,
