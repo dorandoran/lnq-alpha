@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import { Button } from 'react-native-elements'
 import Spacer from '@common/Spacer'
 import { useAuth } from '@context/auth-context'
