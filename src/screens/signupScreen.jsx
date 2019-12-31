@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TextInput, Keyboard } from 'react-native'
 import Spacer from '@common/Spacer'
 import AuthSubmit from '@auth/AuthSubmit'
 import { useAuth } from '@context/auth-context'
-import KeyboardDismiss from '../components/common/keyboardDismiss'
+import KeyboardDismiss from '@common/keyboardDismiss'
 
 const SignupScreen = () => {
   const [email, setEmail] = useState('')

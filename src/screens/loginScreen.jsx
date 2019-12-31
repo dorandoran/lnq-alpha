@@ -5,7 +5,7 @@ import AuthSubmit from '@auth/AuthSubmit'
 import Spacer from '@common/Spacer'
 import { useAuth } from '@context/auth-context'
 import ResetModal from '@auth/ResetModal'
-import KeyboardDismiss from '../components/common/keyboardDismiss'
+import KeyboardDismiss from '@common/keyboardDismiss'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
