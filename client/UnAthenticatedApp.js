@@ -3,7 +3,6 @@ import React from 'react'
 // Navigators
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
-// import { Provider as AuthProvider } from './src/context/AuthContext'
 
 // Screens
 import LoginScreen from '@screens/loginScreen'

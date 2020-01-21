@@ -12,7 +12,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('')
   const [viewModal, setViewModal] = useState(false)
 
-  const { login, err, clearErr } = useAuth()
+  const { login, signInWithGoogleAsync, signInWithFacebook, err, clearErr } = useAuth()
 
   useEffect(() => {
     if (err) {
@@ -32,6 +32,14 @@ const LoginScreen = () => {
 
   const submitButtonHandler = () => {
     login({ email, password })
+  }
+
+  const googleSubmitButtonHandler = () => {
+    signInWithGoogleAsync()
+  }
+
+  const facebookSubmitButtonHandler = () => {
+    signInWithFacebook()
   }
 
   return (
@@ -84,6 +92,8 @@ const LoginScreen = () => {
             Keyboard.dismiss()
             submitButtonHandler()
           }}
+          onGoogleSubmit={googleSubmitButtonHandler}
+          onFacebookSubmit={facebookSubmitButtonHandler}
         />
       </View>
     </KeyboardDismiss>

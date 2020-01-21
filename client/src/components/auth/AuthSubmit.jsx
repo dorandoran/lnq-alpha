@@ -6,7 +6,15 @@ import Spacer from '@common/Spacer'
 import { withNavigation } from 'react-navigation'
 import { useAuth } from '@context/auth-context'
 
-const AuthSubmit = ({ submitButtonTitle, navigationRoute, routeContent, navigation, onSubmit }) => {
+const AuthSubmit = ({
+  submitButtonTitle,
+  navigationRoute,
+  routeContent,
+  navigation,
+  onSubmit,
+  onGoogleSubmit,
+  onFacebookSubmit
+}) => {
   const { isLoading } = useAuth()
 
   return (
@@ -37,8 +45,8 @@ const AuthSubmit = ({ submitButtonTitle, navigationRoute, routeContent, navigati
       </Spacer>
       <Spacer>
         <View style={styles.oauthStyle}>
-          <Button buttonStyle={styles.authButtonsFb} title="FACEBOOK" />
-          <Button buttonStyle={styles.authButtonsGg} title="GOOGLE" />
+          <Button buttonStyle={styles.authButtonsFb} title="FACEBOOK" onPress={onFacebookSubmit} />
+          <Button buttonStyle={styles.authButtonsGg} title="GOOGLE" onPress={onGoogleSubmit} />
         </View>
       </Spacer>
     </Fragment>
@@ -76,7 +84,9 @@ AuthSubmit.propTypes = {
   navigationRoute: PropTypes.string,
   routeContent: PropTypes.string,
   navigation: PropTypes.object,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  onGoogleSubmit: PropTypes.func,
+  onFacebookSubmit: PropTypes.func
 }
 
 export default withNavigation(AuthSubmit)

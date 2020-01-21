@@ -1,5 +1,7 @@
 import React, { createContext, useState, useContext } from 'react'
 import firebase from 'firebase'
+import * as Google from 'expo-google-app-auth'
+import * as Facebook from 'expo-facebook'
 
 const AuthContext = createContext()
 
@@ -41,6 +43,47 @@ const AuthProvider = (props) => {
     }
   }
 
+  const signInWithGoogleAsync = async () => {
+    try {
+      const result = await Google.logInAsync({
+        androidClientId: '650252507366-1mb3kjm7qtb42mnc7ktnop1qgvb37tpi.apps.googleusercontent.com',
+        iosClientId: '650252507366-a7r20o66k8jqekuajbmkcr6vjpairhsp.apps.googleusercontent.com',
+        scopes: ['profile', 'email'],
+      })
+      if (result.type === 'success') {
+        setUser(result.user.id)
+        return result.accessToken
+      } else {
+        return { cancelled: true }
+      }
+    } catch (e) {
+      console.log('error with login', e)
+      return { error: true }
+    }
+  }
+
+  const signInWithFacebook = async () => {
+    try {
+      await Facebook.initializeAsync('880713082385563')
+      const {
+        type,
+        token
+      } = await Facebook.logInWithReadPermissionsAsync({
+        permissions: ['public_profile']
+      })
+      if (type === 'success') {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`)
+        const userInfo = await response.json()
+        setUser(userInfo.id)
+      } else {
+        // type === 'cancel'
+      }
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`)
+    }
+  }
+
   const passReset = async ({ email }) => {
     try {
       clearErr()
@@ -59,6 +102,8 @@ const AuthProvider = (props) => {
     user,
     register,
     login,
+    signInWithGoogleAsync,
+    signInWithFacebook,
     passReset,
     success,
     err,

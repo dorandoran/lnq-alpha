@@ -3,7 +3,7 @@
     "name": "LNQ: Where the party at?",
     "slug": "lnq",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
+    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",
@@ -24,7 +24,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.650252507366-a7r20o66k8jqekuajbmkcr6vjpairhsp"
+        }
+      }
     }
   }
 }
