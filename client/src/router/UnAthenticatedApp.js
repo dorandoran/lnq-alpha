@@ -1,5 +1,3 @@
-import React from 'react'
-
 // Navigators
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
@@ -8,10 +6,9 @@ import { createStackNavigator } from 'react-navigation-stack'
 import LoginScreen from '@screens/loginScreen'
 import SignupScreen from '@screens/signupScreen'
 
-
 const authFlow = createStackNavigator({
-  Login: LoginScreen,
-  Signup: SignupScreen
+  Login: { screen: LoginScreen, navigationOptions: { header: null } },
+  Signup: { screen: SignupScreen, navigationOptions: { header: null } }
 })
 
 const UnAuthenticatedApp = createAppContainer(authFlow)

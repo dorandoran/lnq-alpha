@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Keyboard } from 'react-native'
-import AuthSubmit from '@auth/AuthSubmit'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Keyboard
+} from 'react-native'
+import AuthSubmit from '@components/auth/AuthSubmit'
+import ResetModal from '@components/auth/ResetModal'
 import Spacer from '@common/Spacer'
 import { useAuth } from '@context/authContext'
-import ResetModal from '@auth/ResetModal'
 import KeyboardDismiss from '@common/keyboardDismiss'
 
 const LoginScreen = () => {
@@ -12,7 +19,13 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('')
   const [viewModal, setViewModal] = useState(false)
 
-  const { login, signInWithGoogleAsync, signInWithFacebook, err, clearErr } = useAuth()
+  const {
+    login,
+    signInWithGoogleAsync,
+    signInWithFacebook,
+    err,
+    clearErr
+  } = useAuth()
 
   useEffect(() => {
     if (err) {
@@ -45,11 +58,13 @@ const LoginScreen = () => {
   return (
     <KeyboardDismiss>
       <View style={styles.containerStyle}>
-        {viewModal ? <ResetModal
-          isModalShown={viewModal}
-          cancelModal={cancelModalViewHandler}
-          emailHolder={email}
-        /> : null}
+        {viewModal ? (
+          <ResetModal
+            isModalShown={viewModal}
+            cancelModal={cancelModalViewHandler}
+            emailHolder={email}
+          />
+        ) : null}
         <Spacer>
           <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
         </Spacer>
@@ -76,10 +91,12 @@ const LoginScreen = () => {
         </Spacer>
 
         <Spacer>
-          <TouchableOpacity onPress={() => {
-            Keyboard.dismiss()
-            resetModalViewHandler()
-          }}>
+          <TouchableOpacity
+            onPress={() => {
+              Keyboard.dismiss()
+              resetModalViewHandler()
+            }}
+          >
             <Text style={styles.resetStyle}>Reset your Password</Text>
           </TouchableOpacity>
         </Spacer>

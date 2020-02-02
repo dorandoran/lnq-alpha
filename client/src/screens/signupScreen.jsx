@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TextInput, Keyboard } from 'react-native'
 import Spacer from '@common/Spacer'
-import AuthSubmit from '@auth/AuthSubmit'
+import AuthSubmit from '@components/auth/AuthSubmit'
 import { useAuth } from '@context/authContext'
 import KeyboardDismiss from '@common/keyboardDismiss'
 
