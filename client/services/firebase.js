@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 
-const firebaseConfig = {
+const config = {
   apiKey: 'AIzaSyC1V1JZUnk_L_13zV4P6A96mCh3I87z9Ko',
   authDomain: 'lnq-alpha.firebaseapp.com',
   databaseURL: 'https://lnq-alpha.firebaseio.com',
@@ -11,8 +11,9 @@ const firebaseConfig = {
   measurementId: 'G-9WDTZ5KMXJ'
 }
 
+firebase.initializeApp(config)
 
-export const initializeFirebase = () => {
-  firebase.initializeApp(firebaseConfig)
-}
-  
+export const f = firebase
+export const database = firebase.database()
+export const auth = firebase.auth()
+export const storage = firebase.storage()

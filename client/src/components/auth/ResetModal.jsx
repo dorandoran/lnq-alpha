@@ -1,9 +1,15 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput
+} from 'react-native'
 import { Button } from 'react-native-elements'
 import Spacer from '@common/Spacer'
-import { useAuth } from '@context/auth-context'
+import { useAuth } from '@context/authContext'
 
 const ResetModal = ({ isModalShown, cancelModal, emailHolder }) => {
   const [email, setEmail] = useState(emailHolder)
@@ -48,8 +54,10 @@ const ResetModal = ({ isModalShown, cancelModal, emailHolder }) => {
   if (isModalShown && success) {
     modal = (
       <Fragment>
-        <TouchableOpacity style={styles.modalBackdrop} onPress={cancelModal} >
-        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.modalBackdrop}
+          onPress={cancelModal}
+        ></TouchableOpacity>
         <View style={styles.modalContainerStyle}>
           <Spacer>
             <Text style={styles.headingStyle}>Email Sent</Text>
@@ -60,8 +68,10 @@ const ResetModal = ({ isModalShown, cancelModal, emailHolder }) => {
   } else if (isModalShown) {
     modal = (
       <Fragment>
-        <TouchableOpacity style={styles.modalBackdrop} onPress={cancelModal} >
-        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.modalBackdrop}
+          onPress={cancelModal}
+        ></TouchableOpacity>
         <View style={styles.modalContainerStyle}>
           <Spacer>
             <Spacer>

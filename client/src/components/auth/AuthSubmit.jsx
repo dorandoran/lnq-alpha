@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import Spacer from '@common/Spacer'
 import { withNavigation } from 'react-navigation'
-import { useAuth } from '@context/auth-context'
+import { useAuth } from '@context/authContext'
 
 const AuthSubmit = ({
   submitButtonTitle,
@@ -20,18 +20,20 @@ const AuthSubmit = ({
   return (
     <Fragment>
       <Spacer>
-        {isLoading
-          ? <Button
+        {isLoading ? (
+          <Button
             loading={true}
             buttonStyle={styles.submitButtonStyle}
             title={submitButtonTitle}
             onPress={onSubmit}
           />
-          : <Button
+        ) : (
+          <Button
             buttonStyle={styles.submitButtonStyle}
             title={submitButtonTitle}
             onPress={onSubmit}
-          />}
+          />
+        )}
       </Spacer>
       <Spacer>
         <TouchableOpacity onPress={() => navigation.navigate(navigationRoute)}>
@@ -45,8 +47,16 @@ const AuthSubmit = ({
       </Spacer>
       <Spacer>
         <View style={styles.oauthStyle}>
-          <Button buttonStyle={styles.authButtonsFb} title="FACEBOOK" onPress={onFacebookSubmit} />
-          <Button buttonStyle={styles.authButtonsGg} title="GOOGLE" onPress={onGoogleSubmit} />
+          <Button
+            buttonStyle={styles.authButtonsFb}
+            title="FACEBOOK"
+            onPress={onFacebookSubmit}
+          />
+          <Button
+            buttonStyle={styles.authButtonsGg}
+            title="GOOGLE"
+            onPress={onGoogleSubmit}
+          />
         </View>
       </Spacer>
     </Fragment>

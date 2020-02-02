@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TextInput, Keyboard } from 'react-native'
 import Spacer from '@common/Spacer'
 import AuthSubmit from '@auth/AuthSubmit'
-import { useAuth } from '@context/auth-context'
+import { useAuth } from '@context/authContext'
 import KeyboardDismiss from '@common/keyboardDismiss'
 
 const SignupScreen = () => {
@@ -36,11 +36,7 @@ const SignupScreen = () => {
     <KeyboardDismiss>
       <View style={styles.containerStyle}>
         <Spacer>
-          <Text
-            style={styles.logoPlaceholderStyle}
-          >
-			LNQ
-          </Text>
+          <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
         </Spacer>
 
         <Spacer>
@@ -59,7 +55,7 @@ const SignupScreen = () => {
             placeholder="Username"
             autoCapitalize="none"
             autoCorrect={false}
-            value={username} 
+            value={username}
             onChangeText={setUsername}
           />
         </Spacer>

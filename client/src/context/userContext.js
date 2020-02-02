@@ -1,9 +1,9 @@
 import React, { createContext, useContext } from 'react'
-import { useAuth } from './auth-context'
+import { useAuth } from '@context/authContext'
 
 const UserContext = createContext()
 
-const UserProvider = (props) => {
+const UserProvider = props => {
   const { user } = useAuth()
   return <UserContext.Provider value={user} {...props} />
 }

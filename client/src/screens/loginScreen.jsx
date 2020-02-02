@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Keyboard } from 'react-native'
 import AuthSubmit from '@auth/AuthSubmit'
 import Spacer from '@common/Spacer'
-import { useAuth } from '@context/auth-context'
+import { useAuth } from '@context/authContext'
 import ResetModal from '@auth/ResetModal'
 import KeyboardDismiss from '@common/keyboardDismiss'
 
