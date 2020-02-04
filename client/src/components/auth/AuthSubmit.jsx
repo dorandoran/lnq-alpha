@@ -5,6 +5,7 @@ import { Button } from 'react-native-elements'
 import Spacer from '@common/Spacer'
 import { withNavigation } from 'react-navigation'
 import { useAuth } from '@context/authContext'
+import { theme } from '@src/theme'
 
 const AuthSubmit = ({
   submitButtonTitle,
@@ -77,11 +78,11 @@ const styles = StyleSheet.create({
     color: '#BE0000'
   },
   submitButtonStyle: {
-    backgroundColor: '#0C1D27'
+    backgroundColor: theme.color.primary
   },
   authButtonsFb: {
     width: 150,
-    backgroundColor: '#0C1D27'
+    backgroundColor: theme.color.primary
   },
   authButtonsGg: {
     width: 150,
