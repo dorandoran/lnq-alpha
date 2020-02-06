@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext } from 'react'
 import { auth } from '@services/firebase'
 import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
+import { f } from '@services/firebase'
 
 const AuthContext = createContext()
 
@@ -55,8 +56,10 @@ const AuthProvider = props => {
         scopes: ['profile', 'email']
       })
       if (result.type === 'success') {
-        setUser(result.user.id)
-        return result.accessToken
+        const credential = await f.auth.GoogleAuthProvider.credential(result.idToken)
+        const response = await auth.signInWithCredential(credential)
+        console.log(response.user.uid)
+        setUser(response.user.uid)
       } else {
         return { cancelled: true }
       }
@@ -74,11 +77,9 @@ const AuthProvider = props => {
       })
       if (type === 'success') {
         // Get the user's name using Facebook's Graph API
-        const response = await fetch(
-          `https://graph.facebook.com/me?access_token=${token}`
-        )
-        const userInfo = await response.json()
-        setUser(userInfo.id)
+        const credential = await f.auth.FacebookAuthProvider.credential(token)
+        const response = await auth.signInWithCredential(credential)
+        setUser(response.user.uid)
       } else {
         // type === 'cancel'
       }

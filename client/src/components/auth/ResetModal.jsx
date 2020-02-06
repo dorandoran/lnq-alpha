@@ -10,6 +10,7 @@ import {
 import { Button } from 'react-native-elements'
 import Spacer from '@common/Spacer'
 import { useAuth } from '@context/authContext'
+import { theme } from '@src/theme'
 
 const ResetModal = ({ isModalShown, cancelModal, emailHolder }) => {
   const [email, setEmail] = useState(emailHolder)
@@ -57,7 +58,8 @@ const ResetModal = ({ isModalShown, cancelModal, emailHolder }) => {
         <TouchableOpacity
           style={styles.modalBackdrop}
           onPress={cancelModal}
-        ></TouchableOpacity>
+        >
+        </TouchableOpacity>
         <View style={styles.modalContainerStyle}>
           <Spacer>
             <Text style={styles.headingStyle}>Email Sent</Text>
@@ -71,7 +73,8 @@ const ResetModal = ({ isModalShown, cancelModal, emailHolder }) => {
         <TouchableOpacity
           style={styles.modalBackdrop}
           onPress={cancelModal}
-        ></TouchableOpacity>
+        >
+        </TouchableOpacity>
         <View style={styles.modalContainerStyle}>
           <Spacer>
             <Spacer>
@@ -150,7 +153,7 @@ const styles = StyleSheet.create({
   },
   buttonSubmitStyle: {
     width: 150,
-    backgroundColor: '#0C1D27'
+    backgroundColor: theme.color.primary
   }
 })
 
