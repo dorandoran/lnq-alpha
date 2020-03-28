@@ -1,9 +1,11 @@
 const { gql } = require('apollo-server-cloud-functions')
 
+const Event = require('../../databases/store/event')
+
 // Type Definition
 exports.typeDef = gql`
   type Event {
-    id: Int!
+    id: String!
     userId: String!
     name: String!
     type: String!
@@ -13,7 +15,7 @@ exports.typeDef = gql`
     created: String!
     avatarUrl: String
     likes: Int!
-    admin: Boolean!
+    admin: Boolean
     private: Boolean
   }
 `
@@ -23,27 +25,15 @@ exports.resolvers = {
   // Global Query
   Query: {
     event: (parent, args, context, info) => {
-      return this.events.find(event => event.id === args.id)
+      return Event.findById(args)
+    }
+  },
+  // Mutations
+  Mutation: {
+    createEvent: (parent, args) => {
+      return Event.saveToDb(args)
     }
   },
   // Field Resolve
   Event: {}
 }
-
-// Test Event Data
-exports.events = [
-  {
-    id: 1,
-    userId: 1,
-    name: 'Test Event',
-    type: 'Party',
-    event_date: 'Jan 1, 2000',
-    location: 'Anywhere',
-    description: 'Event description',
-    created: 'Now',
-    avatarUrl: 'www.myurl.com',
-    likes: 11,
-    admin: true,
-    private: false
-  }
-]

@@ -13,14 +13,38 @@ const {
 
 // Construct a schema, using GraphQL schema language
 // Global Query Object
-const Query = gql`
+const Other = gql`
   type Query {
-    user(id: Int!): User
-    event(id: Int!): Event
+    user(id: String!): User
+    event(id: String!): Event
+  }
+  type Mutation {
+    createUser(
+      id: String!
+      username: String!
+      firstName: String!
+      lastName: String!
+      dob: String!
+      email: String!
+      description: String!
+      avatarUrl: String!
+    ): Boolean
+    createEvent(
+      userId: String!
+      name: String!
+      type: String!
+      event_date: String!
+      location: String!
+      description: String!
+      created: String!
+      avatarUrl: String
+      admin: Boolean
+      private: Boolean
+    ): String
   }
 `
-// Combine all queries
-const typeDefs = [Query, User, Event]
+// Combine all typeDefs
+const typeDefs = [Other, User, Event]
 
 // Provide resolver functions for your schema fields
 // Merge resolvers

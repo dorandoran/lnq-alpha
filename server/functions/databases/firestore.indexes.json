@@ -1,0 +1,36 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "id", "mode": "ASCENDING" },
+        { "fieldPath": "username", "mode": "ASCENDING" },
+        { "fieldPath": "firstName", "mode": "ASCENDING" },
+        { "fieldPath": "lastName", "mode": "ASCENDING" },
+        { "fieldPath": "dob", "mode": "ASCENDING" },
+        { "fieldPath": "email", "mode": "ASCENDING" },
+        { "fieldPath": "description", "mode": "ASCENDING" },
+        { "fieldPath": "avatarURL", "mode": "ASCENDING" },
+        { "fieldPath": "events", "mode": "ARRAY_CONTAINS" }
+      ]
+    },
+    {
+      "collectionGroup": "events",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "id", "mode": "ASCENDING" },
+        { "fieldPath": "ownerId", "mode": "ASCENDING" },
+        { "fieldPath": "name", "mode": "ASCENDING" },
+        { "fieldPath": "event_date", "mode": "ASCENDING" },
+        { "fieldPath": "location", "mode": "ASCENDING" },
+        { "fieldPath": "description", "mode": "ASCENDING" },
+        { "fieldPath": "created_date", "mode": "ASCENDING" },
+        { "fieldPath": "avatarUrl", "mode": "ASCENDING" },
+        { "fieldPath": "likes", "mode": "ASCENDING" },
+        { "fieldPath": "private", "mode": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

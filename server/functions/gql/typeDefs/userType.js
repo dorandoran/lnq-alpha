@@ -1,12 +1,12 @@
 const { gql } = require('apollo-server-cloud-functions')
 
-// TODO Remove this when DB is connected
-const { events } = require('./eventType')
+const User = require('../../databases/store/user')
+const Event = require('../../databases/store/event')
 
-// Type Definitino
+// Type Definition
 exports.typeDef = gql`
   type User {
-    id: Int!
+    id: String!
     username: String!
     firstName: String!
     lastName: String!
@@ -23,27 +23,19 @@ exports.resolvers = {
   // Global query
   Query: {
     user: (parent, args, context, info) => {
-      return this.users.find(user => user.id === args.id)
+      return User.findById(args)
+    }
+  },
+  // Mutations
+  Mutation: {
+    createUser: (parent, args) => {
+      return User.saveToDb(args)
     }
   },
   // Field Resolve
   User: {
     events: (parent, args, context, info) => {
-      return events.filter(event => event.userId === parent.id)
+      return Event.findByUserId({ userId: parent.id })
     }
   }
 }
-
-// Test User Data
-exports.users = [
-  {
-    id: 1,
-    username: 'Test',
-    firstName: 'Fred',
-    lastName: 'tester',
-    dob: 'Jan 1, 2000',
-    email: 'test@test.com',
-    description: 'Sample descriptions',
-    avatarUrl: 'www.myurl.com'
-  }
-]
