@@ -3,7 +3,7 @@ import { auth } from '@services/firebase'
 import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
 import { f } from '@services/firebase'
-import useCreateUser from '@auth/useCreateUser'
+import useCreateUser from '@components/auth/useCreateUser'
 
 const AuthContext = createContext()
 
