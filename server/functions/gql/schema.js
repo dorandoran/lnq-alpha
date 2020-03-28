@@ -28,7 +28,7 @@ const Other = gql`
       name: String!
       dob: Date!
       email: String!
-    ): Boolean
+    ): User
     createEvent(
       userId: String!
       name: String!
@@ -39,7 +39,7 @@ const Other = gql`
       avatarUrl: String
       admin: Boolean
       private: Boolean
-    ): String
+    ): Event
   }
 `
 // Combine all typeDefs
@@ -52,6 +52,10 @@ const resolvers = merge(eventResolvers, userResolvers, dateResolvers)
 exports.ApolloServer = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req }) => {
+    // TODO: Implement security model to protect endpoint
+    console.log(req.headers.authorization)
+  },
   playground: true,
   introspection: true
-})
+}).createHandler()

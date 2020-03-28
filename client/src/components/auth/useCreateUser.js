@@ -5,7 +5,13 @@ export default function useCreateUser() {
   const [createUser] = useMutation(CreateUser)
 
   return variables => {
-    createUser({ variables })
-    // TODO Investigate and implement caching
+    createUser({
+      variables,
+      update: (cache, { data }) => {
+        // TODO Investigate and implement caching
+        // console.log(data)
+        // console.log(cache)
+      }
+    })
   }
 }

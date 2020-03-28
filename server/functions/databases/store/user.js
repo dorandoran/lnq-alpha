@@ -11,11 +11,11 @@ const saveToDb = user => {
     .doc(user.id)
     .set(user)
     .then(() => {
-      return true
+      return user
     })
     .catch(e => {
       console.log(e)
-      return false
+      return null
     })
 }
 

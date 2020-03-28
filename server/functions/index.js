@@ -5,4 +5,4 @@ const { ApolloServer } = require('./gql/schema')
 
 // Endpoint...
 // exports.{name} is equal to www.theurl.com/{name}
-exports.graphql = functions.https.onRequest(ApolloServer.createHandler())
+exports.graphql = functions.https.onRequest(ApolloServer)

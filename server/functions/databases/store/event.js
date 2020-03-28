@@ -10,7 +10,8 @@ const saveToDb = event => {
   return eventsRef
     .add(event)
     .then(doc => {
-      return doc.id
+      event.id = doc.id
+      return event
     })
     .catch(e => {
       console.log(e)
