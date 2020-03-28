@@ -9,13 +9,14 @@ module.exports = function(api) {
       [
         'module-resolver',
         {
+          extensions: ['.js', '.jsx'],
           alias: {
             '@src': './src',
             '@screens': './src/screens',
-            '@services': './services',
             '@context': './src/context',
-            '@auth': './src/components/auth',
             '@common': './src/components/common',
+            '@components': './src/components',
+            '@services': './services',
             '@graphql': './src/graphql'
           }
         }
