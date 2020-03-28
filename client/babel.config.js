@@ -4,6 +4,8 @@ module.exports = function(api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
+      'graphql-tag',
+      'import-graphql',
       [
         'module-resolver',
         {
@@ -14,7 +16,8 @@ module.exports = function(api) {
             '@context': './src/context',
             '@common': './src/components/common',
             '@components': './src/components',
-            '@services': './services'
+            '@services': './services',
+            '@graphql': './src/graphql'
           }
         }
       ]

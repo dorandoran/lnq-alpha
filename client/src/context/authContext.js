@@ -3,6 +3,7 @@ import { auth } from '@services/firebase'
 import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
 import { f } from '@services/firebase'
+import useCreateUser from '@auth/useCreateUser'
 
 const AuthContext = createContext()
 
@@ -11,22 +12,27 @@ const AuthProvider = props => {
   const [err, setErr] = useState('')
   const [user, setUser] = useState('')
   const [success, setSuccess] = useState(false)
+  const createUser = useCreateUser()
 
   const clearErr = () => {
     setErr('')
   }
 
-  const register = async ({ email, password, username }) => {
+  const register = async ({ email, password, username, name, dob }) => {
     try {
       clearErr()
       setIsLoading(true)
+
       const response = await auth.createUserWithEmailAndPassword(
         email,
         password
       )
       await response.user.updateProfile({ displayName: username })
+      const id = response.user.uid
+      createUser({ email, username, name, dob, id })
+
       setIsLoading(false)
-      setUser(response.user.uid)
+      setUser(id)
     } catch (error) {
       setIsLoading(false)
       setErr(error)
@@ -56,7 +62,9 @@ const AuthProvider = props => {
         scopes: ['profile', 'email']
       })
       if (result.type === 'success') {
-        const credential = await f.auth.GoogleAuthProvider.credential(result.idToken)
+        const credential = await f.auth.GoogleAuthProvider.credential(
+          result.idToken
+        )
         const response = await auth.signInWithCredential(credential)
         console.log(response.user.uid)
         setUser(response.user.uid)
