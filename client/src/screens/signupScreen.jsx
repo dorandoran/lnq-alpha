@@ -29,7 +29,8 @@ const SignupScreen = () => {
     if (password !== confirmPass) {
       return alert('Passwords need to match')
     }
-    register({ email, password, username })
+    const dob = '03/01/2000' // TODO: Add date of birth to registration?
+    register({ email, password, username, dob, name })
   }
 
   return (

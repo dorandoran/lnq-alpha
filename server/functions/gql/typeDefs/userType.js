@@ -8,8 +8,7 @@ exports.typeDef = gql`
   type User {
     id: String!
     username: String!
-    firstName: String!
-    lastName: String!
+    name: String!
     dob: Date!
     email: String!
     description: String

@@ -25,12 +25,9 @@ const Other = gql`
     createUser(
       id: String!
       username: String!
-      firstName: String!
-      lastName: String!
+      name: String!
       dob: Date!
       email: String!
-      description: String!
-      avatarUrl: String!
     ): Boolean
     createEvent(
       userId: String!
