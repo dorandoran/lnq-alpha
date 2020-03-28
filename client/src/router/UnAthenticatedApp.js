@@ -1,16 +1,24 @@
+import React from 'react'
+
 // Navigators
-import { createAppContainer } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 
 // Screens
 import LoginScreen from '@screens/loginScreen'
 import SignupScreen from '@screens/signupScreen'
 
-const authFlow = createStackNavigator({
-  Login: { screen: LoginScreen, navigationOptions: { header: null } },
-  Signup: { screen: SignupScreen, navigationOptions: { header: null } }
-})
+const Stack = createStackNavigator()
 
-const UnAuthenticatedApp = createAppContainer(authFlow)
+const authFlow = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
 
-export default UnAuthenticatedApp
+export default authFlow

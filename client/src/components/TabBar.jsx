@@ -50,7 +50,11 @@ const styles = StyleSheet.create({
     elevation: 2,
     backgroundColor: '#0C1D27'
   },
-  tabButton: { flex: 1, justifyContent: 'center', alignItems: 'center' }
+  tabButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 })
 
 export default TabBar

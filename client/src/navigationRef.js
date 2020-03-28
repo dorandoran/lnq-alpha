@@ -1,9 +1,9 @@
 // Utility tool that will allows us to use navigation outside of react such as in case of using it in Context
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions } from '@react-navigation/compat'
 
 let navigator
 
-export const setNavigator = (nav) => {
+export const setNavigator = nav => {
   navigator = nav
 }
 
@@ -15,4 +15,3 @@ export const navigate = (routeName, params) => {
     })
   )
 }
-
