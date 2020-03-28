@@ -10,6 +10,7 @@ import ProfileScreen from '@screens/profileScreen'
 import CreateScreen from '@screens/createScreen'
 
 import { Icon } from 'react-native-elements'
+import TabBar from '@components/TabBar'
 
 const Tab = createBottomTabNavigator()
 
@@ -18,10 +19,7 @@ const mainFlow = () => {
     <NavigationContainer>
       <Tab.Navigator
         backBehavior="none"
-        tabBarOptions={{
-          activeTintColor: '#dddd27',
-          inactiveTintColor: '#d8d8d8'
-        }}
+        tabBar={props => <TabBar {...props} />}
       >
         <Tab.Screen
           name="Home"

@@ -1,41 +1,58 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-const TabBar = props => {
-  const {
-    renderIcon,
-    getLabelText,
-    activeTintColor,
-    inactiveTintColor,
-    onTabPress,
-    onTabLongPress,
-    getAccessibilityLabel,
-    navigation
-  } = props
-
-  const { routes, index: activeRouteIndex } = navigation.state
-
+const TabBar = ({ state, descriptors, navigation }) => {
   return (
     <View style={styles.container}>
-      {routes.map((route, routeIndex) => {
-        const isRouteActive = routeIndex === activeRouteIndex
-        const tintColor = isRouteActive ? activeTintColor : inactiveTintColor
+      {state.routes.map((route, index) => {
+        const { options } = descriptors[route.key]
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+            ? options.title
+            : route.name
+
+        const isFocused = state.index === index
+
+        const onPress = () => {
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true
+          })
+
+          if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate(route.name)
+          }
+        }
+
+        const onLongPress = () => {
+          navigation.emit({
+            type: 'tabLongPress',
+            target: route.key
+          })
+        }
+
+        const tintColor = isFocused ? '#dddd27' : '#d8d8d8'
 
         return (
           <TouchableOpacity
-            key={routeIndex}
+            key={index}
             style={styles.tabButton}
-            onPress={() => {
-              onTabPress({ route })
-            }}
-            onLongPress={() => {
-              onTabLongPress({ route })
-            }}
-            accessibilityLabel={getAccessibilityLabel({ route })}
+            accessibilityRole="button"
+            accessibilityStates={isFocused ? ['selected'] : []}
+            accessibilityLabel={options.tabBarAccessibilityLabel}
+            testID={options.tabBarTestID}
+            onPress={onPress}
+            onLongPress={onLongPress}
           >
-            {renderIcon({ route, focused: isRouteActive, tintColor })}
-
-            <Text style={{ color: 'white' }}>{getLabelText({ route })}</Text>
+            {options.tabBarIcon({
+              focused: isFocused,
+              tintColor: tintColor,
+              size: 10
+            })}
+            <Text style={{ color: tintColor }}>{label}</Text>
           </TouchableOpacity>
         )
       })}
