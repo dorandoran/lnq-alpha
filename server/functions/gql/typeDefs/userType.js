@@ -10,11 +10,12 @@ exports.typeDef = gql`
     username: String!
     firstName: String!
     lastName: String!
-    dob: String!
+    dob: Date!
     email: String!
     description: String
     avatarUrl: String
     events: [Event]
+    created_at: Date
   }
 `
 

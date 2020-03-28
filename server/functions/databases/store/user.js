@@ -1,9 +1,11 @@
-const Firestore = require('@google-cloud/firestore')
-const firestore = new Firestore({ projectId: 'lnq-alpha' })
+const firestore = require('../firestore')
+const { Timestamp } = require('@google-cloud/firestore')
+
 const usersRef = firestore.collection('users')
 
 const saveToDb = user => {
   user.events = []
+  user.created_at = Timestamp.now()
 
   return usersRef
     .doc(user.id)

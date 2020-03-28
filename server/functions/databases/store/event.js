@@ -1,9 +1,11 @@
-const Firestore = require('@google-cloud/firestore')
-const firestore = new Firestore({ projectId: 'lnq-alpha' })
+const firestore = require('../firestore')
+const { Timestamp } = require('@google-cloud/firestore')
+
 const eventsRef = firestore.collection('events')
 
 const saveToDb = event => {
   event.likes = 0
+  event.created_at = Timestamp.now()
 
   return eventsRef
     .add(event)
@@ -33,7 +35,7 @@ const findById = ({ id }) => {
 }
 
 const findByUserId = ({ userId }) => {
-  events = []
+  let events = []
 
   return eventsRef
     .where('userId', '==', userId)
