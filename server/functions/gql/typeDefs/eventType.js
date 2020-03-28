@@ -9,10 +9,10 @@ exports.typeDef = gql`
     userId: String!
     name: String!
     type: String!
-    event_date: String!
+    event_date: Date!
     location: String!
     description: String!
-    created: String!
+    created_at: Date!
     avatarUrl: String
     likes: Int!
     admin: Boolean
