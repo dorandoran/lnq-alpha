@@ -1,5 +1,4 @@
 import ApolloClient from 'apollo-boost'
+import config from '@config'
 
-export const client = new ApolloClient({
-  uri: 'https://us-central1-lnq-alpha.cloudfunctions.net/graphql'
-})
+export const client = new ApolloClient({ uri: config.GRAPHQL_ENDPOINT })

@@ -17,7 +17,8 @@ module.exports = function(api) {
             '@common': './src/components/common',
             '@components': './src/components',
             '@services': './services',
-            '@graphql': './src/graphql'
+            '@graphql': './src/graphql',
+            '@config': './config'
           }
         }
       ]

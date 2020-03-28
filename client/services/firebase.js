@@ -1,17 +1,18 @@
 import firebase from 'firebase'
+import config from '@config'
 
-const config = {
-  apiKey: 'AIzaSyC1V1JZUnk_L_13zV4P6A96mCh3I87z9Ko',
-  authDomain: 'lnq-alpha.firebaseapp.com',
-  databaseURL: 'https://lnq-alpha.firebaseio.com',
-  projectId: 'lnq-alpha',
-  storageBucket: 'lnq-alpha.appspot.com',
-  messagingSenderId: '650252507366',
-  appId: '1:650252507366:web:231fe87e0bc720d7ab4327',
-  measurementId: 'G-9WDTZ5KMXJ'
+const firebaseConfig = {
+  apiKey: config.GOOGLE.API_KEY,
+  authDomain: config.GOOGLE.AUTH_DOMAIN,
+  databaseURL: config.GOOGLE.DATABASE_URL,
+  projectId: config.GOOGLE.PROJECT_ID,
+  storageBucket: config.GOOGLE.STORAGE_BUCKET,
+  messagingSenderId: config.GOOGLE.MESSAGING_SENDER_ID,
+  appId: config.GOOGLE.APP_ID,
+  measurementId: config.GOOGLE.MEASUREMENT_ID
 }
 
-firebase.initializeApp(config)
+firebase.initializeApp(firebaseConfig)
 
 export const f = firebase
 export const database = firebase.database()

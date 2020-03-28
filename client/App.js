@@ -1,6 +1,10 @@
 import React from 'react'
 import { SafeAreaView, StyleSheet, Platform, YellowBox } from 'react-native'
 import Constants from 'expo-constants'
+
+import { client } from '@services/apollo'
+import { ApolloProvider } from '@apollo/react-hooks'
+
 import { theme } from '@src/theme'
 import { ThemeProvider } from 'react-native-elements'
 

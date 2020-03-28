@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext } from 'react'
+import config from '@config'
 import { auth } from '@services/firebase'
 import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
@@ -55,10 +56,8 @@ const AuthProvider = props => {
   const signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
-        androidClientId:
-          '650252507366-1mb3kjm7qtb42mnc7ktnop1qgvb37tpi.apps.googleusercontent.com',
-        iosClientId:
-          '650252507366-a7r20o66k8jqekuajbmkcr6vjpairhsp.apps.googleusercontent.com',
+        androidClientId: config.GOOGLE.ASYNC_ANDROID_CLIENT_ID,
+        iosClientId: config.GOOGLE.ASYNC_IOS_CLIENT_ID,
         scopes: ['profile', 'email']
       })
       if (result.type === 'success') {
@@ -79,7 +78,7 @@ const AuthProvider = props => {
 
   const signInWithFacebook = async () => {
     try {
-      await Facebook.initializeAsync('880713082385563')
+      await Facebook.initializeAsync(config.FACEBOOK_ASYNC_ID)
       const { type, token } = await Facebook.logInWithReadPermissionsAsync({
         permissions: ['email', 'public_profile']
       })
