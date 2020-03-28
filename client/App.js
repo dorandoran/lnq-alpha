@@ -16,13 +16,15 @@ const AppContainer = () => {
 }
 
 const App = () => {
-  // TODO: Investigate firebase-android timer issue.
   YellowBox.ignoreWarnings(['Setting a timer'])
+
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <AppProviders>
-          <AppContainer />
+          <SafeAreaView style={styles.safeView}>
+            <AppContainer />
+          </SafeAreaView>
         </AppProviders>
       </ThemeProvider>
     </ApolloProvider>
