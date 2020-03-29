@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   safeView: {
     flex: 1,
     paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
-    backgroundColor: theme.color.primary
+    backgroundColor: theme.color.background
   }
 })
 

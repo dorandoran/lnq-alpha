@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 // Screens
 import LoginScreen from '@screens/loginScreen'
 import SignupScreen from '@screens/signupScreen'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const Stack = createStackNavigator()
 
