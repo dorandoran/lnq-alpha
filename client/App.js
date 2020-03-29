@@ -1,17 +1,16 @@
 import React from 'react'
-import { View, StyleSheet, YellowBox } from 'react-native'
-import Constants from 'expo-constants'
+import { YellowBox } from 'react-native'
 
 import { client } from '@services/apollo'
 import { ApolloProvider } from '@apollo/react-hooks'
 
-import { theme } from '@src/theme'
-import { ThemeProvider } from 'react-native-elements'
-
 import AppProviders from '@context'
 import { useUser } from '@context/userContext'
+
 import AuthenticatedApp from '@src/router/AuthenticatedApp'
 import UnAuthenticatedApp from '@src/router/UnAthenticatedApp'
+
+import ViewContainer from '@src/viewContainer'
 
 const AppContainer = () => {
   const user = useUser()
@@ -25,23 +24,13 @@ const App = () => {
 
   return (
     <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <AppProviders>
-          <View style={styles.container}>
-            <AppContainer />
-          </View>
-        </AppProviders>
-      </ThemeProvider>
+      <AppProviders>
+        <ViewContainer>
+          <AppContainer />
+        </ViewContainer>
+      </AppProviders>
     </ApolloProvider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: theme.color.primary
-  }
-})
 
 export default App
