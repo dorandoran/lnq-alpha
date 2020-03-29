@@ -1,5 +1,6 @@
 import React from 'react'
 import { SafeAreaView, StyleSheet, Platform, YellowBox } from 'react-native'
+import { Store as RouteStore } from '@context/routeStore'
 import Constants from 'expo-constants'
 
 import { client } from '@services/apollo'
@@ -16,7 +17,7 @@ import UnAuthenticatedApp from '@src/router/UnAthenticatedApp'
 const AppContainer = () => {
   const user = useUser()
 
-  return user ? <AuthenticatedApp /> : <UnAuthenticatedApp />
+  return user ? <AuthenticatedApp user={user} /> : <UnAuthenticatedApp />
 }
 
 const App = () => {
@@ -27,7 +28,9 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <AppProviders>
           <SafeAreaView style={styles.safeView}>
-            <AppContainer />
+            <RouteStore>
+              <AppContainer />
+            </RouteStore>
           </SafeAreaView>
         </AppProviders>
       </ThemeProvider>
@@ -39,7 +42,7 @@ const styles = StyleSheet.create({
   safeView: {
     flex: 1,
     paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
-    backgroundColor: theme.color.primary
+    backgroundColor: 'yellow'
   }
 })
 
