@@ -6,6 +6,7 @@ module.exports = function(api) {
     plugins: [
       'graphql-tag',
       'import-graphql',
+      '@babel/plugin-proposal-optional-chaining',
       [
         'module-resolver',
         {

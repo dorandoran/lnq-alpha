@@ -1,6 +1,5 @@
 import React from 'react'
 import { SafeAreaView, StyleSheet, Platform, YellowBox } from 'react-native'
-import { Store as RouteStore } from '@context/routeStore'
 import Constants from 'expo-constants'
 
 import { client } from '@services/apollo'
@@ -28,9 +27,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <AppProviders>
           <SafeAreaView style={styles.safeView}>
-            <RouteStore>
-              <AppContainer />
-            </RouteStore>
+            <AppContainer />
           </SafeAreaView>
         </AppProviders>
       </ThemeProvider>
@@ -42,7 +39,7 @@ const styles = StyleSheet.create({
   safeView: {
     flex: 1,
     paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
-    backgroundColor: 'yellow'
+    backgroundColor: theme.color.primary
   }
 })
 

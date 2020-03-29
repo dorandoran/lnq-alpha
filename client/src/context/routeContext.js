@@ -4,13 +4,17 @@ import React, { createContext, useReducer } from 'react'
 const State = createContext()
 const Dispatch = createContext()
 
+// Screens to disable tab bar
+const disableTabBar = ['Create']
+
 // Reducer
 const reducer = (state, action) => {
   switch (action.type) {
     case 'changeRoute':
       return {
         ...state,
-        name: action.payload
+        name: action.payload,
+        tabBar: disableTabBar.includes(action.payload)
       }
     default:
       return state
@@ -19,7 +23,7 @@ const reducer = (state, action) => {
 
 // Provider
 const Provider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, { name: 'Home' })
+  const [state, dispatch] = useReducer(reducer, { name: 'Home', tabBar: true })
 
   return (
     <State.Provider value={state}>

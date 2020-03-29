@@ -1,4 +1,4 @@
-const { GraphQLScalarType, Kind } = require('graphql')
+const { GraphQLScalarType } = require('graphql')
 const { Timestamp } = require('@google-cloud/firestore')
 
 exports.resolvers = {
