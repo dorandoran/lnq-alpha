@@ -12,7 +12,7 @@ import LocateScreen from '@screens/locateScreen'
 import ProfileScreen from '@screens/profileScreen'
 import CreateScreen from '@screens/createScreen'
 
-import TabBar from '@components/TabBar'
+import TabBar from '@components/tabBar'
 
 const Tab = createBottomTabNavigator()
 
@@ -21,8 +21,7 @@ const mainFlow = () => {
   const ref = useRef(null)
   const routeDispatch = useContext(Route.Dispatch)
 
-  console.log('run')
-  // This is done to set the NavigationContainer Ref after loading
+  // This is done to set the NavigationContainer ref after loading
   useEffect(() => {
     if (!loaded) {
       setLoaded(true)
