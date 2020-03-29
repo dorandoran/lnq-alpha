@@ -20,7 +20,7 @@ const mainFlow = () => {
   const [loaded, setLoaded] = useState(false)
   const ref = useRef(null)
   const routeDispatch = useContext(Route.Dispatch)
-
+  console.log('run')
   // This is done to set the NavigationContainer ref after loading
   useEffect(() => {
     if (!loaded) {

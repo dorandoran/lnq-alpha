@@ -70,8 +70,8 @@ const TabBar = ({ mainFlowRef }) => {
       <View style={styles.createContainer}>
         <TabIcon
           tabName="Create"
-          type="ionicon"
-          name="md-add"
+          type="material"
+          name="add"
           color={theme.color.secondary}
           reverse
           onPress={() => handlePress('Create')}
