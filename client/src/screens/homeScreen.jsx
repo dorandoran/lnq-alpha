@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 const HomeScreen = ({ navigation }) => {
+  // console.log('run')
   return (
     <View>
       <Text>Home Screen</Text>
