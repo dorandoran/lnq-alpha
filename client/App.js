@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView, StyleSheet, Platform, YellowBox } from 'react-native'
+import { View, StyleSheet, YellowBox } from 'react-native'
 import Constants from 'expo-constants'
 
 import { client } from '@services/apollo'
@@ -20,15 +20,16 @@ const AppContainer = () => {
 }
 
 const App = () => {
+  // TODO Find a more graceful way to handle this
   YellowBox.ignoreWarnings(['Setting a timer'])
 
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <AppProviders>
-          <SafeAreaView style={styles.safeView}>
+          <View style={styles.container}>
             <AppContainer />
-          </SafeAreaView>
+          </View>
         </AppProviders>
       </ThemeProvider>
     </ApolloProvider>
@@ -36,9 +37,9 @@ const App = () => {
 }
 
 const styles = StyleSheet.create({
-  safeView: {
+  container: {
     flex: 1,
-    paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
+    paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.color.primary
   }
 })
