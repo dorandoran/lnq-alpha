@@ -12,7 +12,7 @@ import LocateScreen from '@screens/locateScreen'
 import ProfileScreen from '@screens/profileScreen'
 import CreateScreen from '@screens/createScreen'
 
-import TabBar from '@components/tabBar'
+import TabBar from '@components/theTabBar'
 
 const Tab = createBottomTabNavigator()
 
