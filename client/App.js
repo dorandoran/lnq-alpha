@@ -33,12 +33,4 @@ const App = () => {
   )
 }
 
-const styles = StyleSheet.create({
-  safeView: {
-    flex: 1,
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: theme.color.background
-  }
-})
-
 export default App
