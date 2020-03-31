@@ -36,7 +36,7 @@ const TabBar = ({ mainFlowRef }) => {
   }
 
   // Turns off tab bar
-  // Useful for things like CreateScreen
+  // Useful for things like <CreateScreen />
   if (routeState.tabBar) return null
 
   return (
