@@ -1,28 +1,26 @@
 import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
+
 import { View, Text, StyleSheet } from 'react-native'
-import CreateContext from '@context/createContext'
+import { Image } from 'react-native-elements'
+// import CreateContext from '@context/createContext'
 
-import ActionSelectImage from '@components/create/utilComponents/actionSelectImage'
-// import { useNavigation } from '@react-navigation/native'
-
-import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
 
-const CreateDetails = () => {
-  const { data } = useContext(CreateContext)
-  // const navigation = useNavigation()
-  console.log('create context ', data)
+const CreateDetails = ({ route }) => {
+  // const { details, addMedia } = useContext(CreateContext)
+  const media = route.params.media
+  console.log(media)
+  // addMedia(media)
+
   return (
     <View style={styles.container}>
       <View style={styles.mediaContainer}>
-        <ActionSelectImage />
-        <Icon
-          reverse
-          type="material-community"
-          name="camera"
-          color={theme.color.secondary}
-          onPress={() => {}}
+        <Image
+          source={{ uri: media.uri }}
+          style={[styles.image, { aspectRatio: media.aspectRatio }]}
         />
+        {/* <View style={styles.actionContainer}></View> */}
       </View>
       <View>
         <Text style={styles.textStyle}>Form</Text>
@@ -35,18 +33,34 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: theme.color.primary
+    backgroundColor: theme.color.background
   },
   mediaContainer: {
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '95%',
-    backgroundColor: 'yellow'
+    height: '50%',
+    width: '100%',
+    borderRadius: 25,
+    backgroundColor: theme.color.secondary
+  },
+  actionContainer: {
+    position: 'absolute',
+    width: '50%',
+    bottom: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  image: {
+    flex: 1,
+    borderRadius: 25
   },
   textStyle: {
     color: theme.color.tertiary
   }
 })
+
+CreateDetails.propTypes = {
+  route: PropTypes.object.isRequired
+}
 
 export default CreateDetails

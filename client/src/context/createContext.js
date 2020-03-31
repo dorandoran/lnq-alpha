@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react'
+import PropTypes from 'prop-types'
 
 const CreateContext = createContext()
 
@@ -14,14 +15,28 @@ export const CreateProvider = ({ children }) => {
   }
 
   const addMedia = item => {
-    setDetails({ media: [...details.media, item] })
+    setDetails({ ...details, media: [...details.media, item] })
+  }
+
+  const removeMedia = index => {
+    setDetails({
+      ...details,
+      media: details.media.filter((_, idx) => index !== idx)
+    })
   }
 
   return (
-    <CreateContext.Provider value={{ data: details, updateDetails, addMedia }}>
+    <CreateContext.Provider
+      value={{ details, updateDetails, addMedia, removeMedia }}
+    >
       {children}
     </CreateContext.Provider>
   )
+}
+
+CreateProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+  selection: PropTypes.string
 }
 
 export default CreateContext

@@ -30,7 +30,7 @@ const CreateInvite = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.color.primary
+    backgroundColor: theme.color.background
   },
   textStyle: {
     color: theme.color.tertiary

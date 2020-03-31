@@ -1,18 +1,20 @@
 import React, { useContext } from 'react'
+import { Route } from '@context/routeStore'
+import PropTypes from 'prop-types'
+
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { Route } from '@context/routeStore'
+import Fab from '@components/tabBarFab'
 
 import { theme } from '@src/theme'
 import { SCREEN_HEIGHT } from '@src/constants'
 
-const TabIcon = ({ onPress, tabName, color, ...rest }) => {
-  const routeState = useContext(Route.State)
+const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {
   const iconColor = color || theme.color.tertiary
   const focusedStyle =
-    routeState?.name === tabName
+    route === tabName
       ? {
-          backgroundColor: theme.color.active
+          opacity: 0.2
         }
       : null
 
@@ -21,7 +23,7 @@ const TabIcon = ({ onPress, tabName, color, ...rest }) => {
       style={[styles.iconContainer, focusedStyle]}
       onPress={() => onPress(tabName)}
     >
-      <Icon {...rest} color={iconColor} />
+      <Icon {...rest} color={iconColor} iconStyle={focusedStyle} />
     </TouchableOpacity>
   )
 }
@@ -45,6 +47,7 @@ const TabBar = ({ mainFlowRef }) => {
           type="ionicon"
           name="ios-home"
           onPress={handlePress}
+          route={routeState.name}
         />
         <TabIcon
           tabName="Search"
@@ -52,30 +55,26 @@ const TabBar = ({ mainFlowRef }) => {
           name="search"
           size={28}
           onPress={handlePress}
+          route={routeState.name}
         />
         <TabIcon
           tabName="Locate"
           type="ionicon"
           name="md-pin"
           onPress={handlePress}
+          route={routeState.name}
         />
         <TabIcon
           tabName="Profile"
           type="material-community"
           name="account"
           size={28}
-          onPress={() => handlePress('Profile')}
+          onPress={handlePress}
+          route={routeState.name}
         />
       </View>
       <View style={styles.createContainer}>
-        <TabIcon
-          tabName="Create"
-          type="material"
-          name="add"
-          color={theme.color.secondary}
-          reverse
-          onPress={() => handlePress('Create')}
-        />
+        <Fab mainFlowRef={mainFlowRef} />
       </View>
     </View>
   )
@@ -102,17 +101,25 @@ const styles = StyleSheet.create({
   },
   createContainer: {
     width: '26%',
-    alignItems: 'center',
-    marginRight: SCREEN_HEIGHT / 30
+    alignItems: 'center'
   },
   iconContainer: {
     height: '90%',
     justifyContent: 'center',
     alignItems: 'center',
-    aspectRatio: 1,
-    borderRadius: 25,
     padding: 1
   }
 })
+
+TabIcon.propTypes = {
+  onPress: PropTypes.func.isRequired,
+  tabName: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  route: PropTypes.string
+}
+
+TabBar.propTypes = {
+  mainFlowRef: PropTypes.object
+}
 
 export default TabBar

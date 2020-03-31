@@ -12,7 +12,7 @@ const CreateHeader = () => {
   // const route = useRoute()
 
   return (
-    <Header position="relative" backgroundColor={theme.color.primary}>
+    <Header position="relative" backgroundColor={theme.color.background}>
       <Icon
         type="ionicon"
         name="md-close"

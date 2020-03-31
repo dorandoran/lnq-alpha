@@ -5,7 +5,7 @@ const State = createContext()
 const Dispatch = createContext()
 
 // Screens to disable tab bar
-const disableTabBar = ['Create Main', 'Create Details']
+const disableTabBar = ['Create Main', 'Create Details', 'Create Media']
 
 const initialState = {
   name: 'Home',
