@@ -1,31 +1,29 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-import { View, Text, StyleSheet } from 'react-native'
-import { Image } from 'react-native-elements'
-// import CreateContext from '@context/createContext'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
+import { View, StyleSheet } from 'react-native'
+
+import { KEYBOARD_AVOID_HEIGHT } from '@src/constants'
 
 import { theme } from '@src/theme'
+import ImageList from '@components/create/createImageList'
+import EventDetails from '@components/create/createForm'
 
 const CreateDetails = ({ route }) => {
-  // const { details, addMedia } = useContext(CreateContext)
   const media = route.params.media
-  console.log(media)
-  // addMedia(media)
 
   return (
-    <View style={styles.container}>
-      <View style={styles.mediaContainer}>
-        <Image
-          source={{ uri: media.uri }}
-          style={[styles.image, { aspectRatio: media.aspectRatio }]}
-        />
-        {/* <View style={styles.actionContainer}></View> */}
+    <KeyboardAwareScrollView
+      enableOnAndroid
+      extraScrollHeight={KEYBOARD_AVOID_HEIGHT}
+    >
+      <View style={styles.container}>
+        <ImageList initialData={[media]} />
+        <EventDetails />
       </View>
-      <View>
-        <Text style={styles.textStyle}>Form</Text>
-      </View>
-    </View>
+    </KeyboardAwareScrollView>
   )
 }
 
@@ -40,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '50%',
     width: '100%',
-    borderRadius: 25,
+    padding: 10,
     backgroundColor: theme.color.secondary
   },
   actionContainer: {
@@ -51,7 +49,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   image: {
-    flex: 1,
+    height: '100%',
+    width: '100%',
     borderRadius: 25
   },
   textStyle: {

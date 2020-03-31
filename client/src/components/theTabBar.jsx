@@ -10,20 +10,15 @@ import { theme } from '@src/theme'
 import { SCREEN_HEIGHT } from '@src/constants'
 
 const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {
-  const iconColor = color || theme.color.tertiary
-  const focusedStyle =
-    route === tabName
-      ? {
-          opacity: 0.2
-        }
-      : null
+  const iconColor =
+    color || tabName === route ? theme.color.accent : theme.color.tertiary
 
   return (
     <TouchableOpacity
-      style={[styles.iconContainer, focusedStyle]}
+      style={[styles.iconContainer]}
       onPress={() => onPress(tabName)}
     >
-      <Icon {...rest} color={iconColor} iconStyle={focusedStyle} />
+      <Icon {...rest} color={iconColor} />
     </TouchableOpacity>
   )
 }
@@ -107,7 +102,9 @@ const styles = StyleSheet.create({
     height: '90%',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 1
+    padding: 1,
+    aspectRatio: 1,
+    borderRadius: 25
   }
 })
 
