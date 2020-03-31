@@ -33,12 +33,12 @@ const Other = gql`
       userId: String!
       name: String!
       type: String!
-      event_date: Date!
+      date: Date!
       location: String!
       description: String!
-      avatarUrl: String
-      admin: Boolean
-      private: Boolean
+      media: Upload
+      plusOne: Boolean!
+      private: Boolean!
     ): Event
   }
 `
