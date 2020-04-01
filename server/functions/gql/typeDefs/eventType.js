@@ -32,7 +32,9 @@ exports.resolvers = {
   // Mutations
   Mutation: {
     createEvent: (parent, args) => {
-      const media = Media.upload(args)
+      // const media = async Media.upload(args)
+      // await Media.saveToDb(media)
+      console.log(args)
       return Event.saveToDb(args)
     }
   },

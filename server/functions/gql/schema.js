@@ -16,6 +16,7 @@ const {
 // Global Query Object
 const Other = gql`
   scalar Date
+  scalar Upload
 
   type Query {
     user(id: String!): User

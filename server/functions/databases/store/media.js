@@ -1,33 +1,72 @@
-const firestore = require('../firestore')
-const storage = require('../fileStorage')
+const { firestore, storage } = require('../firebase')
 
-// GC Firestore
-const eventsRef = firestore.collection('events')
+const storageRef = storage().bucket()
+const eventsRef = firestore().collection('events')
+const mediaRef = firestore().collection('media')
 
-// GC Storage
-const bucketName = 'gs://lnq-alpha.appspot.com'
-const bucket = storage.bucket(bucketName)
+const upload = async media => {
+  const id = eventsRef.doc().id
 
-const upload = media => {
-  const ref = eventsRef.doc()
-  const fileName = ref.id
+  const mediaBlob = await new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
+    xhr.onload = function() {
+      resolve(xhr.response)
+    }
+    xhr.onerror = function(e) {
+      console.log(e)
+      reject(new TypeError('Network request failed'))
+    }
+    xhr.responseType = 'blob'
+    xhr.open('GET', media, true)
+    xhr.send(null)
+  })
 
-  try {
-    const blob = bucket.file(fileName)
-    const blobStream = blob.createWriteStream()
-
-    blobStream.on('error', error =>
-      console.log('Something went wrong: ' + error)
-    )
-    blobStream.on('finish', () => {
-      const mediaUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`
-      return { id: ref.id, uri: mediaUrl }
+  return storageRef
+    .child(`events/${id}`)
+    .put(mediaBlob)
+    .then(snap => {
+      mediaBlob.close()
+      return {
+        id,
+        uri: snap.getDownloadURL()
+      }
     })
-  } catch (e) {
-    console.log(e)
-  }
+    .catch(e => {
+      console.log(e)
+      return null
+    })
+}
+
+const saveToDb = media => {
+  return mediaRef
+    .doc(media.id)
+    .set(media)
+    .then(() => {
+      return media
+    })
+    .catch(e => {
+      console.log(e)
+      return null
+    })
+}
+
+const findById = ({ id }) => {
+  return mediaRef
+    .doc(id)
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        return doc.data()
+      }
+      return null
+    })
+    .catch(e => {
+      console.log(e)
+      return null
+    })
 }
 
 module.exports = {
-  upload
+  upload,
+  saveToDb
 }

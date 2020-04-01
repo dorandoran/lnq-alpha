@@ -1,15 +1,18 @@
-const firestore = require('../firestore')
-const { Timestamp } = require('@google-cloud/firestore')
+const { firestore } = require('../firebase')
+const admin = require('firebase-admin')
+const timestamp = admin.firestore.Timestamp
 
-const eventsRef = firestore.collection('events')
+const eventsRef = firestore().collection('events')
 
 const saveToDb = event => {
   event.likes = 0
-  event.created_at = Timestamp.now()
+  event.created_at = timestamp.now()
+  delete event.media
 
   return eventsRef
     .add(event)
     .then(doc => {
+      event.id = doc.id
       return event
     })
     .catch(e => {

@@ -1,5 +1,6 @@
 const { GraphQLScalarType } = require('graphql')
-const { Timestamp } = require('@google-cloud/firestore')
+const admin = require('firebase-admin')
+const timestamp = admin.firestore.Timestamp
 
 exports.resolvers = {
   Date: new GraphQLScalarType({
@@ -8,7 +9,7 @@ exports.resolvers = {
     // For Queries, value from the client
     parseValue(value) {
       const date = new Date(value)
-      return Timestamp.fromDate(date)
+      return timestamp.fromDate(date)
     },
     // Value sent to the cleint
     serialize(value) {
@@ -17,7 +18,7 @@ exports.resolvers = {
     // For Mutations, ast value is always in string format
     parseLiteral(ast) {
       const date = new Date(ast.value)
-      return Timestamp.fromDate(date)
+      return timestamp.fromDate(date)
     }
   })
 }
