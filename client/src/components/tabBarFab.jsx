@@ -24,21 +24,12 @@ const TabBarFab = ({ mainFlowRef }) => {
     <React.Fragment>
       {showButton && (
         <View style={[styles.fabContainer, fabPosition]}>
-          <TouchableOpacity
-            onPress={() => console.log('pressed')}
-            style={styles.buttonContainer}
-          >
-            <ActionSelectMedia
-              type={CAMERA_SELECTION}
-              navigateToDetails={navigateToDetails}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => console.log('pressed')}
-            style={styles.buttonContainer}
-          >
-            <ActionSelectMedia navigateToDetails={navigateToDetails} />
-          </TouchableOpacity>
+          <ActionSelectMedia
+            type={CAMERA_SELECTION}
+            navigateToDetails={navigateToDetails}
+          />
+
+          <ActionSelectMedia navigateToDetails={navigateToDetails} />
         </View>
       )}
       <TouchableOpacity
@@ -70,11 +61,6 @@ const styles = StyleSheet.create({
   },
   fabContainer: {
     position: 'absolute'
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center'
   },
   textStyle: {
     fontFamily: 'notoserif',
