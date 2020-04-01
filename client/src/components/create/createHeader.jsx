@@ -9,7 +9,8 @@ import { theme } from '@src/theme'
 
 const CreateHeader = () => {
   const navigation = useNavigation()
-  // const route = useRoute()
+  const route = useRoute()
+  console.log(route)
 
   return (
     <Header position="relative" backgroundColor={theme.color.background}>
