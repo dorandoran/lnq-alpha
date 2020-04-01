@@ -33,10 +33,10 @@ const Other = gql`
       userId: String!
       name: String!
       type: String!
-      event_date: Date!
+      date: Date!
       location: String!
       description: String!
-      avatarUrl: String
+      media: String
       admin: Boolean
       private: Boolean
     ): Event
