@@ -13,6 +13,7 @@ const ActionSelectMedia = ({ navigateToDetails, type }) => {
   const getCameraRollPermissions = async () => {
     const { status } = await ImagePicker.requestCameraRollPermissionsAsync()
     if (status !== 'granted') {
+      setLoading(false)
       // TODO Find a better way to handle this
       throw new Error('Camera roll permissions are required to add pictures!')
     }
@@ -22,6 +23,7 @@ const ActionSelectMedia = ({ navigateToDetails, type }) => {
   const getCameraPermissions = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync()
     if (status !== 'granted') {
+      setLoading(false)
       // TODO Find a better way to handle this
       throw new Error('Camera permissions are required to add pictures!')
     }
