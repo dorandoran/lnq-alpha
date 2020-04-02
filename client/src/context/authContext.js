@@ -65,7 +65,6 @@ const AuthProvider = props => {
           result.idToken
         )
         const response = await auth.signInWithCredential(credential)
-        console.log(response.user.uid)
         setUser(response.user.uid)
       } else {
         return { cancelled: true }

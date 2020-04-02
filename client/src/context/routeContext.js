@@ -5,7 +5,12 @@ const State = createContext()
 const Dispatch = createContext()
 
 // Screens to disable tab bar
-const disableTabBar = ['Create']
+const disableTabBar = ['Create Main', 'Create Details', 'Create Media']
+
+const initialState = {
+  name: 'Home',
+  tabBar: true
+}
 
 // Reducer
 const reducer = (state, action) => {
@@ -23,7 +28,7 @@ const reducer = (state, action) => {
 
 // Provider
 const Provider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, { name: 'Home', tabBar: true })
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
     <State.Provider value={state}>
