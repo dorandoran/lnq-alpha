@@ -7,7 +7,10 @@ fragment eventFields on Event {
   location
   description
   created_at
-  media
+  media {
+    id
+    uri
+  }
   likes
   plusOne
   private

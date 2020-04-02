@@ -1,6 +1,6 @@
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import { HttpLink } from 'apollo-link-http'
+import { createUploadLink } from 'apollo-upload-client'
 import { onError } from 'apollo-link-error'
 import { ApolloLink } from 'apollo-link'
 import config from '@config'
@@ -15,7 +15,7 @@ const link = ApolloLink.from([
       )
     if (networkError) console.log(`[Network error]: ${networkError}`)
   }),
-  new HttpLink({
+  new createUploadLink({
     uri: config.GRAPHQL_ENDPOINT
   })
 ])
