@@ -14,7 +14,7 @@ exports.typeDef = gql`
     location: String!
     description: String!
     created_at: Date!
-    media: Upload
+    media: [Media]
     likes: Int!
     plusOne: Boolean
     private: Boolean
