@@ -76,7 +76,7 @@ const findById = ({ id }) => {
 }
 
 module.exports = {
-  upload,
-  saveToDb,
+  // upload,
+  // saveToDb,
   findById
 }

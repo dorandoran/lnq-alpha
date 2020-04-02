@@ -48,7 +48,7 @@ const Other = gql`
   }
 `
 // Combine all typeDefs
-const typeDefs = [Other, User, Event]
+const typeDefs = [Other, User, Event, Media]
 
 // Provide resolver functions for your fields
 // Merge resolvers

@@ -1,6 +1,6 @@
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-const { createUploadLink } = require('apollo-upload-client')
+import { createUploadLink } from ('apollo-upload-client')
 import { onError } from 'apollo-link-error'
 import { ApolloLink } from 'apollo-link'
 import config from '@config'
