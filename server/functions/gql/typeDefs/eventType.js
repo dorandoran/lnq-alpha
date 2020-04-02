@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server-cloud-functions')
 
 const Event = require('../../databases/store/event')
+const Media = require('../../databases/store/media')
 
 // Type Definition
 exports.typeDef = gql`
@@ -13,9 +14,9 @@ exports.typeDef = gql`
     location: String!
     description: String!
     created_at: Date!
-    avatarUrl: String
+    media: Upload
     likes: Int!
-    admin: Boolean
+    plusOne: Boolean
     private: Boolean
   }
 `
@@ -31,6 +32,9 @@ exports.resolvers = {
   // Mutations
   Mutation: {
     createEvent: (parent, args) => {
+      // const media = async Media.upload(args)
+      // await Media.saveToDb(media)
+      console.log(args)
       return Event.saveToDb(args)
     }
   },

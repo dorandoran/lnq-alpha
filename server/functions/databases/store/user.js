@@ -1,11 +1,12 @@
-const firestore = require('../firestore')
-const { Timestamp } = require('@google-cloud/firestore')
+const { firestore } = require('../firebase')
+const admin = require('firebase-admin')
+const timestamp = admin.firestore.Timestamp
 
-const usersRef = firestore.collection('users')
+const usersRef = firestore().collection('users')
 
 const saveToDb = user => {
   user.events = []
-  user.created_at = Timestamp.now()
+  user.created_at = timestamp.now()
 
   return usersRef
     .doc(user.id)

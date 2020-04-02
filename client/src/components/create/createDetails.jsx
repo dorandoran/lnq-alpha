@@ -21,7 +21,7 @@ const CreateDetails = ({ route }) => {
   const [isPrivate, setPrivate] = useState(true)
   const media = route.params.media
 
-  const getEventDetails = () => {
+  const getEvent = () => {
     return {
       name,
       type,
@@ -36,7 +36,7 @@ const CreateDetails = ({ route }) => {
 
   return (
     <Fragment>
-      <Header event={getEventDetails} />
+      <Header event={getEvent()} />
       <KeyboardAwareScrollView
         enableOnAndroid
         extraScrollHeight={KEYBOARD_AVOID_HEIGHT}

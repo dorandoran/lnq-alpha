@@ -4,7 +4,7 @@ import { auth } from '@services/firebase'
 import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
 import { f } from '@services/firebase'
-import useCreateUser from '@components/auth/useCreateUser'
+import useCreateUser from '@hooks/useCreateUser'
 
 const AuthContext = createContext()
 

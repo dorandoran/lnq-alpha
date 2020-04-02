@@ -19,7 +19,8 @@ module.exports = function(api) {
             '@components': './src/components',
             '@services': './services',
             '@graphql': './src/graphql',
-            '@config': './config'
+            '@config': './config',
+            '@hooks': './src/hooks'
           }
         }
       ]

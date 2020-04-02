@@ -1,0 +1,27 @@
+#import "./fragments.graphql"
+
+mutation CreateEvent(
+  $userId: String!
+  $name: String!
+  $type: String!
+  $date: Date!
+  $location: String!
+  $description: String!
+  $media: Upload
+  $plusOne: Boolean!
+  $private: Boolean!
+) {
+  createEvent(
+    userId: $userId
+    name: $name
+    type: $type
+    date: $date
+    location: $location
+    description: $description
+    media: $media
+    plusOne: $plusOne
+    private: $private
+  ) {
+    ...eventFields
+  }
+}

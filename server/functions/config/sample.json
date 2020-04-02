@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "sample",
+  "private_key_id": "sample_id",
+  "private_key": "sample_private_key",
+  "client_email": "sample_email",
+  "client_id": "sample_id",
+  "auth_uri": "sample_uri",
+  "token_uri": "sample_uri",
+  "auth_provider_x509_cert_url": "sample_url",
+  "client_x509_cert_url": "sample_url"
+}

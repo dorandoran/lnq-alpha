@@ -1,19 +1,24 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useNavigation } from '@react-navigation/native'
-import { useRoute } from '@react-navigation/native'
+import useStorage from '@hooks/useStorage'
+import useCreateEvent from '@hooks/useCreateEvent'
 
 import { View } from 'react-native'
 import Header from '@common/header'
 import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
 
-const CreateHeader = ({ onRightPress }) => {
+const CreateHeader = ({ event }) => {
   const navigation = useNavigation()
-  const route = useRoute()
-  console.log(route)
+  const createEvent = useCreateEvent()
 
   const handleRightPress = () => {
-    if (onRightPress) onRightPress()
+    const media = {
+      uri: event.media.uri,
+      name: 'test.jpg'
+    }
+    createEvent({ ...event, media })
     navigation.navigate('Home')
   }
 
@@ -34,6 +39,10 @@ const CreateHeader = ({ onRightPress }) => {
       />
     </Header>
   )
+}
+
+CreateHeader.propTypes = {
+  event: PropTypes.object
 }
 
 export default CreateHeader
