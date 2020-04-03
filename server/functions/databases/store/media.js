@@ -2,17 +2,16 @@ const { firestore } = require('../firebase')
 const admin = require('firebase-admin')
 const timestamp = admin.firestore.Timestamp
 
-const usersRef = firestore().collection('users')
+const mediaRef = firestore().collection('media')
 
-const saveToDb = user => {
-  user.events = []
-  user.created_at = timestamp.now()
+const saveToDb = media => {
+  media.created_at = timestamp.now()
 
-  return usersRef
-    .doc(user.id)
-    .set(user)
+  return mediaRef
+    .doc(media.id)
+    .set(media)
     .then(() => {
-      return user
+      return media
     })
     .catch(e => {
       console.log(e)
@@ -21,7 +20,7 @@ const saveToDb = user => {
 }
 
 const findById = ({ id }) => {
-  return usersRef
+  return mediaRef
     .doc(id)
     .get()
     .then(doc => {
@@ -36,9 +35,8 @@ const findById = ({ id }) => {
     })
 }
 
-const update = user => {}
-
 module.exports = {
+  // upload,
   saveToDb,
   findById
 }

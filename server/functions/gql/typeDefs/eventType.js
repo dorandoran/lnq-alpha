@@ -9,13 +9,13 @@ exports.typeDef = gql`
     userId: String!
     name: String!
     type: String!
-    event_date: Date!
+    date: Date!
     location: String!
     description: String!
     created_at: Date!
-    avatarUrl: String
+    media: [Media]
     likes: Int!
-    admin: Boolean
+    plusOne: Boolean
     private: Boolean
   }
 `

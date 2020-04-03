@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require('apollo-server-cloud-functions')
+const { gql } = require('apollo-server-cloud-functions')
 const { merge } = require('lodash')
 
 // GQL Type and Resolver Imports
@@ -11,6 +11,10 @@ const {
   typeDef: Event,
   resolvers: eventResolvers
 } = require('./typeDefs/eventType')
+const {
+  typeDef: Media,
+  resolvers: mediaResolvers
+} = require('./typeDefs/mediaType')
 
 // Construct a schema, using GraphQL schema language
 // Global Query Object
@@ -20,6 +24,7 @@ const Other = gql`
   type Query {
     user(id: String!): User
     event(id: String!): Event
+    media(id: String!): Media
   }
   type Mutation {
     createUser(
@@ -33,29 +38,26 @@ const Other = gql`
       userId: String!
       name: String!
       type: String!
-      event_date: Date!
+      date: Date!
       location: String!
       description: String!
-      avatarUrl: String
-      admin: Boolean
-      private: Boolean
+      media: [String]
+      plusOne: Boolean!
+      private: Boolean!
     ): Event
+    createMedia(id: String!, uri: String!): Media
   }
 `
 // Combine all typeDefs
-const typeDefs = [Other, User, Event]
+const typeDefs = [Other, User, Event, Media]
 
 // Provide resolver functions for your fields
 // Merge resolvers
-const resolvers = merge(eventResolvers, userResolvers, dateResolvers)
+const resolvers = merge(
+  eventResolvers,
+  userResolvers,
+  dateResolvers,
+  mediaResolvers
+)
 
-exports.ApolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req }) => {
-    // TODO: Implement security model to protect endpoint
-    console.log(req.headers.authorization)
-  },
-  playground: true,
-  introspection: true
-}).createHandler()
+module.exports = { typeDefs, resolvers }
