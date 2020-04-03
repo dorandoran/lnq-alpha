@@ -1,63 +1,23 @@
-const { firestore, storage } = require('../firebase')
+const { firestore } = require('../firebase')
+const admin = require('firebase-admin')
+const timestamp = admin.firestore.Timestamp
 
-// const storageRef = storage().bucket()
-// const eventsRef = firestore().collection('events')
 const mediaRef = firestore().collection('media')
 
-// const upload = async media => {
-//   const id = mediaRef.doc().id
+const saveToDb = media => {
+  media.created_at = timestamp.now()
 
-//   const mediaBlob = await new Promise((resolve, reject) => {
-//     const xhr = new XMLHttpRequest()
-//     xhr.onload = function() {
-//       resolve(xhr.response)
-//     }
-//     xhr.onerror = function(e) {
-//       console.log(e)
-//       reject(new TypeError('Network request failed'))
-//     }
-//     xhr.responseType = 'blob'
-//     xhr.open('GET', media, true)
-//     xhr.send(null)
-//   })
-
-//   const snap = await storageRef.child(`media/${id}`).put(mediaBlob)
-//     // .then(snap => {
-//     //   mediaBlob.close()
-//     //   return {
-//     //     id,
-//     //     uri: snap.getDownloadURL()
-//     //   }
-//     // })
-//     // .catch(e => {
-//     //   console.log(e)
-//     //   return null
-//     // })
-
-//   return mediaRef
-//     .doc(media.id)
-//     .set(media)
-//     .then(() => {
-//       return media
-//     })
-//     .catch(e => {
-//       console.log(e)
-//       return null
-//     })
-// }
-
-// const saveToDb = media => {
-//   return mediaRef
-//     .doc(media.id)
-//     .set(media)
-//     .then(() => {
-//       return media
-//     })
-//     .catch(e => {
-//       console.log(e)
-//       return null
-//     })
-// }
+  return mediaRef
+    .doc(media.id)
+    .set(media)
+    .then(() => {
+      return media
+    })
+    .catch(e => {
+      console.log(e)
+      return null
+    })
+}
 
 const findById = ({ id }) => {
   return mediaRef
@@ -77,6 +37,6 @@ const findById = ({ id }) => {
 
 module.exports = {
   // upload,
-  // saveToDb,
+  saveToDb,
   findById
 }

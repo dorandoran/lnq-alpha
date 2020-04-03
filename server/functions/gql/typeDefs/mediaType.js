@@ -6,6 +6,7 @@ exports.typeDef = gql`
   type Media {
     id: String!
     uri: String!
+    created_at: Date!
   }
 `
 
@@ -15,6 +16,10 @@ exports.resolvers = {
       return Media.findById(args)
     }
   },
-  Mutation: {},
+  Mutation: {
+    createMedia: (parent, args) => {
+      return Media.saveToDb(args)
+    }
+  },
   Media: {}
 }
