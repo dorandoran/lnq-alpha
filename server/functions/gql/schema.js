@@ -41,10 +41,11 @@ const Other = gql`
       date: Date!
       location: String!
       description: String!
-      media: Upload
+      media: [String]
       plusOne: Boolean!
       private: Boolean!
     ): Event
+    createMedia(id: String!, uri: String!): Media
   }
 `
 // Combine all typeDefs
