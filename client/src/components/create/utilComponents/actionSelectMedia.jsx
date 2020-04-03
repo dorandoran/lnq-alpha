@@ -49,7 +49,7 @@ const ActionSelectMedia = ({ navigateToDetails, type }) => {
         quality: 1
       })
     }
-    console.log(result)
+
     if (!result.cancelled) {
       navigateToDetails({
         uri: result.uri,

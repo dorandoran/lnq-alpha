@@ -13,5 +13,5 @@ fragment eventFields on Event {
   }
   likes
   plusOne
-  private
+  isPrivate
 }

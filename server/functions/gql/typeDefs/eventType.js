@@ -16,7 +16,7 @@ exports.typeDef = gql`
     media: [Media]
     likes: Int!
     plusOne: Boolean
-    private: Boolean
+    isPrivate: Boolean
   }
 `
 

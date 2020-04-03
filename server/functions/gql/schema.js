@@ -43,7 +43,7 @@ const Other = gql`
       description: String!
       media: [String]
       plusOne: Boolean!
-      private: Boolean!
+      isPrivate: Boolean!
     ): Event
     createMedia(id: String!, uri: String!): Media
   }

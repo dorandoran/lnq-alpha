@@ -3,11 +3,9 @@ const serviceAccount = require('../config/credentials.json')
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://lnq-alpha.firebaseio.com',
-  storageBucket: 'lnq-alpha.appspot.com'
+  databaseURL: 'https://lnq-alpha.firebaseio.com'
 })
 
 module.exports = {
-  firestore: () => admin.firestore(),
-  storage: () => admin.storage()
+  firestore: () => admin.firestore()
 }

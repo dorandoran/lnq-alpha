@@ -5,6 +5,7 @@ export default function useCreateUser() {
   const [createEvent] = useMutation(CreateEvent)
 
   return variables => {
+    console.log(variables)
     createEvent({
       variables,
       update: (cache, { data }) => {

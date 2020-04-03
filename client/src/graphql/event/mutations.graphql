@@ -9,7 +9,7 @@ mutation CreateEvent(
   $description: String!
   $media: Upload
   $plusOne: Boolean!
-  $private: Boolean!
+  $isPrivate: Boolean!
 ) {
   createEvent(
     userId: $userId
@@ -20,7 +20,7 @@ mutation CreateEvent(
     description: $description
     media: $media
     plusOne: $plusOne
-    private: $private
+    isPrivate: $isPrivate
   ) {
     ...eventFields
   }
