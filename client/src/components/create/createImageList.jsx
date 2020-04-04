@@ -1,11 +1,10 @@
-import React, { useContext } from 'react'
-import CreateContext from '@context/createContext'
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, StyleSheet, FlatList } from 'react-native'
 import { Image } from 'react-native-elements'
 
 const CreateImageList = ({ initialData }) => {
-  const { details, addMedia } = useContext(CreateContext)
   return (
     <View style={styles.container}>
       <FlatList
@@ -42,5 +41,9 @@ const styles = StyleSheet.create({
     height: 200
   }
 })
+
+CreateImageList.propTypes = {
+  initialData: PropTypes.array
+}
 
 export default CreateImageList
