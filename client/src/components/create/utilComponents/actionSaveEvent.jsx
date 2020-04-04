@@ -5,7 +5,7 @@ import { useUser } from '@context/userContext'
 import useCreateEvent from '@graphql/event/useCreateEvent'
 
 import { ActivityIndicator } from 'react-native'
-import { Icon } from 'react-native-elements'
+import { Icon, Tooltip, Text } from 'react-native-elements'
 import { theme } from '@src/theme'
 import { EVENT_CONST } from '@common/constants'
 
@@ -34,8 +34,30 @@ const ActionSaveEvent = ({ event, onComplete }) => {
     }
   }, [media])
 
+  // Checks if keys that have strings are filled
+  // If not, disable button
+  const checkDisabled = () => {
+    let disabled = false
+    Object.keys(event).forEach(key => {
+      if (typeof event[key] === 'string' && !event[key].length) {
+        disabled = true
+      }
+    })
+    return disabled
+  }
+
   if (actionSelected) {
     return <ActivityIndicator size="small" color={theme.color.secondary} />
+  }
+
+  if (checkDisabled()) {
+    return (
+      <Icon
+        type="font-awesome"
+        name="exclamation"
+        color={theme.color.secondary}
+      />
+    )
   }
 
   return (
