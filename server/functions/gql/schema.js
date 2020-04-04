@@ -35,6 +35,7 @@ const Other = gql`
       email: String!
     ): User
     createEvent(
+      id: String!
       userId: String!
       name: String!
       type: String!
@@ -45,7 +46,12 @@ const Other = gql`
       plusOne: Boolean!
       isPrivate: Boolean!
     ): Event
-    createMedia(id: String!, uri: String!): Media
+    createMedia(
+      id: String!
+      userId: String!
+      linkId: String!
+      uri: String!
+    ): Media
   }
 `
 // Combine all typeDefs

@@ -7,7 +7,7 @@ import { Icon } from 'react-native-elements'
 import Fab from '@components/tabBarFab'
 
 import { theme } from '@src/theme'
-import { SCREEN_HEIGHT } from '@src/constants'
+import { SCREEN_HEIGHT } from '@common/constants'
 
 const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {
   const iconColor =

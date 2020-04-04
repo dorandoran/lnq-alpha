@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server-cloud-functions')
 
 const Event = require('../../databases/store/event')
+const Media = require('../../databases/store/media')
 
 // Type Definition
 exports.typeDef = gql`
@@ -35,5 +36,9 @@ exports.resolvers = {
     }
   },
   // Field Resolve
-  Event: {}
+  Event: {
+    media: (parent, args, context, info) => {
+      return Media.findByLinkId({ linkId: parent.id })
+    }
+  }
 }

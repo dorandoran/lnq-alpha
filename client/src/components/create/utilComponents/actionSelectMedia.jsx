@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
-import { CAMERA_SELECTION } from '@src/constants'
+import { CAMERA_SELECTION } from '@common/constants'
 
 const ActionSelectMedia = ({ navigateToDetails, type }) => {
   const [loading, setLoading] = React.useState(false)
@@ -39,14 +39,14 @@ const ActionSelectMedia = ({ navigateToDetails, type }) => {
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: false,
         aspect: [16, 9],
-        quality: 1
+        quality: 0.8 // Setting to 1 freezes when send media to firebase storage
       })
     } else {
       result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: false,
         aspect: [16, 9],
-        quality: 1
+        quality: 0.8 // Setting to 1 freezes when send media to firebase storage
       })
     }
 

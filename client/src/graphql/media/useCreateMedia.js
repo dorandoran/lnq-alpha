@@ -1,11 +1,11 @@
 import { useMutation } from '@apollo/react-hooks'
-import { CreateEvent } from '@graphql/event/mutations.graphql'
+import { CreateMedia } from '@graphql/media/mutations.graphql'
 
-export default function useCreateEvent() {
-  const [createEvent] = useMutation(CreateEvent)
+export default function useCreateMedia() {
+  const [createMedia] = useMutation(CreateMedia)
 
   return variables => {
-    createEvent({
+    createMedia({
       variables,
       update: (cache, { data }) => {
         // TODO Investigate and implement caching

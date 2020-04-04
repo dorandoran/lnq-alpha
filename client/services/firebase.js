@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+require('firebase/firestore')
 import config from '@config'
 
 const firebaseConfig = {
@@ -9,13 +10,13 @@ const firebaseConfig = {
   storageBucket: config.GOOGLE.STORAGE_BUCKET,
   messagingSenderId: config.GOOGLE.MESSAGING_SENDER_ID,
   appId: config.GOOGLE.APP_ID,
-  measurementId: config.GOOGLE.MEASUREMENT_ID
+  measurementId: config.GOOGLE.MEASUREMENT_ID,
 }
 
 firebase.initializeApp(firebaseConfig)
 
 export const f = firebase
-export const database = firebase.database()
+// export const database = firebase.database()
 export const auth = firebase.auth()
 export const storage = firebase.storage()
-// export const firestore = firebase.firestore()
+export const firestore = firebase.firestore()

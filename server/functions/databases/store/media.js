@@ -35,8 +35,28 @@ const findById = ({ id }) => {
     })
 }
 
+const findByLinkId = ({ linkId }) => {
+  let media = []
+
+  return mediaRef
+    .where('linkId', '==', linkId)
+    .get()
+    .then(snap => {
+      snap.forEach(doc => {
+        item = doc.data()
+        item.id = doc.id
+        media.push(item)
+      })
+      return media
+    })
+    .catch(e => {
+      console.log(e)
+      return media
+    })
+}
+
 module.exports = {
-  // upload,
   saveToDb,
-  findById
+  findById,
+  findByLinkId
 }

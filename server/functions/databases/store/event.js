@@ -7,12 +7,11 @@ const eventsRef = firestore().collection('events')
 const saveToDb = event => {
   event.likes = 0
   event.created_at = timestamp.now()
-  delete event.media
 
   return eventsRef
-    .add(event)
+    .doc(event.id)
+    .set(event)
     .then(doc => {
-      event.id = doc.id
       return event
     })
     .catch(e => {
