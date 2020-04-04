@@ -61,7 +61,7 @@ const CreateForm = () => {
         />
       </View>
       <View style={styles.switchContainer}>
-        <Text style={styles.label}>Plus One</Text>
+        <Text style={styles.label}>Private</Text>
         <Switch
           value={switched}
           onValueChange={() => setSwitch(!switched)}

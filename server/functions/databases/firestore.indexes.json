@@ -30,7 +30,7 @@
         { "fieldPath": "media", "mode": "ARRAY_CONTAINS" },
         { "fieldPath": "likes", "mode": "ASCENDING" },
         { "fieldPath": "plusOne", "mode": "ASCENDING" },
-        { "fieldPath": "private", "mode": "ASCENDING" }
+        { "fieldPath": "isPrivate", "mode": "ASCENDING" }
       ]
     }
   ],

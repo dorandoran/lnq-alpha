@@ -1,6 +1,5 @@
 const functions = require('firebase-functions')
 const { ApolloServer } = require('apollo-server-cloud-functions')
-
 const { typeDefs, resolvers } = require('./gql/schema')
 
 // GraphQL Setup

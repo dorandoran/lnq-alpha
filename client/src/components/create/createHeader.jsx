@@ -1,15 +1,21 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useNavigation } from '@react-navigation/native'
-// import { useRoute } from '@react-navigation/native'
 
 import { View } from 'react-native'
 import Header from '@common/header'
 import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
 
-const CreateHeader = () => {
+import ActionSaveEvent from '@components/create/utilComponents/actionSaveEvent'
+
+const CreateHeader = ({ event, resetForm }) => {
   const navigation = useNavigation()
-  // const route = useRoute()
+
+  const onComplete = () => {
+    resetForm()
+    navigation.jumpTo('Home')
+  }
 
   return (
     <Header position="relative" backgroundColor={theme.color.background}>
@@ -17,17 +23,17 @@ const CreateHeader = () => {
         type="ionicon"
         name="md-close"
         color={theme.color.tertiary}
-        onPress={() => navigation.goBack()}
+        onPress={onComplete}
       />
       <View />
-      <Icon
-        type="material"
-        name="person-add"
-        color={theme.color.tertiary}
-        onPress={() => navigation.navigate('Create Invite')}
-      />
+      <ActionSaveEvent event={event} onComplete={onComplete} />
     </Header>
   )
+}
+
+CreateHeader.propTypes = {
+  event: PropTypes.object.isRequired,
+  resetForm: PropTypes.func.isRequired
 }
 
 export default CreateHeader
