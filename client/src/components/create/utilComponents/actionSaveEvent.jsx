@@ -5,7 +5,7 @@ import { useUser } from '@context/userContext'
 import useCreateEvent from '@graphql/event/useCreateEvent'
 
 import { ActivityIndicator } from 'react-native'
-import { Icon, Tooltip, Text } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
 import { EVENT_CONST } from '@common/constants'
 
