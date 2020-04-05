@@ -15,6 +15,7 @@ const useStorage = ({ uri, bucketName, skip }) => {
   const linkStorage = storage.ref().child(`${bucketName}/${mediaRef.id}`)
 
   useEffect(() => {
+    // Clean up variable
     let didCancel = false
 
     async function upload() {
