@@ -1,11 +1,17 @@
 import React, { createContext, useReducer } from 'react'
+import PropTypes from 'prop-types'
 
 // Context
 const State = createContext()
 const Dispatch = createContext()
 
 // Screens to disable tab bar
-const disableTabBar = ['Create Main', 'Create Details', 'Create Media']
+const disableTabBar = [
+  'Create Main',
+  'Create Details',
+  'Create Media',
+  'Create Invite'
+]
 
 const initialState = {
   name: 'Home',
@@ -35,6 +41,10 @@ const Provider = ({ children }) => {
       <Dispatch.Provider value={dispatch}>{children}</Dispatch.Provider>
     </State.Provider>
   )
+}
+
+Provider.propTypes = {
+  children: PropTypes.node
 }
 
 // Export

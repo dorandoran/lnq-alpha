@@ -7,6 +7,7 @@ import { theme } from '@src/theme'
 import { EVENT_TYPE_MAP } from '@common/constants'
 
 const CreatePicker = ({ value, onValueChange }) => {
+  const placeholder = { label: 'Select an Event Type', value: '' }
   const items = Object.keys(EVENT_TYPE_MAP).map(value => {
     return { label: EVENT_TYPE_MAP[value], value }
   })
@@ -15,7 +16,7 @@ const CreatePicker = ({ value, onValueChange }) => {
     <View style={styles.container}>
       <Text style={styles.label}>Event Type</Text>
       <Picker
-        placeholder={{}}
+        placeholder={placeholder}
         items={items}
         value={value}
         style={{ ...styles }}

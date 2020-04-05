@@ -1,17 +1,24 @@
 import React, { createContext, useState } from 'react'
 import PropTypes from 'prop-types'
+import { TOMORROW_DATETIME } from '@common/constants'
 
 const CreateContext = createContext()
 
-const initialState = {
-  media: []
-}
-
-export const CreateProvider = ({ children }) => {
+export const CreateProvider = ({ children, initialMedia }) => {
+  const initialState = {
+    name: '',
+    type: '',
+    location: '',
+    date: TOMORROW_DATETIME,
+    description: '',
+    plusOne: true,
+    isPrivate: true,
+    media: [initialMedia]
+  }
   const [details, setDetails] = useState(initialState)
 
-  const updateDetails = newDetails => {
-    setDetails({ ...details, ...newDetails })
+  const updateDetails = (key, input) => {
+    setDetails({ ...details, [key]: input })
   }
 
   const addMedia = item => {
@@ -25,9 +32,13 @@ export const CreateProvider = ({ children }) => {
     })
   }
 
+  const resetDetails = () => {
+    setDetails(initialState)
+  }
+
   return (
     <CreateContext.Provider
-      value={{ details, updateDetails, addMedia, removeMedia }}
+      value={{ details, updateDetails, addMedia, removeMedia, resetDetails }}
     >
       {children}
     </CreateContext.Provider>
@@ -36,7 +47,7 @@ export const CreateProvider = ({ children }) => {
 
 CreateProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  selection: PropTypes.string
+  initialMedia: PropTypes.object.isRequired
 }
 
 export default CreateContext

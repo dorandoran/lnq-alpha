@@ -1,16 +1,18 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext } from 'react'
+import CreateContext from '@context/createContext'
 
 import { View, StyleSheet, FlatList } from 'react-native'
 import { Image } from 'react-native-elements'
 
-const CreateImageList = ({ initialData }) => {
+const CreateImageList = () => {
+  const { details } = useContext(CreateContext)
+
   return (
     <View style={styles.container}>
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
-        data={initialData}
+        data={details.media}
         keyExtractor={media => media.uri}
         renderItem={({ item }) => {
           return (
@@ -29,7 +31,6 @@ const CreateImageList = ({ initialData }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // width: '100%',
     marginTop: 10,
     marginBottom: 20
   },
@@ -41,9 +42,5 @@ const styles = StyleSheet.create({
     height: 200
   }
 })
-
-CreateImageList.propTypes = {
-  initialData: PropTypes.array
-}
 
 export default CreateImageList

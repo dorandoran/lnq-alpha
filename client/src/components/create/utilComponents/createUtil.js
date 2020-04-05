@@ -19,10 +19,7 @@ export const inputMap = [
   {
     label: 'Brief Description',
     value: 'description'
-  }
-]
-
-export const switchMap = [
+  },
   { label: 'Plus One', value: 'plusOne' },
   { label: 'Private', value: 'isPrivate' }
 ]
