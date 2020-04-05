@@ -6,7 +6,9 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Keyboard, ImageBackground
+  Keyboard,
+  ImageBackground,
+  Dimensions
 } from 'react-native'
 import AuthSubmit from '@components/auth/AuthSubmit'
 import ResetModal from '@components/auth/ResetModal'
@@ -58,7 +60,10 @@ const LoginScreen = () => {
   }
 
   return (
-    <ImageBackground source={ require('../../assets/auth-display.png') } style={styles.image}>
+    <ImageBackground
+      source={require('../../assets/auth-display.png')}
+      style={styles.image}
+    >
       <KeyboardAwareScrollView
         enableOnAndroid
         contentContainerStyle={styles.keyboardScrollContainer}
@@ -80,8 +85,8 @@ const LoginScreen = () => {
               <TextInput
                 style={styles.inputStyle}
                 autoCorrect={false}
-                autoCapitalize="none"
-                placeholder="Email"
+                autoCapitalize='none'
+                placeholder='Email'
                 value={email}
                 onChangeText={setEmail}
               />
@@ -90,8 +95,8 @@ const LoginScreen = () => {
               <TextInput
                 style={styles.inputStyle}
                 autoCorrect={false}
-                autoCapitalize="none"
-                placeholder="Password"
+                autoCapitalize='none'
+                placeholder='Password'
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
@@ -110,9 +115,9 @@ const LoginScreen = () => {
             </Spacer>
 
             <AuthSubmit
-              submitButtonTitle="Login"
-              navigationRoute="Signup"
-              routeContent="New user? Sign up here"
+              submitButtonTitle='Login'
+              navigationRoute='Signup'
+              routeContent='New user? Sign up here'
               onSubmit={() => {
                 Keyboard.dismiss()
                 submitButtonHandler()
@@ -127,10 +132,9 @@ const LoginScreen = () => {
   )
 }
 
-
 const styles = StyleSheet.create({
   keyboardScrollContainer: {
-    flex: 1,
+    flex: Math.round(Dimensions.get('window').height) > 640 ? 1 : null,
     justifyContent: 'center'
   },
   containerStyle: {

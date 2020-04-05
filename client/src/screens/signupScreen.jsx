@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, StyleSheet, TextInput, Keyboard, ImageBackground } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Keyboard,
+  ImageBackground,
+  Dimensions
+} from 'react-native'
 import Spacer from '@common/Spacer'
 import AuthSubmit from '@components/auth/AuthSubmit'
 import { useAuth } from '@context/authContext'
@@ -34,15 +42,19 @@ const SignupScreen = () => {
     const dob = '03/01/2000' // TODO: Add date of birth to registration?
     register({ email, password, username, dob, name })
   }
-  
+
   const image = {
-    uri: '/Users/lawanginkhan/IdeaProjects/LNQ/lnq/client/assets/auth-display.png'
+    uri:
+      '/Users/lawanginkhan/IdeaProjects/LNQ/lnq/client/assets/auth-display.png'
   }
 
   return (
-    <ImageBackground source={ require('../../assets/auth-display.png') } style={styles.image}>
-      <KeyboardAwareScrollView 
-        enableOnAndroid 
+    <ImageBackground
+      source={require('../../assets/auth-display.png')}
+      style={styles.image}
+    >
+      <KeyboardAwareScrollView
+        enableOnAndroid
         contentContainerStyle={styles.keyboardScrollContainer}
       >
         <KeyboardDismiss>
@@ -54,8 +66,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder="Name"
-                autoCapitalize="none"
+                placeholder='Name'
+                autoCapitalize='none'
                 autoCorrect={false}
                 value={name}
                 onChangeText={setName}
@@ -64,8 +76,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder="Username"
-                autoCapitalize="none"
+                placeholder='Username'
+                autoCapitalize='none'
                 autoCorrect={false}
                 value={username}
                 onChangeText={setUsername}
@@ -74,8 +86,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder="Email Address"
-                autoCapitalize="none"
+                placeholder='Email Address'
+                autoCapitalize='none'
                 autoCorrect={false}
                 value={email}
                 onChangeText={setEmail}
@@ -84,8 +96,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder="Password"
-                autoCapitalize="none"
+                placeholder='Password'
+                autoCapitalize='none'
                 autoCorrect={false}
                 value={password}
                 onChangeText={setPassword}
@@ -94,8 +106,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder="Confirm Password"
-                autoCapitalize="none"
+                placeholder='Confirm Password'
+                autoCapitalize='none'
                 autoCorrect={false}
                 value={confirmPass}
                 onChangeText={setConfirmPass}
@@ -103,9 +115,9 @@ const SignupScreen = () => {
             </Spacer>
 
             <AuthSubmit
-              submitButtonTitle="Sign Up"
-              navigationRoute="Login"
-              routeContent="Have an account already? Sign In Here"
+              submitButtonTitle='Sign Up'
+              navigationRoute='Login'
+              routeContent='Have an account already? Sign In Here'
               onSubmit={() => {
                 Keyboard.dismiss()
                 submitButtonHandler()
@@ -120,7 +132,7 @@ const SignupScreen = () => {
 
 const styles = StyleSheet.create({
   keyboardScrollContainer: {
-    flex: 1,
+    flex: Math.round(Dimensions.get('window').height) > 640 ? 1 : null,
     justifyContent: 'center'
   },
   containerStyle: {
