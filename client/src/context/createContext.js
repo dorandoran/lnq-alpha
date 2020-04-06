@@ -1,10 +1,12 @@
 import React, { createContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import { TOMORROW_DATETIME } from '@common/constants'
+import { screenMap } from '@components/create/utilComponents/createUtil'
 
 const CreateContext = createContext()
 
 export const CreateProvider = ({ children, initialMedia }) => {
+  const { DETAILS } = screenMap
   const initialState = {
     name: '',
     type: '',
@@ -15,6 +17,8 @@ export const CreateProvider = ({ children, initialMedia }) => {
     isPrivate: true,
     media: [initialMedia]
   }
+
+  const [screen, setScreen] = useState(DETAILS)
   const [details, setDetails] = useState(initialState)
 
   const updateDetails = (key, input) => {
@@ -33,12 +37,21 @@ export const CreateProvider = ({ children, initialMedia }) => {
   }
 
   const resetDetails = () => {
+    setScreen(DETAILS)
     setDetails(initialState)
   }
 
   return (
     <CreateContext.Provider
-      value={{ details, updateDetails, addMedia, removeMedia, resetDetails }}
+      value={{
+        details,
+        screen,
+        setScreen,
+        updateDetails,
+        addMedia,
+        removeMedia,
+        resetDetails
+      }}
     >
       {children}
     </CreateContext.Provider>

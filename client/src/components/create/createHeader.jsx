@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
-import { Route } from '@context/routeStore'
+import PropTypes from 'prop-types'
 import CreateContext from '@context/createContext'
-import { useNavigation } from '@react-navigation/native'
 
 import { View, Keyboard, Text, StyleSheet } from 'react-native'
 import Header from '@common/header'
@@ -9,12 +8,12 @@ import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
 
 import ActionSaveEvent from '@components/create/utilComponents/actionSaveEvent'
+import { screenMap } from '@components/create/utilComponents/createUtil'
 
-const CreateHeader = () => {
-  const { details, resetDetails } = useContext(CreateContext)
-  const { name } = useContext(Route.State)
-  const navigation = useNavigation()
-  const isInvite = name.includes('Invite')
+const CreateHeader = ({ navigation }) => {
+  const { details, resetDetails, screen, setScreen } = useContext(CreateContext)
+  const { INVITES, DETAILS } = screenMap
+  const isInvite = screen === INVITES
 
   const closeScreen = () => {
     Keyboard.dismiss()
@@ -24,12 +23,12 @@ const CreateHeader = () => {
 
   const navigateToInvite = () => {
     Keyboard.dismiss()
-    navigation.navigate('Create Invite')
+    setScreen(INVITES)
   }
 
   const goBack = () => {
     Keyboard.dismiss()
-    navigation.navigate('Create Details')
+    setScreen(DETAILS)
   }
 
   // Checks if keys that have strings are filled
@@ -80,5 +79,9 @@ const styles = StyleSheet.create({
     fontSize: 18
   }
 })
+
+CreateHeader.propTypes = {
+  navigation: PropTypes.object.isRequired
+}
 
 export default CreateHeader

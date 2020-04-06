@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react'
 import CreateContext from '@context/createContext'
-import PropTypes from 'prop-types'
 
 import { theme } from '@src/theme'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { View, StyleSheet, Switch, Text } from 'react-native'
+import { View, StyleSheet, Switch, Text, Keyboard } from 'react-native'
 import { Input } from 'react-native-elements'
 
 import DateTimePicker from '@components/create/createDateTimePicker'
@@ -54,7 +53,10 @@ const CreateDetails = () => {
                 <Picker
                   key={value}
                   value={type}
-                  onValueChange={value => updateDetails('type', value)}
+                  onValueChange={value => {
+                    Keyboard.dismiss()
+                    updateDetails('type', value)
+                  }}
                 />
               )
             }
@@ -144,9 +146,5 @@ const styles = StyleSheet.create({
     color: theme.color.tertiary
   }
 })
-
-CreateDetails.propTypes = {
-  route: PropTypes.object.isRequired
-}
 
 export default CreateDetails

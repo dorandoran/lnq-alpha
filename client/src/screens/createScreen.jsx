@@ -1,32 +1,56 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { createStackNavigator } from '@react-navigation/stack'
-import { CreateProvider } from '@context/createContext'
+import CreateContext, { CreateProvider } from '@context/createContext'
 
+import { View } from 'react-native'
 import CreateDetails from '@components/create/createDetails'
 import CreateInvite from '@components/create/createInvite'
 import Header from '@components/create/createHeader'
 
-const Stack = createStackNavigator()
+import { screenMap } from '@components/create/utilComponents/createUtil'
 
-const CreateScreen = ({ route }) => {
+const CreateView = ({ navigation }) => {
+  const { screen } = useContext(CreateContext)
+  const { DETAILS, INVITES } = screenMap
+
+  const renderScreen = () => {
+    switch (screen) {
+      case DETAILS:
+        return <CreateDetails />
+      case INVITES:
+        return <CreateInvite />
+      default:
+        return <CreateDetails />
+    }
+  }
+
+  return (
+    <View style={{ flex: 1 }}>
+      <Header navigation={navigation} />
+      {renderScreen()}
+    </View>
+  )
+}
+
+const CreateScreen = ({ route, navigation }) => {
   // This is the uri and aspect ratio passed from <tabBarFab />.
   // This information is the initial information used to start an event.
   const initialMedia = route.params.params.media
 
   return (
     <CreateProvider initialMedia={initialMedia}>
-      <Header />
-      <Stack.Navigator headerMode="none" initialRouteName="Create Details">
-        <Stack.Screen name="Create Details" component={CreateDetails} />
-        <Stack.Screen name="Create Invite" component={CreateInvite} />
-      </Stack.Navigator>
+      <CreateView navigation={navigation} />
     </CreateProvider>
   )
 }
 
+CreateView.propTypes = {
+  navigation: PropTypes.object.isRequired
+}
+
 CreateScreen.propTypes = {
-  route: PropTypes.object.isRequired
+  route: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired
 }
 
 export default CreateScreen

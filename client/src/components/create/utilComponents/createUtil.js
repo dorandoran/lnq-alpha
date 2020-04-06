@@ -1,3 +1,8 @@
+export const screenMap = {
+  DETAILS: 'Create Details',
+  INVITES: 'Create Invites'
+}
+
 export const inputMap = [
   {
     label: 'Event Name',

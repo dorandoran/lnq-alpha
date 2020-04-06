@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Picker from 'react-native-picker-select'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Keyboard } from 'react-native'
 
 import { theme } from '@src/theme'
 import { EVENT_TYPE_MAP } from '@common/constants'
@@ -21,6 +21,7 @@ const CreatePicker = ({ value, onValueChange }) => {
         value={value}
         style={{ ...styles }}
         onValueChange={onValueChange}
+        onOpen={Keyboard.dismiss}
         useNativeAndroidPickerStyle={false}
       />
     </View>
