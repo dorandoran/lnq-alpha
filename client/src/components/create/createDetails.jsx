@@ -1,51 +1,21 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
-import dayjs from 'dayjs'
 
 import { theme } from '@src/theme'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { View, StyleSheet, Switch, Text, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Switch, Text } from 'react-native'
 import { Input } from 'react-native-elements'
 
+import DateTimePicker from '@components/create/createDateTimePicker'
 import Header from '@components/create/createHeader'
 import ImageList from '@components/create/createImageList'
-import DateTimePicker from 'react-native-modal-datetime-picker'
+import Picker from '@components/create/createPicker'
 
+import { KEYBOARD_AVOID_HEIGHT, TOMORROW_DATETIME } from '@common/constants'
 import {
-  KEYBOARD_AVOID_HEIGHT,
-  TOMORROW_DATETIME,
-  DATE_FORMAT,
-  TIME_FORMAT
-} from '@common/constants'
-
-const inputMap = [
-  {
-    label: 'Event Name',
-    value: 'name'
-  },
-  {
-    label: 'Event Type',
-    value: 'type'
-  },
-  {
-    label: 'Location',
-    value: 'location'
-  },
-  {
-    label: 'Date and Time',
-    value: 'date',
-    disabled: true
-  },
-  {
-    label: 'Brief Description',
-    value: 'description'
-  }
-]
-
-const switchMap = [
-  { label: 'Plus One', value: 'plusOne' },
-  { label: 'Private', value: 'isPrivate' }
-]
+  inputMap,
+  switchMap
+} from '@components/create/utilComponents/createUtil'
 
 const initialState = {
   name: '',
@@ -67,35 +37,16 @@ const CreateDetails = ({ route }) => {
   const [state, setState] = useState(initialState)
   const media = route.params.media
 
-  const onChange = (e, value) => {
+  const handleInputChange = (e, value) => {
     setState(prevState => ({ ...prevState, [value]: e?.text || e.value }))
   }
 
-  const handleDTInputPress = mode => {
-    setDTPicker({ mode, visible: true })
+  const handleDateChange = date => {
+    setState({ ...state, date })
   }
 
-  const handlePickerConfirm = dt => {
-    const { mode } = dtPicker
-    const { date } = state
-    setDTPicker({ mode, visible: false })
-
-    if (mode === 'date') {
-      const newDate = dayjs(dt).format(DATE_FORMAT)
-      const time = dayjs(date).format(TIME_FORMAT)
-      const newDateTime = dayjs(`${newDate} ${time}`).toDate()
-      setState({ ...state, date: newDateTime })
-    }
-    if (mode === 'time') {
-      const _date = dayjs(date).format(DATE_FORMAT)
-      const newTime = dayjs(dt).format(TIME_FORMAT)
-      const newDateTime = dayjs(`${_date} ${newTime}`).toDate()
-      setState({ ...state, date: newDateTime })
-    }
-  }
-
-  const handlePickerCancel = () => {
-    setDTPicker({ ...dtPicker, visible: false })
+  const handlePickerChange = type => {
+    setState({ ...state, type })
   }
 
   const resetForm = () => {
@@ -115,48 +66,30 @@ const CreateDetails = ({ route }) => {
           <ImageList initialData={[media]} />
           <View style={styles.formContainer}>
             {inputMap.map(({ label, value, ...rest }) => {
-              const { date } = state
-              // Date and Time components have different format
+              const { date, type } = state
+              // Date and Time component
               if (value === 'date') {
                 return (
-                  <View
+                  <DateTimePicker
                     key={value}
-                    style={[styles.dateContainer, styles.containerStyle]}
-                  >
-                    <TouchableOpacity
-                      onPress={() => handleDTInputPress('date')}
-                      style={styles.dateInputContainer}
-                    >
-                      <Input
-                        label="Date"
-                        inputContainerStyle={styles.inputContainer}
-                        labelStyle={styles.label}
-                        inputStyle={styles.disabledInput}
-                        disabledInputStyle={styles.input}
-                        underlineColorAndroid="transparent"
-                        disabled
-                        value={dayjs(date).format(DATE_FORMAT)}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => handleDTInputPress('time')}
-                      style={styles.timeInputContainer}
-                    >
-                      <Input
-                        label="Time"
-                        inputContainerStyle={styles.inputContainer}
-                        labelStyle={styles.label}
-                        inputStyle={styles.disabledInput}
-                        disabledInputStyle={styles.input}
-                        underlineColorAndroid="transparent"
-                        disabled
-                        value={dayjs(date).format(TIME_FORMAT)}
-                      />
-                    </TouchableOpacity>
-                  </View>
+                    date={date}
+                    state={dtPicker}
+                    setState={setDTPicker}
+                    setDate={handleDateChange}
+                  />
                 )
               }
-              // Components for the other maps
+              // Event type component
+              if (value === 'type') {
+                return (
+                  <Picker
+                    key={value}
+                    value={type}
+                    onValueChange={handlePickerChange}
+                  />
+                )
+              }
+              // Input components
               return (
                 <Input
                   key={value}
@@ -166,18 +99,23 @@ const CreateDetails = ({ route }) => {
                   inputStyle={styles.input}
                   underlineColorAndroid="transparent"
                   label={label}
-                  onChange={({ nativeEvent }) => onChange(nativeEvent, value)}
+                  onChange={({ nativeEvent }) =>
+                    handleInputChange(nativeEvent, value)
+                  }
                   value={state[value]}
                   {...rest}
                 />
               )
             })}
+            {/** Switch component **/}
             {switchMap.map(({ label, value }) => (
               <View style={styles.switchContainer} key={value}>
                 <Text style={styles.label}>{label}</Text>
                 <Switch
                   value={state[value]}
-                  onChange={({ nativeEvent }) => onChange(nativeEvent, value)}
+                  onChange={({ nativeEvent }) =>
+                    handleInputChange(nativeEvent, value)
+                  }
                   thumbColor={state[value] ? theme.color.secondary : '#f4f3f4'}
                   trackColor={{
                     false: '#767577',
@@ -189,14 +127,6 @@ const CreateDetails = ({ route }) => {
           </View>
         </View>
       </KeyboardAwareScrollView>
-      <DateTimePicker
-        isVisible={dtPicker.visible}
-        onConfirm={handlePickerConfirm}
-        onCancel={handlePickerCancel}
-        mode={dtPicker.mode}
-        is24Hour={false}
-        isDarkModeEnabled
-      />
     </Fragment>
   )
 }
@@ -211,14 +141,11 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: '100%',
-    marginBottom: '5%'
+    marginBottom: '5%',
+    alignItems: 'center'
   },
   containerStyle: {
     marginBottom: '5%'
-  },
-  dateContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around'
   },
   inputContainer: {
     backgroundColor: theme.color.accent,
@@ -230,7 +157,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '3%'
+    padding: '3%',
+    width: '100%'
   },
   label: {
     color: theme.color.tertiary,
@@ -240,15 +168,6 @@ const styles = StyleSheet.create({
   },
   input: {
     color: theme.color.tertiary
-  },
-  disabledInput: {
-    textAlign: 'center'
-  },
-  dateInputContainer: {
-    width: '60%'
-  },
-  timeInputContainer: {
-    width: '40%'
   }
 })
 
