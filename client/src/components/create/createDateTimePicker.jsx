@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import dayjs from 'dayjs'
 
 import DateTimePicker from 'react-native-modal-datetime-picker'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Input } from 'react-native-elements'
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 
 import { theme } from '@src/theme'
 import { DATE_FORMAT, TIME_FORMAT } from '@common/constants'
@@ -44,31 +43,19 @@ const CreateDateTimePicker = ({ date, state, setState, setDate }) => {
           onPress={() => handlePress('date')}
           style={styles.dateInputContainer}
         >
-          <Input
-            label="Date"
-            inputContainerStyle={styles.inputContainer}
-            labelStyle={styles.label}
-            inputStyle={styles.input}
-            disabledInputStyle={styles.disabledInputStyle}
-            underlineColorAndroid="transparent"
-            disabled
-            value={dayjs(date).format(DATE_FORMAT)}
-          />
+          <Text style={styles.label}>Date</Text>
+          <View style={styles.inputContainer}>
+            <Text style={styles.input}>{dayjs(date).format(DATE_FORMAT)}</Text>
+          </View>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => handlePress('time')}
           style={styles.timeInputContainer}
         >
-          <Input
-            label="Time"
-            inputContainerStyle={styles.inputContainer}
-            labelStyle={styles.label}
-            inputStyle={styles.input}
-            disabledInputStyle={styles.disabledInputStyle}
-            underlineColorAndroid="transparent"
-            disabled
-            value={dayjs(date).format(TIME_FORMAT)}
-          />
+          <Text style={styles.label}>Time</Text>
+          <View style={styles.inputContainer}>
+            <Text style={styles.input}>{dayjs(date).format(TIME_FORMAT)}</Text>
+          </View>
         </TouchableOpacity>
       </View>
       <DateTimePicker
@@ -78,7 +65,6 @@ const CreateDateTimePicker = ({ date, state, setState, setDate }) => {
         onCancel={handleCancel}
         mode={mode}
         is24Hour={false}
-        isDarkModeEnabled
       />
     </Fragment>
   )
@@ -86,21 +72,24 @@ const CreateDateTimePicker = ({ date, state, setState, setDate }) => {
 
 const styles = StyleSheet.create({
   container: {
+    width: '93%',
     marginBottom: '5%',
     flexDirection: 'row',
     justifyContent: 'space-around'
   },
   inputContainer: {
+    height: 40,
     backgroundColor: theme.color.accent,
     borderRadius: 25,
-    paddingLeft: '3%',
-    borderBottomWidth: 0
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   dateInputContainer: {
     width: '60%'
   },
   timeInputContainer: {
-    width: '40%'
+    width: '40%',
+    marginLeft: '3%'
   },
   label: {
     color: theme.color.tertiary,
@@ -109,10 +98,9 @@ const styles = StyleSheet.create({
     paddingBottom: '1%'
   },
   input: {
-    textAlign: 'center'
-  },
-  disabledInputStyle: {
-    color: theme.color.tertiary
+    textAlign: 'center',
+    color: theme.color.tertiary,
+    fontSize: 18
   }
 })
 

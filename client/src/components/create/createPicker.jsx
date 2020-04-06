@@ -42,6 +42,10 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center'
   },
+  inputIOS: {
+    color: theme.color.tertiary,
+    fontSize: 18
+  },
   viewContainer: {
     backgroundColor: theme.color.accent,
     borderRadius: 25,
