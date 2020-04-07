@@ -7,8 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
-  ImageBackground,
-  Dimensions
+  ImageBackground
 } from 'react-native'
 import AuthSubmit from '@components/auth/AuthSubmit'
 import ResetModal from '@components/auth/ResetModal'
@@ -17,6 +16,7 @@ import { useAuth } from '@context/authContext'
 import KeyboardDismiss from '@common/keyboardDismiss'
 import { theme } from '@src/theme'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { SCREEN_HEIGHT } from '@src/constants'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -67,6 +67,7 @@ const LoginScreen = () => {
       <KeyboardAwareScrollView
         enableOnAndroid
         contentContainerStyle={styles.keyboardScrollContainer}
+        extraHeight={SCREEN_HEIGHT/7}
       >
         <KeyboardDismiss>
           <View style={styles.containerStyle}>
@@ -134,7 +135,7 @@ const LoginScreen = () => {
 
 const styles = StyleSheet.create({
   keyboardScrollContainer: {
-    flex: Math.round(Dimensions.get('window').height) > 640 ? 1 : null,
+    flexGrow: 1,
     justifyContent: 'center'
   },
   containerStyle: {

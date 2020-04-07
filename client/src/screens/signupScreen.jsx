@@ -6,8 +6,7 @@ import {
   StyleSheet,
   TextInput,
   Keyboard,
-  ImageBackground,
-  Dimensions
+  ImageBackground
 } from 'react-native'
 import Spacer from '@common/Spacer'
 import AuthSubmit from '@components/auth/AuthSubmit'
@@ -15,6 +14,7 @@ import { useAuth } from '@context/authContext'
 import KeyboardDismiss from '@common/keyboardDismiss'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { theme } from '@src/theme'
+import { SCREEN_HEIGHT } from '@src/constants'
 
 const SignupScreen = () => {
   const [email, setEmail] = useState('')
@@ -132,7 +132,7 @@ const SignupScreen = () => {
 
 const styles = StyleSheet.create({
   keyboardScrollContainer: {
-    flex: Math.round(Dimensions.get('window').height) > 640 ? 1 : null,
+    flexGrow: 1,
     justifyContent: 'center'
   },
   containerStyle: {
