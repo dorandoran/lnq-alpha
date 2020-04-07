@@ -31,6 +31,7 @@ const CreateImageList = () => {
   }
 
   const handleUpdate = (index, media) => {
+    clearTimeout(edit)
     setEdit(null)
     updateMedia(index, media)
   }
