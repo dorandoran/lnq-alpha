@@ -7,7 +7,7 @@ import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
 import { CAMERA_SELECTION } from '@common/constants'
 
-const ActionSelectMedia = ({ navigateToDetails, type }) => {
+const ActionSelectMedia = ({ navigateToDetails, onComplete, type, color }) => {
   const [loading, setLoading] = React.useState(false)
   // Camera Roll Permissions
   const getCameraRollPermissions = async () => {
@@ -51,10 +51,12 @@ const ActionSelectMedia = ({ navigateToDetails, type }) => {
     }
 
     if (!result.cancelled) {
-      navigateToDetails({
+      const media = {
         uri: result.uri,
         aspectRatio: result.height / result.width
-      })
+      }
+      if (onComplete) onComplete(media)
+      else navigateToDetails(media)
     }
     setLoading(false)
   }
@@ -69,7 +71,7 @@ const ActionSelectMedia = ({ navigateToDetails, type }) => {
         reverse
         type="material-community"
         name={type === CAMERA_SELECTION ? 'camera' : 'library-plus'}
-        color={theme.color.secondary}
+        color={color || theme.color.secondary}
         size={20}
       />
     </TouchableOpacity>
@@ -77,8 +79,10 @@ const ActionSelectMedia = ({ navigateToDetails, type }) => {
 }
 
 ActionSelectMedia.propTypes = {
-  navigateToDetails: PropTypes.func.isRequired,
-  type: PropTypes.string
+  navigateToDetails: PropTypes.func,
+  onComplete: PropTypes.func,
+  type: PropTypes.string,
+  color: PropTypes.string
 }
 
 export default ActionSelectMedia

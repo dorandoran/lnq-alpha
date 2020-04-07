@@ -1,11 +1,39 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import CreateContext from '@context/createContext'
 
-import { View, StyleSheet, FlatList } from 'react-native'
-import { Image } from 'react-native-elements'
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  ImageBackground
+} from 'react-native'
+import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
+import ActionRemoveMedia from '@components/create/utilComponents/actionRemoveMedia'
+import { CAMERA_SELECTION } from '@common/constants'
+import { theme } from '@src/theme'
 
 const CreateImageList = () => {
-  const { details } = useContext(CreateContext)
+  const [edit, setEdit] = useState(null)
+  const { details, updateMedia } = useContext(CreateContext)
+
+  const handleMediaPress = () => {
+    setEdit(!edit)
+    clearTimeout(edit)
+
+    if (!edit) {
+      setEdit(
+        setTimeout(() => {
+          setEdit(false)
+        }, 2500)
+      )
+    }
+  }
+
+  const handleUpdate = (index, media) => {
+    setEdit(false)
+    updateMedia(index, media)
+  }
 
   return (
     <View style={styles.container}>
@@ -14,13 +42,30 @@ const CreateImageList = () => {
         showsHorizontalScrollIndicator={false}
         data={details.media}
         keyExtractor={media => media.uri}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           return (
-            <Image
-              source={{ uri: item.uri }}
-              style={styles.image}
-              borderRadius={25}
-            />
+            <TouchableOpacity onPress={handleMediaPress}>
+              <ImageBackground
+                source={{ uri: item.uri }}
+                style={styles.image}
+                borderRadius={25}
+              >
+                {edit && (
+                  <View style={styles.actionContainer}>
+                    <ActionSelectMedia
+                      type={CAMERA_SELECTION}
+                      color={theme.color.background}
+                      onComplete={media => handleUpdate(index, media)}
+                    />
+                    <ActionSelectMedia
+                      color={theme.color.background}
+                      onComplete={media => handleUpdate(index, media)}
+                    />
+                    <ActionRemoveMedia index={index} />
+                  </View>
+                )}
+              </ImageBackground>
+            </TouchableOpacity>
           )
         }}
       />
@@ -34,12 +79,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20
   },
+  actionContainer: {
+    flexDirection: 'row'
+  },
   text: {
     color: 'white'
   },
   image: {
     width: 200,
-    height: 200
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 

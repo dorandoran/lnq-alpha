@@ -29,6 +29,12 @@ export const CreateProvider = ({ children, initialMedia }) => {
     setDetails({ ...details, media: [...details.media, item] })
   }
 
+  const updateMedia = (index, newMedia = null) => {
+    const media = [...details.media]
+    media.splice(index, 1, newMedia)
+    setDetails({ ...details, media })
+  }
+
   const removeMedia = index => {
     setDetails({
       ...details,
@@ -49,6 +55,7 @@ export const CreateProvider = ({ children, initialMedia }) => {
         setScreen,
         updateDetails,
         addMedia,
+        updateMedia,
         removeMedia,
         resetDetails
       }}
