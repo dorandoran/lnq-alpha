@@ -16,7 +16,7 @@ const ActionSaveEvent = ({ event, onComplete }) => {
 
   // If action is selected, run useStorage
   const { media } = useStorage({
-    localMediaUri: event?.media?.uri,
+    uri: event?.media?.uri,
     bucketName: EVENT_CONST,
     skip: !actionSelected
   })
