@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import CreateContext from '@context/createContext'
 
 import {
@@ -24,14 +24,14 @@ const CreateImageList = () => {
     if (!edit) {
       setEdit(
         setTimeout(() => {
-          setEdit(false)
+          setEdit(null)
         }, 2500)
       )
     }
   }
 
   const handleUpdate = (index, media) => {
-    setEdit(false)
+    setEdit(null)
     updateMedia(index, media)
   }
 
