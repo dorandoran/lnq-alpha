@@ -21,6 +21,7 @@ const LoginScreen = () => {
 
   const {
     login,
+    tryLocalSignIn,
     signInWithGoogleAsync,
     signInWithFacebook,
     err,
@@ -28,6 +29,7 @@ const LoginScreen = () => {
   } = useAuth()
 
   useEffect(() => {
+    tryLocalSignIn()
     if (err) {
       alert(err)
     }
