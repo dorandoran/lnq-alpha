@@ -71,7 +71,9 @@ const useStorage = ({ uri, bucketName, skip }) => {
     if (!skip && !loading) upload()
 
     // Clean up
-    return () => (didCancel = true)
+    return () => {
+      didCancel = true
+    }
   }, [skip])
 
   return { media, loading }

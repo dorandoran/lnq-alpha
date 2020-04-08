@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as ImagePicker from 'expo-image-picker'
 import PropTypes from 'prop-types'
 
@@ -8,12 +8,13 @@ import { theme } from '@src/theme'
 import { CAMERA_SELECTION } from '@common/constants'
 
 const ActionSelectMedia = ({ navigateToDetails, onComplete, type, color }) => {
-  const [loading, setLoading] = React.useState(false)
+  const [isSelected, setIsSelected] = useState(false)
+
   // Camera Roll Permissions
   const getCameraRollPermissions = async () => {
     const { status } = await ImagePicker.requestCameraRollPermissionsAsync()
     if (status !== 'granted') {
-      setLoading(false)
+      setIsSelected(false)
       // TODO Find a better way to handle this
       throw new Error('Camera roll permissions are required to add pictures!')
     }
@@ -23,48 +24,57 @@ const ActionSelectMedia = ({ navigateToDetails, onComplete, type, color }) => {
   const getCameraPermissions = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync()
     if (status !== 'granted') {
-      setLoading(false)
+      setIsSelected(false)
       // TODO Find a better way to handle this
       throw new Error('Camera permissions are required to add pictures!')
     }
   }
 
-  const launchMediaAsync = async () => {
-    setLoading(true)
-    let result
-    await getCameraRollPermissions()
-    if (type === CAMERA_SELECTION) {
-      await getCameraPermissions()
-      result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: false,
-        aspect: [16, 9],
-        quality: 0.8 // Setting to 1 freezes when send media to firebase storage
-      })
-    } else {
-      result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: false,
-        aspect: [16, 9],
-        quality: 0.8 // Setting to 1 freezes when send media to firebase storage
-      })
-    }
+  useEffect(() => {
+    let didCancel = false
 
-    if (!result.cancelled) {
-      const media = {
-        uri: result.uri,
-        aspectRatio: result.height / result.width
+    async function launchMediaAsync() {
+      let result
+      await getCameraRollPermissions()
+      if (!didCancel && type === CAMERA_SELECTION) {
+        await getCameraPermissions()
+        result = await ImagePicker.launchCameraAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: false,
+          aspect: [16, 9],
+          quality: 0.8 // Setting to 1 freezes when send media to firebase storage
+        })
+      } else {
+        result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: false,
+          aspect: [16, 9],
+          quality: 0.8 // Setting to 1 freezes when send media to firebase storage
+        })
       }
-      if (onComplete) onComplete(media)
-      else navigateToDetails(media)
+
+      if (!result.cancelled) {
+        const media = {
+          uri: result.uri,
+          aspectRatio: result.height / result.width
+        }
+        setIsSelected(false)
+        if (onComplete) onComplete(media)
+        else navigateToDetails(media)
+      }
     }
-    setLoading(false)
-  }
+    if (isSelected) launchMediaAsync()
+
+    // Clean up
+    return () => {
+      didCancel = true
+    }
+  }, [isSelected])
 
   return (
     <TouchableOpacity
-      onPress={launchMediaAsync}
-      disabled={loading}
+      onPress={() => setIsSelected(true)}
+      disabled={isSelected}
       activeOpacity={0.8}
     >
       <Icon

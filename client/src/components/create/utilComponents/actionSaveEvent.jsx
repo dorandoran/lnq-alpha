@@ -35,7 +35,9 @@ const ActionSaveEvent = ({ onComplete }) => {
       setActionSelected(false)
       onComplete()
 
-      return () => (didCancel = true)
+      return () => {
+        didCancel = true
+      }
     }
   }, [media])
 

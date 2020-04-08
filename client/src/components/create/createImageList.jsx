@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import CreateContext from '@context/createContext'
 
 import {
@@ -14,25 +14,21 @@ import { CAMERA_SELECTION } from '@common/constants'
 import { theme } from '@src/theme'
 
 const CreateImageList = () => {
-  const [edit, setEdit] = useState(null)
+  const [edit, setEdit] = useState(false)
   const { details, updateMedia } = useContext(CreateContext)
+
+  useEffect(() => {
+    return () => {
+      setEdit(false)
+    }
+  }, [])
 
   const handleMediaPress = () => {
     setEdit(!edit)
-    clearTimeout(edit)
-
-    if (!edit) {
-      setEdit(
-        setTimeout(() => {
-          setEdit(null)
-        }, 2500)
-      )
-    }
   }
 
   const handleUpdate = (index, media) => {
-    clearTimeout(edit)
-    setEdit(null)
+    setEdit(false)
     updateMedia(index, media)
   }
 
