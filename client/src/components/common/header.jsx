@@ -1,4 +1,5 @@
 import React, { Children } from 'react'
+import PropTypes from 'prop-types'
 import { View, StyleSheet } from 'react-native'
 import { theme } from '@src/theme'
 
@@ -63,5 +64,11 @@ const styles = StyleSheet.create({
     paddingRight: '5%'
   }
 })
+
+Header.propTypes = {
+  children: PropTypes.node.isRequired,
+  position: PropTypes.string,
+  backgroundColor: PropTypes.string
+}
 
 export default Header

@@ -10,7 +10,7 @@ import { useUser } from '@context/userContext'
 import AuthenticatedApp from '@src/router/AuthenticatedApp'
 import UnAuthenticatedApp from '@src/router/UnAthenticatedApp'
 
-import ViewContainer from '@components/viewContainer'
+import ViewContainer from '@components/main/viewContainer'
 
 const AppContainer = () => {
   const user = useUser()
