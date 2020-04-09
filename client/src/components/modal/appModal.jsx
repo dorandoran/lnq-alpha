@@ -14,6 +14,8 @@ import {
   TouchableOpacity
 } from 'react-native'
 import { Icon } from 'react-native-elements'
+
+import ViewContainer from '@components/main/viewContainer'
 import Header from '@common/header'
 
 const AppModal = () => {
@@ -26,20 +28,20 @@ const AppModal = () => {
   })
 
   return (
-    <Modal visible={modal}>
-      {loading ? (
-        <View style={styles.container}>
-          <Text style={styles.text}>App Modal</Text>
-          <Text style={styles.text}>App Modal</Text>
-          <Text style={styles.text}>App Modal</Text>
-          <Text style={styles.text}>App Modal</Text>
-          <Text style={styles.text}>App Modal</Text>
-          <Text style={styles.text}>App Modal</Text>
-          <Text style={styles.text}>App Modal</Text>
-          <Text style={styles.text}>App Modal</Text>
-        </View>
-      ) : (
-        <View style={styles.container}>
+    <Modal visible={modal} statusBarTranslucent>
+      <ViewContainer>
+        {loading ? (
+          <React.Fragment>
+            <Text style={styles.text}>App Modal</Text>
+            <Text style={styles.text}>App Modal</Text>
+            <Text style={styles.text}>App Modal</Text>
+            <Text style={styles.text}>App Modal</Text>
+            <Text style={styles.text}>App Modal</Text>
+            <Text style={styles.text}>App Modal</Text>
+            <Text style={styles.text}>App Modal</Text>
+            <Text style={styles.text}>App Modal</Text>
+          </React.Fragment>
+        ) : (
           <ImageBackground
             source={{ uri: data?.event.media[0].uri }}
             style={styles.image}
@@ -59,17 +61,13 @@ const AppModal = () => {
               <View />
             </Header>
           </ImageBackground>
-        </View>
-      )}
+        )}
+      </ViewContainer>
     </Modal>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.color.background
-  },
   iconContainer: {
     backgroundColor: theme.color.accent,
     aspectRatio: 1,
