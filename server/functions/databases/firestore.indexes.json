@@ -6,13 +6,13 @@
       "fields": [
         { "fieldPath": "id", "mode": "ASCENDING" },
         { "fieldPath": "username", "mode": "ASCENDING" },
-        { "fieldPath": "firstName", "mode": "ASCENDING" },
-        { "fieldPath": "lastName", "mode": "ASCENDING" },
+        { "fieldPath": "name", "mode": "ASCENDING" },
         { "fieldPath": "dob", "mode": "ASCENDING" },
         { "fieldPath": "email", "mode": "ASCENDING" },
         { "fieldPath": "description", "mode": "ASCENDING" },
         { "fieldPath": "avatarURL", "mode": "ASCENDING" },
-        { "fieldPath": "events", "mode": "ARRAY_CONTAINS" }
+        { "fieldPath": "events", "mode": "ARRAY_CONTAINS" },
+        { "fieldPath": "created_at", "mode": "ASCENDING" }
       ]
     },
     {
@@ -22,13 +22,15 @@
         { "fieldPath": "id", "mode": "ASCENDING" },
         { "fieldPath": "ownerId", "mode": "ASCENDING" },
         { "fieldPath": "name", "mode": "ASCENDING" },
-        { "fieldPath": "event_date", "mode": "ASCENDING" },
+        { "fieldPath": "type", "mode": "ASCENDING" },
+        { "fieldPath": "date", "mode": "ASCENDING" },
         { "fieldPath": "location", "mode": "ASCENDING" },
         { "fieldPath": "description", "mode": "ASCENDING" },
-        { "fieldPath": "created_date", "mode": "ASCENDING" },
-        { "fieldPath": "avatarUrl", "mode": "ASCENDING" },
+        { "fieldPath": "created_at", "mode": "ASCENDING" },
+        { "fieldPath": "media", "mode": "ARRAY_CONTAINS" },
         { "fieldPath": "likes", "mode": "ASCENDING" },
-        { "fieldPath": "private", "mode": "ASCENDING" }
+        { "fieldPath": "plusOne", "mode": "ASCENDING" },
+        { "fieldPath": "isPrivate", "mode": "ASCENDING" }
       ]
     }
   ],

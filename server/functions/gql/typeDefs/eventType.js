@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server-cloud-functions')
 
 const Event = require('../../databases/store/event')
+const Media = require('../../databases/store/media')
 
 // Type Definition
 exports.typeDef = gql`
@@ -9,14 +10,14 @@ exports.typeDef = gql`
     userId: String!
     name: String!
     type: String!
-    event_date: Date!
+    date: Date!
     location: String!
     description: String!
     created_at: Date!
-    avatarUrl: String
+    media: [Media]
     likes: Int!
-    admin: Boolean
-    private: Boolean
+    plusOne: Boolean
+    isPrivate: Boolean
   }
 `
 
@@ -35,5 +36,9 @@ exports.resolvers = {
     }
   },
   // Field Resolve
-  Event: {}
+  Event: {
+    media: (parent, args, context, info) => {
+      return Media.findByLinkId({ linkId: parent.id })
+    }
+  }
 }

@@ -1,0 +1,17 @@
+fragment eventFields on Event {
+  id
+  userId
+  name
+  type
+  date
+  location
+  description
+  created_at
+  media {
+    id
+    uri
+  }
+  likes
+  plusOne
+  isPrivate
+}

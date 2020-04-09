@@ -16,7 +16,7 @@ import { useAuth } from '@context/authContext'
 import KeyboardDismiss from '@common/keyboardDismiss'
 import { theme } from '@src/theme'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { SCREEN_HEIGHT } from '@src/constants'
+import { SCREEN_HEIGHT } from '@common/constants'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -61,13 +61,14 @@ const LoginScreen = () => {
 
   return (
     <ImageBackground
+      // eslint-disable-next-line no-undef
       source={require('../../assets/auth-display.png')}
       style={styles.image}
     >
       <KeyboardAwareScrollView
         enableOnAndroid
         contentContainerStyle={styles.keyboardScrollContainer}
-        extraHeight={SCREEN_HEIGHT/7}
+        extraHeight={SCREEN_HEIGHT / 7}
       >
         <KeyboardDismiss>
           <View style={styles.containerStyle}>
@@ -86,8 +87,8 @@ const LoginScreen = () => {
               <TextInput
                 style={styles.inputStyle}
                 autoCorrect={false}
-                autoCapitalize='none'
-                placeholder='Email'
+                autoCapitalize="none"
+                placeholder="Email"
                 value={email}
                 onChangeText={setEmail}
               />
@@ -96,8 +97,8 @@ const LoginScreen = () => {
               <TextInput
                 style={styles.inputStyle}
                 autoCorrect={false}
-                autoCapitalize='none'
-                placeholder='Password'
+                autoCapitalize="none"
+                placeholder="Password"
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
@@ -116,9 +117,9 @@ const LoginScreen = () => {
             </Spacer>
 
             <AuthSubmit
-              submitButtonTitle='Login'
-              navigationRoute='Signup'
-              routeContent='New user? Sign up here'
+              submitButtonTitle="Login"
+              navigationRoute="Signup"
+              routeContent="New user? Sign up here"
               onSubmit={() => {
                 Keyboard.dismiss()
                 submitButtonHandler()

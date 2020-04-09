@@ -14,7 +14,6 @@ import { useAuth } from '@context/authContext'
 import KeyboardDismiss from '@common/keyboardDismiss'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { theme } from '@src/theme'
-import { SCREEN_HEIGHT } from '@src/constants'
 
 const SignupScreen = () => {
   const [email, setEmail] = useState('')
@@ -43,13 +42,9 @@ const SignupScreen = () => {
     register({ email, password, username, dob, name })
   }
 
-  const image = {
-    uri:
-      '/Users/lawanginkhan/IdeaProjects/LNQ/lnq/client/assets/auth-display.png'
-  }
-
   return (
     <ImageBackground
+      // eslint-disable-next-line no-undef
       source={require('../../assets/auth-display.png')}
       style={styles.image}
     >
@@ -66,8 +61,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder='Name'
-                autoCapitalize='none'
+                placeholder="Name"
+                autoCapitalize="none"
                 autoCorrect={false}
                 value={name}
                 onChangeText={setName}
@@ -76,8 +71,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder='Username'
-                autoCapitalize='none'
+                placeholder="Username"
+                autoCapitalize="none"
                 autoCorrect={false}
                 value={username}
                 onChangeText={setUsername}
@@ -86,8 +81,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder='Email Address'
-                autoCapitalize='none'
+                placeholder="Email Address"
+                autoCapitalize="none"
                 autoCorrect={false}
                 value={email}
                 onChangeText={setEmail}
@@ -96,8 +91,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder='Password'
-                autoCapitalize='none'
+                placeholder="Password"
+                autoCapitalize="none"
                 autoCorrect={false}
                 value={password}
                 onChangeText={setPassword}
@@ -106,8 +101,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder='Confirm Password'
-                autoCapitalize='none'
+                placeholder="Confirm Password"
+                autoCapitalize="none"
                 autoCorrect={false}
                 value={confirmPass}
                 onChangeText={setConfirmPass}
@@ -115,9 +110,9 @@ const SignupScreen = () => {
             </Spacer>
 
             <AuthSubmit
-              submitButtonTitle='Sign Up'
-              navigationRoute='Login'
-              routeContent='Have an account already? Sign In Here'
+              submitButtonTitle="Sign Up"
+              navigationRoute="Login"
+              routeContent="Have an account already? Sign In Here"
               onSubmit={() => {
                 Keyboard.dismiss()
                 submitButtonHandler()

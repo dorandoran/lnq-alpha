@@ -1,41 +1,21 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { theme } from '@src/theme'
-import PropTypes from 'prop-types'
+import { createStackNavigator } from '@react-navigation/stack'
+import { CreateProvider } from '@context/createContext'
 
-import { Icon } from 'react-native-elements'
+import CreateDetails from '@components/create/createDetails'
+import CreateInvite from '@components/create/createInvite'
 
-const CreateScreen = ({ navigation }) => {
+const Stack = createStackNavigator()
+
+const CreateScreen = () => {
   return (
-    <View style={styles.container}>
-      <Icon
-        type="ionicon"
-        name="md-close"
-        color={theme.color.tertiary}
-        onPress={() => navigation.goBack()}
-      />
-      <Text style={styles.textStyle}>Create Screen</Text>
-      <Text style={styles.textStyle}>Create Screen</Text>
-      <Text style={styles.textStyle}>Create Screen</Text>
-      <Text style={styles.textStyle}>Create Screen</Text>
-      <Text style={styles.textStyle}>Create Screen</Text>
-      <Text style={styles.textStyle}>Create Screen</Text>
-    </View>
+    <CreateProvider>
+      <Stack.Navigator headerMode="none" initialRouteName="Create Details">
+        <Stack.Screen name="Create Details" component={CreateDetails} />
+        <Stack.Screen name="Create Invite" component={CreateInvite} />
+      </Stack.Navigator>
+    </CreateProvider>
   )
 }
-
-CreateScreen.propTypes = {
-  navigation: PropTypes.object
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.color.primary
-  },
-  textStyle: {
-    color: theme.color.tertiary
-  }
-})
 
 export default CreateScreen

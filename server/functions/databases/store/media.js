@@ -2,17 +2,16 @@ const { firestore } = require('../firebase')
 const admin = require('firebase-admin')
 const timestamp = admin.firestore.Timestamp
 
-const eventsRef = firestore().collection('events')
+const mediaRef = firestore().collection('media')
 
-const saveToDb = event => {
-  event.likes = 0
-  event.created_at = timestamp.now()
+const saveToDb = media => {
+  media.created_at = timestamp.now()
 
-  return eventsRef
-    .doc(event.id)
-    .set(event)
-    .then(doc => {
-      return event
+  return mediaRef
+    .doc(media.id)
+    .set(media)
+    .then(() => {
+      return media
     })
     .catch(e => {
       console.log(e)
@@ -21,7 +20,7 @@ const saveToDb = event => {
 }
 
 const findById = ({ id }) => {
-  return eventsRef
+  return mediaRef
     .doc(id)
     .get()
     .then(doc => {
@@ -36,28 +35,28 @@ const findById = ({ id }) => {
     })
 }
 
-const findByUserId = ({ userId }) => {
-  let events = []
+const findByLinkId = ({ linkId }) => {
+  let media = []
 
-  return eventsRef
-    .where('userId', '==', userId)
+  return mediaRef
+    .where('linkId', '==', linkId)
     .get()
     .then(snap => {
       snap.forEach(doc => {
-        event = doc.data()
-        event.id = doc.id
-        events.push(event)
+        item = doc.data()
+        item.id = doc.id
+        media.push(item)
       })
-      return events
+      return media
     })
     .catch(e => {
       console.log(e)
-      return events
+      return media
     })
 }
 
 module.exports = {
   saveToDb,
   findById,
-  findByUserId
+  findByLinkId
 }
