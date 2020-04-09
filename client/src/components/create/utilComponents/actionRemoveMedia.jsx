@@ -1,24 +1,35 @@
 import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 import CreateContext from '@context/createContext'
 
 import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
 
-const ActionRemoveMedia = () => {
-  const { data, removeMedia } = useContext(CreateContext)
+const ActionRemoveMedia = ({ index }) => {
+  const { details, updateMedia } = useContext(CreateContext)
+  const { media } = details
 
-  if (!data.media.length) return null
+  const handleRemove = () => {
+    if (media.length > 1) {
+      updateMedia(index)
+    }
+  }
 
   return (
     <Icon
       reverse
       type="matieral"
       name="remove"
-      color={theme.color.primary}
+      color={theme.color.background}
       size={20}
-      onPress={() => removeMedia(0)}
+      onPress={handleRemove}
+      disabled={media.length < 2}
     />
   )
+}
+
+ActionRemoveMedia.propTypes = {
+  index: PropTypes.number.isRequired
 }
 
 export default ActionRemoveMedia

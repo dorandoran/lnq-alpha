@@ -14,8 +14,8 @@ const TabBarFab = ({ mainFlowRef }) => {
 
   const navigateToDetails = media => {
     // Passes media to <CreateDetails />
-    mainFlowRef?.current.navigate('Create', {
-      screen: 'Create Details',
+    mainFlowRef.current.navigate('Create', {
+      screen: 'Create',
       params: { media }
     })
   }
