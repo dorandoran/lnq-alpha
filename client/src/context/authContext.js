@@ -6,6 +6,7 @@ import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
 import { f } from '@services/firebase'
 import useCreateUser from '@graphql/user/useCreateUser'
+import { navigate } from '../util/navigationRef'
 
 const AuthContext = createContext()
 
@@ -64,8 +65,6 @@ const AuthProvider = props => {
     const fToken = await AsyncStorage.getItem('token')
     if (fToken) {
       setToken(fToken)
-      console.log(fToken)
-      console.log('stored account')
     }
   }
 
@@ -81,6 +80,9 @@ const AuthProvider = props => {
           result.idToken
         )
         const response = await auth.signInWithCredential(credential)
+        const data = await f.auth().currentUser.getIdToken(true)
+        await AsyncStorage.setItem('token', data)
+        setToken(data)
         setUser(response.user.uid)
       } else {
         return { cancelled: true }
@@ -101,6 +103,9 @@ const AuthProvider = props => {
         // Get the user's name using Facebook's Graph API
         const credential = await f.auth.FacebookAuthProvider.credential(token)
         const response = await auth.signInWithCredential(credential)
+        const data = await f.auth().currentUser.getIdToken(true)
+        await AsyncStorage.setItem('token', data)
+        setToken(data)
         setUser(response.user.uid)
       } else {
         // type === 'cancel'
@@ -108,6 +113,15 @@ const AuthProvider = props => {
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`)
     }
+  }
+
+  const logout = async () => {
+    const fToken = await AsyncStorage.getItem('token')
+    if(fToken) {
+      await AsyncStorage.removeItem('token')
+      setToken(null)
+      navigate('Login')
+    } 
   }
 
   const passReset = async ({ email }) => {
@@ -134,6 +148,7 @@ const AuthProvider = props => {
         tryLocalSignIn,
         signInWithGoogleAsync,
         signInWithFacebook,
+        logout,
         passReset,
         success,
         err,
