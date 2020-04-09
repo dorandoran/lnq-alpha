@@ -6,13 +6,17 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Keyboard
+  Keyboard,
+  ImageBackground
 } from 'react-native'
 import AuthSubmit from '@components/auth/AuthSubmit'
 import ResetModal from '@components/auth/ResetModal'
 import Spacer from '@common/Spacer'
 import { useAuth } from '@context/authContext'
 import KeyboardDismiss from '@common/keyboardDismiss'
+import { theme } from '@src/theme'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { SCREEN_HEIGHT } from '@common/constants'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -56,68 +60,85 @@ const LoginScreen = () => {
   }
 
   return (
-    <KeyboardDismiss>
-      <View style={styles.containerStyle}>
-        {viewModal ? (
-          <ResetModal
-            isModalShown={viewModal}
-            cancelModal={cancelModalViewHandler}
-            emailHolder={email}
-          />
-        ) : null}
-        <Spacer>
-          <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
-        </Spacer>
-        <Spacer>
-          <TextInput
-            style={styles.inputStyle}
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
-          />
-        </Spacer>
-        <Spacer>
-          <TextInput
-            style={styles.inputStyle}
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Password"
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-          />
-        </Spacer>
+    <ImageBackground
+      // eslint-disable-next-line no-undef
+      source={require('../../assets/auth-display.png')}
+      style={styles.image}
+    >
+      <KeyboardAwareScrollView
+        enableOnAndroid
+        contentContainerStyle={styles.keyboardScrollContainer}
+        extraHeight={SCREEN_HEIGHT / 7}
+      >
+        <KeyboardDismiss>
+          <View style={styles.containerStyle}>
+            {viewModal ? (
+              <ResetModal
+                isModalShown={viewModal}
+                cancelModal={cancelModalViewHandler}
+                emailHolder={email}
+              />
+            ) : null}
+            <Text style={styles.welcomeMessageStyle}>Welcome {'\n'}Back</Text>
+            <Spacer>
+              <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
+            </Spacer>
+            <Spacer>
+              <TextInput
+                style={styles.inputStyle}
+                autoCorrect={false}
+                autoCapitalize="none"
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
+              />
+            </Spacer>
+            <Spacer>
+              <TextInput
+                style={styles.inputStyle}
+                autoCorrect={false}
+                autoCapitalize="none"
+                placeholder="Password"
+                secureTextEntry
+                value={password}
+                onChangeText={setPassword}
+              />
+            </Spacer>
 
-        <Spacer>
-          <TouchableOpacity
-            onPress={() => {
-              Keyboard.dismiss()
-              resetModalViewHandler()
-            }}
-          >
-            <Text style={styles.resetStyle}>Reset your Password</Text>
-          </TouchableOpacity>
-        </Spacer>
+            <Spacer>
+              <TouchableOpacity
+                onPress={() => {
+                  Keyboard.dismiss()
+                  resetModalViewHandler()
+                }}
+              >
+                <Text style={styles.resetStyle}>Reset your Password</Text>
+              </TouchableOpacity>
+            </Spacer>
 
-        <AuthSubmit
-          submitButtonTitle="Login"
-          navigationRoute="Signup"
-          routeContent="New user? Sign up here"
-          onSubmit={() => {
-            Keyboard.dismiss()
-            submitButtonHandler()
-          }}
-          onGoogleSubmit={googleSubmitButtonHandler}
-          onFacebookSubmit={facebookSubmitButtonHandler}
-        />
-      </View>
-    </KeyboardDismiss>
+            <AuthSubmit
+              submitButtonTitle="Login"
+              navigationRoute="Signup"
+              routeContent="New user? Sign up here"
+              onSubmit={() => {
+                Keyboard.dismiss()
+                submitButtonHandler()
+              }}
+              onGoogleSubmit={googleSubmitButtonHandler}
+              onFacebookSubmit={facebookSubmitButtonHandler}
+            />
+          </View>
+        </KeyboardDismiss>
+      </KeyboardAwareScrollView>
+    </ImageBackground>
   )
 }
 
 const styles = StyleSheet.create({
+  keyboardScrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center'
+  },
   containerStyle: {
     flex: 1,
     justifyContent: 'center',
@@ -126,18 +147,31 @@ const styles = StyleSheet.create({
   logoPlaceholderStyle: {
     fontWeight: 'bold',
     fontSize: 50,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    color: theme.color.tertiary
+  },
+  welcomeMessageStyle: {
+    fontWeight: 'bold',
+    fontSize: 40,
+    color: theme.color.tertiary,
+    marginLeft: 20
   },
   inputStyle: {
-    backgroundColor: '#eee',
+    backgroundColor: theme.color.tertiary,
     fontSize: 20,
     padding: 10,
-    borderRadius: 8
+    borderRadius: 20
   },
   resetStyle: {
     alignSelf: 'center',
     fontSize: 20,
-    color: '#BE0000'
+    color: theme.color.secondary
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    backgroundColor: theme.color.background
   }
 })
 
