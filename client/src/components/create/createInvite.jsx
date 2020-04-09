@@ -1,28 +1,20 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet } from 'react-native'
 import { theme } from '@src/theme'
 
-import { useNavigation } from '@react-navigation/native'
-
-import { Icon } from 'react-native-elements'
+import { SearchBar } from 'react-native-elements'
 
 const CreateInvite = () => {
-  const navigation = useNavigation()
-
+  const [search, setSearch] = useState('')
   return (
     <View style={styles.container}>
-      <Icon
-        type="ionicon"
-        name="md-close"
-        color={theme.color.tertiary}
-        onPress={() => navigation.goBack()}
+      <SearchBar
+        placeholder="Search"
+        value={search}
+        onChangeText={setSearch}
+        containerStyle={styles.containerStyle}
+        inputContainerStyle={styles.inputContainer}
       />
-      <Text style={styles.textStyle}>Create Invite Screen</Text>
-      <Text style={styles.textStyle}>Create Invite Screen</Text>
-      <Text style={styles.textStyle}>Create Invite Screen</Text>
-      <Text style={styles.textStyle}>Create Invite Screen</Text>
-      <Text style={styles.textStyle}>Create Invite Screen</Text>
-      <Text style={styles.textStyle}>Create Invite Screen</Text>
     </View>
   )
 }
@@ -32,8 +24,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.color.background
   },
-  textStyle: {
-    color: theme.color.tertiary
+  containerStyle: {
+    backgroundColor: theme.color.background,
+    marginBottom: '5%'
+  },
+  inputContainer: {
+    backgroundColor: theme.color.accent,
+    borderRadius: 25,
+    paddingLeft: '3%',
+    borderBottomWidth: 0
   }
 })
 

@@ -65,6 +65,7 @@ const CreateDateTimePicker = ({ date, state, setState, setDate }) => {
         onCancel={handleCancel}
         mode={mode}
         is24Hour={false}
+        minimumDate={new Date()}
       />
     </Fragment>
   )

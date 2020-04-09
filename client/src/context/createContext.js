@@ -1,21 +1,38 @@
 import React, { createContext, useState } from 'react'
 import PropTypes from 'prop-types'
+import { TOMORROW_DATETIME } from '@common/constants'
+import { screenMap } from '@components/create/utilComponents/createUtil'
 
 const CreateContext = createContext()
 
-const initialState = {
-  media: []
-}
+export const CreateProvider = ({ children, initialMedia }) => {
+  const { DETAILS } = screenMap
+  const initialState = {
+    name: '',
+    type: '',
+    location: '',
+    date: TOMORROW_DATETIME,
+    description: '',
+    plusOne: true,
+    isPrivate: true,
+    media: [initialMedia]
+  }
 
-export const CreateProvider = ({ children }) => {
+  const [screen, setScreen] = useState(DETAILS)
   const [details, setDetails] = useState(initialState)
 
-  const updateDetails = newDetails => {
-    setDetails({ ...details, ...newDetails })
+  const updateDetails = (key, input) => {
+    setDetails({ ...details, [key]: input })
   }
 
   const addMedia = item => {
     setDetails({ ...details, media: [...details.media, item] })
+  }
+
+  const updateMedia = (index, newMedia = null) => {
+    const media = [...details.media]
+    media.splice(index, 1, newMedia)
+    setDetails({ ...details, media })
   }
 
   const removeMedia = index => {
@@ -25,9 +42,23 @@ export const CreateProvider = ({ children }) => {
     })
   }
 
+  const resetDetails = () => {
+    setScreen(DETAILS)
+    setDetails(initialState)
+  }
+
   return (
     <CreateContext.Provider
-      value={{ details, updateDetails, addMedia, removeMedia }}
+      value={{
+        details,
+        screen,
+        setScreen,
+        updateDetails,
+        addMedia,
+        updateMedia,
+        removeMedia,
+        resetDetails
+      }}
     >
       {children}
     </CreateContext.Provider>
@@ -36,7 +67,7 @@ export const CreateProvider = ({ children }) => {
 
 CreateProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  selection: PropTypes.string
+  initialMedia: PropTypes.object.isRequired
 }
 
 export default CreateContext

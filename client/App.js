@@ -15,7 +15,9 @@ import ViewContainer from '@components/main/viewContainer'
 const AppContainer = () => {
   const user = useUser()
 
-  return user ? <AuthenticatedApp user={user} /> : <UnAuthenticatedApp />
+  return user ? 
+  <AuthenticatedApp user={user} /> : 
+  <UnAuthenticatedApp />
 }
 
 const App = () => {
