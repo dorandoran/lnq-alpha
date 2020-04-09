@@ -1,10 +1,12 @@
 import React, { createContext, useState, useContext } from 'react'
+import { AsyncStorage } from 'react-native'
 import config from '@config'
 import { auth } from '@services/firebase'
 import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
 import { f } from '@services/firebase'
 import useCreateUser from '@graphql/user/useCreateUser'
+import { navigate } from '@components/util/navigationRef'
 
 const AuthContext = createContext()
 
@@ -12,6 +14,7 @@ const AuthProvider = props => {
   const [isLoading, setIsLoading] = useState(false)
   const [err, setErr] = useState('')
   const [user, setUser] = useState('')
+  const [token, setToken] = useState(null)
   const [success, setSuccess] = useState(false)
   const createUser = useCreateUser()
 
@@ -31,7 +34,9 @@ const AuthProvider = props => {
       await response.user.updateProfile({ displayName: username })
       const id = response.user.uid
       createUser({ email, username, name, dob, id })
-
+      const data = await f.auth().currentUser.getIdToken(true)
+      await AsyncStorage.setItem('token', data)
+      setToken(data)
       setIsLoading(false)
       setUser(id)
     } catch (error) {
@@ -45,11 +50,21 @@ const AuthProvider = props => {
       clearErr()
       setIsLoading(true)
       const response = await auth.signInWithEmailAndPassword(email, password)
+      const data = await f.auth().currentUser.getIdToken(true)
+      await AsyncStorage.setItem('token', data)
+      setToken(data)
       setIsLoading(false)
       setUser(response.user.uid)
     } catch (error) {
       setIsLoading(false)
       setErr(error)
+    }
+  }
+
+  const tryLocalSignIn = async () => {
+    const fToken = await AsyncStorage.getItem('token')
+    if (fToken) {
+      setToken(fToken)
     }
   }
 
@@ -65,6 +80,9 @@ const AuthProvider = props => {
           result.idToken
         )
         const response = await auth.signInWithCredential(credential)
+        const data = await f.auth().currentUser.getIdToken(true)
+        await AsyncStorage.setItem('token', data)
+        setToken(data)
         setUser(response.user.uid)
       } else {
         return { cancelled: true }
@@ -85,12 +103,24 @@ const AuthProvider = props => {
         // Get the user's name using Facebook's Graph API
         const credential = await f.auth.FacebookAuthProvider.credential(token)
         const response = await auth.signInWithCredential(credential)
+        const data = await f.auth().currentUser.getIdToken(true)
+        await AsyncStorage.setItem('token', data)
+        setToken(data)
         setUser(response.user.uid)
       } else {
         // type === 'cancel'
       }
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`)
+    }
+  }
+
+  const logout = async () => {
+    const fToken = await AsyncStorage.getItem('token')
+    if (fToken) {
+      await AsyncStorage.removeItem('token')
+      setToken(null)
+      navigate('Login')
     }
   }
 
@@ -112,10 +142,13 @@ const AuthProvider = props => {
     <AuthContext.Provider
       value={{
         user,
+        token,
         register,
         login,
+        tryLocalSignIn,
         signInWithGoogleAsync,
         signInWithFacebook,
+        logout,
         passReset,
         success,
         err,
