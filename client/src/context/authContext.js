@@ -6,7 +6,7 @@ import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
 import { f } from '@services/firebase'
 import useCreateUser from '@graphql/user/useCreateUser'
-import { navigate } from '../util/navigationRef'
+import { navigate } from '@components/util/navigationRef'
 
 const AuthContext = createContext()
 
@@ -117,11 +117,11 @@ const AuthProvider = props => {
 
   const logout = async () => {
     const fToken = await AsyncStorage.getItem('token')
-    if(fToken) {
+    if (fToken) {
       await AsyncStorage.removeItem('token')
       setToken(null)
       navigate('Login')
-    } 
+    }
   }
 
   const passReset = async ({ email }) => {
