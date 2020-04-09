@@ -2,20 +2,20 @@ import { useState, useEffect } from 'react'
 import { storage, firestore } from '@services/firebase'
 import useCreateMedia from '@graphql/media/useCreateMedia'
 import { useUser } from '@context/userContext'
-import { EVENT_CONST, MEDIA_CONST } from '@common/constants'
+import { MEDIA_CONST } from '@common/constants'
 
-const useStorage = ({ localMediaUri, bucketName, skip }) => {
+const useStorage = ({ uri, bucketName, skip }) => {
   const [media, setMedia] = useState(null)
   const [loading, setLoading] = useState(false)
   const createMedia = useCreateMedia()
   const userId = useUser()
 
-  // TODO: Fix constants
   const mediaRef = firestore.collection(MEDIA_CONST).doc()
-  const eventRef = firestore.collection(EVENT_CONST).doc()
-  const eventStorage = storage.ref().child(`${bucketName}/${mediaRef.id}`)
+  const linkRef = firestore.collection(bucketName).doc()
+  const linkStorage = storage.ref().child(`${bucketName}/${mediaRef.id}`)
 
   useEffect(() => {
+    // Clean up variable
     let didCancel = false
 
     async function upload() {
@@ -34,13 +34,13 @@ const useStorage = ({ localMediaUri, bucketName, skip }) => {
           reject(new TypeError('Network request failed'))
         }
         xhr.responseType = 'blob'
-        xhr.open('GET', localMediaUri, true)
+        xhr.open('GET', uri, true)
         xhr.send(null)
       })
 
       // Send blob to storage
-      const newMedia = { id: mediaRef.id, userId, linkId: eventRef.id }
-      const uploadTask = eventStorage.put(mediaBlob)
+      const newMedia = { id: mediaRef.id, userId, linkId: linkRef.id }
+      const uploadTask = linkStorage.put(mediaBlob)
 
       // Check progress
       uploadTask.on(
@@ -59,7 +59,7 @@ const useStorage = ({ localMediaUri, bucketName, skip }) => {
         // Finished sending media
         async () => {
           mediaBlob.close()
-          newMedia.uri = await eventStorage.getDownloadURL()
+          newMedia.uri = await linkStorage.getDownloadURL()
 
           // Save Media to Firestore
           createMedia(newMedia)

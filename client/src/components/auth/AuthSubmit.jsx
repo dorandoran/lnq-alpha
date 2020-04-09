@@ -43,7 +43,7 @@ const AuthSubmit = ({
       </Spacer>
       <Spacer>
         <View style={styles.lineStyle}>
-          <Text>──────── Or Connect With ────────</Text>
+          <Text style={styles.lineStyle}>──────── Or Connect With ────────</Text>
         </View>
       </Spacer>
       <Spacer>
@@ -66,7 +66,8 @@ const AuthSubmit = ({
 
 const styles = StyleSheet.create({
   lineStyle: {
-    alignItems: 'center'
+    alignItems: 'center',
+    color: theme.color.tertiary
   },
   oauthStyle: {
     flexDirection: 'row',
@@ -75,18 +76,21 @@ const styles = StyleSheet.create({
   signinStyle: {
     alignSelf: 'center',
     fontSize: 20,
-    color: '#BE0000'
+    color: theme.color.tertiary
   },
   submitButtonStyle: {
-    backgroundColor: theme.color.primary
+    backgroundColor: theme.color.secondary,
+    borderRadius: 20
   },
   authButtonsFb: {
     width: 150,
-    backgroundColor: theme.color.primary
+    backgroundColor: theme.color.primary,
+    borderRadius: 20
   },
   authButtonsGg: {
     width: 150,
-    backgroundColor: '#BE0000'
+    backgroundColor: theme.color.secondary,
+    borderRadius: 20
   }
 })
 
