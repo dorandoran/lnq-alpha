@@ -10,7 +10,9 @@ const disableTabBar = ['Create']
 
 const initialState = {
   name: 'Home',
-  tabBar: true
+  tabBar: true,
+  modal: false,
+  objectId: null
 }
 
 // Reducer
@@ -20,8 +22,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         name: action.payload,
-        tabBar: disableTabBar.includes(action.payload)
+        tabBar: !disableTabBar.includes(action.payload)
       }
+    case 'openModal':
+      return { ...state, modal: true, objectId: action.payload }
+    case 'closeModal':
+      return { ...state, modal: false, objectId: null }
     default:
       return state
   }

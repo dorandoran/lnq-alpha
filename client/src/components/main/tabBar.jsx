@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
-import Fab from '@components/tabBarFab'
+import Fab from '@components/main/tabBarFab'
 
 import { theme } from '@src/theme'
 import { SCREEN_HEIGHT } from '@common/constants'
@@ -15,7 +15,7 @@ const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {
 
   return (
     <TouchableOpacity
-      style={[styles.iconContainer]}
+      style={styles.iconContainer}
       onPress={() => onPress(tabName)}
     >
       <Icon {...rest} color={iconColor} />
@@ -24,15 +24,15 @@ const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {
 }
 
 const TabBar = ({ mainFlowRef }) => {
-  const routeState = useContext(Route.State)
+  const { name, tabBar } = useContext(Route.State)
 
   const handlePress = screen => {
-    mainFlowRef?.current.navigate(screen)
+    mainFlowRef.current?.navigate(screen)
   }
 
   // Turns off tab bar
   // Useful for things like <CreateScreen />
-  if (routeState.tabBar) return null
+  if (!tabBar) return null
 
   return (
     <View style={styles.container}>
@@ -42,7 +42,7 @@ const TabBar = ({ mainFlowRef }) => {
           type="ionicon"
           name="ios-home"
           onPress={handlePress}
-          route={routeState.name}
+          route={name}
         />
         <TabIcon
           tabName="Search"
@@ -50,14 +50,14 @@ const TabBar = ({ mainFlowRef }) => {
           name="search"
           size={28}
           onPress={handlePress}
-          route={routeState.name}
+          route={name}
         />
         <TabIcon
           tabName="Locate"
           type="ionicon"
           name="md-pin"
           onPress={handlePress}
-          route={routeState.name}
+          route={name}
         />
         <TabIcon
           tabName="Profile"
@@ -65,7 +65,7 @@ const TabBar = ({ mainFlowRef }) => {
           name="account"
           size={28}
           onPress={handlePress}
-          route={routeState.name}
+          route={name}
         />
       </View>
       <View style={styles.createContainer}>

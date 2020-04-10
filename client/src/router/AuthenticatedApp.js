@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useContext } from 'react'
+import React from 'react'
 import { Route } from '@context/routeStore'
 
 // Navigators
@@ -12,17 +12,19 @@ import LocateScreen from '@screens/locateScreen'
 import ProfileScreen from '@screens/profileScreen'
 import CreateScreen from '@screens/createScreen'
 
-import TabBar from '@components/theTabBar'
+import AppModal from '@components/modal/appModal'
+import TabBar from '@components/main/tabBar'
 
 const Tab = createBottomTabNavigator()
 
-const mainFlow = () => {
-  const [loaded, setLoaded] = useState(false)
-  const ref = useRef(null)
-  const routeDispatch = useContext(Route.Dispatch)
+const AuthenticatedApp = () => {
+  const [loaded, setLoaded] = React.useState(false)
+  const ref = React.useRef(null)
+  const routeDispatch = React.useContext(Route.Dispatch)
+
   console.log('run')
   // This is done to set the NavigationContainer ref after loading
-  useEffect(() => {
+  React.useEffect(() => {
     if (!loaded) {
       setLoaded(true)
     }
@@ -77,8 +79,17 @@ const mainFlow = () => {
         </Tab.Navigator>
       </NavigationContainer>
       <TabBar mainFlowRef={ref} />
+      <AppModal />
     </React.Fragment>
   )
 }
 
-export default mainFlow
+// const AuthenticatedApp = () => {
+//   return (
+//     <ModalProvider>
+//       <AppView />
+//     </ModalProvider>
+//   )
+// }
+
+export default AuthenticatedApp
