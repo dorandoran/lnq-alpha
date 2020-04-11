@@ -6,7 +6,8 @@ export const hasNotch = () => {
   const { modelName: model, brand } = Device
 
   if (model && brand) {
-    // If in dev mode using a simulator, you must set this in dev.json
+    // If in dev mode and using an Android simulator,
+    // you must set DEVICE.NOTCH properly in dev.json
     if (model === 'AOSP on IA Emulator') {
       return config.DEVICE.NOTCH
     }
