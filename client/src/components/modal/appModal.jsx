@@ -17,10 +17,14 @@ import {
 import { Icon } from 'react-native-elements'
 import Constants from 'expo-constants'
 
-import { Header } from '@common'
-import Loading from '@common/loading'
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@common/constants'
-import ViewContainer from '@components/main/viewContainer'
+import { Header, Loading } from '@common'
+
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util/constants'
+import { hasNotch } from '@components/util'
+
+// Screen height is calculated different based on notches
+const adjustedScreenHeight =
+  SCREEN_HEIGHT - (hasNotch() ? 0 : Constants.statusBarHeight)
 
 const AppModal = () => {
   const { modal, objectId } = useContext(Route.State)
@@ -37,60 +41,52 @@ const AppModal = () => {
 
   return (
     <Modal visible={modal} statusBarTranslucent>
-      <ViewContainer>
-        <ScrollView
-          style={[styles.container, styles.flex]}
-          snapToInterval={SCREEN_HEIGHT - Constants.statusBarHeight}
+      <ScrollView
+        style={[styles.container, styles.flex]}
+        snapToInterval={adjustedScreenHeight}
+      >
+        <ImageBackground
+          source={{ uri: data?.event.media[0].uri }}
+          style={styles.image}
         >
-          <ImageBackground
-            source={{ uri: data?.event.media[0].uri }}
-            style={styles.image}
-          >
-            <View style={styles.imageContainer}>
-              <Header position="relative">
-                <TouchableOpacity
-                  onPress={() => dispatch({ type: 'closeModal' })}
-                  style={styles.iconContainer}
-                >
-                  <Icon
-                    type="ionicon"
-                    name="ios-arrow-back"
-                    color={theme.color.tertiary}
-                  />
-                </TouchableOpacity>
-                <View />
-                <TouchableOpacity
-                  onPress={() => {}}
-                  style={styles.iconContainer}
-                >
-                  <Icon
-                    type="material-community"
-                    name="menu"
-                    color={theme.color.tertiary}
-                  />
-                </TouchableOpacity>
-              </Header>
-              <Header position="relative">
-                <View />
-                <View />
-                <TouchableOpacity
-                  onPress={() => {}}
-                  style={styles.iconContainer}
-                >
-                  <Icon
-                    type="ionicon"
-                    name="ios-arrow-up"
-                    color={theme.color.tertiary}
-                  />
-                </TouchableOpacity>
-              </Header>
-            </View>
-          </ImageBackground>
-          <View style={[styles.infoContainer, styles.image]}>
-            <Text style={styles.text}>This is text</Text>
+          <View style={styles.imageContainer}>
+            <Header position="relative">
+              <TouchableOpacity
+                onPress={() => dispatch({ type: 'closeModal' })}
+                style={styles.iconContainer}
+              >
+                <Icon
+                  type="ionicon"
+                  name="ios-arrow-back"
+                  color={theme.color.tertiary}
+                />
+              </TouchableOpacity>
+              <View />
+              <TouchableOpacity onPress={() => {}} style={styles.iconContainer}>
+                <Icon
+                  type="material-community"
+                  name="menu"
+                  color={theme.color.tertiary}
+                />
+              </TouchableOpacity>
+            </Header>
+            <Header position="relative">
+              <View />
+              <View />
+              <TouchableOpacity onPress={() => {}} style={styles.iconContainer}>
+                <Icon
+                  type="ionicon"
+                  name="ios-arrow-up"
+                  color={theme.color.tertiary}
+                />
+              </TouchableOpacity>
+            </Header>
           </View>
-        </ScrollView>
-      </ViewContainer>
+        </ImageBackground>
+        <View style={[styles.infoContainer, styles.image]}>
+          <Text style={styles.name}>{data?.event.name}</Text>
+        </View>
+      </ScrollView>
     </Modal>
   )
 }
@@ -104,18 +100,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between'
   },
-  infoContainer: {},
+  infoContainer: {
+    alignItems: 'center'
+  },
   iconContainer: {
     backgroundColor: theme.color.accent,
     aspectRatio: 1,
-    padding: 3,
+    padding: '2%',
     borderRadius: 25
   },
-  text: {
-    color: theme.color.tertiary
+  name: {
+    color: theme.color.tertiary,
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: '3%'
   },
   image: {
-    height: SCREEN_HEIGHT - 2 * Constants.statusBarHeight,
+    height: adjustedScreenHeight,
     width: SCREEN_WIDTH
   }
 })
