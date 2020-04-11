@@ -67,6 +67,10 @@ export const CONTAINS_NOTCH = [
     model: 'iPhone XR'
   },
   {
+    brand: 'Apple',
+    model: 'iPhone 11'
+  },
+  {
     brand: 'Asus',
     model: 'ZenFone 5'
   },
