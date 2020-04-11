@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
-import Spacer from '@common/Spacer'
+import { Spacer } from '@common'
 import { withNavigation } from '@react-navigation/compat'
 import { useAuth } from '@context/authContext'
 import { theme } from '@src/theme'
@@ -43,7 +43,9 @@ const AuthSubmit = ({
       </Spacer>
       <Spacer>
         <View style={styles.lineStyle}>
-          <Text style={styles.lineStyle}>──────── Or Connect With ────────</Text>
+          <Text style={styles.lineStyle}>
+            ──────── Or Connect With ────────
+          </Text>
         </View>
       </Spacer>
       <Spacer>

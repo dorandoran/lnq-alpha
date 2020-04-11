@@ -8,10 +8,9 @@ import {
   Keyboard,
   ImageBackground
 } from 'react-native'
-import Spacer from '@common/Spacer'
+import { Spacer, KeyboardDismiss } from '@common'
 import AuthSubmit from '@components/auth/AuthSubmit'
 import { useAuth } from '@context/authContext'
-import KeyboardDismiss from '@common/keyboardDismiss'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { theme } from '@src/theme'
 

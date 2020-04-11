@@ -16,7 +16,7 @@ import {
 import { Icon } from 'react-native-elements'
 
 import ViewContainer from '@components/main/viewContainer'
-import Header from '@common/header'
+import { Header } from '@common'
 
 const AppModal = () => {
   const { modal, objectId } = useContext(Route.State)

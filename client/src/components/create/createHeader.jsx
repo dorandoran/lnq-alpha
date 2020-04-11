@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import CreateContext from '@context/createContext'
 
 import { View, Keyboard, Text, StyleSheet } from 'react-native'
-import Header from '@common/header'
+import { Header } from '@common'
 import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
 
