@@ -33,12 +33,27 @@ const LoginScreen = () => {
   } = useAuth()
 
   useEffect(() => {
-    tryLocalSignIn()
     if (err) {
       alert(err)
     }
     return clearErr()
   }, [err])
+
+  /*  Attempts to login user on app open
+        - tryLocalSignIn() returns a function to unsubscribe from onAuthStateChanged
+        - after attempting to login, the app unsubscribes from the listener 
+          in order to save battery and a constant authState connection */
+  useEffect(() => {
+    let unsubscribe
+    async function attemptLogin() {
+      unsubscribe = await tryLocalSignIn()
+    }
+
+    attemptLogin()
+    return () => {
+      if (unsubscribe) unsubscribe()
+    }
+  }, [])
 
   const resetModalViewHandler = () => {
     setViewModal(!viewModal)

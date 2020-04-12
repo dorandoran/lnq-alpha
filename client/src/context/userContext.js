@@ -4,8 +4,8 @@ import { useAuth } from '@context/authContext'
 const UserContext = createContext()
 
 const UserProvider = props => {
-  const { token } = useAuth()
-  return <UserContext.Provider value={token} {...props} />
+  const { user } = useAuth()
+  return <UserContext.Provider value={user} {...props} />
 }
 
 const useUser = () => {
