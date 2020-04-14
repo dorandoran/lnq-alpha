@@ -1,5 +1,6 @@
 const { gql } = require('apollo-server-cloud-functions')
 
+const User = require('../../databases/store/user')
 const Event = require('../../databases/store/event')
 const Media = require('../../databases/store/media')
 const Invite = require('../../databases/store/invite')
@@ -41,6 +42,9 @@ exports.resolvers = {
   },
   // Field Resolve
   Event: {
+    owner: (parent, args, context, info) => {
+      return User.findById({ id: parent.ownerId })
+    },
     media: (parent, args, context, info) => {
       return Media.findAllByLinkId({ linkId: parent.id })
     },

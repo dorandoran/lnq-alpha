@@ -2,7 +2,8 @@ import Constants from 'expo-constants'
 
 const ENV = {
   dev: {
-    GRAPHQL_ENDPOINT: 'https://us-central1-lnq-alpha.cloudfunctions.net/test2',
+    GRAPHQL_ENDPOINT:
+      'https://us-central1-lnq-alpha.cloudfunctions.net/dbupdates',
     GOOGLE: {
       API_KEY: 'AIzaSyC1V1JZUnk_L_13zV4P6A96mCh3I87z9Ko',
       AUTH_DOMAIN: 'lnq-alpha.firebaseapp.com',
