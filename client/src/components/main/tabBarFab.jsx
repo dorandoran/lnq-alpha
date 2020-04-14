@@ -61,13 +61,6 @@ const styles = StyleSheet.create({
   },
   fabContainer: {
     position: 'absolute'
-  },
-  textStyle: {
-    fontFamily: 'notoserif',
-    color: theme.color.tertiary,
-    backgroundColor: theme.color.secondary,
-    padding: 10,
-    borderRadius: 25
   }
 })
 

@@ -5,7 +5,6 @@ const timestamp = admin.firestore.Timestamp
 const usersRef = firestore().collection('users')
 
 const saveToDb = user => {
-  user.events = []
   user.created_at = timestamp.now()
 
   return usersRef

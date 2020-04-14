@@ -32,25 +32,21 @@ const ActionSelectMedia = ({ navigateToDetails, onComplete, type, color }) => {
 
   useEffect(() => {
     let didCancel = false
+    const imagePickerOptions = {
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false,
+      aspect: [16, 9],
+      quality: 0.8 // Setting to 1 freezes when send media to firebase storage
+    }
 
     async function launchMediaAsync() {
       let result
       await getCameraRollPermissions()
       if (!didCancel && type === CAMERA_SELECTION) {
         await getCameraPermissions()
-        result = await ImagePicker.launchCameraAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: false,
-          aspect: [16, 9],
-          quality: 0.8 // Setting to 1 freezes when send media to firebase storage
-        })
+        result = await ImagePicker.launchCameraAsync(imagePickerOptions)
       } else {
-        result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: false,
-          aspect: [16, 9],
-          quality: 0.8 // Setting to 1 freezes when send media to firebase storage
-        })
+        result = await ImagePicker.launchImageLibraryAsync(imagePickerOptions)
       }
 
       if (!result.cancelled) {
