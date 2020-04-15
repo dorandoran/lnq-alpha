@@ -6,5 +6,9 @@ module.exports = [
   {
     id: 'GQLTester2',
     token: '@lnqdeveloper1234'
+  },
+  {
+    id: 'GQLTester3',
+    token: '&lnq1234developer'
   }
 ]
