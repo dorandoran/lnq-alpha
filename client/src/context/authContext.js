@@ -1,10 +1,8 @@
 import React, { createContext, useState, useContext } from 'react'
-import { AsyncStorage } from 'react-native'
 import config from '@config'
 import { auth } from '@services/firebase'
 import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
-import { f } from '@services/firebase'
 import useCreateUser from '@graphql/user/useCreateUser'
 import { navigate } from '@components/util/navigationRef'
 
@@ -13,8 +11,7 @@ const AuthContext = createContext()
 const AuthProvider = props => {
   const [isLoading, setIsLoading] = useState(false)
   const [err, setErr] = useState('')
-  const [user, setUser] = useState('')
-  const [token, setToken] = useState(null)
+  const [user, setUser] = useState(null)
   const [success, setSuccess] = useState(false)
   const createUser = useCreateUser()
 
@@ -33,10 +30,8 @@ const AuthProvider = props => {
       )
       await response.user.updateProfile({ displayName: username })
       const id = response.user.uid
+
       createUser({ email, username, name, dob, id })
-      const data = await f.auth().currentUser.getIdToken(true)
-      await AsyncStorage.setItem('token', data)
-      setToken(data)
       setIsLoading(false)
       setUser(id)
     } catch (error) {
@@ -50,11 +45,10 @@ const AuthProvider = props => {
       clearErr()
       setIsLoading(true)
       const response = await auth.signInWithEmailAndPassword(email, password)
-      const data = await f.auth().currentUser.getIdToken(true)
-      await AsyncStorage.setItem('token', data)
-      setToken(data)
+      const id = response.user.uid
+
       setIsLoading(false)
-      setUser(response.user.uid)
+      setUser(id)
     } catch (error) {
       setIsLoading(false)
       setErr(error)
@@ -62,10 +56,15 @@ const AuthProvider = props => {
   }
 
   const tryLocalSignIn = async () => {
-    const fToken = await AsyncStorage.getItem('token')
-    if (fToken) {
-      setToken(fToken)
-    }
+    setIsLoading(true)
+    const unsubscribe = auth.onAuthStateChanged(async user => {
+      if (user) {
+        const id = user.uid
+        setUser(id)
+      }
+      setIsLoading(false)
+    })
+    return unsubscribe
   }
 
   const signInWithGoogleAsync = async () => {
@@ -76,14 +75,13 @@ const AuthProvider = props => {
         scopes: ['profile', 'email']
       })
       if (result.type === 'success') {
-        const credential = await f.auth.GoogleAuthProvider.credential(
+        const credential = await auth.GoogleAuthProvider.credential(
           result.idToken
         )
         const response = await auth.signInWithCredential(credential)
-        const data = await f.auth().currentUser.getIdToken(true)
-        await AsyncStorage.setItem('token', data)
-        setToken(data)
-        setUser(response.user.uid)
+        const id = response.user.uid
+
+        setUser(id)
       } else {
         return { cancelled: true }
       }
@@ -96,19 +94,19 @@ const AuthProvider = props => {
   const signInWithFacebook = async () => {
     try {
       await Facebook.initializeAsync(config.FACEBOOK_ASYNC_ID)
-      const { type, token } = await Facebook.logInWithReadPermissionsAsync({
+      const {
+        type,
+        token: fbToken
+      } = await Facebook.logInWithReadPermissionsAsync({
         permissions: ['email', 'public_profile']
       })
       if (type === 'success') {
         // Get the user's name using Facebook's Graph API
-        const credential = await f.auth.FacebookAuthProvider.credential(token)
+        const credential = await auth.FacebookAuthProvider.credential(fbToken)
         const response = await auth.signInWithCredential(credential)
-        const data = await f.auth().currentUser.getIdToken(true)
-        await AsyncStorage.setItem('token', data)
-        setToken(data)
-        setUser(response.user.uid)
-      } else {
-        // type === 'cancel'
+        const id = response.user.uid
+
+        setUser(id)
       }
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`)
@@ -116,12 +114,16 @@ const AuthProvider = props => {
   }
 
   const logout = async () => {
-    const fToken = await AsyncStorage.getItem('token')
-    if (fToken) {
-      await AsyncStorage.removeItem('token')
-      setToken(null)
-      navigate('Login')
-    }
+    auth
+      .signOut()
+      .then(() => {
+        setUser(null)
+        navigate('Login')
+      })
+      .catch(e => {
+        // TODO: Error Handling
+        console.log(e)
+      })
   }
 
   const passReset = async ({ email }) => {
@@ -142,7 +144,6 @@ const AuthProvider = props => {
     <AuthContext.Provider
       value={{
         user,
-        token,
         register,
         login,
         tryLocalSignIn,
