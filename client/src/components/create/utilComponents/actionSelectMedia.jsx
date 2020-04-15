@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
-import { CAMERA_SELECTION } from '@common/constants'
+import { CAMERA_SELECTION } from '@components/util/constants'
 
 const ActionSelectMedia = ({ navigateToDetails, onComplete, type, color }) => {
   const [isSelected, setIsSelected] = useState(false)

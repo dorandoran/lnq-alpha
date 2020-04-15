@@ -6,7 +6,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 
 import { theme } from '@src/theme'
-import { DATE_FORMAT, TIME_FORMAT } from '@common/constants'
+import { DATE_FORMAT, TIME_FORMAT } from '@components/util/constants'
 
 const CreateDateTimePicker = ({ date, state, setState, setDate }) => {
   const { visible, mode } = state

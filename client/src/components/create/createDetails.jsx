@@ -10,7 +10,7 @@ import DateTimePicker from '@components/create/createDateTimePicker'
 import ImageList from '@components/create/createImageList'
 import Picker from '@components/create/createPicker'
 
-import { KEYBOARD_AVOID_HEIGHT } from '@common/constants'
+import { KEYBOARD_AVOID_HEIGHT } from '@components/util/constants'
 import { inputMap } from '@components/create/utilComponents/createUtil'
 
 const initialDTState = {

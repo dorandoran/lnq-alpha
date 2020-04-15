@@ -46,3 +46,4 @@ exports.graphql = functions.https.onRequest(apolloServer.createHandler())
 */
 
 exports.dbupdates = functions.https.onRequest(apolloServer.createHandler())
+// exports.test = functions.https.onRequest(apolloServer.createHandler())
