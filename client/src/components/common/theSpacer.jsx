@@ -1,10 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { View, StyleSheet } from 'react-native'
 
 const Spacer = ({ children }) => {
-  return (
-    <View style={styles.spacer}>{children}</View>
-  )
+  return <View style={styles.spacer}>{children}</View>
 }
 
 const styles = StyleSheet.create({
@@ -12,5 +11,9 @@ const styles = StyleSheet.create({
     margin: 15
   }
 })
+
+Spacer.propTypes = {
+  children: PropTypes.node
+}
 
 export default Spacer

@@ -4,7 +4,7 @@ import Picker from 'react-native-picker-select'
 import { View, Text, StyleSheet, Keyboard } from 'react-native'
 
 import { theme } from '@src/theme'
-import { EVENT_TYPE_MAP } from '@common/constants'
+import { EVENT_TYPE_MAP } from '@components/util/constants'
 
 const CreatePicker = ({ value, onValueChange }) => {
   const placeholder = { label: 'Select an Event Type', value: '' }

@@ -4,6 +4,8 @@ import { View, StyleSheet, StatusBar } from 'react-native'
 import Constants from 'expo-constants'
 import { theme } from '@src/theme'
 
+import { hasNotch } from '@components/util'
+
 const ViewContainer = ({ children }) => {
   return (
     <View style={styles.container}>
@@ -13,10 +15,12 @@ const ViewContainer = ({ children }) => {
   )
 }
 
+const notch = hasNotch()
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Constants.statusBarHeight,
+    paddingTop: notch ? Constants.statusBarHeight : 0,
     backgroundColor: theme.color.background
   }
 })
