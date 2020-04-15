@@ -2,7 +2,7 @@
 
 mutation CreateEvent(
   $id: String!
-  $userId: String!
+  $ownerId: String!
   $name: String!
   $type: String!
   $date: Date!
@@ -14,13 +14,12 @@ mutation CreateEvent(
 ) {
   createEvent(
     id: $id
-    userId: $userId
+    ownerId: $ownerId
     name: $name
     type: $type
     date: $date
     location: $location
     description: $description
-    media: $media
     plusOne: $plusOne
     isPrivate: $isPrivate
   ) {

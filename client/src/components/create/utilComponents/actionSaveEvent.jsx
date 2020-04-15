@@ -14,7 +14,7 @@ const ActionSaveEvent = ({ onComplete }) => {
   const [actionSelected, setActionSelected] = useState(false)
   const { details } = useContext(CreateContext)
   const createEvent = useCreateEvent()
-  const userId = useUser()
+  const ownerId = useUser()
 
   // If action is selected, run useStorage
   const { media } = useStorage({
@@ -27,9 +27,8 @@ const ActionSaveEvent = ({ onComplete }) => {
     let didCancel = false
     if (media) {
       // Clean up event object and send to server
-      details.media = [media.id]
       details.id = media.linkId
-      !didCancel && createEvent({ ...details, userId })
+      !didCancel && createEvent({ ...details, ownerId })
 
       // Action clean up
       setActionSelected(false)

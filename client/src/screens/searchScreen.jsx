@@ -9,7 +9,7 @@ import { theme } from '@src/theme'
 import { ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
 import { Card, ListItem } from 'react-native-elements'
 
-const TEST_ID = 'LP8fNdWlcMXrCf3Ugavp'
+const TEST_ID = 'VXD9Pm7Qg6yKOo9fSNdE'
 
 const SearchScreen = () => {
   const dispatch = useContext(Route.Dispatch)
@@ -20,6 +20,7 @@ const SearchScreen = () => {
   if (loading)
     return <ActivityIndicator size="large" color={theme.color.secondary} />
 
+  if (!data?.event) return <ActivityIndicator size="large" color="blue" />
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Card>

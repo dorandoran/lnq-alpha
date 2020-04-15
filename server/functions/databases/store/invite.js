@@ -5,17 +5,10 @@ const timestamp = admin.firestore.Timestamp
 const usersRef = firestore().collection('users')
 const eventsRef = firestore().collection('events')
 
-const saveToDb = event => {
+const saveAllToDb = ({ recipientIds, eventId }) => {
   const writeBatch = firestore().batch()
-  const invitesRef = eventsRef.doc(event.id).collection('invites')
-  const recipientIds = event.recipientIds
+  const invitesRef = eventsRef.doc(invite.eventId).collection('invites')
   const invites = []
-
-  delete event.recipientIds
-  event.likes = 0
-  event.created_at = timestamp.now()
-
-  writeBatch.set(eventsRef.doc(event.id), event)
 
   recipientIds.forEach(recipientId => {
     const docRef = invitesRef.doc()
@@ -27,7 +20,7 @@ const saveToDb = event => {
     const invite = {
       id: docRef.id,
       recipientId,
-      eventId: event.id,
+      eventId,
       answer: 'invited',
       updated_at: timestamp.now()
     }
@@ -39,7 +32,7 @@ const saveToDb = event => {
   return writeBatch
     .commit()
     .then(() => {
-      return event
+      return invites
     })
     .catch(e => {
       // TODO: Error Handling
@@ -48,44 +41,44 @@ const saveToDb = event => {
     })
 }
 
-const findById = ({ id }) => {
-  return eventsRef
-    .doc(id)
-    .get()
-    .then(doc => {
-      if (doc.exists) {
-        return doc.data()
-      }
-      return null
-    })
-    .catch(e => {
-      console.log(e)
-      return null
-    })
-}
+const findAllByEventId = async ({ eventId }) => {
+  const invitesRef = await eventsRef.doc(eventId).collection('invites')
+  let invites = []
 
-const findAllByOwnerId = ({ ownerId }) => {
-  let events = []
-
-  return eventsRef
-    .where('ownerId', '==', ownerId)
+  return invitesRef
     .get()
     .then(snap => {
       snap.forEach(doc => {
-        event = doc.data()
-        event.id = doc.id
-        events.push(event)
+        invites.push(doc.data())
       })
-      return events
+      return invites
     })
     .catch(e => {
       console.log(e)
-      return events
+      return invites
+    })
+}
+
+const findAllByUserId = async ({ userId }) => {
+  const invitesRef = await usersRef.doc(userId).collection('invites')
+  let invites = []
+
+  return invitesRef
+    .get()
+    .then(snap => {
+      snap.forEach(doc => {
+        invites.push(doc.data())
+      })
+      return invites
+    })
+    .catch(e => {
+      console.log(e)
+      return invites
     })
 }
 
 module.exports = {
-  saveToDb,
-  findById,
-  findAllByOwnerId
+  saveAllToDb,
+  findAllByEventId,
+  findAllByUserId
 }

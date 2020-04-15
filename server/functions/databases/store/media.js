@@ -35,11 +35,11 @@ const findById = ({ id }) => {
     })
 }
 
-const findByLinkId = ({ linkId }) => {
+const findAllByLinkId = ({ linkId }) => {
   let media = []
 
   return mediaRef
-    .where('linkId', '==', linkId)
+    .where('linkId', 'array-contains', linkId)
     .get()
     .then(snap => {
       snap.forEach(doc => {
@@ -58,5 +58,5 @@ const findByLinkId = ({ linkId }) => {
 module.exports = {
   saveToDb,
   findById,
-  findByLinkId
+  findAllByLinkId
 }

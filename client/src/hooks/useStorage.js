@@ -39,7 +39,7 @@ const useStorage = ({ uri, bucketName, skip }) => {
       })
 
       // Send blob to storage
-      const newMedia = { id: mediaRef.id, userId, linkId: linkRef.id }
+      const newMedia = { id: mediaRef.id, userId, linkId: [linkRef.id] }
       const uploadTask = linkStorage.put(mediaBlob)
 
       // Check progress
