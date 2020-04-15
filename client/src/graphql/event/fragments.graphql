@@ -1,12 +1,16 @@
 fragment eventFields on Event {
   id
-  userId
+  owner {
+    id
+    username
+  }
   name
   type
   date
   location
   description
   created_at
+  url
   media {
     id
     uri
