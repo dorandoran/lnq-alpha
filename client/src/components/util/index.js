@@ -1,5 +1,5 @@
 import * as Device from 'expo-device'
-import { CONTAINS_NOTCH } from '@components/util/constants'
+import { NOTCH_LIST } from '@util/notchList'
 import config from '@config'
 
 export const hasNotch = () => {
@@ -12,14 +12,12 @@ export const hasNotch = () => {
       return config.DEVICE.NOTCH
     }
 
-    if (CONTAINS_NOTCH) {
-      return (
-        CONTAINS_NOTCH.findIndex(
-          device =>
-            device.model.toLowerCase() === model.toLowerCase() &&
-            device.brand.toLowerCase() === brand.toLowerCase()
-        ) !== -1
-      )
-    }
+    return (
+      NOTCH_LIST.findIndex(
+        device =>
+          device.model.toLowerCase() === model.toLowerCase() &&
+          device.brand.toLowerCase() === brand.toLowerCase()
+      ) !== -1
+    )
   }
 }
