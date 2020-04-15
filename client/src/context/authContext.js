@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext } from 'react'
 import config from '@config'
-import { auth } from '@services/firebase'
+import { f, auth } from '@services/firebase'
 import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
 import useCreateUser from '@graphql/user/useCreateUser'
@@ -75,7 +75,7 @@ const AuthProvider = props => {
         scopes: ['profile', 'email']
       })
       if (result.type === 'success') {
-        const credential = await auth.GoogleAuthProvider.credential(
+        const credential = await f.auth.GoogleAuthProvider.credential(
           result.idToken
         )
         const response = await auth.signInWithCredential(credential)
@@ -102,7 +102,7 @@ const AuthProvider = props => {
       })
       if (type === 'success') {
         // Get the user's name using Facebook's Graph API
-        const credential = await auth.FacebookAuthProvider.credential(fbToken)
+        const credential = await f.auth.FacebookAuthProvider.credential(fbToken)
         const response = await auth.signInWithCredential(credential)
         const id = response.user.uid
 

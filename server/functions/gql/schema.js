@@ -15,6 +15,10 @@ const {
   typeDef: Media,
   resolvers: mediaResolvers
 } = require('./typeDefs/mediaType')
+const {
+  typeDef: Invite,
+  resolvers: inviteResolvers
+} = require('./typeDefs/inviteType')
 
 // Construct a schema, using GraphQL schema language
 // Global Query Object
@@ -36,15 +40,16 @@ const Other = gql`
     ): User
     createEvent(
       id: String!
-      userId: String!
+      ownerId: String!
       name: String!
       type: String!
       date: Date!
       location: String!
       description: String!
-      media: [String]
+      url: String
       plusOne: Boolean!
       isPrivate: Boolean!
+      recipientIds: [String]
     ): Event
     createMedia(
       id: String!
@@ -52,10 +57,11 @@ const Other = gql`
       linkId: String!
       uri: String!
     ): Media
+    createInvites(recipientIds: [String!], eventId: String!): [Invite]
   }
 `
 // Combine all typeDefs
-const typeDefs = [Other, User, Event, Media]
+const typeDefs = [Other, User, Event, Media, Invite]
 
 // Provide resolver functions for your fields
 // Merge resolvers
@@ -63,7 +69,8 @@ const resolvers = merge(
   eventResolvers,
   userResolvers,
   dateResolvers,
-  mediaResolvers
+  mediaResolvers,
+  inviteResolvers
 )
 
 module.exports = { typeDefs, resolvers }

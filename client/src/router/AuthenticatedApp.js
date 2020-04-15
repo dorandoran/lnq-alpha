@@ -84,12 +84,4 @@ const AuthenticatedApp = () => {
   )
 }
 
-// const AuthenticatedApp = () => {
-//   return (
-//     <ModalProvider>
-//       <AppView />
-//     </ModalProvider>
-//   )
-// }
-
 export default AuthenticatedApp
