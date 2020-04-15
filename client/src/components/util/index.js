@@ -12,12 +12,14 @@ export const hasNotch = () => {
       return config.DEVICE.NOTCH
     }
 
-    return (
-      CONTAINS_NOTCH.findIndex(
-        device =>
-          device.model.toLowerCase() === model.toLowerCase() &&
-          device.brand.toLowerCase() === brand.toLowerCase()
-      ) !== -1
-    )
+    if (CONTAINS_NOTCH) {
+      return (
+        CONTAINS_NOTCH.findIndex(
+          device =>
+            device.model.toLowerCase() === model.toLowerCase() &&
+            device.brand.toLowerCase() === brand.toLowerCase()
+        ) !== -1
+      )
+    }
   }
 }
