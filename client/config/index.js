@@ -1,6 +1,6 @@
 import Constants from 'expo-constants'
 import dev from './dev.json'
-import prod from './dev.json'
+import prod from './prod.json'
 
 function getEnvVars(env = null) {
   if (env === null || env === undefined || env === '') return dev
