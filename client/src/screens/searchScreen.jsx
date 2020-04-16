@@ -8,6 +8,7 @@ import { GetEvent } from '@graphql/event/queries.graphql'
 import { theme } from '@src/theme'
 import { ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
 import { Card, ListItem } from 'react-native-elements'
+import { EVENT_CONST } from '@util/constants'
 
 const TEST_ID = 'VXD9Pm7Qg6yKOo9fSNdE'
 
@@ -27,7 +28,12 @@ const SearchScreen = () => {
         <ListItem
           title={data.event.name}
           rightAvatar={{ source: data.event.media[0] }}
-          onPress={() => dispatch({ type: 'openModal', payload: TEST_ID })}
+          onPress={() =>
+            dispatch({
+              type: 'openModal',
+              payload: { id: TEST_ID, type: EVENT_CONST }
+            })
+          }
         />
       </Card>
     </ScrollView>

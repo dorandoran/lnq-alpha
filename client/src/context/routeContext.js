@@ -8,11 +8,17 @@ const Dispatch = createContext()
 // Screens to disable tab bar
 const disableTabBar = ['Create']
 
+/* 
+  name: name of current screen
+  tabBar: whether or not to show tab bar on screen
+  selected: pass object containing the <id> and <type> to show in modal
+            use EVENT_CONST or USER_CONST from @util/constants for type.
+            Example: { id: '[this is an id]', type: 'event' }
+*/
 const initialState = {
   name: 'Home',
   tabBar: true,
-  modal: false,
-  objectId: null
+  selected: null
 }
 
 // Reducer
@@ -25,9 +31,9 @@ const reducer = (state, action) => {
         tabBar: !disableTabBar.includes(action.payload)
       }
     case 'openModal':
-      return { ...state, modal: true, objectId: action.payload }
+      return { ...state, selected: action.payload }
     case 'closeModal':
-      return { ...state, modal: false, objectId: null }
+      return { ...state, selected: null }
     default:
       return state
   }
