@@ -23,23 +23,15 @@ const EventDetails = ({ event, styleProps }) => {
       <View style={styles.iconView}>
         <TouchableOpacity
           style={[styles.iconContainer, isComments ? null : activeButton]}
+          onPress={() => setIsComments(false)}
         >
-          <Icon
-            type="ionicon"
-            name="ios-more"
-            color={theme.color.tertiary}
-            onPress={() => setIsComments(false)}
-          />
+          <Icon type='ionicon' name='ios-more' color={theme.color.tertiary} />
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.iconContainer, isComments ? activeButton : null]}
+          onPress={() => setIsComments(true)}
         >
-          <Icon
-            type="ionicon"
-            name="ios-text"
-            color={theme.color.tertiary}
-            onPress={() => setIsComments(true)}
-          />
+          <Icon type='ionicon' name='ios-text' color={theme.color.tertiary} />
         </TouchableOpacity>
       </View>
       {isComments ? <EventComments /> : <EventTicketInfo event={event} />}

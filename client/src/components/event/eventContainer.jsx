@@ -12,12 +12,8 @@ import EventHeader from '@components/event/eventHeader'
 import EventFooter from '@components/event/eventFooter'
 import EventDetails from '@components/event/eventDetails'
 
-import Constants from 'expo-constants'
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util/constants'
-import { hasNotch } from '@components/util'
-
-const adjustedScreenHeight =
-  SCREEN_HEIGHT - (hasNotch() ? 0 : Constants.statusBarHeight)
+import { SCREEN_WIDTH } from '@util/constants'
+import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
 
 const EventContainer = ({ id }) => {
   const { data, loading } = useQuery(GetEvent, {
@@ -35,6 +31,7 @@ const EventContainer = ({ id }) => {
     <ScrollView
       style={[styles.container, styles.flex]}
       snapToInterval={adjustedScreenHeight}
+      decelerationRate='fast'
     >
       <ImageBackground
         source={{ uri: data?.event.media[0].uri }}
@@ -57,7 +54,9 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    paddingTop: '3%',
+    paddingBottom: '3%'
   },
   image: {
     height: adjustedScreenHeight,

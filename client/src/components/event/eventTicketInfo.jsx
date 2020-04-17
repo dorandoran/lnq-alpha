@@ -1,53 +1,97 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import dayjs from 'dayjs'
 
 import { theme } from '@src/theme'
 import { View, Text, StyleSheet } from 'react-native'
-import { Icon, ListItem } from 'react-native-elements'
-import { DATE_FORMAT, TIME_FORMAT } from '@components/util/constants'
+import { Icon, ListItem, Button } from 'react-native-elements'
+
+import { detailsMap } from '@components/event/utilComponents/eventUtil'
 
 const EventTicketInfo = ({ event }) => {
-  const { location, date, description } = event
-
   return (
-    <View style={{ width: '100%' }}>
+    <View style={styles.container}>
+      {detailsMap.map(({ key, title, iconName }) => {
+        if (key === 'description') {
+          return (
+            <Text key={key} style={[styles.text, styles.margins]}>
+              {event.description}
+            </Text>
+          )
+        }
+
+        return (
+          <ListItem
+            key={key}
+            containerStyle={styles.listItem}
+            titleStyle={styles.text}
+            title={title(event)}
+            leftIcon={
+              iconName && (
+                <Icon
+                  type='material-community'
+                  name={iconName}
+                  color={theme.color.tertiary}
+                />
+              )
+            }
+          />
+        )
+      })}
+
+      <View style={styles.buttonContainer}>
+        <Button title='Tickets' buttonStyle={styles.button} />
+      </View>
+
+      <Text style={styles.similarEventText}>Similar Events</Text>
+
       <ListItem
-        containerStyle={{ backgroundColor: theme.color.background }}
-        titleStyle={styles.color}
-        title={location}
+        containerStyle={styles.listItem}
+        titleStyle={styles.text}
+        title='No similar events found...'
         leftIcon={
           <Icon
-            type="material-community"
-            name="map-marker-outline"
+            type='material-community'
+            name='emoticon-cry-outline'
             color={theme.color.tertiary}
           />
         }
       />
-      <ListItem
-        containerStyle={{ backgroundColor: theme.color.background }}
-        titleStyle={styles.color}
-        title={dayjs(date).format(`${DATE_FORMAT}  |  ${TIME_FORMAT}`)}
-        leftIcon={
-          <Icon
-            type="material-community"
-            name="clock-outline"
-            color={theme.color.tertiary}
-          />
-        }
-      />
-      <Text style={[styles.color, styles.text]}>{description}</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  color: {
-    color: theme.color.tertiary
+  container: {
+    width: '100%'
+  },
+  buttonContainer: {
+    marginTop: '5%',
+    marginBottom: '3%'
+  },
+  listItem: {
+    backgroundColor: theme.color.background
   },
   text: {
-    fontSize: 16,
-    marginLeft: '5%'
+    color: theme.color.tertiary,
+    fontSize: 18
+  },
+  similarEventText: {
+    color: theme.color.tertiary,
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginTop: '5%',
+    marginLeft: '4%'
+  },
+  margins: {
+    marginLeft: '4%',
+    marginBottom: '2%',
+    marginTop: '2%'
+  },
+  button: {
+    borderRadius: 25,
+    backgroundColor: theme.color.secondary,
+    width: '95%',
+    alignSelf: 'center'
   }
 })
 
