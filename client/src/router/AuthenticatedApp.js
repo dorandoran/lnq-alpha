@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route } from '@context/routeStore'
+import { NotificationProvider } from '@context/notificationContext'
 
 // Navigators
 import { NavigationContainer } from '@react-navigation/native'
@@ -40,7 +41,7 @@ const AuthenticatedApp = () => {
   }
 
   return (
-    <React.Fragment>
+    <NotificationProvider>
       <NavigationContainer
         ref={ref}
         onStateChange={state => {
@@ -50,29 +51,29 @@ const AuthenticatedApp = () => {
           routeDispatch({ type: 'changeRoute', payload: route })
         }}
       >
-        <Tab.Navigator backBehavior="history" initialRouteName="Home">
+        <Tab.Navigator backBehavior='history' initialRouteName='Home'>
           <Tab.Screen
-            name="Home"
+            name='Home'
             component={HomeScreen}
             options={{ tabBarVisible: false }}
           />
           <Tab.Screen
-            name="Search"
+            name='Search'
             component={SearchScreen}
             options={{ tabBarVisible: false }}
           />
           <Tab.Screen
-            name="Locate"
+            name='Locate'
             component={LocateScreen}
             options={{ tabBarVisible: false }}
           />
           <Tab.Screen
-            name="Profile"
+            name='Profile'
             component={ProfileScreen}
             options={{ tabBarVisible: false }}
           />
           <Tab.Screen
-            name="Create"
+            name='Create'
             component={CreateScreen}
             options={{ tabBarVisible: false }}
           />
@@ -80,7 +81,7 @@ const AuthenticatedApp = () => {
       </NavigationContainer>
       <TabBar mainFlowRef={ref} />
       <AppModal />
-    </React.Fragment>
+    </NotificationProvider>
   )
 }
 

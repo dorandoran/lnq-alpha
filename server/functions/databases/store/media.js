@@ -4,7 +4,7 @@ const timestamp = admin.firestore.Timestamp
 
 const mediaRef = firestore().collection('media')
 
-const saveToDb = media => {
+const saveToStore = media => {
   media.created_at = timestamp.now()
   media.linkId = [media.linkId]
 
@@ -57,7 +57,7 @@ const findAllByLinkId = ({ linkId }) => {
 }
 
 module.exports = {
-  saveToDb,
+  saveToStore,
   findById,
   findAllByLinkId
 }

@@ -7,11 +7,16 @@ import { Header } from '@common'
 
 const EventFooter = () => {
   return (
-    <Header position="relative">
+    <Header position='relative'>
       <View />
       <View />
       <TouchableOpacity onPress={() => {}} style={styles.iconContainer}>
-        <Icon type="ionicon" name="ios-arrow-up" color={theme.color.tertiary} />
+        <Icon
+          type='material-community'
+          name='chevron-up'
+          color={theme.color.tertiary}
+          size={30}
+        />
       </TouchableOpacity>
     </Header>
   )
@@ -20,9 +25,11 @@ const EventFooter = () => {
 const styles = StyleSheet.create({
   iconContainer: {
     backgroundColor: theme.color.accent,
-    aspectRatio: 1,
     padding: '2%',
-    borderRadius: 25
+    width: 35,
+    height: 35,
+    borderRadius: 25,
+    justifyContent: 'center'
   }
 })
 

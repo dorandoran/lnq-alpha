@@ -20,7 +20,7 @@ exports.resolvers = {
   },
   Mutation: {
     createMedia: (parent, args) => {
-      return Media.saveToDb(args)
+      return Media.saveToStore(args)
     }
   },
   Media: {}

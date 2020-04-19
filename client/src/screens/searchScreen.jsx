@@ -10,7 +10,7 @@ import { ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
 import { Card, ListItem } from 'react-native-elements'
 import { EVENT_CONST } from '@util/constants'
 
-const TEST_ID = 'fsSi3k9nSrCCJGoXP0xn'
+const TEST_ID = 'prLBWZFy75vnvTch03sm'
 
 const SearchScreen = () => {
   const dispatch = useContext(Route.Dispatch)

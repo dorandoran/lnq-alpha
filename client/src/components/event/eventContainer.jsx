@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { useQuery } from '@apollo/react-hooks'
 import { GetEvent } from '@graphql/event/queries.js'
 
 import { theme } from '@src/theme'
-import { View, StyleSheet, ImageBackground, ScrollView } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  ScrollView,
+  TouchableWithoutFeedback
+} from 'react-native'
 import { Loading } from '@common'
 
 import EventHeader from '@components/event/eventHeader'
@@ -15,7 +21,12 @@ import EventDetails from '@components/event/eventDetails'
 import { SCREEN_WIDTH } from '@util/constants'
 import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
 
+const initialState = {
+  top: false
+}
+
 const EventContainer = ({ id }) => {
+  const [buttons, setButtons] = useState(initialState)
   const { data, loading } = useQuery(GetEvent, {
     variables: { id },
     skip: !id
@@ -27,6 +38,10 @@ const EventContainer = ({ id }) => {
 
   if (!data) return null
 
+  const toggleTop = () => {
+    setButtons({ ...buttons, top: !buttons.top })
+  }
+
   return (
     <ScrollView
       style={[styles.container, styles.flex]}
@@ -36,11 +51,19 @@ const EventContainer = ({ id }) => {
       <ImageBackground
         source={{ uri: data?.event.media[0].uri }}
         style={styles.image}
+        // TODO: Add feedback when image is loading
+        onLoad={() => {}}
       >
-        <View style={styles.imageContainer}>
-          <EventHeader />
-          <EventFooter />
-        </View>
+        <TouchableWithoutFeedback onPressIn={() => setButtons(initialState)}>
+          <View style={styles.imageContainer}>
+            <EventHeader
+              event={data?.event}
+              open={buttons.top}
+              toggleOpen={toggleTop}
+            />
+            <EventFooter />
+          </View>
+        </TouchableWithoutFeedback>
       </ImageBackground>
       <EventDetails event={data.event} styleProps={styles.image} />
     </ScrollView>
