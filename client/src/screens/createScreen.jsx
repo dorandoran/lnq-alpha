@@ -7,6 +7,7 @@ import CreateDetails from '@components/create/createDetails'
 import CreateInvite from '@components/create/createInvite'
 import Header from '@components/create/createHeader'
 
+import { theme } from '@src/theme'
 import { screenMap } from '@components/create/utilComponents/createUtil'
 
 const CreateView = ({ navigation }) => {
@@ -25,7 +26,7 @@ const CreateView = ({ navigation }) => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: theme.color.background }}>
       <Header navigation={navigation} />
       {renderScreen()}
     </View>

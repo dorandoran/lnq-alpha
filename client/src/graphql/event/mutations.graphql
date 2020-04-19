@@ -6,9 +6,9 @@ mutation CreateEvent(
   $name: String!
   $type: String!
   $date: Date!
-  $location: String!
+  $location: LocationInput!
+  $url: String
   $description: String!
-  $media: [String]
   $plusOne: Boolean!
   $isPrivate: Boolean!
 ) {
@@ -19,6 +19,7 @@ mutation CreateEvent(
     type: $type
     date: $date
     location: $location
+    url: $url
     description: $description
     plusOne: $plusOne
     isPrivate: $isPrivate

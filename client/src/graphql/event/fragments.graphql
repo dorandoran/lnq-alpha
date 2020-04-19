@@ -7,7 +7,11 @@ fragment eventFields on Event {
   name
   type
   date
-  location
+  location {
+    latitude
+    longitude
+    text
+  }
   description
   created_at
   url

@@ -22,7 +22,12 @@ export const inputMap = [
     disabled: true
   },
   {
-    label: 'Brief Description',
+    label: 'URL',
+    value: 'url',
+    keyboardType: 'email-address'
+  },
+  {
+    label: 'Description',
     value: 'description'
   },
   { label: 'Plus One', value: 'plusOne' },

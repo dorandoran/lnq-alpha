@@ -10,9 +10,10 @@ export const CreateProvider = ({ children, initialMedia }) => {
   const initialState = {
     name: '',
     type: '',
-    location: '',
+    location: null,
     date: TOMORROW_DATETIME,
     description: '',
+    url: '',
     plusOne: true,
     isPrivate: true,
     media: [initialMedia]

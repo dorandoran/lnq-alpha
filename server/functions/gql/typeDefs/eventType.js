@@ -14,9 +14,9 @@ exports.typeDef = gql`
     name: String!
     type: String!
     date: Date!
-    location: String!
-    description: String!
+    location: Location
     url: String
+    description: String
     created_at: Date!
     media: [Media]
     likes: Int!

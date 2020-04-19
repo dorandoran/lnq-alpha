@@ -21,3 +21,12 @@ export const hasNotch = () => {
     )
   }
 }
+
+export const isIphone = () => {
+  const { brand } = Device
+
+  if (brand) {
+    return brand.toLowerCase() === 'apple'
+  }
+  return false
+}
