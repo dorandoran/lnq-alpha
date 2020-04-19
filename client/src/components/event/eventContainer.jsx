@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { useQuery } from '@apollo/react-hooks'
-import { GetEvent } from '@graphql/event/queries.graphql'
+import { GetEvent } from '@graphql/event/queries.js'
 
 import { theme } from '@src/theme'
 import { View, StyleSheet, ImageBackground, ScrollView } from 'react-native'

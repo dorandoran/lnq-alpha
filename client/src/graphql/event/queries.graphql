@@ -1,7 +1,0 @@
-#import "./fragments.graphql"
-
-query GetEvent($id: String!) {
-  event(id: $id) {
-    ...eventFields
-  }
-}

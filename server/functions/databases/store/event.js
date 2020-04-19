@@ -8,7 +8,7 @@ const eventsRef = firestore().collection('events')
 const saveToDb = event => {
   const writeBatch = firestore().batch()
   const invitesRef = eventsRef.doc(event.id).collection('invites')
-  const recipientIds = event.recipientIds
+  const recipientIds = event.recipientIds || []
   const invites = []
 
   delete event.recipientIds

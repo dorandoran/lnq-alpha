@@ -11,7 +11,7 @@ export const adjustedScreenHeight = SCREEN_HEIGHT - Constants.statusBarHeight
 export const detailsMap = [
   {
     key: 'location',
-    title: ({ location }) => location,
+    title: ({ location }) => location.text,
     iconName: 'map-marker-outline'
   },
   {

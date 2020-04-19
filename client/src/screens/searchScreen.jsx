@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import { Route } from '@context/routeStore'
 
 import { useQuery } from '@apollo/react-hooks'
-import { GetEvent } from '@graphql/event/queries.graphql'
+import { GetEvent } from '@graphql/event/queries'
 
 import { theme } from '@src/theme'
 import { ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
 import { Card, ListItem } from 'react-native-elements'
 import { EVENT_CONST } from '@util/constants'
 
-const TEST_ID = 'VXD9Pm7Qg6yKOo9fSNdE'
+const TEST_ID = 'fsSi3k9nSrCCJGoXP0xn'
 
 const SearchScreen = () => {
   const dispatch = useContext(Route.Dispatch)
@@ -19,9 +19,9 @@ const SearchScreen = () => {
   })
 
   if (loading)
-    return <ActivityIndicator size="large" color={theme.color.secondary} />
+    return <ActivityIndicator size='large' color={theme.color.secondary} />
 
-  if (!data?.event) return <ActivityIndicator size="large" color="blue" />
+  if (!data?.event) return <ActivityIndicator size='large' color='blue' />
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Card>

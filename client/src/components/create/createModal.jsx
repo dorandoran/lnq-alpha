@@ -2,9 +2,15 @@ import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import { theme } from '@src/theme'
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Text,
+  TouchableOpacity
+} from 'react-native'
 import Modal from 'react-native-modal'
-import { Icon, Input } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
 import { LocationAutoComplete, KeyboardDismiss } from '@common'
 import { SCREEN_HEIGHT } from '@util/constants'
 import { isIphone } from '@util'
@@ -73,10 +79,10 @@ const CreateModal = ({ modalValue, clearValue, detail, handleChange }) => {
 
           {value === 'description' && (
             <View style={styles.descriptionContainer}>
-              <Input
+              <TextInput
                 placeholder='Enter a description...'
-                inputContainerStyle={styles.inputContainer}
-                inputStyle={styles.text}
+                placeholderTextColor={theme.color.accent}
+                style={styles.inputContainer}
                 onChangeText={text => setTempVar(text)}
                 value={tempVar}
                 maxLength={300}
@@ -101,12 +107,14 @@ const styles = StyleSheet.create({
   location: {
     marginBottom: '4%',
     fontSize: 16,
-    fontStyle: 'italic'
+    fontStyle: 'italic',
+    color: theme.color.tertiary,
+    flexWrap: 'wrap'
   },
   modalView: {
     margin: '1%',
     backgroundColor: theme.color.accent,
-    height: SCREEN_HEIGHT / 2,
+    height: SCREEN_HEIGHT / 3,
     borderRadius: 25,
     padding: '4%',
     alignItems: 'center',
@@ -118,23 +126,19 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   inputContainer: {
-    height: SCREEN_HEIGHT / 3,
-    width: '100%',
+    height: SCREEN_HEIGHT / 5,
+    color: theme.color.tertiary,
+    fontSize: 18,
     backgroundColor: theme.color.background,
     borderRadius: 25,
-    padding: '3%',
-    borderBottomWidth: 0,
-    justifyContent: 'flex-start'
+    padding: '5%',
+    borderBottomWidth: 0
   },
   descriptionContainer: {
     flex: 1,
+    width: '100%',
     justifyContent: 'center',
     marginTop: SCREEN_HEIGHT / 20
-  },
-  text: {
-    color: theme.color.tertiary,
-    fontSize: 18,
-    flexWrap: 'wrap'
   }
 })
 
