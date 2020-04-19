@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   modalView: {
     margin: '1%',
     backgroundColor: theme.color.accent,
-    height: SCREEN_HEIGHT / 3,
+    height: SCREEN_HEIGHT / 2.5,
     borderRadius: 25,
     padding: '4%',
     alignItems: 'center',
@@ -126,12 +126,15 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   inputContainer: {
-    height: SCREEN_HEIGHT / 5,
+    textAlignVertical: 'top',
+    height: SCREEN_HEIGHT / 4,
     color: theme.color.tertiary,
     fontSize: 18,
     backgroundColor: theme.color.background,
     borderRadius: 25,
     padding: '5%',
+    marginLeft: '5%',
+    marginRight: '5%',
     borderBottomWidth: 0
   },
   descriptionContainer: {

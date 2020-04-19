@@ -7,6 +7,7 @@ import { View, StyleSheet } from 'react-native'
 
 import { StyledTouchable } from '@common'
 import { DATE_FORMAT, TIME_FORMAT } from '@components/util/constants'
+import { updateDateTime } from '@components/create/utilComponents/createUtil'
 
 const CreateDateTimePicker = ({ date, setDate }) => {
   const [state, setState] = useState({ visible: false, mode: 'date' })
@@ -22,19 +23,7 @@ const CreateDateTimePicker = ({ date, setDate }) => {
 
   const handleDTPickerConfirm = dt => {
     setState({ mode, visible: false })
-
-    if (mode === 'date') {
-      const newDate = dayjs(dt).format(DATE_FORMAT)
-      const time = dayjs(date).format(TIME_FORMAT)
-      const newDateTime = dayjs(`${newDate} ${time}`).toDate()
-      setDate(newDateTime)
-    }
-    if (mode === 'time') {
-      const _date = dayjs(date).format(DATE_FORMAT)
-      const newTime = dayjs(dt).format(TIME_FORMAT)
-      const newDateTime = dayjs(`${_date} ${newTime}`).toDate()
-      setDate(newDateTime)
-    }
+    setDate(updateDateTime({ newDT: dt, oldDT: date, mode }))
   }
 
   return (
