@@ -45,6 +45,7 @@ const Other = gql`
     createEvent(
       id: String!
       ownerId: String!
+      avatarId: String
       name: String!
       type: String!
       date: Date!

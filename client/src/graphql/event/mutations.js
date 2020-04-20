@@ -7,6 +7,7 @@ export const CreateEvent = gql`
   mutation CreateEvent(
     $id: String!
     $ownerId: String!
+    $avatarId: String
     $name: String!
     $type: String!
     $date: Date!
@@ -19,6 +20,7 @@ export const CreateEvent = gql`
     createEvent(
       id: $id
       ownerId: $ownerId
+      avatarId: $avatarId
       name: $name
       type: $type
       date: $date
