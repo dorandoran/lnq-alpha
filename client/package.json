@@ -1,7 +1,7 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
+    "start": "rm -rf ./node_modules/.cache/babel-loader && expo start -c",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -32,7 +32,9 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "~1.6.0",
+    "react-native-google-places-autocomplete": "^1.4.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
+    "react-native-modal": "^11.5.6",
     "react-native-modal-datetime-picker": "^8.5.2",
     "react-native-picker-select": "^6.6.0",
     "react-native-reanimated": "~1.7.0",
@@ -44,7 +46,6 @@
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
     "babel-eslint": "^8.2.6",
     "babel-plugin-graphql-tag": "^2.5.0",
-    "babel-plugin-import-graphql": "^2.7.0",
     "babel-preset-expo": "^8.1.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^18.1.0",

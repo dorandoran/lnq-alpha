@@ -1,12 +1,11 @@
 // eslint-disable-next-line no-undef
 module.exports = function (api) {
-  api.cache(false)
+  api.cache(true)
 
   return {
     presets: ['babel-preset-expo'],
     plugins: [
       'graphql-tag',
-      'import-graphql',
       '@babel/plugin-proposal-optional-chaining',
       [
         'module-resolver',

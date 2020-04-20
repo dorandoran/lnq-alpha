@@ -6,6 +6,7 @@ const mediaRef = firestore().collection('media')
 
 const saveToDb = media => {
   media.created_at = timestamp.now()
+  media.linkId = [media.linkId]
 
   return mediaRef
     .doc(media.id)

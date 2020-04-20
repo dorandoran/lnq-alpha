@@ -6,7 +6,7 @@ exports.typeDef = gql`
   type Media {
     id: String!
     userId: String!
-    linkId: String!
+    linkId: [String]!
     uri: String!
     created_at: Date!
   }

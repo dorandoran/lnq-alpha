@@ -23,6 +23,9 @@ const CreatePicker = ({ value, onValueChange }) => {
         onValueChange={onValueChange}
         onOpen={Keyboard.dismiss}
         useNativeAndroidPickerStyle={false}
+        touchableWrapperProps={{
+          activeOpacity: 0.2
+        }}
       />
     </View>
   )

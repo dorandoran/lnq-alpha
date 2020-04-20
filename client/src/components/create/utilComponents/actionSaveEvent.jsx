@@ -28,6 +28,7 @@ const ActionSaveEvent = ({ onComplete }) => {
     if (media) {
       // Clean up event object and send to server
       details.id = media.linkId
+      delete details.media
       !didCancel && createEvent({ ...details, ownerId })
 
       // Action clean up
@@ -41,13 +42,13 @@ const ActionSaveEvent = ({ onComplete }) => {
   }, [media])
 
   if (actionSelected) {
-    return <ActivityIndicator size="small" color={theme.color.secondary} />
+    return <ActivityIndicator size='small' color={theme.color.secondary} />
   }
 
   return (
     <Icon
-      type="ionicon"
-      name="md-share"
+      type='ionicon'
+      name='md-share'
       color={theme.color.tertiary}
       onPress={() => setActionSelected(true)}
     />

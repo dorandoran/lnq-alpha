@@ -39,15 +39,18 @@ const CreateHeader = ({ navigation }) => {
       if (typeof details[key] === 'string' && !details[key].length) {
         disabled = true
       }
+      if (details[key] == null) {
+        disabled = true
+      }
     })
     return disabled
   }
 
   return (
-    <Header position="relative" backgroundColor={theme.color.background}>
+    <Header position='relative' backgroundColor={theme.color.background}>
       <Icon
-        type="ionicon"
-        name="ios-arrow-back"
+        type='ionicon'
+        name='ios-arrow-back'
         color={theme.color.tertiary}
         onPress={isInvite ? goBack : closeScreen}
       />
@@ -56,14 +59,14 @@ const CreateHeader = ({ navigation }) => {
         <ActionSaveEvent onComplete={closeScreen} />
       ) : checkDisabled() ? (
         <Icon
-          type="font-awesome"
-          name="exclamation"
+          type='font-awesome'
+          name='exclamation'
           color={theme.color.secondary}
         />
       ) : (
         <Icon
-          type="material"
-          name="person-add"
+          type='material'
+          name='person-add'
           color={theme.color.tertiary}
           onPress={navigateToInvite}
         />

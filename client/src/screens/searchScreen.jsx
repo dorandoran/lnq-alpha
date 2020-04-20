@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import { Route } from '@context/routeStore'
 
 import { useQuery } from '@apollo/react-hooks'
-import { GetEvent } from '@graphql/event/queries.graphql'
+import { GetEvent } from '@graphql/event/queries'
 
 import { theme } from '@src/theme'
 import { ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
 import { Card, ListItem } from 'react-native-elements'
+import { EVENT_CONST } from '@util/constants'
 
-const TEST_ID = 'VXD9Pm7Qg6yKOo9fSNdE'
+const TEST_ID = 'prLBWZFy75vnvTch03sm'
 
 const SearchScreen = () => {
   const dispatch = useContext(Route.Dispatch)
@@ -18,16 +19,21 @@ const SearchScreen = () => {
   })
 
   if (loading)
-    return <ActivityIndicator size="large" color={theme.color.secondary} />
+    return <ActivityIndicator size='large' color={theme.color.secondary} />
 
-  if (!data?.event) return <ActivityIndicator size="large" color="blue" />
+  if (!data?.event) return <ActivityIndicator size='large' color='blue' />
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Card>
         <ListItem
           title={data.event.name}
           rightAvatar={{ source: data.event.media[0] }}
-          onPress={() => dispatch({ type: 'openModal', payload: TEST_ID })}
+          onPress={() =>
+            dispatch({
+              type: 'openModal',
+              payload: { id: TEST_ID, type: EVENT_CONST }
+            })
+          }
         />
       </Card>
     </ScrollView>

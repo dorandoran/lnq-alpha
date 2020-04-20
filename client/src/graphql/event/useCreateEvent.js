@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/react-hooks'
-import { CreateEvent } from '@graphql/event/mutations.graphql'
+import { CreateEvent } from '@graphql/event/mutations.js'
 
-export default function useCreateEvent() {
+export default function useCreateEvent () {
   const [createEvent] = useMutation(CreateEvent)
 
   return variables => {

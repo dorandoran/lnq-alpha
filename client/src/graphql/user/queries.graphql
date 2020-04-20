@@ -1,7 +1,0 @@
-#import "./fragments.graphql"
-
-query GetUser($id: String!) {
-  user(id: $id) {
-    ...userFields
-  }
-}

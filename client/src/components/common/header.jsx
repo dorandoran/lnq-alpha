@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View, StyleSheet } from 'react-native'
 import { theme } from '@src/theme'
 
-const Header = ({ children, position, backgroundColor }) => {
+const Header = ({ children, position, backgroundColor, styleProps }) => {
   const numChildren = Children.count(children)
 
   const addCustomStyles = () => {
@@ -30,7 +30,7 @@ const Header = ({ children, position, backgroundColor }) => {
   }
 
   return (
-    <View style={[styles.container, addCustomStyles()]}>
+    <View style={[styles.container, addCustomStyles(), styleProps]}>
       <View style={[styles.section, styles.left]}>{renderLeftSection()}</View>
       <View style={[styles.section, styles.middle]}>
         {renderMiddleSection()}
@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
 Header.propTypes = {
   children: PropTypes.node.isRequired,
   position: PropTypes.string,
-  backgroundColor: PropTypes.string
+  backgroundColor: PropTypes.string,
+  styleProps: PropTypes.object
 }
 
 export default Header
