@@ -1,27 +1,32 @@
 import React from 'react'
 
 import { theme } from '@src/theme'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { Header } from '@common'
+import { SCREEN_HEIGHT } from '@util/constants'
 
 const EventFooter = () => {
   return (
-    <Header position="relative">
-      <View />
-      <View />
-      <TouchableOpacity onPress={() => {}} style={styles.iconContainer}>
-        <Icon type="ionicon" name="ios-arrow-up" color={theme.color.tertiary} />
-      </TouchableOpacity>
-    </Header>
+    <TouchableOpacity onPress={() => {}} style={styles.iconContainer}>
+      <Icon
+        type='material-community'
+        name='chevron-up'
+        color={theme.color.tertiary}
+        size={30}
+      />
+    </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
   iconContainer: {
+    position: 'absolute',
+    bottom: SCREEN_HEIGHT + 15,
+    right: 20,
+    height: 35,
+    width: 35,
+    justifyContent: 'center',
     backgroundColor: theme.color.accent,
-    aspectRatio: 1,
-    padding: '2%',
     borderRadius: 25
   }
 })

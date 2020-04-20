@@ -7,6 +7,7 @@ export const eventFragment = gql`
       id
       username
     }
+    avatarId
     name
     type
     date

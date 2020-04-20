@@ -5,8 +5,10 @@ import { useQuery } from '@apollo/react-hooks'
 import { GetEvent } from '@graphql/event/queries.js'
 
 import { theme } from '@src/theme'
-import { View, StyleSheet, ImageBackground, ScrollView } from 'react-native'
+import { StyleSheet, ImageBackground, ScrollView } from 'react-native'
+import { Image } from 'react-native-elements'
 import { Loading } from '@common'
+import Swiper from 'react-native-swiper'
 
 import EventHeader from '@components/event/eventHeader'
 import EventFooter from '@components/event/eventFooter'
@@ -26,6 +28,7 @@ const EventContainer = ({ id }) => {
   }
 
   if (!data) return null
+  const { event } = data
 
   return (
     <ScrollView
@@ -33,15 +36,21 @@ const EventContainer = ({ id }) => {
       snapToInterval={adjustedScreenHeight}
       decelerationRate='fast'
     >
-      <ImageBackground
-        source={{ uri: data?.event.media[0].uri }}
-        style={styles.image}
-      >
-        <View style={styles.imageContainer}>
-          <EventHeader />
-          <EventFooter />
-        </View>
-      </ImageBackground>
+      <Swiper showsPagination={false}>
+        {event.media.map(media => {
+          return (
+            <Image
+              key={media.id}
+              source={{ uri: media.uri }}
+              style={styles.image}
+              PlaceholderContent={<Loading styleProps={{ width: '100%' }} />}
+            />
+          )
+        })}
+      </Swiper>
+
+      <EventHeader />
+      <EventFooter />
       <EventDetails event={data.event} styleProps={styles.image} />
     </ScrollView>
   )

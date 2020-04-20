@@ -36,7 +36,7 @@ const findById = ({ id }) => {
     })
 }
 
-const findAllByLinkId = ({ linkId }) => {
+const findAllByLinkId = ({ linkId, avatarId }) => {
   let media = []
 
   return mediaRef
@@ -48,6 +48,15 @@ const findAllByLinkId = ({ linkId }) => {
         item.id = doc.id
         media.push(item)
       })
+
+      // Put avatar media first
+      media.forEach((item, i) => {
+        if (item.id === avatarId) {
+          media.splice(i, 1)
+          media.unshift(item)
+        }
+      })
+
       return media
     })
     .catch(e => {

@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     color: theme.color.tertiary,
     fontSize: 18,
     backgroundColor: theme.color.background,
-    borderRadius: 25,
+    borderRadius: 5,
     padding: '5%',
     marginLeft: '5%',
     marginRight: '5%',
