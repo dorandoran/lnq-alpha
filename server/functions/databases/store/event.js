@@ -5,7 +5,7 @@ const timestamp = admin.firestore.Timestamp
 const usersRef = firestore().collection('users')
 const eventsRef = firestore().collection('events')
 
-const saveToDb = event => {
+const saveToStore = event => {
   const writeBatch = firestore().batch()
   const invitesRef = eventsRef.doc(event.id).collection('invites')
   const recipientIds = event.recipientIds || []
@@ -48,6 +48,18 @@ const saveToDb = event => {
     })
 }
 
+const update = updateInput => {
+  const { id, updates } = updateInput
+  return eventsRef
+    .doc(id)
+    .update(updates)
+    .then(() => findById({ id }))
+    .catch(e => {
+      console.log(e)
+      return null
+    })
+}
+
 const findById = ({ id }) => {
   return eventsRef
     .doc(id)
@@ -84,8 +96,22 @@ const findAllByOwnerId = ({ ownerId }) => {
     })
 }
 
+// TODO: Add security - check userId matches
+const deleteFromStore = ({ id }) => {
+  return eventsRef
+    .doc(id)
+    .delete()
+    .then(() => true)
+    .catch(e => {
+      console.log(e)
+      return false
+    })
+}
+
 module.exports = {
-  saveToDb,
+  saveToStore,
+  update,
   findById,
-  findAllByOwnerId
+  findAllByOwnerId,
+  deleteFromStore
 }

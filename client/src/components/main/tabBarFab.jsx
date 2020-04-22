@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { theme } from '@src/theme'
@@ -9,7 +9,7 @@ import ActionSelectMedia from '@components/create/utilComponents/actionSelectMed
 import { CAMERA_SELECTION } from '@components/util/constants'
 
 const TabBarFab = ({ mainFlowRef }) => {
-  const [fabPosition, setFabPostion] = useState(null)
+  const [fabPosition, setFabPosition] = useState(null)
   const [showButton, setShowButton] = useState(false)
 
   const navigateToDetails = media => {
@@ -21,7 +21,7 @@ const TabBarFab = ({ mainFlowRef }) => {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       {showButton && (
         <View style={[styles.fabContainer, fabPosition]}>
           <ActionSelectMedia
@@ -38,18 +38,18 @@ const TabBarFab = ({ mainFlowRef }) => {
         onPress={() => setShowButton(!showButton)}
         onLayout={({ nativeEvent: { layout } }) => {
           // Sets position of hidden fabs based on the Create button
-          if (!fabPosition) setFabPostion({ bottom: layout.height * 1.5 })
+          if (!fabPosition) setFabPosition({ bottom: layout.height * 1.5 })
         }}
       >
         <Icon
-          tabName="Create"
+          tabName='Create'
           type={showButton ? 'material' : 'feather'}
           name={showButton ? 'close' : 'plus'}
           color={theme.color.secondary}
           reverse
         />
       </TouchableOpacity>
-    </React.Fragment>
+    </Fragment>
   )
 }
 
@@ -65,8 +65,7 @@ const styles = StyleSheet.create({
 })
 
 TabBarFab.propTypes = {
-  mainFlowRef: PropTypes.object,
-  fabPosition: PropTypes.object
+  mainFlowRef: PropTypes.object
 }
 
 export default TabBarFab

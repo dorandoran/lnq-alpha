@@ -7,7 +7,14 @@ import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
 import { CAMERA_SELECTION } from '@components/util/constants'
 
-const ActionSelectMedia = ({ navigateToDetails, onComplete, type, color }) => {
+const ActionSelectMedia = ({
+  navigateToDetails,
+  onOpen,
+  onComplete,
+  type,
+  color,
+  styleProps
+}) => {
   const [isSelected, setIsSelected] = useState(false)
 
   // Camera Roll Permissions
@@ -39,7 +46,7 @@ const ActionSelectMedia = ({ navigateToDetails, onComplete, type, color }) => {
       quality: 0.8 // Setting to 1 freezes when send media to firebase storage
     }
 
-    async function launchMediaAsync() {
+    async function launchMediaAsync () {
       let result
       await getCameraRollPermissions()
       if (!didCancel && type === CAMERA_SELECTION) {
@@ -59,7 +66,10 @@ const ActionSelectMedia = ({ navigateToDetails, onComplete, type, color }) => {
         else navigateToDetails(media)
       }
     }
-    if (isSelected) launchMediaAsync()
+    if (isSelected) {
+      if (onOpen) onOpen()
+      launchMediaAsync()
+    }
 
     // Clean up
     return () => {
@@ -72,10 +82,11 @@ const ActionSelectMedia = ({ navigateToDetails, onComplete, type, color }) => {
       onPress={() => setIsSelected(true)}
       disabled={isSelected}
       activeOpacity={0.8}
+      style={styleProps}
     >
       <Icon
         reverse
-        type="material-community"
+        type='material-community'
         name={type === CAMERA_SELECTION ? 'camera' : 'library-plus'}
         color={color || theme.color.secondary}
         size={20}
@@ -87,8 +98,10 @@ const ActionSelectMedia = ({ navigateToDetails, onComplete, type, color }) => {
 ActionSelectMedia.propTypes = {
   navigateToDetails: PropTypes.func,
   onComplete: PropTypes.func,
+  onOpen: PropTypes.func,
   type: PropTypes.string,
-  color: PropTypes.string
+  color: PropTypes.string,
+  styleProps: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 }
 
 export default ActionSelectMedia

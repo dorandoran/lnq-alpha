@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { useQuery } from '@apollo/react-hooks'
 import { GetEvent } from '@graphql/event/queries.js'
 
 import { theme } from '@src/theme'
-import { StyleSheet, ImageBackground, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView, TouchableWithoutFeedback } from 'react-native'
 import { Image } from 'react-native-elements'
 import { Loading } from '@common'
 import Swiper from 'react-native-swiper'
@@ -17,7 +17,12 @@ import EventDetails from '@components/event/eventDetails'
 import { SCREEN_WIDTH } from '@util/constants'
 import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
 
+const initialState = {
+  top: false
+}
+
 const EventContainer = ({ id }) => {
+  const [buttons, setButtons] = useState(initialState)
   const { data, loading } = useQuery(GetEvent, {
     variables: { id },
     skip: !id
@@ -30,6 +35,10 @@ const EventContainer = ({ id }) => {
   if (!data) return null
   const { event } = data
 
+  const toggleTop = () => {
+    setButtons({ ...buttons, top: !buttons.top })
+  }
+
   return (
     <ScrollView
       style={[styles.container, styles.flex]}
@@ -39,17 +48,23 @@ const EventContainer = ({ id }) => {
       <Swiper showsPagination={false}>
         {event.media.map(media => {
           return (
-            <Image
+            <TouchableWithoutFeedback
               key={media.id}
-              source={{ uri: media.uri }}
-              style={styles.image}
-              PlaceholderContent={<Loading styleProps={{ width: '100%' }} />}
-            />
+              onPressIn={() => setButtons(initialState)}
+            >
+              <Image
+                source={{ uri: media.uri }}
+                style={styles.image}
+                PlaceholderContent={<Loading />}
+                // TODO: Add feedback when image is loading
+                onLoad={() => {}}
+              />
+            </TouchableWithoutFeedback>
           )
         })}
       </Swiper>
 
-      <EventHeader />
+      <EventHeader event={event} open={buttons.top} toggleOpen={toggleTop} />
       <EventFooter />
       <EventDetails event={data.event} styleProps={styles.image} />
     </ScrollView>

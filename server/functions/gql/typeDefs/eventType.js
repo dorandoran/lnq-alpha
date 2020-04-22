@@ -25,6 +25,17 @@ exports.typeDef = gql`
     isPrivate: Boolean
     invites: [Invite]
   }
+
+  input EventUpdateInput {
+    name: String
+    type: String
+    date: Date
+    location: LocationInput
+    url: String
+    description: String
+    plusOne: Boolean
+    isPrivate: Boolean
+  }
 `
 
 // Resolvers
@@ -38,7 +49,15 @@ exports.resolvers = {
   // Mutations
   Mutation: {
     createEvent: (parent, args) => {
-      return Event.saveToDb(args)
+      return Event.saveToStore(args)
+    },
+    updateEvent: (parent, args) => {
+      return Event.update(args)
+    },
+    deleteEvent: (parent, args, context) => {
+      // TODO: Add security - check userId matches
+      // context = { email: string, name: string, username: string, id: string... }
+      return Event.deleteFromStore(args)
     }
   },
   // Field Resolve

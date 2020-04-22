@@ -31,7 +31,7 @@ exports.resolvers = {
   // Mutations
   Mutation: {
     createUser: (parent, args) => {
-      return User.saveToDb(args)
+      return User.saveToStore(args)
     }
   },
   // Field Resolve

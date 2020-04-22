@@ -34,3 +34,17 @@ export const CreateEvent = gql`
     }
   }
 `
+
+export const UpdateEvent = gql`
+  ${eventFragment}
+
+  mutation UpdateEvent($id: String!, $updates: EventUpdateInput!) {
+    ...eventFields
+  }
+`
+
+export const DeleteEvent = gql`
+  mutation DeleteEvent($id: String!) {
+    deleteEvent(id: $id)
+  }
+`

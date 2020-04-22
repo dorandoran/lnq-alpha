@@ -115,6 +115,7 @@ const CreateDetails = () => {
                   inputStyle={styles.input}
                   underlineColorAndroid='transparent'
                   label={label}
+                  autoCapitalize={value === 'url' ? 'none' : 'words'}
                   onChange={({ nativeEvent }) =>
                     updateDetails(value, nativeEvent.text)
                   }

@@ -45,4 +45,4 @@ const apolloServer = new ApolloServer({
     Step 4: Profit.
 */
 
-// exports.test = functions.https.onRequest(apolloServer.createHandler())
+exports.eventActions = functions.https.onRequest(apolloServer.createHandler())
