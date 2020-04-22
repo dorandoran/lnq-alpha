@@ -30,7 +30,7 @@ const Other = gql`
   scalar Date
 
   type Query {
-    user(id: String!): User
+    user(id: String): User
     event(id: String!): Event
     media(id: String!): Media
   }

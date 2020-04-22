@@ -31,7 +31,7 @@ const apolloServer = new ApolloServer({
 })
 
 // Endpoint...
-// exports.graphql = functions.https.onRequest(apolloServer.createHandler())
+exports.graphql = functions.https.onRequest(apolloServer.createHandler())
 
 /*  When developing backend, create new endpoint and only deploy that function
     Step 1: Create new endpoint
@@ -45,4 +45,4 @@ const apolloServer = new ApolloServer({
     Step 4: Profit.
 */
 
-exports.eventActions = functions.https.onRequest(apolloServer.createHandler())
+// exports.test = functions.https.onRequest(apolloServer.createHandler())

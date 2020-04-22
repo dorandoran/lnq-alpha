@@ -13,6 +13,10 @@ export const userFragment = gql`
     events {
       id
       name
+      media {
+        id
+        uri
+      }
     }
   }
 `

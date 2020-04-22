@@ -70,11 +70,13 @@ const ActionAddMediaDialog = ({ onComplete, id }) => {
           <View style={[styles.image, styles.actionContainer]}>
             <ActionSelectMedia
               type={CAMERA_SELECTION}
-              color={theme.color.background}
+              color={theme.color.tertiary}
+              backgroundColor={theme.color.background}
               onComplete={handleImageSelected}
             />
             <ActionSelectMedia
-              color={theme.color.background}
+              color={theme.color.tertiary}
+              backgroundColor={theme.color.background}
               onComplete={handleImageSelected}
             />
           </View>
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center'
   }
 })
