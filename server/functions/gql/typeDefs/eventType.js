@@ -9,17 +9,18 @@ const Invite = require('../../databases/store/invite')
 exports.typeDef = gql`
   type Event {
     id: String!
-    ownerId: String!
+    ownerId: String
     owner: User
-    name: String!
-    type: String!
-    date: Date!
+    avatarId: String
+    name: String
+    type: String
+    date: Date
     location: Location
     url: String
     description: String
-    created_at: Date!
+    created_at: Date
     media: [Media]
-    likes: Int!
+    likes: Int
     plusOne: Boolean
     isPrivate: Boolean
     invites: [Invite]
@@ -64,8 +65,8 @@ exports.resolvers = {
     owner: (parent, args, context, info) => {
       return User.findById({ id: parent.ownerId })
     },
-    media: (parent, args, context, info) => {
-      return Media.findAllByLinkId({ linkId: parent.id })
+    media: ({ id, avatarId }, args, context, info) => {
+      return Media.findAllByLinkId({ linkId: id, avatarId: avatarId })
     },
     invites: (parent, args, context, info) => {
       return Invite.findAllByEventId({ eventId: parent.id })

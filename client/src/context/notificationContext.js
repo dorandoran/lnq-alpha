@@ -4,23 +4,28 @@ import PropTypes from 'prop-types'
 const NotificationContext = createContext()
 
 const initialState = {
-  component: null
+  id: null,
+  dialog: null
 }
 
 export const NotificationProvider = ({ children }) => {
-  const [modalNotification, setModalNotification] = useState(initialState)
+  const [modalDialog, setModalDialog] = useState(initialState)
 
-  const showSpeedBump = component => {
-    setModalNotification({ ...modalNotification, component })
+  const openDialog = info => {
+    setModalDialog(info)
   }
 
-  const hideSpeedBump = () => {
-    setModalNotification({ ...setModalNotification, component: null })
+  const closeModalDialog = () => {
+    setModalDialog(initialState)
   }
 
   return (
     <NotificationContext.Provider
-      value={{ modalNotification, showSpeedBump, hideSpeedBump }}
+      value={{
+        openDialog,
+        closeModalDialog,
+        modalDialog
+      }}
     >
       {children}
     </NotificationContext.Provider>

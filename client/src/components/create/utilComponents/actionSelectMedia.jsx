@@ -12,7 +12,8 @@ const ActionSelectMedia = ({
   onOpen,
   onComplete,
   type,
-  color
+  color,
+  styleProps
 }) => {
   const [isSelected, setIsSelected] = useState(false)
 
@@ -81,6 +82,7 @@ const ActionSelectMedia = ({
       onPress={() => setIsSelected(true)}
       disabled={isSelected}
       activeOpacity={0.8}
+      style={styleProps}
     >
       <Icon
         reverse
@@ -98,7 +100,8 @@ ActionSelectMedia.propTypes = {
   onComplete: PropTypes.func,
   onOpen: PropTypes.func,
   type: PropTypes.string,
-  color: PropTypes.string
+  color: PropTypes.string,
+  styleProps: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 }
 
 export default ActionSelectMedia

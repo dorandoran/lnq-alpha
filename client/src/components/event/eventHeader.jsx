@@ -1,5 +1,6 @@
-import React, { useContext, Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import { Route } from '@context/routeStore'
+import NotificationContext from '@context/notificationContext'
 import PropTypes from 'prop-types'
 
 import { theme } from '@src/theme'
@@ -7,13 +8,14 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { SCREEN_HEIGHT } from '@util/constants'
 
-import AddMediaFab from '@components/event/eventFab'
 import ActionEditEvent from '@components/event/utilComponents/actionEditEvent'
-import ActionDeleteEvent from '@components/event/utilComponents/actionDeleteEvent'
 import ActionLeaveEvent from '@components/event/utilComponents/actionLeaveEvent'
+
+import { ADD_MEDIA, DELETE_EVENT } from '@components/modal/modalUtil'
 
 const EventHeader = ({ event, open, toggleOpen }) => {
   const dispatch = useContext(Route.Dispatch)
+  const { openDialog } = useContext(NotificationContext)
 
   const closeModal = () => {
     dispatch({ type: 'closeModal' })
@@ -57,9 +59,23 @@ const EventHeader = ({ event, open, toggleOpen }) => {
               size={30}
             />
           </TouchableOpacity>
-          <AddMediaFab />
+          <TouchableOpacity
+            style={[styles.container, styles.addMedia]}
+            onPress={() => openDialog({ id: event.id, dialog: ADD_MEDIA })}
+          >
+            <Icon type='feather' name='plus' color={theme.color.tertiary} />
+          </TouchableOpacity>
           <ActionEditEvent />
-          <ActionDeleteEvent id={event.id} onComplete={closeModal} />
+          <TouchableOpacity
+            style={styles.container}
+            onPress={() => openDialog({ id: event.id, dialog: DELETE_EVENT })}
+          >
+            <Icon
+              type='material-community'
+              name='close'
+              color={theme.color.tertiary}
+            />
+          </TouchableOpacity>
           <ActionLeaveEvent />
         </View>
       )}
@@ -68,6 +84,14 @@ const EventHeader = ({ event, open, toggleOpen }) => {
 }
 
 const styles = StyleSheet.create({
+  addMedia: {
+    backgroundColor: theme.color.secondary
+  },
+  container: {
+    borderRadius: 25,
+    aspectRatio: 1,
+    justifyContent: 'center'
+  },
   backButton: {
     left: 20
   },
@@ -76,7 +100,6 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 35,
-    paddingTop: 2,
     justifyContent: 'center'
   },
   iconContainer: {

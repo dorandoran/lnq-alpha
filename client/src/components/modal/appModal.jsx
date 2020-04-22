@@ -4,7 +4,7 @@ import { Route } from '@context/routeStore'
 import { Modal } from 'react-native'
 import EventContainer from '@components/event/eventContainer'
 import ViewContainer from '@components/main/viewContainer'
-import SpeedBump from '@components/modal/speedBump'
+import Dialog from '@components/modal/eventDialog'
 
 const AppModal = () => {
   const { selected } = useContext(Route.State)
@@ -14,7 +14,7 @@ const AppModal = () => {
       <ViewContainer>
         {selected && <EventContainer id={selected.id} />}
       </ViewContainer>
-      <SpeedBump />
+      <Dialog />
     </Modal>
   )
 }

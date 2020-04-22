@@ -28,6 +28,7 @@ const ActionSaveEvent = ({ onComplete }) => {
     if (media) {
       // Clean up event object and send to server
       details.id = media.linkId
+      details.avatarId = media.id
       delete details.media
       !didCancel && createEvent({ ...details, ownerId })
 
