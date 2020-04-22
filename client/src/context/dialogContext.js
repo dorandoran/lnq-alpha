@@ -1,14 +1,14 @@
 import React, { createContext, useState } from 'react'
 import PropTypes from 'prop-types'
 
-const NotificationContext = createContext()
+const DialogContext = createContext()
 
 const initialState = {
   id: null,
   dialog: null
 }
 
-export const NotificationProvider = ({ children }) => {
+export const DialogProvider = ({ children }) => {
   const [modalDialog, setModalDialog] = useState(initialState)
 
   const openDialog = info => {
@@ -20,7 +20,7 @@ export const NotificationProvider = ({ children }) => {
   }
 
   return (
-    <NotificationContext.Provider
+    <DialogContext.Provider
       value={{
         openDialog,
         closeModalDialog,
@@ -28,12 +28,12 @@ export const NotificationProvider = ({ children }) => {
       }}
     >
       {children}
-    </NotificationContext.Provider>
+    </DialogContext.Provider>
   )
 }
 
-NotificationProvider.propTypes = {
+DialogProvider.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export default NotificationContext
+export default DialogContext

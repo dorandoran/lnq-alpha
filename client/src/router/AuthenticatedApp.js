@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from '@context/routeStore'
-import { NotificationProvider } from '@context/notificationContext'
+import { DialogProvider } from '@context/dialogContext'
 
 // Navigators
 import { NavigationContainer } from '@react-navigation/native'
@@ -41,7 +41,7 @@ const AuthenticatedApp = () => {
   }
 
   return (
-    <NotificationProvider>
+    <DialogProvider>
       <NavigationContainer
         ref={ref}
         onStateChange={state => {
@@ -81,7 +81,7 @@ const AuthenticatedApp = () => {
       </NavigationContainer>
       <TabBar mainFlowRef={ref} />
       <AppModal />
-    </NotificationProvider>
+    </DialogProvider>
   )
 }
 

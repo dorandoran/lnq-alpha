@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import NotificationContext from '@context/notificationContext'
+import DialogContext from '@context/dialogContext'
 
 import { theme } from '@src/theme'
 import { View, StyleSheet } from 'react-native'
@@ -10,7 +10,7 @@ import DeleteEvent from '@components/event/utilComponents/actionDeleteEventDialo
 import { ADD_MEDIA, DELETE_EVENT } from '@components/modal/modalUtil'
 
 const EventDialog = () => {
-  const { modalDialog, closeModalDialog } = useContext(NotificationContext)
+  const { modalDialog, closeModalDialog } = useContext(DialogContext)
   const { id, dialog } = modalDialog
 
   const renderDialog = () => {
