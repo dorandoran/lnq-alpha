@@ -25,6 +25,7 @@ const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {
 
 const TabBar = ({ mainFlowRef }) => {
   const { name, tabBar } = useContext(Route.State)
+  const { show } = tabBar
 
   const handlePress = screen => {
     mainFlowRef.current?.navigate(screen)
@@ -32,37 +33,37 @@ const TabBar = ({ mainFlowRef }) => {
 
   // Turns off tab bar
   // Useful for things like <CreateScreen />
-  if (!tabBar) return null
+  if (!show) return null
 
   return (
     <View style={styles.container}>
       <View style={styles.tabContainer}>
         <TabIcon
-          tabName="Home"
-          type="ionicon"
-          name="ios-home"
+          tabName='Home'
+          type='ionicon'
+          name='ios-home'
           onPress={handlePress}
           route={name}
         />
         <TabIcon
-          tabName="Search"
-          type="material"
-          name="search"
+          tabName='Search'
+          type='material'
+          name='search'
           size={28}
           onPress={handlePress}
           route={name}
         />
         <TabIcon
-          tabName="Locate"
-          type="ionicon"
-          name="md-pin"
+          tabName='Locate'
+          type='ionicon'
+          name='md-pin'
           onPress={handlePress}
           route={name}
         />
         <TabIcon
-          tabName="Profile"
-          type="material-community"
-          name="account"
+          tabName='Profile'
+          type='material-community'
+          name='account'
           size={28}
           onPress={handlePress}
           route={name}

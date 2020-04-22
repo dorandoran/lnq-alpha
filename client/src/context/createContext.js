@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { TOMORROW_DATETIME } from '@components/util/constants'
 import { screenMap } from '@components/create/utilComponents/createUtil'
@@ -7,7 +7,8 @@ const CreateContext = createContext()
 
 export const CreateProvider = ({ children, initialMedia }) => {
   const { DETAILS } = screenMap
-  const initialState = {
+  const initialState = { imageEdit: false }
+  const initialDetailState = {
     name: '',
     type: '',
     location: null,
@@ -16,12 +17,17 @@ export const CreateProvider = ({ children, initialMedia }) => {
     url: '',
     plusOne: true,
     isPrivate: true,
-    media: [initialMedia]
+    media: []
   }
 
   const [screen, setScreen] = useState(DETAILS)
-  const [details, setDetails] = useState(initialState)
+  const [state, setState] = useState(initialState)
+  const [details, setDetails] = useState({
+    ...initialDetailState,
+    media: [initialMedia]
+  })
 
+  // Edit Details/Media Functions
   const updateDetails = (key, input) => {
     setDetails({ ...details, [key]: input })
   }
@@ -43,9 +49,26 @@ export const CreateProvider = ({ children, initialMedia }) => {
     })
   }
 
+  // Reset the initial media if user cancels and comes back
+  useEffect(() => {
+    if (!details.media.includes(initialMedia)) {
+      updateDetails('media', [initialMedia])
+    }
+  }, [initialMedia])
+
   const resetDetails = () => {
     setScreen(DETAILS)
-    setDetails(initialState)
+    setDetails(initialDetailState)
+    setState(initialState)
+  }
+
+  // Image Edit Functions
+  const toggleImageEdit = () => {
+    setState({ ...state, imageEdit: !state.imageEdit })
+  }
+
+  const closeImageEdit = () => {
+    setState({ ...state, imageEdit: false })
   }
 
   return (
@@ -58,7 +81,10 @@ export const CreateProvider = ({ children, initialMedia }) => {
         addMedia,
         updateMedia,
         removeMedia,
-        resetDetails
+        resetDetails,
+        imageEdit: state.imageEdit,
+        toggleImageEdit,
+        closeImageEdit
       }}
     >
       {children}

@@ -25,7 +25,8 @@ exports.resolvers = {
   // Global query
   Query: {
     user: (parent, args, context, info) => {
-      return User.findById(args)
+      const id = args.id || context.user.id
+      return User.findById({ id })
     }
   },
   // Mutations

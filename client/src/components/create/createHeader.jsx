@@ -2,7 +2,13 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import CreateContext from '@context/createContext'
 
-import { View, Keyboard, Text, StyleSheet } from 'react-native'
+import {
+  View,
+  Keyboard,
+  Text,
+  StyleSheet,
+  TouchableOpacity
+} from 'react-native'
 import { Header } from '@common'
 import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
@@ -48,12 +54,16 @@ const CreateHeader = ({ navigation }) => {
 
   return (
     <Header position='relative' backgroundColor={theme.color.background}>
-      <Icon
-        type='ionicon'
-        name='ios-arrow-back'
-        color={theme.color.tertiary}
+      <TouchableOpacity
+        style={styles.padding}
         onPress={isInvite ? goBack : closeScreen}
-      />
+      >
+        <Icon
+          type='ionicon'
+          name='ios-arrow-back'
+          color={theme.color.tertiary}
+        />
+      </TouchableOpacity>
       {isInvite ? <Text style={styles.header}>Invite</Text> : <View />}
       {isInvite ? (
         <ActionSaveEvent onComplete={closeScreen} />
@@ -64,12 +74,13 @@ const CreateHeader = ({ navigation }) => {
           color={theme.color.secondary}
         />
       ) : (
-        <Icon
-          type='material'
-          name='person-add'
-          color={theme.color.tertiary}
-          onPress={navigateToInvite}
-        />
+        <TouchableOpacity style={styles.padding} onPress={navigateToInvite}>
+          <Icon
+            type='material'
+            name='person-add'
+            color={theme.color.tertiary}
+          />
+        </TouchableOpacity>
       )}
     </Header>
   )
@@ -80,6 +91,10 @@ const styles = StyleSheet.create({
     color: theme.color.tertiary,
     fontWeight: 'bold',
     fontSize: 18
+  },
+  padding: {
+    padding: '1%',
+    aspectRatio: 1
   }
 })
 

@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
+import { Route } from '@context/routeStore'
 
 import { theme } from '@src/theme'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
@@ -10,7 +11,9 @@ import { CAMERA_SELECTION } from '@components/util/constants'
 
 const TabBarFab = ({ mainFlowRef }) => {
   const [fabPosition, setFabPosition] = useState(null)
-  const [showButton, setShowButton] = useState(false)
+  const { tabBar } = useContext(Route.State)
+  const dispatch = useContext(Route.Dispatch)
+  const { fabButton } = tabBar
 
   const navigateToDetails = media => {
     // Passes media to <CreateDetails />
@@ -20,22 +23,30 @@ const TabBarFab = ({ mainFlowRef }) => {
     })
   }
 
+  const toggleFabButton = () => {
+    dispatch({ type: 'toggleTabBarFab' })
+  }
+
   return (
     <Fragment>
-      {showButton && (
+      {fabButton && (
         <View style={[styles.fabContainer, fabPosition]}>
           <ActionSelectMedia
             type={CAMERA_SELECTION}
             navigateToDetails={navigateToDetails}
+            closeIconContainer={toggleFabButton}
           />
 
-          <ActionSelectMedia navigateToDetails={navigateToDetails} />
+          <ActionSelectMedia
+            navigateToDetails={navigateToDetails}
+            closeIconContainer={toggleFabButton}
+          />
         </View>
       )}
       <TouchableOpacity
         activeOpacity={0.5}
         style={styles.iconContainer}
-        onPress={() => setShowButton(!showButton)}
+        onPress={toggleFabButton}
         onLayout={({ nativeEvent: { layout } }) => {
           // Sets position of hidden fabs based on the Create button
           if (!fabPosition) setFabPosition({ bottom: layout.height * 1.5 })
@@ -43,8 +54,8 @@ const TabBarFab = ({ mainFlowRef }) => {
       >
         <Icon
           tabName='Create'
-          type={showButton ? 'material' : 'feather'}
-          name={showButton ? 'close' : 'plus'}
+          type={fabButton ? 'material' : 'feather'}
+          name={fabButton ? 'close' : 'plus'}
           color={theme.color.secondary}
           reverse
         />
@@ -60,7 +71,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   fabContainer: {
-    position: 'absolute'
+    position: 'absolute',
+    height: 100,
+    justifyContent: 'space-around'
   }
 })
 
