@@ -12,7 +12,7 @@ const ActionRemoveMedia = ({ index }) => {
   const disabled = media.length < 2
 
   const disabledStyles = {
-    backgroundColor: theme.color.tertiary,
+    backgroundColor: theme.color.lightShadow,
     color: theme.color.background
   }
 
@@ -40,7 +40,7 @@ const ActionRemoveMedia = ({ index }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.color.background,
+    backgroundColor: theme.color.shadow,
     aspectRatio: 1,
     borderRadius: 50,
     padding: 10,

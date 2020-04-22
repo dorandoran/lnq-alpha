@@ -71,12 +71,12 @@ const ActionAddMediaDialog = ({ onComplete, id }) => {
             <ActionSelectMedia
               type={CAMERA_SELECTION}
               color={theme.color.tertiary}
-              backgroundColor={theme.color.background}
+              backgroundColor={theme.color.shadow}
               onComplete={handleImageSelected}
             />
             <ActionSelectMedia
               color={theme.color.tertiary}
-              backgroundColor={theme.color.background}
+              backgroundColor={theme.color.shadow}
               onComplete={handleImageSelected}
             />
           </View>

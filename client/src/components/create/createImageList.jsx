@@ -51,13 +51,13 @@ const CreateImageList = () => {
                     <ActionSelectMedia
                       type={CAMERA_SELECTION}
                       color={theme.color.tertiary}
-                      backgroundColor={theme.color.background}
+                      backgroundColor={theme.color.shadow}
                       onComplete={media => handleUpdate(index, media)}
                       closeIconContainer={closeImageEdit}
                     />
                     <ActionSelectMedia
                       color={theme.color.tertiary}
-                      backgroundColor={theme.color.background}
+                      backgroundColor={theme.color.shadow}
                       onComplete={media => handleUpdate(index, media)}
                       closeIconContainer={closeImageEdit}
                     />

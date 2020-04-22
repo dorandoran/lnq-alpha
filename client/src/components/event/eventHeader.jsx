@@ -23,7 +23,6 @@ const EventHeader = ({ event, open, toggleOpen }) => {
 
   return (
     <Fragment>
-      <View />
       <TouchableOpacity
         onPress={closeModal}
         style={[styles.iconContainer, styles.button, styles.backButton]}
@@ -51,7 +50,7 @@ const EventHeader = ({ event, open, toggleOpen }) => {
         <View
           style={[styles.iconContainer, styles.openMenu, styles.actionButton]}
         >
-          <TouchableOpacity onPress={toggleOpen}>
+          <TouchableOpacity onPress={toggleOpen} style={styles.container}>
             <Icon
               type='material-community'
               name='chevron-up'
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     position: 'absolute',
     top: 20,
-    backgroundColor: theme.color.accent,
+    backgroundColor: theme.color.shadow,
     width: 35,
     borderRadius: 25
   },

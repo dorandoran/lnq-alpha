@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route } from '@context/routeStore'
 import { DialogProvider } from '@context/dialogContext'
+import { TouchableWithoutFeedback, View } from 'react-native'
 
 // Navigators
 import { NavigationContainer } from '@react-navigation/native'
@@ -21,7 +22,7 @@ const Tab = createBottomTabNavigator()
 const AuthenticatedApp = () => {
   const [loaded, setLoaded] = React.useState(false)
   const ref = React.useRef(null)
-  const routeDispatch = React.useContext(Route.Dispatch)
+  const dispatch = React.useContext(Route.Dispatch)
 
   console.log('run')
   // This is done to set the NavigationContainer ref after loading
@@ -40,47 +41,55 @@ const AuthenticatedApp = () => {
     return route.name
   }
 
+  const handlePressIn = () => {
+    dispatch({ type: 'closeTabBarFab' })
+  }
+
   return (
     <DialogProvider>
-      <NavigationContainer
-        ref={ref}
-        onStateChange={state => {
-          // Updates the route context, so that a sibling <TabBar /> can use
-          // without rerendering this component every time
-          const route = getActiveRouteName(state)
-          routeDispatch({ type: 'changeRoute', payload: route })
-        }}
-      >
-        <Tab.Navigator backBehavior='history' initialRouteName='Home'>
-          <Tab.Screen
-            name='Home'
-            component={HomeScreen}
-            options={{ tabBarVisible: false }}
-          />
-          <Tab.Screen
-            name='Search'
-            component={SearchScreen}
-            options={{ tabBarVisible: false }}
-          />
-          <Tab.Screen
-            name='Locate'
-            component={LocateScreen}
-            options={{ tabBarVisible: false }}
-          />
-          <Tab.Screen
-            name='Profile'
-            component={ProfileScreen}
-            options={{ tabBarVisible: false }}
-          />
-          <Tab.Screen
-            name='Create'
-            component={CreateScreen}
-            options={{ tabBarVisible: false }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-      <TabBar mainFlowRef={ref} />
-      <AppModal />
+      <TouchableWithoutFeedback onPressIn={handlePressIn}>
+        <View style={{ flex: 1 }}>
+          <NavigationContainer
+            ref={ref}
+            onStateChange={state => {
+              // Updates the route context, so that a sibling <TabBar /> can use
+              // without rerendering this component every time
+              const route = getActiveRouteName(state)
+              dispatch({ type: 'changeRoute', payload: route })
+            }}
+          >
+            <Tab.Navigator backBehavior='history' initialRouteName='Home'>
+              <Tab.Screen
+                name='Home'
+                component={HomeScreen}
+                options={{ tabBarVisible: false }}
+              />
+              <Tab.Screen
+                name='Search'
+                component={SearchScreen}
+                options={{ tabBarVisible: false }}
+              />
+              <Tab.Screen
+                name='Locate'
+                component={LocateScreen}
+                options={{ tabBarVisible: false }}
+              />
+              <Tab.Screen
+                name='Profile'
+                component={ProfileScreen}
+                options={{ tabBarVisible: false }}
+              />
+              <Tab.Screen
+                name='Create'
+                component={CreateScreen}
+                options={{ tabBarVisible: false }}
+              />
+            </Tab.Navigator>
+          </NavigationContainer>
+          <TabBar mainFlowRef={ref} />
+          <AppModal />
+        </View>
+      </TouchableWithoutFeedback>
     </DialogProvider>
   )
 }

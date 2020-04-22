@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.secondary,
     aspectRatio: 1,
     borderRadius: 50,
-    padding: 10,
+    padding: 15,
     justifyContent: 'center'
   }
 })

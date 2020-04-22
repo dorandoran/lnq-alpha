@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   fabContainer: {
     position: 'absolute',
-    height: 100,
+    height: 120,
     justifyContent: 'space-around'
   }
 })
