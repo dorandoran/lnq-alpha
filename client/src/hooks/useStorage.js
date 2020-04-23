@@ -4,7 +4,7 @@ import useCreateMedia from '@graphql/media/useCreateMedia'
 import { useUser } from '@context/userContext'
 import { MEDIA_CONST } from '@components/util/constants'
 
-const useStorage = ({ uri, bucketName, linkId, skip }) => {
+const useStorage = ({ uri, bucketName, linkId, skip, onSuccess, onError }) => {
   const [media, setMedia] = useState(null)
   const [loading, setLoading] = useState(false)
   const createMedia = useCreateMedia()
@@ -67,6 +67,7 @@ const useStorage = ({ uri, bucketName, linkId, skip }) => {
 
           // Save Media to Firestore
           createMedia(newMedia)
+          if (onSuccess) onSuccess()
           !didCancel && setMedia(newMedia)
           !didCancel && setLoading(false)
         }

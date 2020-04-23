@@ -48,7 +48,7 @@ const ActionSelectMedia = ({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: false,
       aspect: [16, 9],
-      quality: 0.8 // Setting to 1 freezes when send media to firebase storage
+      quality: 0.8 // Setting to 1 freezes when sending media to firebase storage
     }
 
     async function launchMediaAsync () {
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.secondary,
     aspectRatio: 1,
     borderRadius: 50,
-    padding: 15,
+    padding: 10,
     justifyContent: 'center'
   }
 })

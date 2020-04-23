@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import CreateContext from '@context/createContext'
+import useNotification from '@hooks/useNotification'
 
 import {
   View,
@@ -18,8 +19,13 @@ import { screenMap } from '@components/create/utilComponents/createUtil'
 
 const CreateHeader = ({ navigation }) => {
   const { details, resetDetails, screen, setScreen } = useContext(CreateContext)
+  const { throwSuccess, throwLoading } = useNotification()
   const { INVITES, DETAILS } = screenMap
   const isInvite = screen === INVITES
+
+  const handleSuccess = () => {
+    throwSuccess('Event successfully created!')
+  }
 
   const closeScreen = () => {
     Keyboard.dismiss()
@@ -66,7 +72,11 @@ const CreateHeader = ({ navigation }) => {
       </TouchableOpacity>
       {isInvite ? <Text style={styles.header}>Invite</Text> : <View />}
       {isInvite ? (
-        <ActionSaveEvent onComplete={closeScreen} />
+        <ActionSaveEvent
+          onOpen={throwLoading}
+          onComplete={closeScreen}
+          onSuccess={handleSuccess}
+        />
       ) : checkDisabled() ? (
         <Icon
           type='font-awesome'

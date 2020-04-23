@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import useStorage from '@hooks/useStorage'
+import useNotification from '@hooks/useNotification'
 
 import { theme } from '@src/theme'
 import {
@@ -21,12 +22,14 @@ const initialState = {
 
 const ActionAddMediaDialog = ({ onComplete, id }) => {
   const [uri, setUri] = useState(initialState)
+  const { throwSuccess } = useNotification()
 
   const { media, loading } = useStorage({
     uri: uri.confirmed,
     bucketName: EVENT_CONST,
     linkId: id,
-    skip: !uri.confirmed
+    skip: !uri.confirmed,
+    onSuccess: () => throwSuccess('Media successfully added.')
   })
 
   useEffect(() => {

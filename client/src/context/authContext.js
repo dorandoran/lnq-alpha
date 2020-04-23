@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext } from 'react'
+import useNotification from '@hooks/useNotification'
 import config from '@config'
 import { f, auth } from '@services/firebase'
 import * as Google from 'expo-google-app-auth'
@@ -14,6 +15,7 @@ const AuthProvider = props => {
   const [user, setUser] = useState(null)
   const [success, setSuccess] = useState(false)
   const createUser = useCreateUser()
+  const { throwSuccess, throwWarning } = useNotification()
 
   const clearErr = () => {
     setErr('')
@@ -34,6 +36,7 @@ const AuthProvider = props => {
       createUser({ email, username, name, dob, id })
       setIsLoading(false)
       setUser(id)
+      throwSuccess('Successfully logged in.')
     } catch (error) {
       setIsLoading(false)
       setErr(error)
@@ -49,6 +52,7 @@ const AuthProvider = props => {
 
       setIsLoading(false)
       setUser(id)
+      throwSuccess('Successfully logged in.')
     } catch (error) {
       setIsLoading(false)
       setErr(error)
@@ -61,6 +65,7 @@ const AuthProvider = props => {
       if (user) {
         const id = user.uid
         setUser(id)
+        throwSuccess('Successfully logged in.')
       }
       setIsLoading(false)
     })
@@ -82,6 +87,7 @@ const AuthProvider = props => {
         const id = response.user.uid
 
         setUser(id)
+        throwSuccess('Successfully logged in.')
       } else {
         return { cancelled: true }
       }
@@ -107,6 +113,7 @@ const AuthProvider = props => {
         const id = response.user.uid
 
         setUser(id)
+        throwSuccess('Successfully logged in.')
       }
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`)
@@ -118,6 +125,7 @@ const AuthProvider = props => {
       .signOut()
       .then(() => {
         setUser(null)
+        throwWarning('Logged out.')
         navigate('Login')
       })
       .catch(e => {
