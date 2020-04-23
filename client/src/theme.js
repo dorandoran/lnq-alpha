@@ -10,6 +10,7 @@ export const theme = {
     tertiary: '#FFFFFF',
     success: '#228B22',
     error: '#FF0000',
+    warning: '#FFCC00',
     active: '#B61700',
     inactive: '#F9F9F9'
   },

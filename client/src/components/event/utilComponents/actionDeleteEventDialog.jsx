@@ -1,6 +1,8 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import PropTypes from 'prop-types'
+import { Route } from '@context/routeStore'
 import useDeleteEvent from '@graphql/event/useDeleteEvent'
+import useNotification from '@hooks/useNotification'
 
 import { theme } from '@src/theme'
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
@@ -8,10 +10,14 @@ import { Icon } from 'react-native-elements'
 
 const ActionDeleteEventDialog = ({ onComplete, id }) => {
   const deleteEvent = useDeleteEvent()
+  const { throwSuccess } = useNotification()
+  const dispatch = useContext(Route.Dispatch)
 
   const handleConfirm = () => {
     deleteEvent({ id })
     onComplete()
+    dispatch({ type: 'closeModal' })
+    throwSuccess('Event successfully deleted.')
   }
 
   return (

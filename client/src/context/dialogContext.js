@@ -3,20 +3,20 @@ import PropTypes from 'prop-types'
 
 const DialogContext = createContext()
 
-const initialState = {
+const initialModalDialogState = {
   id: null,
   dialog: null
 }
 
 export const DialogProvider = ({ children }) => {
-  const [modalDialog, setModalDialog] = useState(initialState)
+  const [modalDialog, setModalDialog] = useState(initialModalDialogState)
 
   const openDialog = info => {
     setModalDialog(info)
   }
 
   const closeModalDialog = () => {
-    setModalDialog(initialState)
+    setModalDialog(initialModalDialogState)
   }
 
   return (

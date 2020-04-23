@@ -10,7 +10,7 @@ import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
 import { EVENT_CONST } from '@components/util/constants'
 
-const ActionSaveEvent = ({ onComplete }) => {
+const ActionSaveEvent = ({ onOpen, onComplete, onSuccess }) => {
   const [actionSelected, setActionSelected] = useState(false)
   const { details } = useContext(CreateContext)
   const createEvent = useCreateEvent()
@@ -23,6 +23,11 @@ const ActionSaveEvent = ({ onComplete }) => {
     skip: !actionSelected
   })
 
+  const selectAction = () => {
+    if (onOpen) onOpen()
+    setActionSelected(true)
+  }
+
   useEffect(() => {
     let didCancel = false
     if (media) {
@@ -34,6 +39,7 @@ const ActionSaveEvent = ({ onComplete }) => {
 
       // Action clean up
       setActionSelected(false)
+      if (onSuccess) onSuccess()
       onComplete()
 
       return () => {
@@ -51,13 +57,15 @@ const ActionSaveEvent = ({ onComplete }) => {
       type='ionicon'
       name='md-share'
       color={theme.color.tertiary}
-      onPress={() => setActionSelected(true)}
+      onPress={selectAction}
     />
   )
 }
 
 ActionSaveEvent.propTypes = {
-  onComplete: PropTypes.func.isRequired
+  onOpen: PropTypes.func,
+  onComplete: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func
 }
 
 export default ActionSaveEvent

@@ -1,25 +1,61 @@
-import React, { useContext, useEffect } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React from 'react'
+import useNotification from '@hooks/useNotification'
 import PropTypes from 'prop-types'
 
-const HomeScreen = ({ navigation }) => {
-  // console.log('run')
+import { theme } from '@src/theme'
+import { View, Text, StyleSheet } from 'react-native'
+import { Card, Button } from 'react-native-elements'
+
+const HomeScreen = () => {
+  const {
+    throwSuccess,
+    throwError,
+    throwWarning,
+    throwNotification
+  } = useNotification()
+
   return (
-    <View>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
+    <View style={styles.container}>
+      <Card containerStyle={{ backgroundColor: theme.color.accent }}>
+        <Button
+          title='Success Notification Test'
+          onPress={() => throwSuccess('This is a success!')}
+        />
+      </Card>
+      <Card containerStyle={{ backgroundColor: theme.color.accent }}>
+        <Button
+          title='Error Notification Test'
+          onPress={() => throwError('This is an error!')}
+        />
+      </Card>
+      <Card containerStyle={{ backgroundColor: theme.color.accent }}>
+        <Button
+          title='Warning Notification Test'
+          onPress={() => throwWarning('This is a warning!')}
+        />
+      </Card>
+      <Card containerStyle={{ backgroundColor: theme.color.accent }}>
+        <Button
+          title='Freestyle Notification Test'
+          onPress={() =>
+            throwNotification({
+              message: 'This is a freestyle!',
+              type: 'success'
+            })
+          }
+        />
+      </Card>
     </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.color.background
+  }
+})
 
-HomeScreen.propTypes = {
-  navigation: PropTypes.object
-}
+HomeScreen.propTypes = {}
 
 export default HomeScreen

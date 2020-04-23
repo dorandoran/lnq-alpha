@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 import DialogContext from '@context/dialogContext'
 
 import { theme } from '@src/theme'
 import { View, StyleSheet } from 'react-native'
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util/constants'
 
-import SelectMediaDialog from '@components/event/utilComponents/actionAddMediaDialog'
+import AddMediaDialog from '@components/event/utilComponents/actionAddMediaDialog'
 import DeleteEvent from '@components/event/utilComponents/actionDeleteEventDialog'
 import { ADD_MEDIA, DELETE_EVENT } from '@components/modal/modalUtil'
 
@@ -13,12 +14,16 @@ const EventDialog = () => {
   const { modalDialog, closeModalDialog } = useContext(DialogContext)
   const { id, dialog } = modalDialog
 
+  const closeDialog = () => {
+    closeModalDialog()
+  }
+
   const renderDialog = () => {
     switch (dialog) {
       case ADD_MEDIA:
-        return <SelectMediaDialog onComplete={closeModalDialog} id={id} />
+        return <AddMediaDialog onComplete={closeDialog} id={id} />
       case DELETE_EVENT:
-        return <DeleteEvent onComplete={closeModalDialog} id={id} />
+        return <DeleteEvent onComplete={closeDialog} id={id} />
       default:
         return null
     }
@@ -49,5 +54,9 @@ const styles = StyleSheet.create({
     padding: '3%'
   }
 })
+
+EventDialog.propTypes = {
+  onClose: PropTypes.func
+}
 
 export default EventDialog
