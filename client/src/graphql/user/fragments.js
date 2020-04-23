@@ -5,18 +5,8 @@ export const userFragment = gql`
     id
     username
     name
-    dob
     email
     description
     avatarUrl
-    created_at
-    events {
-      id
-      name
-      media {
-        id
-        uri
-      }
-    }
   }
 `

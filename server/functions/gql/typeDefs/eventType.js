@@ -44,6 +44,10 @@ exports.resolvers = {
   Query: {
     event: (parent, args, context, info) => {
       return Event.findById(args)
+    },
+    getUserEvents: (parent, args, context, info) => {
+      const ownerId = args.id || context.user.id
+      return Event.findAllByOwnerId({ ownerId })
     }
   },
   // Mutations

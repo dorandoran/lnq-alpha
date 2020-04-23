@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import { Route } from '@context/routeStore'
 import PropTypes from 'prop-types'
+import { useQuery } from '@apollo/react-hooks'
+import { GetUser } from '@graphql/user/queries'
 
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
@@ -26,6 +28,8 @@ const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {
 const TabBar = ({ mainFlowRef }) => {
   const { name, tabBar } = useContext(Route.State)
   const { show } = tabBar
+
+  const { data } = useQuery(GetUser)
 
   const handlePress = screen => {
     mainFlowRef.current?.navigate(screen)
