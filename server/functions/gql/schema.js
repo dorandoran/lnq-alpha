@@ -33,6 +33,7 @@ const Other = gql`
     user(id: String): User
     event(id: String!): Event
     media(id: String!): Media
+    getUserEvents(id: String): [Event]
   }
   type Mutation {
     createUser(

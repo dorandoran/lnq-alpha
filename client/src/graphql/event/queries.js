@@ -10,3 +10,13 @@ export const GetEvent = gql`
     }
   }
 `
+
+export const GetUserEvents = gql`
+  ${eventFragment}
+
+  query GetUserEvents($id: String) {
+    getUserEvents(id: $id) {
+      ...eventFields
+    }
+  }
+`

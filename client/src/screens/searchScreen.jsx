@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Route } from '@context/routeStore'
 
 import { useQuery } from '@apollo/react-hooks'
-import { GetUser } from '@graphql/user/queries'
+import { GetUserEvents } from '@graphql/event/queries'
 
 import { theme } from '@src/theme'
 import { ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
@@ -11,20 +11,20 @@ import { Card, ListItem } from 'react-native-elements'
 import { EVENT_CONST } from '@util/constants'
 import { Loading } from '@common'
 
-// const TEST_ID = '0vQcj0GKrKYAxmDJWAsn'
-
 const SearchScreen = () => {
   const dispatch = useContext(Route.Dispatch)
-  const { data, loading } = useQuery(GetUser)
+  const { data, loading } = useQuery(GetUserEvents)
 
   if (loading) return <Loading />
 
-  if (!data?.user) return <ActivityIndicator size='large' color='blue' />
-  const { user } = data
+  if (!data?.getUserEvents) {
+    return <ActivityIndicator size='large' color='blue' />
+  }
+  const { getUserEvents: events } = data
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {user.events.map(event => {
+      {events.map(event => {
         const { id, media, name } = event
 
         return (
