@@ -29,4 +29,4 @@ const apolloServer = new ApolloServer({
   introspection: true
 })
 
-module.exports = apolloServer
+module.exports = apolloServer.createHandler()

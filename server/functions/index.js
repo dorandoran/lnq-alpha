@@ -13,7 +13,7 @@ const apolloServer = require('./gql/server')
 const Media = require('./databases/store/media')
 
 // GraphQL Endpoint
-exports.graphql = functions.https.onRequest(apolloServer.createHandler())
+exports.app = functions.https.onRequest(apolloServer)
 
 // Media Cleanup - Deletes Media attached to just-deleted Events
 exports.cleanupMedia = functions.firestore
