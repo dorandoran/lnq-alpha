@@ -1,10 +1,7 @@
 const admin = require('firebase-admin')
-const serviceAccount = require('../config/credentials.json')
+const functions = require('firebase-functions')
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://lnq-alpha.firebaseio.com'
-})
+admin.initializeApp(functions.config().firebase)
 
 module.exports = {
   auth: () => admin.auth(),
