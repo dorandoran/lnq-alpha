@@ -33,6 +33,10 @@ const CreateView = ({ navigation }) => {
   )
 }
 
+CreateView.propTypes = {
+  navigation: PropTypes.object.isRequired
+}
+
 const CreateScreen = ({ route, navigation }) => {
   // This is the uri and aspect ratio passed from <tabBarFab />.
   // This information is the initial information used to start an event.
@@ -43,10 +47,6 @@ const CreateScreen = ({ route, navigation }) => {
       <CreateView navigation={navigation} />
     </CreateProvider>
   )
-}
-
-CreateView.propTypes = {
-  navigation: PropTypes.object.isRequired
 }
 
 CreateScreen.propTypes = {
