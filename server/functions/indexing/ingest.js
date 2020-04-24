@@ -28,9 +28,7 @@ const indexAll = async (req, res) => {
     )
     .catch(e => console.log(e))
 
-  await SearchIndex.user.saveObjects(users, {
-    autoGenerateObjectIDIfNotExist: true
-  })
+  await SearchIndex.user.saveObjects(users)
 
   // Index Events
   await eventsRef
@@ -44,9 +42,7 @@ const indexAll = async (req, res) => {
     )
     .catch(e => console.log(e))
 
-  await SearchIndex.event.saveObjects(events, {
-    autoGenerateObjectIDIfNotExist: true
-  })
+  await SearchIndex.event.saveObjects(events)
 
   res.status(200).send('Indexed!')
 }
