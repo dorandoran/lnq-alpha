@@ -65,8 +65,20 @@ const findAllByLinkId = ({ linkId, avatarId }) => {
     })
 }
 
+const deleteFromStore = ({ id }) => {
+  return mediaRef
+    .doc(id)
+    .delete()
+    .then(() => true)
+    .catch(e => {
+      console.log(e)
+      return false
+    })
+}
+
 module.exports = {
   saveToStore,
   findById,
-  findAllByLinkId
+  findAllByLinkId,
+  deleteFromStore
 }
