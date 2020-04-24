@@ -33,16 +33,16 @@ const apolloServer = new ApolloServer({
 // Endpoint...
 exports.graphql = functions.https.onRequest(apolloServer.createHandler())
 
-/*  When developing backend, create new endpoint and only deploy that function
+/*  When developing backend, create a new endpoint and only deploy that function
     Step 1: Create new endpoint
-    exports.[ENDPOINT NAME] = functions.https.onRequest(apolloServer.createHandler())
+    exports.[ENDPOINT NAME] = functions.https.onRequest( CODE HERE )
 
     Step 2: Only deploy test function
     firebase deploy --only functions:[ENDPOINT NAME]
 
-    Step 3: Change client to point at test endpoint
+    Step 3: Change client to point at test endpoint (dev.js => GRAPHQL_ENDPOINT)
 
     Step 4: Profit.
 */
 
-// exports.test = functions.https.onRequest(apolloServer.createHandler())
+// exports.test = functions.https.onRequest()
