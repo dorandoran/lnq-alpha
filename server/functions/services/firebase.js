@@ -1,9 +1,13 @@
 const admin = require('firebase-admin')
-const functions = require('firebase-functions')
+const credentials = require('../config/credentials.json')
 
-admin.initializeApp(functions.config().firebase)
+admin.initializeApp({
+  credential: admin.credential.cert(credentials.google),
+  storageBucket: 'lnq-alpha.appspot.com'
+})
 
 module.exports = {
   auth: () => admin.auth(),
-  firestore: () => admin.firestore()
+  firestore: () => admin.firestore(),
+  storage: () => admin.storage().bucket()
 }

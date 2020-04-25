@@ -72,6 +72,7 @@ const Other = gql`
     createInvites(recipientIds: [String!], eventId: String!): [Invite]
     updateEvent(id: String!, updates: EventUpdateInput!): Event
     deleteEvent(id: String!): Boolean
+    deleteMedia(id: String!, bucket: String): Boolean
   }
 `
 // Combine all typeDefs

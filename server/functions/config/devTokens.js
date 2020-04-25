@@ -1,14 +1,14 @@
 module.exports = [
   {
-    id: 'GQLTester1',
+    id: 'Tester1',
     token: '1234lnqdeveloper!'
   },
   {
-    id: 'GQLTester2',
+    id: 'Tester2',
     token: '@lnqdeveloper1234'
   },
   {
-    id: 'GQLTester3',
+    id: 'Tester3',
     token: '&lnq1234developer'
   }
 ]

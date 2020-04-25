@@ -21,6 +21,9 @@ exports.resolvers = {
   Mutation: {
     createMedia: (parent, args) => {
       return Media.saveToStore(args)
+    },
+    deleteMedia: (parent, args) => {
+      return Media.deleteFromStore(args)
     }
   },
   Media: {}

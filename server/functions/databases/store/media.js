@@ -1,4 +1,4 @@
-const { firestore } = require('../../services/firebase')
+const { firestore, storage } = require('../../services/firebase')
 const admin = require('firebase-admin')
 const timestamp = admin.firestore.Timestamp
 
@@ -66,10 +66,21 @@ const findAllByLinkId = ({ linkId, avatarId }) => {
 }
 
 const deleteFromStore = ({ id }) => {
-  return mediaRef
-    .doc(id)
+  // Delete media from storage
+  return storage()
+    .file(`events/${id}`)
     .delete()
-    .then(() => true)
+    .then(() => {
+      // Delete media from firestore
+      return mediaRef
+        .doc(id)
+        .delete()
+        .then(() => true)
+        .catch(e => {
+          console.log(e)
+          return false
+        })
+    })
     .catch(e => {
       console.log(e)
       return false
