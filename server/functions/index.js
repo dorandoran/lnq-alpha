@@ -25,24 +25,22 @@ const ApolloServer = require('./gql/server')
 const Ingest = require('./indexing/ingest')
 const Database = require('./databases/functions')
 
-/**
- * LISTENER-TRIGGER FUNCTIONS
- */
-
 // GraphQL Endpoint
 exports.app = functions.https.onRequest(ApolloServer)
 
+/** Data Consistency Functions */
+
 // Media Cleanup - Deletes Media attached to just-deleted Events
 exports.cleanupMedia = Database.cleanupMedia
+// User Cleanup - Deletes Users from authentication if deleted from firestore
+exports.cleanupUser = Database.cleanupUser
 
+/** Indexing */
+
+// Index janky html page
+exports.indexing = functions.https.onRequest(Ingest.indexing)
+// Index Action - Delete all Algolia indices and reindex
+exports.indexAll = functions.https.onRequest(Ingest.indexAll)
 // Update index to match store
 exports.updateUserIndex = Ingest.updateEventIndex
 exports.updateEventIndex = Ingest.updateUserIndex
-
-/**
- * ACTION-TRIGGER FUNCTIONS
- */
-
-// Index data into Algolia
-exports.indexing = functions.https.onRequest(Ingest.indexing)
-exports.indexAll = functions.https.onRequest(Ingest.indexAll)
