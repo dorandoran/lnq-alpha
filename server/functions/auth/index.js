@@ -1,5 +1,5 @@
 /* eslint-disable promise/no-nesting */
-const { auth } = require('../databases/firebase')
+const { auth } = require('../services/firebase')
 const User = require('../databases/store/user')
 
 const developerMap = require('../config/devTokens')

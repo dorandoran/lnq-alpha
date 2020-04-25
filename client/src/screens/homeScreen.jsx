@@ -3,16 +3,11 @@ import useNotification from '@hooks/useNotification'
 import PropTypes from 'prop-types'
 
 import { theme } from '@src/theme'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { Card, Button } from 'react-native-elements'
 
 const HomeScreen = () => {
-  const {
-    throwSuccess,
-    throwError,
-    throwWarning,
-    throwNotification
-  } = useNotification()
+  const { throwSuccess } = useNotification()
 
   return (
     <View style={styles.container}>
@@ -20,29 +15,6 @@ const HomeScreen = () => {
         <Button
           title='Success Notification Test'
           onPress={() => throwSuccess('This is a success!')}
-        />
-      </Card>
-      <Card containerStyle={{ backgroundColor: theme.color.accent }}>
-        <Button
-          title='Error Notification Test'
-          onPress={() => throwError('This is an error!')}
-        />
-      </Card>
-      <Card containerStyle={{ backgroundColor: theme.color.accent }}>
-        <Button
-          title='Warning Notification Test'
-          onPress={() => throwWarning('This is a warning!')}
-        />
-      </Card>
-      <Card containerStyle={{ backgroundColor: theme.color.accent }}>
-        <Button
-          title='Freestyle Notification Test'
-          onPress={() =>
-            throwNotification({
-              message: 'This is a freestyle!',
-              type: 'success'
-            })
-          }
         />
       </Card>
     </View>

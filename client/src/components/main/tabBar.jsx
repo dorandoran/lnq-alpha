@@ -29,7 +29,12 @@ const TabBar = ({ mainFlowRef }) => {
   const { name, tabBar } = useContext(Route.State)
   const { show } = tabBar
 
-  const { data } = useQuery(GetUser)
+  // This is to populate the cache
+  // It is wrapped in try-catch
+  // in the event in case of new user
+  try {
+    const { data } = useQuery(GetUser)
+  } catch {}
 
   const handlePress = screen => {
     mainFlowRef.current?.navigate(screen)

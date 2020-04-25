@@ -5,6 +5,7 @@ import {
   TIME_FORMAT,
   SCREEN_HEIGHT
 } from '@components/util/constants'
+import { formatDateTime } from '@util'
 
 export const adjustedScreenHeight = SCREEN_HEIGHT - Constants.statusBarHeight
 
@@ -16,8 +17,7 @@ export const detailsMap = [
   },
   {
     key: 'date',
-    title: ({ date }) =>
-      dayjs(date).format(`${DATE_FORMAT}  |  ${TIME_FORMAT}`),
+    title: ({ date }) => formatDateTime({ date }),
     iconName: 'clock-outline'
   },
   {

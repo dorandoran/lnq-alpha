@@ -1,6 +1,6 @@
 {
-  "name": "functions",
-  "description": "Cloud Functions for Firebase",
+  "name": "lnq-functions",
+  "description": "Cloud Functions for LNQ",
   "scripts": {
     "lint": "eslint .",
     "serve": "firebase emulators:start --only functions",
@@ -20,7 +20,7 @@
     "graphql": "^14.6.0"
   },
   "devDependencies": {
-    "eslint": "^5.12.0",
+    "eslint": "^5.16.0",
     "eslint-plugin-promise": "^4.0.1",
     "firebase-functions-test": "^0.1.6"
   },

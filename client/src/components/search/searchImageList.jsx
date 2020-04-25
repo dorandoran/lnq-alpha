@@ -1,27 +1,38 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Route } from '@context/routeStore'
 
-import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
-import { Image } from 'react-native-elements'
 import { theme } from '@src/theme'
+import { View, StyleSheet, FlatList } from 'react-native'
+import { ListItem } from 'react-native-elements'
+import { Loading } from '@common'
+import { EVENT_CONST } from '@util/constants'
 
-const SearchImageList = () => {
+const SearchImageList = ({ events }) => {
+  const dispatch = useContext(Route.Dispatch)
+
+  if (!events) return <Loading />
+
   return (
     <View style={styles.container}>
       <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={details.media}
-        keyExtractor={media => media.uri}
-        renderItem={({ item, index }) => {
-          return (
-            <TouchableOpacity onPress={() => {}}>
-              <Image
-                source={{ uri: item.uri }}
-                style={styles.image}
-                borderRadius={25}
+        data={events}
+        keyExtractor={event => event.id}
+        renderItem={({ item }) => {
+          if (item.media.length) {
+            const { id, name, media } = item
+            return (
+              <ListItem
+                title={name}
+                rightAvatar={media.length ? { source: media[0] } : null}
+                onPress={() =>
+                  dispatch({
+                    type: 'openModal',
+                    payload: { id, type: EVENT_CONST }
+                  })
+                }
               />
-            </TouchableOpacity>
-          )
+            )
+          }
         }}
       />
     </View>

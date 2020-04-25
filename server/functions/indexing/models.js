@@ -1,28 +1,25 @@
-/**
- * NOTE: Not being used but still debating if we might use this...
- * Leaving the file for now.
- */
 const user = data => {
-  return {
-    objectID: data.id,
-    name: data.name,
-    username: data.username,
-    email: data.email
+  const additionalAttr = {
+    objectID: data.id, // Algolia search id key
+    created_at_timestamp: data.created_at.seconds, // Turn firebase Timestamp to seconds
+    created_at: data.created_at.toDate(), // Turn firebase Timestamp to Date
+    dob_timestamp: data.dob.seconds,
+    dob: data.dob.toDate()
   }
+
+  return Object.assign(data, additionalAttr)
 }
 
 const event = data => {
-  return {
-    objectID: data.id,
-    name: data.name,
-    date: data.date,
-    description: data.description,
-    isPrivate: data.isPrivate,
-    location: data.location,
-    ownerId: data.ownerId,
-    type: data.type,
-    avatarId: data.avatarId
+  const additionalAttr = {
+    objectID: data.id, // Algolia search id key
+    created_at_timestamp: data.created_at.seconds,
+    created_at: data.created_at.toDate(),
+    date_timestamp: data.date.seconds,
+    date: data.date.toDate()
   }
+
+  return Object.assign(data, additionalAttr)
 }
 
 module.exports = {

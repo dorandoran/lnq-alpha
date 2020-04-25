@@ -1,17 +1,14 @@
 import React, { createContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
-const NotificationContext = createContext()
-
-// Notification
-const initialNotificationState = {
+const initialState = {
   message: null,
   type: null,
   open: false,
-  loading: true
+  loading: false
 }
 
-function notificationReducer (state, action) {
+function reducer (state, action) {
   switch (action.type) {
     case 'success':
       return {
@@ -54,10 +51,12 @@ function notificationReducer (state, action) {
   }
 }
 
+const NotificationContext = createContext()
+
 export const NotificationProvider = ({ children }) => {
   const [notificationState, notificationDispatch] = useReducer(
-    notificationReducer,
-    initialNotificationState
+    reducer,
+    initialState
   )
 
   return (

@@ -1,13 +1,12 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
-import dayjs from 'dayjs'
 
 import DateTimePicker from 'react-native-modal-datetime-picker'
 import { View, StyleSheet } from 'react-native'
 
 import { StyledTouchable } from '@common'
-import { DATE_FORMAT, TIME_FORMAT } from '@components/util/constants'
 import { updateDateTime } from '@components/create/utilComponents/createUtil'
+import { formatDateTime } from '@util'
 
 const CreateDateTimePicker = ({ date, setDate }) => {
   const [state, setState] = useState({ visible: false, mode: 'date' })
@@ -31,14 +30,14 @@ const CreateDateTimePicker = ({ date, setDate }) => {
       <View style={styles.container}>
         <StyledTouchable
           labelTitle='Date'
-          text={dayjs(date).format(DATE_FORMAT)}
+          text={formatDateTime({ type: 'date', date })}
           centerText
           handlePress={() => handlePress('date')}
           styleProps={styles.dateInputContainer}
         />
         <StyledTouchable
           labelTitle='Time'
-          text={dayjs(date).format(TIME_FORMAT)}
+          text={formatDateTime({ type: 'time', date })}
           centerText
           handlePress={() => handlePress('time')}
           styleProps={styles.timeInputContainer}

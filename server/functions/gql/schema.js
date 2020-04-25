@@ -23,17 +23,23 @@ const {
   typeDef: Location,
   resolvers: locationResolvers
 } = require('./typeDefs/locationType')
+const {
+  typeDef: Search,
+  resolvers: searchResolvers
+} = require('./typeDefs/searchType')
 
 // Construct a schema, using GraphQL schema language
 // Global Query Object
 const Other = gql`
   scalar Date
+  union Hit = User | Event
 
   type Query {
     user(id: String): User
     event(id: String!): Event
     media(id: String!): Media
     getUserEvents(id: String): [Event]
+    search(bucket: String!, query: String, filters: String, page: Int): [Hit]
   }
   type Mutation {
     createUser(
@@ -69,7 +75,7 @@ const Other = gql`
   }
 `
 // Combine all typeDefs
-const typeDefs = [Other, User, Event, Media, Invite, Location]
+const typeDefs = [Other, User, Event, Media, Invite, Location, Search]
 
 // Provide resolver functions for your fields
 // Merge resolvers
@@ -79,7 +85,8 @@ const resolvers = merge(
   dateResolvers,
   mediaResolvers,
   inviteResolvers,
-  locationResolvers
+  locationResolvers,
+  searchResolvers
 )
 
 module.exports = { typeDefs, resolvers }

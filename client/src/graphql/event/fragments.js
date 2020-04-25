@@ -28,3 +28,18 @@ export const eventFragment = gql`
     isPrivate
   }
 `
+
+export const searchEventFragment = gql`
+  fragment searchEventFields on Event {
+    id
+    name
+    date
+    avatar {
+      id
+      uri
+    }
+    location {
+      text
+    }
+  }
+`

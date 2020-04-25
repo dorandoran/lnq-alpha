@@ -42,9 +42,13 @@ export const EVENT_TYPE_MAP = {
   business: 'Business',
   hobby: 'Hobbies',
   photo: 'Photo and Video',
-  spirt: 'Spirituality',
+  spirit: 'Spirituality',
   season: 'Seasonal',
   auto: 'Auto',
   comedy: 'Comedy',
   other: 'Other'
 }
+
+export const EVENT_TYPE_ARRAY = Object.keys(EVENT_TYPE_MAP).map(key => {
+  return { label: EVENT_TYPE_MAP[key], value: key }
+})

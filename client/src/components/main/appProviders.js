@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { AuthProvider } from '@context/authContext'
 import { UserProvider } from '@context/userContext'
 import { NotificationProvider } from '@context/notificationContext'
 import { Store as RouteStore } from '@context/routeStore'
 
-import { View } from 'react-native'
 import Notification from '@components/main/notification'
 
 const AppProviders = ({ children }) => {
@@ -14,10 +13,10 @@ const AppProviders = ({ children }) => {
       <AuthProvider>
         <UserProvider>
           <RouteStore>
-            <View style={{ flex: 1 }}>
+            <Fragment>
               {children}
               <Notification />
-            </View>
+            </Fragment>
           </RouteStore>
         </UserProvider>
       </AuthProvider>

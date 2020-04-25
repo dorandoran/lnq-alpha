@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import CreateContext, { CreateProvider } from '@context/createContext'
 
-import { View } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import CreateDetails from '@components/create/createDetails'
 import CreateInvite from '@components/create/createInvite'
 import Header from '@components/create/createHeader'
@@ -26,12 +26,19 @@ const CreateView = ({ navigation }) => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme.color.background }}>
+    <View style={styles.container}>
       <Header navigation={navigation} />
       {renderScreen()}
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.color.background
+  }
+})
 
 CreateView.propTypes = {
   navigation: PropTypes.object.isRequired

@@ -1,6 +1,8 @@
 import * as Device from 'expo-device'
-import { NOTCH_LIST } from '@util/notchList'
+import dayjs from 'dayjs'
 import config from '@config'
+import { NOTCH_LIST } from '@util/notchList'
+import { DATE_FORMAT, TIME_FORMAT } from '@components/util/constants'
 
 export const hasNotch = () => {
   const { modelName: model, brand } = Device
@@ -29,4 +31,10 @@ export const isIphone = () => {
     return brand.toLowerCase() === 'apple'
   }
   return false
+}
+
+export const formatDateTime = ({ type, date }) => {
+  if (type === 'date') return dayjs(date).format(DATE_FORMAT)
+  if (type === 'time') return dayjs(date).format(TIME_FORMAT)
+  return dayjs(date).format(`${DATE_FORMAT}  |  ${TIME_FORMAT}`)
 }

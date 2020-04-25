@@ -6,12 +6,13 @@ const Media = require('../../databases/store/media')
 const Invite = require('../../databases/store/invite')
 
 // Type Definition
-exports.typeDef = gql`
+const typeDef = gql`
   type Event {
     id: String!
     ownerId: String
     owner: User
     avatarId: String
+    avatar: Media
     name: String
     type: String
     date: Date
@@ -39,7 +40,7 @@ exports.typeDef = gql`
 `
 
 // Resolvers
-exports.resolvers = {
+const resolvers = {
   // Global Query
   Query: {
     event: (parent, args, context, info) => {
@@ -69,6 +70,9 @@ exports.resolvers = {
     owner: (parent, args, context, info) => {
       return User.findById({ id: parent.ownerId })
     },
+    avatar: (parent, args, context, info) => {
+      return Media.findById({ id: parent.avatarId })
+    },
     media: ({ id, avatarId }, args, context, info) => {
       return Media.findAllByLinkId({ linkId: id, avatarId: avatarId })
     },
@@ -77,3 +81,5 @@ exports.resolvers = {
     }
   }
 }
+
+module.exports = { typeDef, resolvers }
