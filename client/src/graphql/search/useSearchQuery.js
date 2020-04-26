@@ -1,11 +1,10 @@
-import { useContext } from 'react'
 import { useQuery } from '@apollo/react-hooks'
-import SearchContext from '@context/searchContext'
+import useSearch from '@context/searchContext'
 import { Search } from '@graphql/search/queries'
 import { buildSearchVars } from '@components/search/utilComponents/searchUtil'
 
 const useSearchQuery = () => {
-  const { searchState } = useContext(SearchContext)
+  const { searchState } = useSearch()
   const variables = buildSearchVars(searchState)
 
   const { data, loading, refetch } = useQuery(Search, { variables })

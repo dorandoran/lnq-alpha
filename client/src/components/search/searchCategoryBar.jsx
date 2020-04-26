@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import SearchContext, { actions } from '@context/searchContext'
+import React from 'react'
+import useSearch, { actions } from '@context/searchContext'
 
 import { theme } from '@src/theme'
 import {
@@ -13,7 +13,7 @@ import { SCREEN_WIDTH } from '@util/constants'
 import { categoryList } from '@components/search/utilComponents/searchUtil'
 
 const SearchCategoryBar = () => {
-  const { searchState, dispatch } = useContext(SearchContext)
+  const { searchState, dispatch } = useSearch()
   const { categories } = searchState
 
   const isSelectedStyles = value => {

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react'
+import React, { createContext, useContext, useReducer } from 'react'
 import useNotification from '@hooks/useNotification'
 import config from '@config'
 import { f, auth } from '@services/firebase'
@@ -7,25 +7,68 @@ import * as Facebook from 'expo-facebook'
 import useCreateUser from '@graphql/user/useCreateUser'
 import { navigate } from '@components/util/navigationRef'
 
+const actions = {
+  registerUser: 'registerUser',
+  clearError: 'clearError',
+  startLoading: 'startLoading',
+  stopLoading: 'stopLoading',
+  loginSuccess: 'loginSuccess',
+  loginError: 'loginError',
+  logout: 'logout',
+  resetEmailSuccess: 'resetEmailSuccess',
+  resetEmailError: 'resetEmailError'
+}
+
+const initialState = {
+  loading: false,
+  error: '',
+  user: null,
+  resetEmailSent: false
+}
+
+function reducer (state, action) {
+  switch (action.type) {
+    case actions.clearError:
+      return { ...state, error: '' }
+    case actions.startLoading:
+      return { ...state, loading: true, error: '' }
+    case actions.stopLoading:
+      return { ...state, loading: false }
+    case actions.loginSuccess:
+      return { ...state, loading: false, user: action.payload }
+    case actions.loginError:
+      return { ...state, loading: false, error: action.payload }
+    case actions.logout:
+      return { ...state, user: null }
+    case actions.resetEmailSuccess:
+      return { ...state, loading: false, resetEmailSent: true }
+    case actions.resetEmailError:
+      return {
+        ...state,
+        loading: false,
+        resetEmailSent: false,
+        error: action.payload
+      }
+    default:
+      // TODO: Error Handling
+      throw new Error()
+  }
+}
+
 const AuthContext = createContext()
 
-const AuthProvider = props => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [err, setErr] = useState('')
-  const [user, setUser] = useState(null)
-  const [success, setSuccess] = useState(false)
-  const createUser = useCreateUser()
+export const AuthProvider = props => {
+  const [authState, dispatch] = useReducer(reducer, initialState)
   const { throwSuccess, throwWarning } = useNotification()
+  const createUser = useCreateUser()
 
-  const clearErr = () => {
-    setErr('')
+  const clearError = () => {
+    dispatch({ type: actions.clearError })
   }
 
   const register = async ({ email, password, username, name, dob }) => {
     try {
-      clearErr()
-      setIsLoading(true)
-
+      dispatch({ type: actions.startLoading })
       const response = await auth.createUserWithEmailAndPassword(
         email,
         password
@@ -34,40 +77,35 @@ const AuthProvider = props => {
       const id = response.user.uid
 
       createUser({ email, username, name, dob, id })
-      setIsLoading(false)
-      setUser(id)
       throwSuccess('Successfully logged in.')
+      dispatch({ type: actions.loginSuccess, payload: id })
     } catch (error) {
-      setIsLoading(false)
-      setErr(error)
+      dispatch({ type: actions.loginError, payload: error })
     }
   }
 
   const login = async ({ email, password }) => {
     try {
-      clearErr()
-      setIsLoading(true)
+      dispatch({ type: actions.startLoading })
       const response = await auth.signInWithEmailAndPassword(email, password)
       const id = response.user.uid
 
-      setIsLoading(false)
-      setUser(id)
       throwSuccess('Successfully logged in.')
+      dispatch({ type: actions.loginSuccess, payload: id })
     } catch (error) {
-      setIsLoading(false)
-      setErr(error)
+      dispatch({ type: actions.loginError, payload: error })
     }
   }
 
   const tryLocalSignIn = async () => {
-    setIsLoading(true)
+    dispatch({ type: actions.startLoading })
     const unsubscribe = auth.onAuthStateChanged(async user => {
       if (user) {
         const id = user.uid
-        setUser(id)
         throwSuccess('Successfully logged in.')
+        dispatch({ type: actions.loginSuccess, payload: id })
       }
-      setIsLoading(false)
+      dispatch({ type: actions.stopLoading })
     })
     return unsubscribe
   }
@@ -85,9 +123,8 @@ const AuthProvider = props => {
         )
         const response = await auth.signInWithCredential(credential)
         const id = response.user.uid
-
-        setUser(id)
         throwSuccess('Successfully logged in.')
+        dispatch({ type: actions.loginSuccess, payload: id })
       } else {
         return { cancelled: true }
       }
@@ -111,9 +148,8 @@ const AuthProvider = props => {
         const credential = await f.auth.FacebookAuthProvider.credential(fbToken)
         const response = await auth.signInWithCredential(credential)
         const id = response.user.uid
-
-        setUser(id)
         throwSuccess('Successfully logged in.')
+        dispatch({ type: actions.loginSuccess, payload: id })
       }
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`)
@@ -124,9 +160,9 @@ const AuthProvider = props => {
     auth
       .signOut()
       .then(() => {
-        setUser(null)
         throwWarning('Logged out.')
         navigate('Login')
+        dispatch({ type: actions.logout })
       })
       .catch(e => {
         // TODO: Error Handling
@@ -134,35 +170,29 @@ const AuthProvider = props => {
       })
   }
 
-  const passReset = async ({ email }) => {
+  const resetPassword = async ({ email }) => {
     try {
-      clearErr()
-      setIsLoading(true)
+      dispatch({ type: actions.startLoading })
       await auth.sendPasswordResetEmail(email)
-      setSuccess(true)
-      setIsLoading(false)
+      throwSuccess('Email sent!')
+      dispatch({ type: actions.resetEmailSuccess })
     } catch (error) {
-      setIsLoading(false)
-      setSuccess(false)
-      setErr(error)
+      dispatch({ type: actions.resetEmailError, payload: error })
     }
   }
 
   return (
     <AuthContext.Provider
       value={{
-        user,
+        authState,
         register,
         login,
         tryLocalSignIn,
         signInWithGoogleAsync,
         signInWithFacebook,
         logout,
-        passReset,
-        success,
-        err,
-        isLoading,
-        clearErr
+        resetPassword,
+        clearError
       }}
       {...props}
     />
@@ -174,8 +204,7 @@ const useAuth = () => {
   if (context === undefined) {
     throw new Error('useAuth must be used within a AuthProvider')
   }
-
   return context
 }
 
-export { AuthProvider, useAuth }
+export default useAuth

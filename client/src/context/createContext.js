@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { TOMORROW_DATETIME } from '@components/util/constants'
 import { screenMap } from '@components/create/utilComponents/createUtil'
@@ -92,9 +92,17 @@ export const CreateProvider = ({ children, initialMedia }) => {
   )
 }
 
+const useCreate = () => {
+  const context = useContext(CreateContext)
+  if (context === undefined) {
+    throw new Error('useCreate must be used within a CreateProvider')
+  }
+  return context
+}
+
 CreateProvider.propTypes = {
   children: PropTypes.node.isRequired,
   initialMedia: PropTypes.object.isRequired
 }
 
-export default CreateContext
+export default useCreate

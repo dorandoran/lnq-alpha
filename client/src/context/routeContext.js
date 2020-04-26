@@ -1,12 +1,13 @@
 import React, { createContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
-// Context
-const State = createContext()
-const Dispatch = createContext()
-
-// Screens to disable tab bar
-const disableTabBar = ['Create']
+const actions = {
+  changeRoute: 'changeRoute',
+  openModal: 'openModal',
+  closeModal: 'closeModal',
+  toggleFab: 'toggleTabBarFab',
+  closeFab: 'closeTabBarFab'
+}
 
 /* 
   name: name of current screen
@@ -24,10 +25,17 @@ const initialState = {
   selected: null
 }
 
+// Screens to disable tab bar
+const disableTabBar = ['Create']
+
+// Context
+const State = createContext()
+const Dispatch = createContext()
+
 // Reducer
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'changeRoute':
+    case actions.changeRoute:
       return {
         ...state,
         name: action.payload,
@@ -36,22 +44,22 @@ const reducer = (state, action) => {
           fabButton: false
         }
       }
-    case 'openModal':
+    case actions.openModal:
       return { ...state, selected: action.payload }
-    case 'closeModal':
+    case actions.closeModal:
       return { ...state, selected: null }
-    case 'toggleTabBarFab':
+    case actions.toggleFab:
       return {
         ...state,
         tabBar: { ...state.tabBar, fabButton: !state.tabBar.fabButton }
       }
-    case 'closeTabBarFab':
+    case actions.closeFab:
       return {
         ...state,
         tabBar: { ...state.tabBar, fabButton: false }
       }
     default:
-      return state
+      throw new Error()
   }
 }
 

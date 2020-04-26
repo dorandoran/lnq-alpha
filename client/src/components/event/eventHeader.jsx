@@ -1,6 +1,6 @@
 import React, { Fragment, useContext } from 'react'
 import { Route } from '@context/routeStore'
-import DialogContext from '@context/dialogContext'
+import useDialog from '@context/dialogContext'
 import PropTypes from 'prop-types'
 
 import { theme } from '@src/theme'
@@ -15,7 +15,7 @@ import { ADD_MEDIA, DELETE_EVENT } from '@components/modal/modalUtil'
 
 const EventHeader = ({ event, open, toggleOpen }) => {
   const dispatch = useContext(Route.Dispatch)
-  const { openDialog } = useContext(DialogContext)
+  const { openDialog } = useDialog()
 
   const closeModal = () => {
     dispatch({ type: 'closeModal' })

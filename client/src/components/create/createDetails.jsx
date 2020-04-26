@@ -1,5 +1,5 @@
-import React, { useContext, useState, Fragment } from 'react'
-import CreateContext from '@context/createContext'
+import React, { useState, Fragment } from 'react'
+import useCreate from '@context/createContext'
 
 import { theme } from '@src/theme'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -22,7 +22,7 @@ import { inputMap } from '@components/create/utilComponents/createUtil'
 
 const CreateDetails = () => {
   const [modalValue, setModalValue] = useState(null)
-  const { updateDetails, details } = useContext(CreateContext)
+  const { updateDetails, details } = useCreate()
 
   // Programmatically scroll to inputs
   const _scrollToInput = node => {

@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import CreateContext from '@context/createContext'
+import useCreate from '@context/createContext'
 
 import { TouchableOpacity, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
 
 const ActionRemoveMedia = ({ index }) => {
-  const { details, updateMedia } = useContext(CreateContext)
+  const { details, updateMedia } = useCreate()
   const { media } = details
   const disabled = media.length < 2
 

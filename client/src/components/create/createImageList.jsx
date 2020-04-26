@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import CreateContext from '@context/createContext'
+import React from 'react'
+import useCreate from '@context/createContext'
 
 import {
   View,
@@ -20,7 +20,7 @@ const CreateImageList = () => {
     imageEdit,
     toggleImageEdit,
     closeImageEdit
-  } = useContext(CreateContext)
+  } = useCreate()
 
   const handleMediaPress = () => {
     toggleImageEdit()
