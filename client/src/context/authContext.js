@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useReducer } from 'react'
-import useNotification from '@hooks/useNotification'
-import config from '@config'
-import { f, auth } from '@services/firebase'
 import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
+
+import config from '@config'
+import { f, auth } from '@services/firebase'
+import useNotification from '@hooks/useNotification'
 import useCreateUser from '@graphql/user/useCreateUser'
 import { navigate } from '@components/util/navigationRef'
 
