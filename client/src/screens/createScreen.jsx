@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import CreateContext, { CreateProvider } from '@context/createContext'
+import useCreate, { CreateProvider } from '@context/createContext'
 
 import { View, StyleSheet } from 'react-native'
 import CreateDetails from '@components/create/createDetails'
@@ -11,7 +11,7 @@ import { theme } from '@src/theme'
 import { screenMap } from '@components/create/utilComponents/createUtil'
 
 const CreateView = ({ navigation }) => {
-  const { screen } = useContext(CreateContext)
+  const { screen } = useCreate()
   const { DETAILS, INVITES } = screenMap
 
   const renderScreen = () => {

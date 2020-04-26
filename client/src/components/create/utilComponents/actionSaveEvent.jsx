@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import useStorage from '@hooks/useStorage'
 import { useUser } from '@context/userContext'
-import CreateContext from '@context/createContext'
+import useCreate from '@context/createContext'
 import useCreateEvent from '@graphql/event/useCreateEvent'
 
 import {
@@ -17,7 +17,7 @@ import { EVENT_CONST } from '@components/util/constants'
 
 const ActionSaveEvent = ({ onOpen, onComplete, onSuccess }) => {
   const [actionSelected, setActionSelected] = useState(false)
-  const { details } = useContext(CreateContext)
+  const { details } = useCreate()
   const createEvent = useCreateEvent()
   const ownerId = useUser()
 

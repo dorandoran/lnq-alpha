@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import CreateContext from '@context/createContext'
+import useCreate from '@context/createContext'
 import useNotification from '@hooks/useNotification'
 
 import {
@@ -18,7 +18,7 @@ import ActionSaveEvent from '@components/create/utilComponents/actionSaveEvent'
 import { screenMap } from '@components/create/utilComponents/createUtil'
 
 const CreateHeader = ({ navigation }) => {
-  const { details, resetDetails, screen, setScreen } = useContext(CreateContext)
+  const { details, resetDetails, screen, setScreen } = useCreate()
   const { throwSuccess, throwLoading } = useNotification()
   const { INVITES, DETAILS } = screenMap
   const isInvite = screen === INVITES

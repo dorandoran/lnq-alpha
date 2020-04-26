@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
 export const actions = {
@@ -60,8 +60,16 @@ export const SearchProvider = ({ children }) => {
   )
 }
 
+const useSearch = () => {
+  const context = useContext(SearchContext)
+  if (context === undefined) {
+    throw new Error('useSearch must be used within a SearchProvider')
+  }
+  return context
+}
+
 SearchProvider.propTypes = {
   children: PropTypes.node
 }
 
-export default SearchContext
+export default useSearch

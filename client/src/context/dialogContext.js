@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 
 const DialogContext = createContext()
@@ -32,8 +32,16 @@ export const DialogProvider = ({ children }) => {
   )
 }
 
+const useDialog = () => {
+  const context = useContext(DialogContext)
+  if (context === undefined) {
+    throw new Error('useDialog must be used within a DialogProvider')
+  }
+  return context
+}
+
 DialogProvider.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export default DialogContext
+export default useDialog

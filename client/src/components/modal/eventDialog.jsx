@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import DialogContext from '@context/dialogContext'
+import useDialog from '@context/dialogContext'
 
 import { theme } from '@src/theme'
 import { View, StyleSheet } from 'react-native'
@@ -11,7 +11,7 @@ import DeleteEvent from '@components/event/utilComponents/actionDeleteEventDialo
 import { ADD_MEDIA, DELETE_EVENT } from '@components/modal/modalUtil'
 
 const EventDialog = () => {
-  const { modalDialog, closeModalDialog } = useContext(DialogContext)
+  const { modalDialog, closeModalDialog } = useDialog()
   const { id, dialog } = modalDialog
 
   const closeDialog = () => {

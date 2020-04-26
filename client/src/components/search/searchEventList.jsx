@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Route } from '@context/routeStore'
-import SearchContext, { actions } from '@context/searchContext'
+import useSearch, { actions } from '@context/searchContext'
 import useSearchQuery from '@graphql/search/useSearchQuery'
 import { useDebounce } from '@hooks/useDebounce'
 import PropTypes from 'prop-types'
@@ -15,7 +15,7 @@ import { formatDateTime } from '@util'
 const SearchEventList = ({ text }) => {
   const [refreshing, setRefreshing] = useState(false)
   const routeDispatch = useContext(Route.Dispatch)
-  const { dispatch } = useContext(SearchContext)
+  const { dispatch } = useSearch()
 
   const { data, loading, refetch } = useSearchQuery()
   useDebounce(
