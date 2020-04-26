@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import SearchContext, { actions } from '@context/searchContext'
 
 import { theme } from '@src/theme'
 import {
@@ -8,14 +9,22 @@ import {
   TouchableOpacity,
   Text
 } from 'react-native'
-import { EVENT_TYPE_ARRAY, SCREEN_WIDTH } from '@util/constants'
+import { SCREEN_WIDTH } from '@util/constants'
+import { categoryList } from '@components/search/utilComponents/searchUtil'
 
 const SearchCategoryBar = () => {
-  const categoryList = [
-    { label: 'Near Me', value: 'near' },
-    { label: 'Suggested', value: 'suggested' },
-    ...EVENT_TYPE_ARRAY
-  ]
+  const { searchState, dispatch } = useContext(SearchContext)
+  const { categories } = searchState
+
+  const isSelectedStyles = value => {
+    if (categories.includes(value)) {
+      return { backgroundColor: theme.color.secondary }
+    }
+  }
+
+  const updateCategory = newCategory => {
+    dispatch({ type: actions.updateCategories, payload: newCategory })
+  }
 
   return (
     <View style={styles.container}>
@@ -27,7 +36,10 @@ const SearchCategoryBar = () => {
         keyExtractor={item => item.value}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={[styles.buttonContainer, isSelectedStyles(item.value)]}
+              onPress={() => updateCategory(item.value)}
+            >
               <Text style={styles.text}>{item.label}</Text>
             </TouchableOpacity>
           )
@@ -51,7 +63,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     padding: 10,
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
+    borderRadius: 25
   },
   text: {
     color: theme.color.tertiary

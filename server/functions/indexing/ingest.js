@@ -26,7 +26,7 @@ const indexAll = async (req, res) => {
       })
     )
     .catch(e => console.log(e))
-  await SearchIndex.users.delete()
+  await SearchIndex.users.clearObjects()
   await SearchIndex.users.saveObjects(users)
 
   // Index Events
@@ -39,7 +39,7 @@ const indexAll = async (req, res) => {
       })
     )
     .catch(e => console.log(e))
-  await SearchIndex.events.delete()
+  await SearchIndex.events.clearObjects()
   await SearchIndex.events.saveObjects(events)
 
   res.status(200).send('Indexed!')
@@ -73,7 +73,7 @@ const updateEventIndex = functions.firestore
     } else {
       // Event created or modified
       // TODO: Decide what data to update
-      // i.e: Index should not update every like
+      // i.e: Index should not update every "like"
       event = IndexModels.event(event)
       await SearchIndex.events.saveObject(event)
     }

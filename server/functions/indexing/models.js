@@ -16,7 +16,8 @@ const event = data => {
     created_at_timestamp: data.created_at.seconds,
     created_at: data.created_at.toDate(),
     date_timestamp: data.date.seconds,
-    date: data.date.toDate()
+    date: data.date.toDate(),
+    _tags: [data.type] // Algolia reserved word for category searching
   }
 
   return Object.assign(data, additionalAttr)

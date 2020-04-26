@@ -3,14 +3,15 @@ import PropTypes from 'prop-types'
 
 export const actions = {
   updateQuery: 'updateQuery',
-  updateFilters: 'updateFilters',
+  updateCategories: 'updateCategories',
   updateBucket: 'updateBucket'
 }
 
 const initialState = {
   query: '',
-  filters: '',
-  bucket: 'event'
+  categories: [],
+  bucket: 'events',
+  page: 0
 }
 
 function reducer (state, action) {
@@ -20,11 +21,22 @@ function reducer (state, action) {
         ...state,
         query: action.payload
       }
-    case actions.updateFilters:
+    case actions.updateCategories: {
+      // TODO: Multiple Category Searching
+      const index = state.categories.indexOf(action.payload)
+      let categories = []
+
+      if (index > -1) {
+        categories = state.categories.filter((_, idx) => index !== idx)
+      } else {
+        categories = [action.payload]
+      }
+
       return {
         ...state,
-        filters: action.payload
+        categories: categories
       }
+    }
     case actions.updateBucket:
       return {
         ...state,

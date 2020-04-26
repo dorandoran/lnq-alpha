@@ -5,7 +5,12 @@ import { useUser } from '@context/userContext'
 import CreateContext from '@context/createContext'
 import useCreateEvent from '@graphql/event/useCreateEvent'
 
-import { ActivityIndicator } from 'react-native'
+import {
+  ActivityIndicator,
+  TouchableOpacity,
+  StyleSheet,
+  Keyboard
+} from 'react-native'
 import { Icon } from 'react-native-elements'
 import { theme } from '@src/theme'
 import { EVENT_CONST } from '@components/util/constants'
@@ -24,6 +29,7 @@ const ActionSaveEvent = ({ onOpen, onComplete, onSuccess }) => {
   })
 
   const selectAction = () => {
+    Keyboard.dismiss()
     if (onOpen) onOpen()
     setActionSelected(true)
   }
@@ -53,14 +59,18 @@ const ActionSaveEvent = ({ onOpen, onComplete, onSuccess }) => {
   }
 
   return (
-    <Icon
-      type='ionicon'
-      name='md-share'
-      color={theme.color.tertiary}
-      onPress={selectAction}
-    />
+    <TouchableOpacity style={styles.padding} onPress={selectAction}>
+      <Icon type='ionicon' name='md-share' color={theme.color.tertiary} />
+    </TouchableOpacity>
   )
 }
+
+const styles = StyleSheet.create({
+  padding: {
+    padding: '1%',
+    aspectRatio: 1
+  }
+})
 
 ActionSaveEvent.propTypes = {
   onOpen: PropTypes.func,

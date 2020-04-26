@@ -1,33 +1,79 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Route } from '@context/routeStore'
+import SearchContext, { actions } from '@context/searchContext'
+import useSearchQuery from '@graphql/search/useSearchQuery'
+import { useDebounce } from '@hooks/useDebounce'
 import PropTypes from 'prop-types'
 
 import { theme } from '@src/theme'
-import { View, StyleSheet, FlatList, Text } from 'react-native'
+import { View, StyleSheet, FlatList, Text, RefreshControl } from 'react-native'
 import { ListItem, Image } from 'react-native-elements'
 import { Loading } from '@common'
 import { EVENT_CONST } from '@util/constants'
 import { formatDateTime } from '@util'
 
-const SearchEventList = ({ events }) => {
-  const dispatch = useContext(Route.Dispatch)
+const SearchEventList = ({ text }) => {
+  const [refreshing, setRefreshing] = useState(false)
+  const routeDispatch = useContext(Route.Dispatch)
+  const { dispatch } = useContext(SearchContext)
 
-  if (!events) return <Loading />
+  const { data, loading, refetch } = useSearchQuery()
+  useDebounce(
+    () => dispatch({ type: actions.updateQuery, payload: text }),
+    1500,
+    text
+  )
+
+  if (loading) return <Loading />
+  if (refreshing) setRefreshing(false)
+
+  if (!data || !data.search.length) {
+    return (
+      <View style={styles.noResults}>
+        <Text style={[styles.text, styles.noResultsText]}>
+          No search results found
+        </Text>
+      </View>
+    )
+  }
+
+  const handleRefresh = () => {
+    setRefreshing(true)
+    refetch()
+  }
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={events}
+        style={{ minHeight: 100 }}
+        refreshControl={
+          <RefreshControl
+            onRefresh={handleRefresh}
+            refreshing={refreshing}
+            title='Pull to Refresh'
+            titleColor={theme.color.tertiary}
+            tintColor={theme.color.secondary}
+          />
+        }
+        data={[...data.search]}
         keyExtractor={event => event.id}
+        ListFooterComponent={<View style={styles.image} />}
         renderItem={({ item }) => {
           const { id, name, avatar, location, date } = item
+
           return (
             <ListItem
               title={
                 <View>
-                  <Text style={styles.titleStyle}>{name}</Text>
-                  <Text style={styles.text}>{location.text}</Text>
-                  <Text style={styles.text}>{formatDateTime({ date })}</Text>
+                  <Text style={styles.titleStyle} numberOfLines={2}>
+                    {name}
+                  </Text>
+                  <Text style={styles.text} numberOfLines={1}>
+                    {location.text}
+                  </Text>
+                  <Text style={styles.text} numberOfLines={1}>
+                    {formatDateTime({ date })}
+                  </Text>
                 </View>
               }
               leftElement={
@@ -39,7 +85,7 @@ const SearchEventList = ({ events }) => {
               }
               containerStyle={styles.containerStyle}
               onPress={() =>
-                dispatch({
+                routeDispatch({
                   type: 'openModal',
                   payload: { id, type: EVENT_CONST }
                 })
@@ -60,7 +106,6 @@ const styles = StyleSheet.create({
   containerStyle: {
     borderRadius: 10,
     backgroundColor: theme.color.accent,
-    height: 100,
     margin: 5
   },
   titleStyle: {
@@ -72,13 +117,21 @@ const styles = StyleSheet.create({
     color: theme.color.tertiary
   },
   image: {
-    height: 80,
-    width: 80
+    height: 75,
+    width: 75
+  },
+  noResults: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 50
+  },
+  noResultsText: {
+    fontSize: 18
   }
 })
 
 SearchEventList.propTypes = {
-  events: PropTypes.array
+  text: PropTypes.string
 }
 
 export default SearchEventList
