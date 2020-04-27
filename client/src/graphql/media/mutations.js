@@ -16,3 +16,12 @@ export const CreateMedia = gql`
     }
   }
 `
+
+export const DeleteMedia = gql`
+  mutation DeleteMedia($id: String!, $linkId: String!, $bucket: String!) {
+    deleteMedia(id: $id, linkId: $linkId, bucket: $bucket) {
+      completed
+      error
+    }
+  }
+`

@@ -34,6 +34,11 @@ const Other = gql`
   scalar Date
   union Hit = User | Event
 
+  type StoreDeleteResponse {
+    completed: Boolean!
+    error: String
+  }
+
   type Query {
     user(id: String): User
     event(id: String!): Event
@@ -41,6 +46,7 @@ const Other = gql`
     getUserEvents(id: String): [Event]
     search(bucket: String!, query: String, filters: String, page: Int): [Hit]
   }
+
   type Mutation {
     createUser(
       id: String!
@@ -72,7 +78,11 @@ const Other = gql`
     createInvites(recipientIds: [String!], eventId: String!): [Invite]
     updateEvent(id: String!, updates: EventUpdateInput!): Event
     deleteEvent(id: String!): Boolean
-    deleteMedia(id: String!, bucket: String): Boolean
+    deleteMedia(
+      id: String!
+      linkId: String!
+      bucket: String!
+    ): StoreDeleteResponse
   }
 `
 // Combine all typeDefs

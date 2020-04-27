@@ -7,6 +7,7 @@ import { Icon } from 'react-native-elements'
 
 import EventTicketInfo from '@components/event/eventTicketInfo'
 import EventComments from '@components/event/eventComments'
+import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
 
 const EventDetails = ({ event, styleProps }) => {
   const [isComments, setIsComments] = useState(false)
@@ -41,7 +42,8 @@ const EventDetails = ({ event, styleProps }) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center'
+    alignItems: 'center',
+    height: adjustedScreenHeight
   },
   text: {
     color: theme.color.tertiary,

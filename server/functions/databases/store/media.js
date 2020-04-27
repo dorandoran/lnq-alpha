@@ -65,25 +65,45 @@ const findAllByLinkId = ({ linkId, avatarId }) => {
     })
 }
 
-const deleteFromStore = ({ id }) => {
-  // Delete media from storage
-  return storage()
-    .file(`events/${id}`)
-    .delete()
+const deleteFromStore = ({ id, linkId, bucket }) => {
+  const linkRef = firestore()
+    .collection(bucket)
+    .doc(linkId)
+
+  // Firestore transaction
+  firestore()
+    .runTransaction(transaction => {
+      // Read link data
+      return transaction.get(linkRef).then(doc => {
+        const link = doc.data()
+
+        // If id to be deleted isn't the avatarId
+        // Delete the media and resolve
+        if (link.avatarId !== id) {
+          transaction.delete(mediaRef.doc(id))
+          return Promise.resolve()
+        } else {
+          // Else throw an error
+          return Promise.reject(new Error('Cannot delete avatarId'))
+        }
+      })
+    })
     .then(() => {
-      // Delete media from firestore
-      return mediaRef
-        .doc(id)
+      // Then delete media from storage
+      return storage()
+        .file(`${bucket}/${id}`)
         .delete()
-        .then(() => true)
+        .then(() => {
+          return { completed: true, error: null }
+        })
         .catch(e => {
           console.log(e)
-          return false
+          return { completed: false, error: e.message }
         })
     })
     .catch(e => {
       console.log(e)
-      return false
+      return { completed: false, error: e.message }
     })
 }
 

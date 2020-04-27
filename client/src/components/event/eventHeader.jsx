@@ -11,13 +11,14 @@ import { SCREEN_HEIGHT } from '@util/constants'
 import ActionEditEvent from '@components/event/utilComponents/actionEditEvent'
 import ActionLeaveEvent from '@components/event/utilComponents/actionLeaveEvent'
 
-import { ADD_MEDIA, DELETE_EVENT } from '@components/modal/modalUtil'
+import { actions } from '@context/dialogContext'
 
 const EventHeader = ({ event, open, toggleOpen }) => {
   const dispatch = useContext(Route.Dispatch)
-  const { openDialog } = useDialog()
+  const { openDialog, resetDialog } = useDialog()
 
   const closeModal = () => {
+    resetDialog()
     dispatch({ type: 'closeModal' })
   }
 
@@ -60,14 +61,24 @@ const EventHeader = ({ event, open, toggleOpen }) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.container, styles.addMedia]}
-            onPress={() => openDialog({ id: event.id, dialog: ADD_MEDIA })}
+            onPress={() =>
+              openDialog({
+                dialog: actions.openAddMedia,
+                temp: { event }
+              })
+            }
           >
             <Icon type='feather' name='plus' color={theme.color.tertiary} />
           </TouchableOpacity>
           <ActionEditEvent />
           <TouchableOpacity
             style={styles.container}
-            onPress={() => openDialog({ id: event.id, dialog: DELETE_EVENT })}
+            onPress={() =>
+              openDialog({
+                dialog: actions.openDeleteMedia,
+                temp: { event }
+              })
+            }
           >
             <Icon
               type='material-community'

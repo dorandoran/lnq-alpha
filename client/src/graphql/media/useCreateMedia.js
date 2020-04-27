@@ -13,7 +13,7 @@ export default function useCreateMedia () {
         const cachedEvent = cache.readFragment({
           id: `Event:${variables.linkId}`,
           fragment: gql`
-            fragment media on Event {
+            fragment newMedia on Event {
               id
               media {
                 id
@@ -28,7 +28,7 @@ export default function useCreateMedia () {
           cache.writeFragment({
             id: `Event:${variables.linkId}`,
             fragment: gql`
-              fragment updatedMedia on Event {
+              fragment createdMedia on Event {
                 media {
                   id
                   uri
@@ -36,7 +36,7 @@ export default function useCreateMedia () {
               }
             `,
             data: {
-              media: [...cachedEvent.media, mediaData],
+              media: [mediaData, ...cachedEvent.media],
               __typename: 'Event'
             }
           })

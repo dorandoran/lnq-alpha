@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import useDialog from '@context/dialogContext'
 import useStorage from '@hooks/useStorage'
 import useNotification from '@hooks/useNotification'
 
@@ -20,14 +21,17 @@ const initialState = {
   confirmed: null
 }
 
-const ActionAddMediaDialog = ({ onComplete, id }) => {
+const ActionAddMediaDialog = ({ onComplete }) => {
   const [uri, setUri] = useState(initialState)
+  const {
+    temp: { event }
+  } = useDialog()
   const { throwSuccess } = useNotification()
 
   const { media, loading } = useStorage({
     uri: uri.confirmed,
     bucketName: EVENT_CONST,
-    linkId: id,
+    linkId: event.id,
     skip: !uri.confirmed,
     onSuccess: () => throwSuccess('Media successfully added.')
   })
@@ -37,7 +41,7 @@ const ActionAddMediaDialog = ({ onComplete, id }) => {
 
     if (!didCancel && media) {
       setUri(initialState)
-      onComplete()
+      onComplete({ media })
     }
     return () => {
       didCancel = true
@@ -140,7 +144,6 @@ const styles = StyleSheet.create({
 })
 
 ActionAddMediaDialog.propTypes = {
-  id: PropTypes.string,
   onComplete: PropTypes.func
 }
 

@@ -3,28 +3,44 @@ import PropTypes from 'prop-types'
 
 const DialogContext = createContext()
 
-const initialModalDialogState = {
-  id: null,
+export const actions = {
+  openAddMedia: 'openAddMedia',
+  openDeleteMedia: 'openDeleteMedia'
+}
+
+const initialState = {
+  temp: {},
   dialog: null
 }
 
 export const DialogProvider = ({ children }) => {
-  const [modalDialog, setModalDialog] = useState(initialModalDialogState)
+  const [dialogState, setDialog] = useState(initialState)
 
-  const openDialog = info => {
-    setModalDialog(info)
+  const openDialog = ({ dialog, temp }) => {
+    setDialog({ dialog, temp: { ...dialogState.temp, ...temp } })
   }
 
-  const closeModalDialog = () => {
-    setModalDialog(initialModalDialogState)
+  const closeDialog = ({ temp }) => {
+    setDialog({ dialog: null, temp: { ...dialogState.temp, ...temp } })
+  }
+
+  const updateTemp = data => {
+    setDialog({ ...dialogState, temp: { ...dialogState.temp, ...data } })
+  }
+
+  const resetDialog = () => {
+    setDialog(initialState)
   }
 
   return (
     <DialogContext.Provider
       value={{
         openDialog,
-        closeModalDialog,
-        modalDialog
+        closeDialog,
+        updateTemp,
+        resetDialog,
+        temp: dialogState.temp,
+        dialog: dialogState.dialog
       }}
     >
       {children}

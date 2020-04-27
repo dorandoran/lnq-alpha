@@ -1,35 +1,31 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import useDialog from '@context/dialogContext'
 
 import { useQuery } from '@apollo/react-hooks'
 import { GetEvent } from '@graphql/event/queries.js'
 
 import { theme } from '@src/theme'
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  TouchableWithoutFeedback
-} from 'react-native'
-import { Image } from 'react-native-elements'
+import { StyleSheet, ScrollView } from 'react-native'
+
 import { Loading } from '@common'
-import Swiper from 'react-native-swiper'
 
 import EventHeader from '@components/event/eventHeader'
 import EventFooter from '@components/event/eventFooter'
 import EventDetails from '@components/event/eventDetails'
+import EventMediaSwiper from '@components/event/eventMediaSwiper'
 
-import { SCREEN_WIDTH } from '@util/constants'
 import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
 
 const initialState = {
   top: false,
   bottom: false
-  // mediaIdx: 0
 }
 
 const EventContainer = ({ id }) => {
   const [buttons, setButtons] = useState(initialState)
+  const { updateTemp } = useDialog()
+
   const { data, loading } = useQuery(GetEvent, {
     variables: { id },
     skip: !id
@@ -43,35 +39,35 @@ const EventContainer = ({ id }) => {
   const { event } = data
 
   const toggleTop = () => {
-    setButtons({ bottom: false, top: !buttons.top })
+    setButtons({ ...buttons, bottom: false, top: !buttons.top })
   }
 
   const toggleBottom = () => {
-    setButtons({ top: false, bottom: !buttons.bottom })
+    setButtons({ ...buttons, top: false, bottom: !buttons.bottom })
   }
 
-  // There is a React-Native bug where <TouchableWithoutFeedback />
-  // does not work unless it's child is a <View />
+  const resetButtons = () => {
+    setButtons(initialState)
+  }
+
+  const setMediaIndex = index => {
+    const media = event.media[index]
+    updateTemp({ media })
+  }
+
   return (
     <ScrollView
-      style={[styles.container, styles.flex]}
+      style={styles.container}
       snapToInterval={adjustedScreenHeight}
       decelerationRate='fast'
     >
-      <Swiper showsPagination={false}>
-        {event.media.map(media => {
-          return (
-            <Image
-              key={media.id}
-              source={{ uri: media.uri }}
-              style={styles.image}
-              PlaceholderContent={<Loading />}
-            />
-          )
-        })}
-      </Swiper>
-
-      <EventHeader event={event} open={buttons.top} toggleOpen={toggleTop} />
+      <EventMediaSwiper media={event.media} setIndex={setMediaIndex} />
+      <EventHeader
+        event={event}
+        open={buttons.top}
+        toggleOpen={toggleTop}
+        reset={resetButtons}
+      />
       <EventFooter
         event={event}
         open={buttons.bottom}
@@ -86,16 +82,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.color.background
-  },
-  imageContainer: {
-    flex: 1,
-    justifyContent: 'space-between',
-    paddingTop: '3%',
-    paddingBottom: '3%'
-  },
-  image: {
-    height: adjustedScreenHeight,
-    width: SCREEN_WIDTH
   }
 })
 
