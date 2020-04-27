@@ -30,7 +30,6 @@ const EventMediaSwiper = ({ media, setIndex }) => {
       itemHeight={adjustedScreenHeight}
       inactiveSlideOpacity={1}
       inactiveSlideScale={1}
-      firstItem={0}
       onSnapToItem={setIndex}
       loop
     />
