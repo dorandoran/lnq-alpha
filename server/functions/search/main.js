@@ -6,7 +6,6 @@ const base = ({ bucket, query, filters, page }) => {
   return index
     .search(query, { filters, page })
     .then(({ hits }) => {
-      console.log('hits ', hits)
       return hits
     })
     .catch(e => console.log(e))

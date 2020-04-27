@@ -1,10 +1,5 @@
 import Constants from 'expo-constants'
-import dayjs from 'dayjs'
-import {
-  DATE_FORMAT,
-  TIME_FORMAT,
-  SCREEN_HEIGHT
-} from '@components/util/constants'
+import { SCREEN_HEIGHT } from '@components/util/constants'
 import { formatDateTime } from '@util'
 
 export const adjustedScreenHeight = SCREEN_HEIGHT - Constants.statusBarHeight

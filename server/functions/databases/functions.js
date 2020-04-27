@@ -7,7 +7,10 @@ const cleanupMedia = functions.firestore
   .onDelete(async snap => {
     const event = snap.data()
     // TODO: Add Error Handling
-    await Media.deleteFromStore({ id: event.avatarId })
+    const eventMedia = await Media.findAllByLinkId({ linkId: event.id })
+    eventMedia.forEach(async media => {
+      await Media.deleteFromStore({ id: media.id })
+    })
   })
 
 const cleanupUser = functions.firestore

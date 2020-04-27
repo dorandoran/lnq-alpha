@@ -1,30 +1,35 @@
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { Route } from '@context/routeStore'
-import useDeleteEvent from '@graphql/event/useDeleteEvent'
+import useDeleteMedia from '@graphql/media/useDeleteMedia'
 import useNotification from '@hooks/useNotification'
+import useDialog from '@context/dialogContext'
 
 import { theme } from '@src/theme'
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
 import { Icon } from 'react-native-elements'
 
-const ActionDeleteEventDialog = ({ onComplete, id }) => {
-  const deleteEvent = useDeleteEvent()
-  const { throwSuccess } = useNotification()
-  const dispatch = useContext(Route.Dispatch)
+const ActionDeleteMediaDialog = ({ onComplete }) => {
+  const {
+    temp: { event, media }
+  } = useDialog()
+  const deleteMedia = useDeleteMedia()
+  const { throwSuccess, throwError } = useNotification()
 
   const handleConfirm = () => {
-    deleteEvent({ id })
+    if (event.avatarId === media.id) {
+      throwError('Cannot delete avatar image!')
+    } else {
+      deleteMedia({ id: media.id, linkId: event.id, bucket: 'events' })
+      throwSuccess('Image successfully deleted.')
+    }
     onComplete()
-    dispatch({ type: 'closeModal' })
-    throwSuccess('Event successfully deleted.')
   }
 
   return (
     <Fragment>
       <View style={styles.messageContainer}>
         <Text style={styles.message}>
-          Are you sure you want to delete this event?
+          Are you sure you want to delete this image?
         </Text>
       </View>
       <View style={styles.buttonContainer}>
@@ -68,9 +73,9 @@ const styles = StyleSheet.create({
   }
 })
 
-ActionDeleteEventDialog.propTypes = {
+ActionDeleteMediaDialog.propTypes = {
   id: PropTypes.string,
   onComplete: PropTypes.func
 }
 
-export default ActionDeleteEventDialog
+export default ActionDeleteMediaDialog
