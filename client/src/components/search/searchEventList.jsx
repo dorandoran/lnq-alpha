@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useRouteDispatch } from '@hooks/useRoute'
+import useOverlay from '@context/overlayContext'
 import useSearch, { actions } from '@context/searchContext'
 import useSearchQuery from '@graphql/search/useSearchQuery'
 import { useDebounce } from '@hooks/useDebounce'
@@ -14,7 +14,7 @@ import { formatDateTime } from '@util'
 
 const SearchEventList = ({ text }) => {
   const [refreshing, setRefreshing] = useState(false)
-  const { dispatch: routeDispatch, actions: routeActions } = useRouteDispatch()
+  const { dispatch: overlayDispatch, actions: overlayActions } = useOverlay()
   const { dispatch } = useSearch()
 
   const { data, loading, refetch } = useSearchQuery()
@@ -59,7 +59,7 @@ const SearchEventList = ({ text }) => {
         keyExtractor={event => event.id}
         ListFooterComponent={<View style={styles.image} />}
         renderItem={({ item }) => {
-          const { id, name, avatar, location, date } = item
+          const { name, avatar, location, date } = item
 
           return (
             <ListItem
@@ -86,9 +86,9 @@ const SearchEventList = ({ text }) => {
               }
               containerStyle={styles.containerStyle}
               onPress={() =>
-                routeDispatch({
-                  type: routeActions.openModal,
-                  payload: { id, type: EVENT_CONST }
+                overlayDispatch({
+                  type: overlayActions.modal.open,
+                  payload: { data: item, type: EVENT_CONST }
                 })
               }
             />

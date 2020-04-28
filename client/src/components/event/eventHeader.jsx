@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
-import { useRouteDispatch } from '@hooks/useRoute'
-import useDialog from '@context/dialogContext'
+import useOverlay from '@context/overlayContext'
 import PropTypes from 'prop-types'
 
 import { theme } from '@src/theme'
@@ -12,12 +11,22 @@ import ActionEditEvent from '@components/event/utilComponents/actionEditEvent'
 import ActionLeaveEvent from '@components/event/utilComponents/actionLeaveEvent'
 
 const EventHeader = ({ event, open, toggleOpen }) => {
-  const { dispatch, actions } = useRouteDispatch()
-  const { openDialog, resetDialog } = useDialog()
+  const { dispatch, actions } = useOverlay()
 
   const closeModal = () => {
-    resetDialog()
-    dispatch({ type: actions.closeModal })
+    dispatch({ type: actions.modal.close })
+  }
+
+  const handleAddMedia = () => {
+    dispatch({
+      type: actions.dialog.events.addMedia
+    })
+  }
+
+  const handleDeleteMedia = () => {
+    dispatch({
+      type: actions.dialog.events.deleteMedia
+    })
   }
 
   return (
@@ -59,24 +68,14 @@ const EventHeader = ({ event, open, toggleOpen }) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.container, styles.addMedia]}
-            onPress={() =>
-              openDialog({
-                dialog: actions.openAddMedia,
-                temp: { event }
-              })
-            }
+            onPress={handleAddMedia}
           >
             <Icon type='feather' name='plus' color={theme.color.tertiary} />
           </TouchableOpacity>
           <ActionEditEvent />
           <TouchableOpacity
             style={styles.container}
-            onPress={() =>
-              openDialog({
-                dialog: actions.openDeleteMedia,
-                temp: { event }
-              })
-            }
+            onPress={handleDeleteMedia}
           >
             <Icon
               type='material-community'

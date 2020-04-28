@@ -1,19 +1,20 @@
 import React from 'react'
-import { useRouteState } from '@hooks/useRoute'
+import useOverlay from '@context/overlayContext'
 
 import { Modal } from 'react-native'
 import EventContainer from '@components/event/eventContainer'
 import ViewContainer from '@components/main/viewContainer'
-import Dialog from '@components/modal/eventDialog'
+import Dialog from '@components/overlay/modalDialog'
 import Notification from '@components/main/notification'
+import { EVENT_CONST } from '@util/constants'
 
 const AppModal = () => {
-  const { selected } = useRouteState()
+  const { modal } = useOverlay()
 
   return (
-    <Modal visible={!!selected} statusBarTranslucent>
+    <Modal visible={!!modal.type} statusBarTranslucent>
       <ViewContainer>
-        {selected && <EventContainer id={selected.id} />}
+        {modal.type === EVENT_CONST && <EventContainer id={modal.data.id} />}
       </ViewContainer>
       <Dialog />
       <Notification />
