@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import useDialog, { actions } from '@context/dialogContext'
+import useOverlay from '@context/overlayContext'
 
 import { theme } from '@src/theme'
 import { View, StyleSheet } from 'react-native'
@@ -10,24 +10,20 @@ import AddMediaDialog from '@components/event/utilComponents/actionAddMediaDialo
 import DeleteMedia from '@components/event/utilComponents/actionDeleteMediaDialog'
 
 const EventDialog = () => {
-  const { dialog, closeDialog } = useDialog()
-
-  const handleComplete = temp => {
-    closeDialog({ temp })
-  }
+  const { dialog, actions } = useOverlay()
 
   const renderDialog = () => {
-    switch (dialog) {
-      case actions.openAddMedia:
-        return <AddMediaDialog onComplete={handleComplete} />
-      case actions.openDeleteMedia:
-        return <DeleteMedia onComplete={handleComplete} />
+    switch (dialog.id) {
+      case actions.dialog.events.addMedia:
+        return <AddMediaDialog />
+      case actions.dialog.events.deleteMedia:
+        return <DeleteMedia />
       default:
         return null
     }
   }
 
-  return dialog ? (
+  return dialog.id ? (
     <View style={styles.container}>
       <View style={styles.dialogContainer}>{renderDialog()}</View>
     </View>

@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import useDialog from '@context/dialogContext'
+import useOverlay from '@context/overlayContext'
 import useStorage from '@hooks/useStorage'
 import useNotification from '@hooks/useNotification'
 
@@ -21,27 +21,35 @@ const initialState = {
   confirmed: null
 }
 
-const ActionAddMediaDialog = ({ onComplete }) => {
+const ActionAddMediaDialog = () => {
   const [uri, setUri] = useState(initialState)
-  const {
-    temp: { event }
-  } = useDialog()
   const { throwSuccess } = useNotification()
+  const {
+    modal: { data },
+    dispatch,
+    actions
+  } = useOverlay()
 
   const { media, loading } = useStorage({
     uri: uri.confirmed,
     bucketName: EVENT_CONST,
-    linkId: event.id,
+    linkId: data.id,
     skip: !uri.confirmed,
     onSuccess: () => throwSuccess('Media successfully added.')
   })
+
+  const handleClose = payload => {
+    const action = { type: actions.dialog.close }
+    if (payload) action.payload = payload
+    dispatch(action)
+  }
 
   useEffect(() => {
     let didCancel = false
 
     if (!didCancel && media) {
       setUri(initialState)
-      onComplete({ media })
+      handleClose({ media })
     }
     return () => {
       didCancel = true
@@ -90,7 +98,7 @@ const ActionAddMediaDialog = ({ onComplete }) => {
         )}
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.iconContainer} onPress={onComplete}>
+        <TouchableOpacity style={styles.iconContainer} onPress={handleClose}>
           <Icon
             type='ionicon'
             name='md-close'

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext } from 'react'
-import PropTypes from 'prop-types'
+import { navigate } from '@util/navigationRef'
 import { Route } from '@context/routeStore'
 
 import { theme } from '@src/theme'
@@ -9,7 +9,7 @@ import { Icon } from 'react-native-elements'
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
 import { CAMERA_SELECTION } from '@components/util/constants'
 
-const TabBarFab = ({ mainFlowRef }) => {
+const TabBarFab = () => {
   const [fabPosition, setFabPosition] = useState(null)
   const { tabBar } = useContext(Route.State)
   const dispatch = useContext(Route.Dispatch)
@@ -17,7 +17,7 @@ const TabBarFab = ({ mainFlowRef }) => {
 
   const navigateToDetails = media => {
     // Passes media to <CreateDetails />
-    mainFlowRef.current.navigate('Create', {
+    navigate('Create', {
       screen: 'Create',
       params: { media }
     })
@@ -76,9 +76,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   }
 })
-
-TabBarFab.propTypes = {
-  mainFlowRef: PropTypes.object
-}
 
 export default TabBarFab

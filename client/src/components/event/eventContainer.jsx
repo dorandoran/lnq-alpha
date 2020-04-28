@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import useDialog from '@context/dialogContext'
+import useOverlay from '@context/overlayContext'
 
 import { useQuery } from '@apollo/react-hooks'
 import { GetEvent } from '@graphql/event/queries.js'
@@ -24,7 +24,7 @@ const initialState = {
 
 const EventContainer = ({ id }) => {
   const [buttons, setButtons] = useState(initialState)
-  const { updateTemp } = useDialog()
+  const { dispatch, actions } = useOverlay()
 
   const { data, loading } = useQuery(GetEvent, {
     variables: { id },
@@ -52,7 +52,7 @@ const EventContainer = ({ id }) => {
 
   const setMediaIndex = index => {
     const media = event.media[index]
-    updateTemp({ media })
+    dispatch({ type: actions.dialog.updateCache, payload: { media } })
   }
 
   return (

@@ -1,6 +1,5 @@
-import React, { Fragment, useContext } from 'react'
-import { Route } from '@context/routeStore'
-import useDialog from '@context/dialogContext'
+import React, { Fragment } from 'react'
+import useOverlay from '@context/overlayContext'
 import PropTypes from 'prop-types'
 
 import { theme } from '@src/theme'
@@ -11,15 +10,23 @@ import { SCREEN_HEIGHT } from '@util/constants'
 import ActionEditEvent from '@components/event/utilComponents/actionEditEvent'
 import ActionLeaveEvent from '@components/event/utilComponents/actionLeaveEvent'
 
-import { actions } from '@context/dialogContext'
-
 const EventHeader = ({ event, open, toggleOpen }) => {
-  const dispatch = useContext(Route.Dispatch)
-  const { openDialog, resetDialog } = useDialog()
+  const { dispatch, actions } = useOverlay()
 
   const closeModal = () => {
-    resetDialog()
-    dispatch({ type: 'closeModal' })
+    dispatch({ type: actions.modal.close })
+  }
+
+  const handleAddMedia = () => {
+    dispatch({
+      type: actions.dialog.events.addMedia
+    })
+  }
+
+  const handleDeleteMedia = () => {
+    dispatch({
+      type: actions.dialog.events.deleteMedia
+    })
   }
 
   return (
@@ -61,24 +68,14 @@ const EventHeader = ({ event, open, toggleOpen }) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.container, styles.addMedia]}
-            onPress={() =>
-              openDialog({
-                dialog: actions.openAddMedia,
-                temp: { event }
-              })
-            }
+            onPress={handleAddMedia}
           >
             <Icon type='feather' name='plus' color={theme.color.tertiary} />
           </TouchableOpacity>
           <ActionEditEvent />
           <TouchableOpacity
             style={styles.container}
-            onPress={() =>
-              openDialog({
-                dialog: actions.openDeleteMedia,
-                temp: { event }
-              })
-            }
+            onPress={handleDeleteMedia}
           >
             <Icon
               type='material-community'

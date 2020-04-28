@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
-import { Route } from '@context/routeStore'
+import React from 'react'
+import { navigate } from '@util/navigationRef'
+import { useRouteState } from '@hooks/useRoute'
 import PropTypes from 'prop-types'
-import { useQuery } from '@apollo/react-hooks'
-import { GetUser } from '@graphql/user/queries'
 
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
@@ -25,19 +24,12 @@ const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {
   )
 }
 
-const TabBar = ({ mainFlowRef }) => {
-  const { name, tabBar } = useContext(Route.State)
+const TabBar = () => {
+  const { name, tabBar } = useRouteState()
   const { show } = tabBar
 
-  // This is to populate the cache
-  // It is wrapped in try-catch
-  // in the event in case of new user
-  try {
-    const { data } = useQuery(GetUser)
-  } catch {}
-
   const handlePress = screen => {
-    mainFlowRef.current?.navigate(screen)
+    navigate(screen)
   }
 
   // Turns off tab bar
@@ -79,7 +71,7 @@ const TabBar = ({ mainFlowRef }) => {
         />
       </View>
       <View style={styles.createContainer}>
-        <Fab mainFlowRef={mainFlowRef} />
+        <Fab />
       </View>
     </View>
   )
