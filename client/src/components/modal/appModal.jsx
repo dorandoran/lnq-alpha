@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Route } from '@context/routeStore'
+import React from 'react'
+import { useRouteState } from '@hooks/useRoute'
 
 import { Modal } from 'react-native'
 import EventContainer from '@components/event/eventContainer'
@@ -8,7 +8,7 @@ import Dialog from '@components/modal/eventDialog'
 import Notification from '@components/main/notification'
 
 const AppModal = () => {
-  const { selected } = useContext(Route.State)
+  const { selected } = useRouteState()
 
   return (
     <Modal visible={!!selected} statusBarTranslucent>

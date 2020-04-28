@@ -1,21 +1,14 @@
 import React, { createContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
-const actions = {
-  changeRoute: 'changeRoute',
+export const actions = {
+  updateRoute: 'updateRoute',
   openModal: 'openModal',
   closeModal: 'closeModal',
   toggleFab: 'toggleTabBarFab',
   closeFab: 'closeTabBarFab'
 }
 
-/* 
-  name: name of current screen
-  tabBar: whether or not to show tab bar on screen
-  selected: pass object containing the <id> and <type> to show in modal
-            use EVENT_CONST or USER_CONST from @util/constants for type.
-            Example: { id: '[this is an id]', type: 'event' }
-*/
 const initialState = {
   name: 'Home',
   tabBar: {
@@ -35,7 +28,7 @@ const Dispatch = createContext()
 // Reducer
 const reducer = (state, action) => {
   switch (action.type) {
-    case actions.changeRoute:
+    case actions.updateRoute:
       return {
         ...state,
         name: action.payload,

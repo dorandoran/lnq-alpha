@@ -1,5 +1,5 @@
-import React, { Fragment, useContext } from 'react'
-import { Route } from '@context/routeStore'
+import React, { Fragment } from 'react'
+import { useRouteDispatch } from '@hooks/useRoute'
 import useDialog from '@context/dialogContext'
 import PropTypes from 'prop-types'
 
@@ -11,15 +11,13 @@ import { SCREEN_HEIGHT } from '@util/constants'
 import ActionEditEvent from '@components/event/utilComponents/actionEditEvent'
 import ActionLeaveEvent from '@components/event/utilComponents/actionLeaveEvent'
 
-import { actions } from '@context/dialogContext'
-
 const EventHeader = ({ event, open, toggleOpen }) => {
-  const dispatch = useContext(Route.Dispatch)
+  const { dispatch, actions } = useRouteDispatch()
   const { openDialog, resetDialog } = useDialog()
 
   const closeModal = () => {
     resetDialog()
-    dispatch({ type: 'closeModal' })
+    dispatch({ type: actions.closeModal })
   }
 
   return (
