@@ -1,12 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { TOMORROW_DATETIME } from '@components/util/constants'
-import { screenMap } from '@components/create/utilComponents/createUtil'
+import { TOMORROW_DATETIME } from '@util/constants'
+import { SCREEN } from '@components/create/utilComponents/createUtil'
 
 const CreateContext = createContext()
 
 export const CreateProvider = ({ children, initialMedia }) => {
-  const { DETAILS } = screenMap
   const initialState = { imageEdit: false }
   const initialDetailState = {
     name: '',
@@ -20,7 +19,7 @@ export const CreateProvider = ({ children, initialMedia }) => {
     media: []
   }
 
-  const [screen, setScreen] = useState(DETAILS)
+  const [screen, setScreen] = useState(SCREEN.DETAILS)
   const [state, setState] = useState(initialState)
   const [details, setDetails] = useState({
     ...initialDetailState,
@@ -57,7 +56,7 @@ export const CreateProvider = ({ children, initialMedia }) => {
   }, [initialMedia])
 
   const resetDetails = () => {
-    setScreen(DETAILS)
+    setScreen(SCREEN.DETAILS)
     setDetails(initialDetailState)
     setState(initialState)
   }

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import useOverlay from '@context/overlayContext'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { View, StyleSheet } from 'react-native'
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util/constants'
 

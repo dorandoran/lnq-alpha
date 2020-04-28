@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import useOverlay from '@context/overlayContext'
 import PropTypes from 'prop-types'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { SCREEN_HEIGHT } from '@util/constants'
@@ -10,7 +10,7 @@ import { SCREEN_HEIGHT } from '@util/constants'
 import ActionEditEvent from '@components/event/utilComponents/actionEditEvent'
 import ActionLeaveEvent from '@components/event/utilComponents/actionLeaveEvent'
 
-const EventHeader = ({ event, open, toggleOpen }) => {
+const EventHeader = ({ open, toggleOpen }) => {
   const { dispatch, actions } = useOverlay()
 
   const closeModal = () => {
@@ -124,7 +124,6 @@ const styles = StyleSheet.create({
 })
 
 EventHeader.propTypes = {
-  event: PropTypes.object,
   open: PropTypes.bool,
   toggleOpen: PropTypes.func
 }

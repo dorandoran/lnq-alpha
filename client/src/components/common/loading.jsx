@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { View, ActivityIndicator, StyleSheet } from 'react-native'
-import { theme } from '@src/theme'
+import { theme } from '@util'
 
 const Loading = ({ styleProps }) => {
   return (

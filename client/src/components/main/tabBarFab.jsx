@@ -2,7 +2,7 @@ import React, { Fragment, useState, useContext } from 'react'
 import { navigate } from '@util/navigationRef'
 import { Route } from '@context/routeStore'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 

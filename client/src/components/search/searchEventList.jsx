@@ -5,12 +5,11 @@ import useSearchQuery from '@graphql/search/useSearchQuery'
 import { useDebounce } from '@hooks/useDebounce'
 import PropTypes from 'prop-types'
 
-import { theme } from '@src/theme'
+import { theme, formatDateTime } from '@util'
 import { View, StyleSheet, FlatList, Text, RefreshControl } from 'react-native'
 import { ListItem, Image } from 'react-native-elements'
 import { Loading } from '@common'
-import { EVENT_CONST } from '@util/constants'
-import { formatDateTime } from '@util'
+import { BUCKET } from '@util/constants'
 
 const SearchEventList = ({ text }) => {
   const [refreshing, setRefreshing] = useState(false)
@@ -88,7 +87,7 @@ const SearchEventList = ({ text }) => {
               onPress={() =>
                 overlayDispatch({
                   type: overlayActions.modal.open,
-                  payload: { data: item, type: EVENT_CONST }
+                  payload: { data: item, type: BUCKET.EVENT }
                 })
               }
             />

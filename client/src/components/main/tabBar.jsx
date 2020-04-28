@@ -7,7 +7,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import Fab from '@components/main/tabBarFab'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { SCREEN_HEIGHT } from '@components/util/constants'
 
 const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {

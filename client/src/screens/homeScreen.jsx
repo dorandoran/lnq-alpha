@@ -2,7 +2,7 @@ import React from 'react'
 import useNotification from '@hooks/useNotification'
 import PropTypes from 'prop-types'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { View, StyleSheet } from 'react-native'
 import { Card, Button } from 'react-native-elements'
 

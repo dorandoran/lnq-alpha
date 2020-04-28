@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import useAuth from '@context/authContext'
 import { withNavigation } from '@react-navigation/compat'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Spacer } from '@common'

@@ -1,7 +1,7 @@
 import React from 'react'
 import useSearch, { actions } from '@context/searchContext'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import {
   View,
   FlatList,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { theme } from '@src/theme'
+import { theme } from '@util'
 
 import { SearchBar } from 'react-native-elements'
 
@@ -9,7 +9,7 @@ const CreateInvite = () => {
   return (
     <View style={styles.container}>
       <SearchBar
-        placeholder="Search"
+        placeholder='Search'
         value={search}
         onChangeText={setSearch}
         containerStyle={styles.containerStyle}

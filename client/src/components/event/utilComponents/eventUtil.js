@@ -4,7 +4,7 @@ import { formatDateTime } from '@util'
 
 export const adjustedScreenHeight = SCREEN_HEIGHT - Constants.statusBarHeight
 
-export const detailsMap = [
+export const eventDetails = [
   {
     key: 'location',
     title: ({ location }) => location.text,

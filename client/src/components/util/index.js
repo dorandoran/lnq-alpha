@@ -38,3 +38,5 @@ export const formatDateTime = ({ type, date }) => {
   if (type === 'time') return dayjs(date).format(TIME_FORMAT)
   return dayjs(date).format(`${DATE_FORMAT}  |  ${TIME_FORMAT}`)
 }
+
+export { default as theme } from './theme'

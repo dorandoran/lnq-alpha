@@ -5,7 +5,7 @@ import useAuth from '@context/authContext'
 
 const UserContext = createContext()
 
-const UserProvider = props => {
+export const UserProvider = props => {
   const { authState } = useAuth()
 
   // Cache user
@@ -26,4 +26,4 @@ const useUser = () => {
   return context
 }
 
-export { UserProvider, useUser, UserContext }
+export default useUser

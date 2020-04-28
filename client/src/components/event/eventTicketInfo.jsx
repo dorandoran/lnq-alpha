@@ -1,16 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { View, Text, StyleSheet } from 'react-native'
 import { Icon, ListItem, Button } from 'react-native-elements'
 
-import { detailsMap } from '@components/event/utilComponents/eventUtil'
+import { eventDetails } from '@components/event/utilComponents/eventUtil'
 
 const EventTicketInfo = ({ event }) => {
   return (
     <View style={styles.container}>
-      {detailsMap.map(({ key, title, iconName }) => {
+      {eventDetails.map(({ key, title, iconName }) => {
         if (key === 'description') {
           return (
             <Text key={key} style={[styles.text, styles.margins]}>

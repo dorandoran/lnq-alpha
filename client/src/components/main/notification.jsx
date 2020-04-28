@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import NotificationContext from '@context/notificationContext'
 import { useDebounce } from '@hooks/useDebounce'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import {
   View,
   TouchableOpacity,

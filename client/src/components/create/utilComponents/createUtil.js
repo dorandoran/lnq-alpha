@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { DATE_FORMAT, TIME_FORMAT } from '@components/util/constants'
 
-export const screenMap = {
+export const SCREEN = {
   DETAILS: 'Create Details',
   INVITES: 'Create Invites'
 }

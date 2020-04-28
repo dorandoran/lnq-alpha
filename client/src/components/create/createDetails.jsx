@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react'
 import useCreate from '@context/createContext'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import ReactNative, {
   View,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 
 import { StyleSheet } from 'react-native'
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import config from '@config'
 
 const LocationAutoComplete = ({ handleSelect }) => {

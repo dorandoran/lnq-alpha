@@ -4,7 +4,7 @@ import useOverlay from '@context/overlayContext'
 import useStorage from '@hooks/useStorage'
 import useNotification from '@hooks/useNotification'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import {
   TouchableOpacity,
   StyleSheet,
@@ -14,7 +14,7 @@ import {
 import { Icon, Image } from 'react-native-elements'
 
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
-import { CAMERA_SELECTION, EVENT_CONST } from '@components/util/constants'
+import { CAMERA_SELECTION, BUCKET } from '@components/util/constants'
 
 const initialState = {
   selected: null,
@@ -32,7 +32,7 @@ const ActionAddMediaDialog = () => {
 
   const { media, loading } = useStorage({
     uri: uri.confirmed,
-    bucketName: EVENT_CONST,
+    bucketName: BUCKET.EVENT,
     linkId: data.id,
     skip: !uri.confirmed,
     onSuccess: () => throwSuccess('Media successfully added.')

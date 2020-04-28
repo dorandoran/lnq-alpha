@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { View, ActivityIndicator, StyleSheet } from 'react-native'
 
 const LoadingDialog = () => {

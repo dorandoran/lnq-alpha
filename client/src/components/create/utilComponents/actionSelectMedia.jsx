@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import { TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { CAMERA_SELECTION } from '@components/util/constants'
 
 const ActionSelectMedia = ({

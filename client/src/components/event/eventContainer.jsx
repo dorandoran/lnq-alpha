@@ -5,7 +5,7 @@ import useOverlay from '@context/overlayContext'
 import { useQuery } from '@apollo/react-hooks'
 import { GetEvent } from '@graphql/event/queries.js'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { StyleSheet, ScrollView } from 'react-native'
 
 import { Loading } from '@common'

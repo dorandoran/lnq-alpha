@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import useStorage from '@hooks/useStorage'
-import { useUser } from '@context/userContext'
+import useUser from '@context/userContext'
 import useCreate from '@context/createContext'
 import useCreateEvent from '@graphql/event/useCreateEvent'
 
@@ -12,8 +12,8 @@ import {
   Keyboard
 } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { theme } from '@src/theme'
-import { EVENT_CONST } from '@components/util/constants'
+import { theme } from '@util'
+import { BUCKET } from '@util/constants'
 
 const ActionSaveEvent = ({ onOpen, onComplete, onSuccess }) => {
   const [actionSelected, setActionSelected] = useState(false)
@@ -24,7 +24,7 @@ const ActionSaveEvent = ({ onOpen, onComplete, onSuccess }) => {
   // If action is selected, run useStorage
   const { media } = useStorage({
     uri: details.media[0].uri,
-    bucketName: EVENT_CONST,
+    bucketName: BUCKET.EVENT,
     skip: !actionSelected
   })
 

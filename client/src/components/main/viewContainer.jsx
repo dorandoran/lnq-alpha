@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, StatusBar } from 'react-native'
 import Constants from 'expo-constants'
-import { theme } from '@src/theme'
+import { theme } from '@util'
 
 import { hasNotch } from '@components/util'
 
 const ViewContainer = ({ children }) => {
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle='light-content' />
       {children}
     </View>
   )

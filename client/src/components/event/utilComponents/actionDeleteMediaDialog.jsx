@@ -6,10 +6,10 @@ import useOverlay from '@context/overlayContext'
 
 import LoadingDialog from '@components/overlay/loadingDialog'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { EVENT_CONST } from '@util/constants'
+import { BUCKET } from '@util/constants'
 
 const ActionDeleteMediaDialog = () => {
   const {
@@ -33,7 +33,7 @@ const ActionDeleteMediaDialog = () => {
       throwError('Cannot delete avatar image!')
       handleClose()
     } else {
-      deleteMedia({ id: media.id, linkId: data.id, bucket: EVENT_CONST })
+      deleteMedia({ id: media.id, linkId: data.id, bucket: BUCKET.EVENT })
     }
   }
 

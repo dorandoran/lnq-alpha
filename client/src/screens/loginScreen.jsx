@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import useAuth from '@context/authContext'
 import PropTypes from 'prop-types'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import {
   View,
   Text,

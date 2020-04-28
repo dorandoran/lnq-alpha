@@ -4,7 +4,7 @@ import useCreate from '@context/createContext'
 
 import { TouchableOpacity, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { theme } from '@src/theme'
+import { theme } from '@util'
 
 const ActionRemoveMedia = ({ index }) => {
   const { details, updateMedia } = useCreate()

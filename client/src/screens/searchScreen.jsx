@@ -4,7 +4,7 @@ import { SearchProvider } from '@context/searchContext'
 import EventList from '@components/search/searchEventList'
 import CategoryBar from '@components/search/searchCategoryBar'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { View, StyleSheet } from 'react-native'
 import { SearchBar } from 'react-native-elements'
 

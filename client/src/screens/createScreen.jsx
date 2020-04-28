@@ -7,18 +7,17 @@ import CreateDetails from '@components/create/createDetails'
 import CreateInvite from '@components/create/createInvite'
 import Header from '@components/create/createHeader'
 
-import { theme } from '@src/theme'
-import { screenMap } from '@components/create/utilComponents/createUtil'
+import { theme } from '@util'
+import { SCREEN } from '@components/create/utilComponents/createUtil'
 
 const CreateView = ({ navigation }) => {
   const { screen } = useCreate()
-  const { DETAILS, INVITES } = screenMap
 
   const renderScreen = () => {
     switch (screen) {
-      case DETAILS:
+      case SCREEN.DETAILS:
         return <CreateDetails />
-      case INVITES:
+      case SCREEN.INVITES:
         return <CreateInvite />
       default:
         return <CreateDetails />

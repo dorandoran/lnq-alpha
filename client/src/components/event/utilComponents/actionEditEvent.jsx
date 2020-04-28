@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { TouchableOpacity, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
 

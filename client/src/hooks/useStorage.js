@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { storage, firestore } from '@services/firebase'
 import useCreateMedia from '@graphql/media/useCreateMedia'
-import { useUser } from '@context/userContext'
-import { MEDIA_CONST } from '@components/util/constants'
+import useUser from '@context/userContext'
+import { BUCKET } from '@components/util/constants'
 
 const useStorage = ({ uri, bucketName, linkId, skip, onSuccess, onError }) => {
   const [media, setMedia] = useState(null)
@@ -11,7 +11,7 @@ const useStorage = ({ uri, bucketName, linkId, skip, onSuccess, onError }) => {
   const userId = useUser()
   let newMediaLinkId = linkId
 
-  const mediaRef = firestore.collection(MEDIA_CONST).doc()
+  const mediaRef = firestore.collection(BUCKET.MEDIA).doc()
   const mediaStorage = storage.ref().child(`${bucketName}/${mediaRef.id}`)
 
   if (!newMediaLinkId) {

@@ -1,7 +1,7 @@
 import React, { Children } from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet } from 'react-native'
-import { theme } from '@src/theme'
+import { theme } from '@util'
 
 const Header = ({
   children,

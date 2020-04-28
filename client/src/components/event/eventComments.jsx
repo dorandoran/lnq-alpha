@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { View, StyleSheet } from 'react-native'
 import { Icon, ListItem } from 'react-native-elements'
 

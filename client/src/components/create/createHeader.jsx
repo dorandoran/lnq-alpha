@@ -12,16 +12,15 @@ import {
 } from 'react-native'
 import { Header } from '@common'
 import { Icon } from 'react-native-elements'
-import { theme } from '@src/theme'
+import { theme } from '@util'
 
 import ActionSaveEvent from '@components/create/utilComponents/actionSaveEvent'
-import { screenMap } from '@components/create/utilComponents/createUtil'
+import { SCREEN } from '@components/create/utilComponents/createUtil'
 
 const CreateHeader = ({ navigation }) => {
   const { details, resetDetails, screen, setScreen } = useCreate()
   const { throwSuccess, throwLoading } = useNotification()
-  const { INVITES, DETAILS } = screenMap
-  const isInvite = screen === INVITES
+  const isInvite = screen === SCREEN.INVITES
 
   const handleSuccess = () => {
     throwSuccess('Event successfully created!')
@@ -35,12 +34,12 @@ const CreateHeader = ({ navigation }) => {
 
   const navigateToInvite = () => {
     Keyboard.dismiss()
-    setScreen(INVITES)
+    setScreen(SCREEN.INVITES)
   }
 
   const goBack = () => {
     Keyboard.dismiss()
-    setScreen(DETAILS)
+    setScreen(SCREEN.DETAILS)
   }
 
   // Checks if keys that have strings are filled

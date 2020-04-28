@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 

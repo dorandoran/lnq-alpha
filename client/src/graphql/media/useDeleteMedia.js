@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
 import { DeleteMedia } from '@graphql/media/mutations.js'
-import { EVENT_CONST } from '@util/constants'
+import { BUCKET } from '@util/constants'
 
 export default function useDeleteMedia ({ onCompleted }) {
   const [deleteMedia, { loading }] = useMutation(DeleteMedia, { onCompleted })
@@ -11,7 +11,7 @@ export default function useDeleteMedia ({ onCompleted }) {
       deleteMedia({
         variables,
         update: cache => {
-          if (variables.bucket === EVENT_CONST) {
+          if (variables.bucket === BUCKET.EVENT) {
             const cachedEvent = cache.readFragment({
               id: `Event:${variables.linkId}`,
               fragment: gql`

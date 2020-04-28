@@ -1,4 +1,4 @@
-export const theme = {
+const theme = {
   color: {
     shadow: 'rgba(0, 0, 0, 0.7)',
     lightShadow: 'rgba(255, 255, 255, 0.7)',
@@ -18,3 +18,5 @@ export const theme = {
     header: 100
   }
 }
+
+export default theme

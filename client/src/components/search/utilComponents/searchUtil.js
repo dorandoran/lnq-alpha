@@ -1,9 +1,9 @@
-import { EVENT_TYPE_ARRAY } from '@util/constants'
+import { EVENT_TYPES_ARRAY } from '@util/constants'
 
 export const categoryList = [
   // { label: 'Near Me', value: 'near' },
   // { label: 'Suggested', value: 'suggest' },
-  ...EVENT_TYPE_ARRAY
+  ...EVENT_TYPES_ARRAY
 ]
 
 export const buildSearchVars = ({ query, bucket, page, categories }) => {

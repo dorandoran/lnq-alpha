@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { theme } from '@src/theme'
+import { theme, isIphone } from '@util'
 import {
   View,
   StyleSheet,
@@ -13,7 +13,6 @@ import Modal from 'react-native-modal'
 import { Icon } from 'react-native-elements'
 import { LocationAutoComplete, KeyboardDismiss } from '@common'
 import { SCREEN_HEIGHT } from '@util/constants'
-import { isIphone } from '@util'
 
 const CreateModal = ({ modalValue, clearValue, detail, handleChange }) => {
   const [tempVar, setTempVar] = useState(detail || null)

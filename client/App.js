@@ -4,7 +4,7 @@ import { YellowBox } from 'react-native'
 import { client } from '@services/apollo'
 import { ApolloProvider } from '@apollo/react-hooks'
 
-import { useUser } from '@context/userContext'
+import useUser from '@context/userContext'
 import AppProviders from '@components/main/appProviders'
 
 import AuthenticatedApp from '@src/router/AuthenticatedApp'
