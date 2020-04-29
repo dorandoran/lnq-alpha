@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+
 import useOverlay from '@context/overlayContext'
 import useSearch, { actions } from '@context/searchContext'
 import useSearchQuery from '@graphql/search/useSearchQuery'
 import { useDebounce } from '@hooks/useDebounce'
-import PropTypes from 'prop-types'
 
-import { theme, formatDateTime } from '@util'
 import { View, StyleSheet, FlatList, Text, RefreshControl } from 'react-native'
 import { ListItem, Image } from 'react-native-elements'
 import { Loading } from '@common'
+
+import { theme, formatDateTime } from '@util'
 import { BUCKET } from '@util/constants'
 
 const SearchEventList = ({ text }) => {
@@ -80,7 +82,7 @@ const SearchEventList = ({ text }) => {
                   source={{ uri: avatar.uri }}
                   style={styles.image}
                   borderRadius={10}
-                  PlaceholderContent={<Loading />}
+                  PlaceholderContent={<Loading size='small' />}
                 />
               }
               containerStyle={styles.containerStyle}

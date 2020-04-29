@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 
 import { TouchableOpacity, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
+import { theme } from '@util'
 
-const Button = ({
+const HeaderButton = ({
   backgroundColor,
   color,
   containerStyle,
@@ -13,6 +14,9 @@ const Button = ({
   name,
   size
 }) => {
+  backgroundColor = theme.color[backgroundColor] || backgroundColor
+  color = theme.color[color] || color
+
   return (
     <TouchableOpacity
       style={[styles.container, { backgroundColor }, containerStyle]}
@@ -32,7 +36,7 @@ const styles = StyleSheet.create({
   }
 })
 
-Button.propTypes = {
+HeaderButton.propTypes = {
   backgroundColor: PropTypes.string,
   color: PropTypes.string,
   containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -42,4 +46,4 @@ Button.propTypes = {
   size: PropTypes.number
 }
 
-export default Button
+export default HeaderButton

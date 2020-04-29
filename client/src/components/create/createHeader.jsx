@@ -1,20 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import useCreate from '@context/createContext'
 import useNotification from '@hooks/useNotification'
-
-import {
-  View,
-  Keyboard,
-  Text,
-  StyleSheet,
-  TouchableOpacity
-} from 'react-native'
-import { Header } from '@common'
-import { Icon } from 'react-native-elements'
-import { theme } from '@util'
-
 import ActionSaveEvent from '@components/create/utilComponents/actionSaveEvent'
+
+import { View, Keyboard, Text, StyleSheet } from 'react-native'
+import { Icon } from 'react-native-elements'
+import { Header, HeaderButton } from '@common'
+import { theme } from '@util'
 import { SCREEN } from '@components/create/utilComponents/createUtil'
 
 const CreateHeader = ({ navigation }) => {
@@ -58,17 +52,15 @@ const CreateHeader = ({ navigation }) => {
   }
 
   return (
-    <Header position='relative' backgroundColor={theme.color.background}>
-      <TouchableOpacity
-        style={styles.padding}
+    <Header position='relative' backgroundColor='background'>
+      <HeaderButton
+        type='material'
+        name='chevron-left'
+        color='tertiary'
+        backgroundColor='shadow'
         onPress={isInvite ? goBack : closeScreen}
-      >
-        <Icon
-          type='ionicon'
-          name='ios-arrow-back'
-          color={theme.color.tertiary}
-        />
-      </TouchableOpacity>
+        size={30}
+      />
       {isInvite ? <Text style={styles.header}>Invite</Text> : <View />}
       {isInvite ? (
         <ActionSaveEvent
@@ -77,19 +69,15 @@ const CreateHeader = ({ navigation }) => {
           onSuccess={handleSuccess}
         />
       ) : checkDisabled() ? (
-        <Icon
-          type='font-awesome'
-          name='exclamation'
-          color={theme.color.secondary}
-        />
+        <Icon type='font-awesome' name='exclamation' color='secondary' />
       ) : (
-        <TouchableOpacity style={styles.padding} onPress={navigateToInvite}>
-          <Icon
-            type='material'
-            name='person-add'
-            color={theme.color.tertiary}
-          />
-        </TouchableOpacity>
+        <HeaderButton
+          type='material'
+          name='person-add'
+          color='tertiary'
+          backgroundColor='shadow'
+          onPress={navigateToInvite}
+        />
       )}
     </Header>
   )
@@ -100,10 +88,6 @@ const styles = StyleSheet.create({
     color: theme.color.tertiary,
     fontWeight: 'bold',
     fontSize: 18
-  },
-  padding: {
-    padding: '1%',
-    aspectRatio: 1
   }
 })
 

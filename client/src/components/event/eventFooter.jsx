@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
+import { View, StyleSheet } from 'react-native'
+import { HeaderButton } from '@common'
 import { theme } from '@util'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Icon } from 'react-native-elements'
 import { SCREEN_HEIGHT } from '@util/constants'
 
-const EventFooter = ({ event, open, toggleOpen }) => {
+const EventFooter = ({ open, toggleOpen }) => {
   // Temporary save state
   const [saved, setSaved] = React.useState(false)
 
@@ -14,54 +14,49 @@ const EventFooter = ({ event, open, toggleOpen }) => {
     <Fragment>
       {!open ? (
         <View style={styles.iconContainer}>
-          <TouchableOpacity
+          <HeaderButton
+            type='entypo'
+            name='ticket'
+            color='tertiary'
+            backgroundColor='secondary'
             onPress={() => {}}
-            style={[styles.container, styles.ticket]}
-          >
-            <Icon type='entypo' name='ticket' color={theme.color.tertiary} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={toggleOpen} style={styles.container}>
-            <Icon
-              type='material-community'
-              name='chevron-up'
-              color={theme.color.tertiary}
-              size={30}
-            />
-          </TouchableOpacity>
+          />
+          <HeaderButton
+            type='material-community'
+            name='chevron-up'
+            color='tertiary'
+            size={30}
+            onPress={toggleOpen}
+          />
         </View>
       ) : (
         <View style={[styles.iconContainer, styles.openMenu]}>
-          <TouchableOpacity
+          <HeaderButton
+            type='entypo'
+            name='ticket'
+            color='tertiary'
+            backgroundColor='secondary'
             onPress={() => {}}
-            style={[styles.container, styles.ticket]}
-          >
-            <Icon type='entypo' name='ticket' color={theme.color.tertiary} />
-          </TouchableOpacity>
-          <TouchableOpacity
+          />
+          <HeaderButton
+            type='material-community'
+            name={saved ? 'bookmark' : 'bookmark-outline'}
+            color={saved ? theme.color.secondary : theme.color.tertiary}
             onPress={() => setSaved(!saved)}
-            style={styles.container}
-          >
-            <Icon
-              type='material-community'
-              name={saved ? 'bookmark' : 'bookmark-outline'}
-              color={saved ? theme.color.secondary : theme.color.tertiary}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}} style={styles.container}>
-            <Icon
-              type='material-community'
-              name='share-outline'
-              color={theme.color.tertiary}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={toggleOpen} style={styles.container}>
-            <Icon
-              type='material-community'
-              name='chevron-down'
-              color={theme.color.tertiary}
-              size={30}
-            />
-          </TouchableOpacity>
+          />
+          <HeaderButton
+            type='material-community'
+            name='share-outline'
+            color='tertiary'
+            onPress={() => {}}
+          />
+          <HeaderButton
+            type='material-community'
+            name='chevron-down'
+            color='tertiary'
+            size={30}
+            onPress={toggleOpen}
+          />
         </View>
       )}
     </Fragment>
@@ -69,24 +64,15 @@ const EventFooter = ({ event, open, toggleOpen }) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    borderRadius: 25,
-    aspectRatio: 1,
-    justifyContent: 'center'
-  },
   iconContainer: {
     position: 'absolute',
     bottom: SCREEN_HEIGHT + 25,
     right: 20,
     height: SCREEN_HEIGHT / 10,
-    width: 35,
     justifyContent: 'space-around',
     backgroundColor: theme.color.shadow,
     borderRadius: 25,
-    padding: 2
-  },
-  ticket: {
-    backgroundColor: theme.color.secondary
+    padding: 1
   },
   openMenu: {
     height: SCREEN_HEIGHT / 5
@@ -94,7 +80,6 @@ const styles = StyleSheet.create({
 })
 
 EventFooter.propTypes = {
-  event: PropTypes.object,
   open: PropTypes.bool,
   toggleOpen: PropTypes.func
 }

@@ -1,5 +1,6 @@
 import React, { Children } from 'react'
 import PropTypes from 'prop-types'
+
 import { View, StyleSheet } from 'react-native'
 import { theme } from '@util'
 
@@ -15,7 +16,9 @@ const Header = ({
   const addCustomStyles = () => {
     const customStyles = {}
     if (position) customStyles.position = position
-    if (backgroundColor) customStyles.backgroundColor = backgroundColor
+    if (backgroundColor)
+      customStyles.backgroundColor =
+        theme.color[backgroundColor] || backgroundColor
     return customStyles
   }
 

@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+
 import useStorage from '@hooks/useStorage'
 import useUser from '@context/userContext'
 import useCreate from '@context/createContext'
 import useCreateEvent from '@graphql/event/useCreateEvent'
 
-import {
-  ActivityIndicator,
-  TouchableOpacity,
-  StyleSheet,
-  Keyboard
-} from 'react-native'
-import { Icon } from 'react-native-elements'
+import { ActivityIndicator, Keyboard } from 'react-native'
+import { HeaderButton } from '@common'
 import { theme } from '@util'
 import { BUCKET } from '@util/constants'
 
@@ -59,18 +55,15 @@ const ActionSaveEvent = ({ onOpen, onComplete, onSuccess }) => {
   }
 
   return (
-    <TouchableOpacity style={styles.padding} onPress={selectAction}>
-      <Icon type='ionicon' name='md-share' color={theme.color.tertiary} />
-    </TouchableOpacity>
+    <HeaderButton
+      type='ionicon'
+      name='md-share'
+      color={theme.color.tertiary}
+      backgroundColor={theme.color.shadow}
+      onPress={selectAction}
+    />
   )
 }
-
-const styles = StyleSheet.create({
-  padding: {
-    padding: '1%',
-    aspectRatio: 1
-  }
-})
 
 ActionSaveEvent.propTypes = {
   onOpen: PropTypes.func,

@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react'
-import useOverlay from '@context/overlayContext'
 import PropTypes from 'prop-types'
 
-import { theme } from '@util'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Icon } from 'react-native-elements'
-import { SCREEN_HEIGHT } from '@util/constants'
-
+import useOverlay from '@context/overlayContext'
 import ActionEditEvent from '@components/event/utilComponents/actionEditEvent'
 import ActionLeaveEvent from '@components/event/utilComponents/actionLeaveEvent'
+
+import { View, StyleSheet } from 'react-native'
+import { HeaderButton } from '@common'
+import { theme } from '@util'
+import { SCREEN_HEIGHT } from '@util/constants'
 
 const EventHeader = ({ open, toggleOpen }) => {
   const { dispatch, actions } = useOverlay()
@@ -31,58 +31,48 @@ const EventHeader = ({ open, toggleOpen }) => {
 
   return (
     <Fragment>
-      <TouchableOpacity
+      <HeaderButton
+        type='material'
+        name='chevron-left'
+        color='tertiary'
+        backgroundColor='shadow'
         onPress={closeModal}
-        style={[styles.iconContainer, styles.button, styles.backButton]}
-      >
-        <Icon
-          type='material'
-          name='chevron-left'
-          color={theme.color.tertiary}
-          size={30}
-        />
-      </TouchableOpacity>
+        size={30}
+        containerStyle={[styles.iconContainer, styles.backButton]}
+      />
 
       {!open ? (
-        <TouchableOpacity
+        <HeaderButton
+          type='material-community'
+          name='menu'
+          color='tertiary'
+          backgroundColor='shadow'
           onPress={toggleOpen}
-          style={[styles.iconContainer, styles.button, styles.actionButton]}
-        >
-          <Icon
-            type='material-community'
-            name='menu'
-            color={theme.color.tertiary}
-          />
-        </TouchableOpacity>
+          containerStyle={[styles.iconContainer, styles.actionButton]}
+        />
       ) : (
-        <View
-          style={[styles.iconContainer, styles.openMenu, styles.actionButton]}
-        >
-          <TouchableOpacity onPress={toggleOpen} style={styles.container}>
-            <Icon
-              type='material-community'
-              name='chevron-up'
-              color={theme.color.tertiary}
-              size={30}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.container, styles.addMedia]}
+        <View style={[styles.iconContainer, styles.openMenu]}>
+          <HeaderButton
+            type='material-community'
+            name='chevron-up'
+            color='tertiary'
+            size={30}
+            onPress={toggleOpen}
+          />
+          <HeaderButton
+            type='feather'
+            name='plus'
+            color='tertiary'
+            backgroundColor='secondary'
             onPress={handleAddMedia}
-          >
-            <Icon type='feather' name='plus' color={theme.color.tertiary} />
-          </TouchableOpacity>
+          />
           <ActionEditEvent />
-          <TouchableOpacity
-            style={styles.container}
+          <HeaderButton
+            type='material-community'
+            name='close'
+            color='tertiary'
             onPress={handleDeleteMedia}
-          >
-            <Icon
-              type='material-community'
-              name='close'
-              color={theme.color.tertiary}
-            />
-          </TouchableOpacity>
+          />
           <ActionLeaveEvent />
         </View>
       )}
@@ -91,35 +81,25 @@ const EventHeader = ({ open, toggleOpen }) => {
 }
 
 const styles = StyleSheet.create({
-  addMedia: {
-    backgroundColor: theme.color.secondary
-  },
-  container: {
-    borderRadius: 25,
-    aspectRatio: 1,
-    justifyContent: 'center'
-  },
   backButton: {
     left: 20
   },
   actionButton: {
-    right: 20
-  },
-  button: {
-    height: 35,
-    justifyContent: 'center'
+    right: 20,
+    width: 36,
+    height: 36
   },
   iconContainer: {
     position: 'absolute',
-    top: 20,
-    backgroundColor: theme.color.shadow,
-    width: 35,
-    borderRadius: 25
+    top: 20
   },
   openMenu: {
+    right: 20,
     height: SCREEN_HEIGHT / 4,
     justifyContent: 'space-around',
-    padding: 2
+    padding: 1,
+    backgroundColor: theme.color.shadow,
+    borderRadius: 25
   }
 })
 

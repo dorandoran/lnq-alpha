@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { View, ActivityIndicator, StyleSheet } from 'react-native'
 import { theme } from '@util'
 
-const Loading = ({ styleProps }) => {
+const Loading = ({ styleProps, size = 'large' }) => {
   return (
     <View style={[styles.container, styleProps]}>
-      <ActivityIndicator size='large' color={theme.color.secondary} />
+      <ActivityIndicator size={size} color={theme.color.secondary} />
     </View>
   )
 }
@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
 })
 
 Loading.propTypes = {
-  styleProps: PropTypes.object
+  styleProps: PropTypes.object,
+  size: PropTypes.string
 }
 
 export default Loading
