@@ -4,7 +4,7 @@ import { View, StyleSheet, StatusBar } from 'react-native'
 import Constants from 'expo-constants'
 import { theme } from '@util'
 
-import { hasNotch } from '@components/util'
+import { hasNotch } from '@util'
 
 const ViewContainer = ({ children }) => {
   return (

@@ -16,7 +16,7 @@ import AuthSubmit from '@components/auth/AuthSubmit'
 import ResetModal from '@components/auth/ResetModal'
 import { Spacer, KeyboardDismiss } from '@common'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { SCREEN_HEIGHT } from '@components/util/constants'
+import { SCREEN_HEIGHT } from '@util/constants'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')

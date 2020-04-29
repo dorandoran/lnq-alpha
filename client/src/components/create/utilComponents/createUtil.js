@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { DATE_FORMAT, TIME_FORMAT } from '@components/util/constants'
+import { DATE_FORMAT, TIME_FORMAT } from '@util/constants'
 
 export const SCREEN = {
   DETAILS: 'Create Details',

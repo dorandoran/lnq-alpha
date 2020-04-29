@@ -14,7 +14,7 @@ import {
 import { Icon, Image } from 'react-native-elements'
 
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
-import { CAMERA_SELECTION, BUCKET } from '@components/util/constants'
+import { CAMERA_SELECTION, BUCKET } from '@util/constants'
 
 const initialState = {
   selected: null,

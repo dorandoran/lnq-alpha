@@ -2,7 +2,7 @@ import * as Device from 'expo-device'
 import dayjs from 'dayjs'
 import config from '@config'
 import { NOTCH_LIST } from '@util/notchList'
-import { DATE_FORMAT, TIME_FORMAT } from '@components/util/constants'
+import { DATE_FORMAT, TIME_FORMAT } from '@util/constants'
 
 export const hasNotch = () => {
   const { modelName: model, brand } = Device

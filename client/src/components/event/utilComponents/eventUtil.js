@@ -1,5 +1,5 @@
 import Constants from 'expo-constants'
-import { SCREEN_HEIGHT } from '@components/util/constants'
+import { SCREEN_HEIGHT } from '@util/constants'
 import { formatDateTime } from '@util'
 
 export const adjustedScreenHeight = SCREEN_HEIGHT - Constants.statusBarHeight

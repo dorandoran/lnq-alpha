@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { theme } from '@util'
-import { CAMERA_SELECTION } from '@components/util/constants'
+import { CAMERA_SELECTION } from '@util/constants'
 
 const ActionSelectMedia = ({
   navigateToDetails,
@@ -48,7 +48,7 @@ const ActionSelectMedia = ({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: false,
       aspect: [16, 9],
-      quality: 0.8 // Setting to 1 freezes when sending media to firebase storage
+      quality: 0.6 // Setting to 1 freezes when sending media to firebase storage
     }
 
     async function launchMediaAsync () {

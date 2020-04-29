@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
 import ActionRemoveMedia from '@components/create/utilComponents/actionRemoveMedia'
-import { CAMERA_SELECTION } from '@components/util/constants'
+import { CAMERA_SELECTION } from '@util/constants'
 import { theme } from '@util'
 
 const CreateImageList = () => {

@@ -7,7 +7,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
-import { CAMERA_SELECTION } from '@components/util/constants'
+import { CAMERA_SELECTION } from '@util/constants'
 
 const TabBarFab = () => {
   const [fabPosition, setFabPosition] = useState(null)

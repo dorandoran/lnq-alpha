@@ -6,7 +6,7 @@ import config from '@config'
 import { f, auth } from '@services/firebase'
 import useNotification from '@hooks/useNotification'
 import useCreateUser from '@graphql/user/useCreateUser'
-import { navigate } from '@components/util/navigationRef'
+import { navigate } from '@util/navigationRef'
 
 const actions = {
   registerUser: 'registerUser',
