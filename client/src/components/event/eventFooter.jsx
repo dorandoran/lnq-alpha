@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     position: 'absolute',
     bottom: SCREEN_HEIGHT + 25,
-    right: 20,
+    right: 25,
     height: SCREEN_HEIGHT / 10,
     justifyContent: 'space-around',
     backgroundColor: theme.color.shadow,

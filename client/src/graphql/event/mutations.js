@@ -35,11 +35,15 @@ export const CreateEvent = gql`
   }
 `
 
-export const UpdateEvent = gql`
-  ${eventFragment}
-
-  mutation UpdateEvent($id: String!, $updates: EventUpdateInput!) {
-    ...eventFields
+export const ChangeAvatar = gql`
+  mutation ChangeAvatar($id: String!, $mediaId: String!) {
+    updateEvent(id: $id, updates: { avatarId: $mediaId }) {
+      id
+      avatar {
+        id
+        uri
+      }
+    }
   }
 `
 

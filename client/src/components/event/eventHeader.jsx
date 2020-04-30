@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import useOverlay from '@context/overlayContext'
+import useNotification from '@hooks/useNotification'
 import ActionEditEvent from '@components/event/utilComponents/actionEditEvent'
 import ActionLeaveEvent from '@components/event/utilComponents/actionLeaveEvent'
 
@@ -11,7 +12,14 @@ import { theme } from '@util'
 import { SCREEN_HEIGHT } from '@util/constants'
 
 const EventHeader = ({ open, toggleOpen }) => {
-  const { dispatch, actions } = useOverlay()
+  const { throwWarning } = useNotification()
+  const {
+    dialog: {
+      cache: { isAvatar }
+    },
+    dispatch,
+    actions
+  } = useOverlay()
 
   const closeModal = () => {
     dispatch({ type: actions.modal.close })
@@ -29,6 +37,15 @@ const EventHeader = ({ open, toggleOpen }) => {
     })
   }
 
+  const handleChangeAvatar = () => {
+    if (isAvatar) {
+      // TODO : throwInfo change
+      throwWarning('This is the current  event avatar!')
+    } else {
+      dispatch({ type: actions.dialog.events.changeAvatar })
+    }
+  }
+
   return (
     <Fragment>
       <HeaderButton
@@ -40,7 +57,14 @@ const EventHeader = ({ open, toggleOpen }) => {
         size={30}
         containerStyle={[styles.iconContainer, styles.backButton]}
       />
-
+      <HeaderButton
+        type='material-community'
+        name={isAvatar ? 'star' : 'star-outline'}
+        color={isAvatar ? 'yellow' : 'tertiary'}
+        backgroundColor='shadow'
+        containerStyle={[styles.iconContainer, styles.avatarButton]}
+        onPress={handleChangeAvatar}
+      />
       {!open ? (
         <HeaderButton
           type='material-community'
@@ -82,19 +106,22 @@ const EventHeader = ({ open, toggleOpen }) => {
 
 const styles = StyleSheet.create({
   backButton: {
-    left: 20
+    left: 25
+  },
+  avatarButton: {
+    right: 75
   },
   actionButton: {
-    right: 20,
+    right: 25,
     width: 36,
     height: 36
   },
   iconContainer: {
     position: 'absolute',
-    top: 20
+    top: 25
   },
   openMenu: {
-    right: 20,
+    right: 25,
     height: SCREEN_HEIGHT / 4,
     justifyContent: 'space-around',
     padding: 1,

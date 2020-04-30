@@ -29,6 +29,7 @@ const typeDef = gql`
 
   input EventUpdateInput {
     name: String
+    avatarId: String
     type: String
     date: Date
     location: LocationInput

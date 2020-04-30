@@ -8,6 +8,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util/constants'
 
 import AddMediaDialog from '@components/event/utilComponents/actionAddMediaDialog'
 import DeleteMedia from '@components/event/utilComponents/actionDeleteMediaDialog'
+import ChangeAvatar from '@components/event/utilComponents/actionChangeAvatarDialog'
 
 const EventDialog = () => {
   const { dialog, actions } = useOverlay()
@@ -18,6 +19,8 @@ const EventDialog = () => {
         return <AddMediaDialog />
       case actions.dialog.events.deleteMedia:
         return <DeleteMedia />
+      case actions.dialog.events.changeAvatar:
+        return <ChangeAvatar />
       default:
         return null
     }

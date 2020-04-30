@@ -4,15 +4,20 @@ import PropTypes from 'prop-types'
 /**
  * Overlay State
  * modal: {
- *   type:string    | 'event' or 'user'   | Required
- *   data:object    | Event or User data  | Optional
+ *   type: string    | 'event' or 'user'   | Required
+ *   data: object    | Event or User data  | Optional
  * }
  *
  * dialog: {
- *   id:string      | Dialog identifier   | Required
- *   cache:object   | Temporary storage   | Optional
+ *   id: string      | Dialog identifier   | Required
+ *   cache: object   | Temporary storage   | Optional
  * }
  *
+ * Event Dialog Cache State
+ *  cache : {
+ *    media: Media     | Current media data
+ *    isAvatar: bool   | Current media avatar status
+ * }
  */
 
 const initialState = {
@@ -37,7 +42,8 @@ const actions = {
     close: 'closeDialog',
     events: {
       addMedia: 'addMedia',
-      deleteMedia: 'deleteMedia'
+      deleteMedia: 'deleteMedia',
+      changeAvatar: 'changeAvatar'
     }
   }
 }
@@ -54,7 +60,7 @@ const reducer = (state, action) => {
           data: action.payload.data
         },
         dialog: {
-          cache: { media: action.payload.data.avatar }
+          cache: { media: action.payload.data.avatar, isAvatar: true }
         }
       }
     case modal.close:
@@ -70,6 +76,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         dialog: { ...state.dialog, id: actions.dialog.events.deleteMedia }
+      }
+    case dialog.events.changeAvatar:
+      return {
+        ...state,
+        dialog: { ...state.dialog, id: actions.dialog.events.changeAvatar }
       }
     case dialog.updateCache:
       return {

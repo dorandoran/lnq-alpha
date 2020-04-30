@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import useOverlay from '@context/overlayContext'
 
@@ -28,15 +28,15 @@ const EventContainer = ({ id }) => {
 
   const { data, loading } = useQuery(GetEvent, {
     variables: { id },
+    fetchPolicy: 'cache-and-network',
     skip: !id
   })
 
-  if (loading) {
-    return <Loading />
+  const setCachedMedia = index => {
+    const media = event.media[index]
+    const isAvatar = event.avatarId === media.id
+    dispatch({ type: actions.dialog.updateCache, payload: { media, isAvatar } })
   }
-
-  if (!data) return null
-  const { event } = data
 
   const toggleTop = () => {
     setButtons({ ...buttons, bottom: false, top: !buttons.top })
@@ -50,10 +50,12 @@ const EventContainer = ({ id }) => {
     setButtons(initialState)
   }
 
-  const setMediaIndex = index => {
-    const media = event.media[index]
-    dispatch({ type: actions.dialog.updateCache, payload: { media } })
+  if (loading) {
+    return <Loading />
   }
+
+  if (!data) return null
+  const { event } = data
 
   return (
     <ScrollView
@@ -61,19 +63,14 @@ const EventContainer = ({ id }) => {
       snapToInterval={adjustedScreenHeight}
       decelerationRate='fast'
     >
-      <EventMediaSwiper media={event.media} setIndex={setMediaIndex} />
+      <EventMediaSwiper media={event.media} setIndex={setCachedMedia} />
       <EventHeader
-        event={event}
         open={buttons.top}
         toggleOpen={toggleTop}
         reset={resetButtons}
       />
-      <EventFooter
-        event={event}
-        open={buttons.bottom}
-        toggleOpen={toggleBottom}
-      />
-      <EventDetails event={data.event} styleProps={styles.image} />
+      <EventFooter open={buttons.bottom} toggleOpen={toggleBottom} />
+      <EventDetails event={event} styleProps={styles.image} />
     </ScrollView>
   )
 }
