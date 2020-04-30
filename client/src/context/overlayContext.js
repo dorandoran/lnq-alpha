@@ -10,25 +10,26 @@ import PropTypes from 'prop-types'
  *
  * dialog: {
  *   id: string      | Dialog identifier   | Required
- *   cache: object   | Temporary storage   | Optional
+ *   cache: any      | Temporary storage   | Optional
  * }
  *
  * Event Dialog Cache State
  *  cache : {
- *    media: Media     | Current media data
- *    isAvatar: bool   | Current media avatar status
+ *    media: { id: string, isAvatar: boolean }
  * }
  */
+
+const initialDialogState = {
+  id: null,
+  cache: {}
+}
 
 const initialState = {
   modal: {
     type: null,
     data: {}
   },
-  dialog: {
-    id: null,
-    cache: {}
-  }
+  dialog: initialDialogState
 }
 
 const actions = {
@@ -50,6 +51,7 @@ const actions = {
 
 const reducer = (state, action) => {
   const { modal, dialog } = actions
+
   switch (action.type) {
     // Modal
     case modal.open:
@@ -58,9 +60,6 @@ const reducer = (state, action) => {
         modal: {
           type: action.payload.type,
           data: action.payload.data
-        },
-        dialog: {
-          cache: { media: action.payload.data.avatar, isAvatar: true }
         }
       }
     case modal.close:
@@ -70,17 +69,23 @@ const reducer = (state, action) => {
     case dialog.events.addMedia:
       return {
         ...state,
-        dialog: { ...state.dialog, id: actions.dialog.events.addMedia }
+        dialog: { id: actions.dialog.events.addMedia }
       }
     case dialog.events.deleteMedia:
       return {
         ...state,
-        dialog: { ...state.dialog, id: actions.dialog.events.deleteMedia }
+        dialog: {
+          id: actions.dialog.events.deleteMedia,
+          cache: action.payload
+        }
       }
     case dialog.events.changeAvatar:
       return {
         ...state,
-        dialog: { ...state.dialog, id: actions.dialog.events.changeAvatar }
+        dialog: {
+          id: actions.dialog.events.changeAvatar,
+          cache: action.payload
+        }
       }
     case dialog.updateCache:
       return {
@@ -96,19 +101,7 @@ const reducer = (state, action) => {
         dialog: { ...state.dialog, cache: {} }
       }
     case dialog.close: {
-      const cache =
-        action.payload === actions.dialog.clearCache
-          ? {}
-          : { ...state.dialog.cache, ...action.payload }
-
-      return {
-        ...state,
-        dialog: {
-          ...state.dialog,
-          id: null,
-          cache
-        }
-      }
+      return { ...state, dialog: initialDialogState }
     }
     default:
       throw new Error('OverlayContext: Proper action-type not used!')

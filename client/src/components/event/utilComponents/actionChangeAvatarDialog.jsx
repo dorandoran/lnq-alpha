@@ -14,33 +14,27 @@ const ActionChangeAvatarDialog = () => {
   const {
     dispatch,
     actions,
-    dialog: {
-      cache: { media }
-    },
-    modal: {
-      data: { id }
-    }
+    dialog: { cache },
+    modal: { data }
   } = useOverlay()
   const { throwSuccess, throwError } = useNotification()
   const [changeAvatar, loading] = useChangeAvatar({
     onCompleted: () => {
       throwSuccess('Avatar successfully changed')
-      handleClose({ isAvatar: true })
+      handleClose()
     }
   })
 
   const handleConfirm = () => {
-    if (!media.isAvatar) {
-      changeAvatar({ id, mediaId: media.id })
+    if (!cache.isAvatar) {
+      changeAvatar({ id: data.id, mediaId: cache.id })
     } else {
       throwError('This is the event avatar')
     }
   }
 
-  const handleClose = payload => {
-    const action = { type: actions.dialog.close }
-    if (payload) action.payload = payload
-    dispatch(action)
+  const handleClose = () => {
+    dispatch({ type: actions.dialog.close })
   }
 
   if (loading) return <LoadingDialog />

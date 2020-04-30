@@ -16,9 +16,7 @@ const ActionDeleteMediaDialog = () => {
     dispatch,
     actions,
     modal: { data },
-    dialog: {
-      cache: { media }
-    }
+    dialog: { cache }
   } = useOverlay()
   const { throwSuccess, throwError } = useNotification()
   const [deleteMedia, loading] = useDeleteMedia({
@@ -29,11 +27,11 @@ const ActionDeleteMediaDialog = () => {
   })
 
   const handleConfirm = () => {
-    if (data.avatarId === media.id) {
+    if (data.avatarId === cache.id) {
       throwError('Cannot delete avatar image!')
       handleClose()
     } else {
-      deleteMedia({ id: media.id, linkId: data.id, bucket: BUCKET.EVENT })
+      deleteMedia({ id: cache.id, linkId: data.id, bucket: BUCKET.EVENT })
     }
   }
 

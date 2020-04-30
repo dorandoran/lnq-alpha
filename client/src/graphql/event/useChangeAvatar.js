@@ -20,6 +20,9 @@ export default function useUpdateEvent ({ onCompleted }) {
             `
           })
 
+          const avatarId = avatarData.avatar.id
+          const avatar = avatarData.avatar
+
           if (cachedEvent) {
             cache.writeFragment({
               id: `Event:${variables.id}`,
@@ -32,11 +35,7 @@ export default function useUpdateEvent ({ onCompleted }) {
                   }
                 }
               `,
-              data: {
-                avatarId: avatarData.avatar.id,
-                avatar: avatarData.avatar,
-                __typename: 'Event'
-              }
+              data: { avatarId, avatar, __typename: 'Event' }
             })
           }
         }

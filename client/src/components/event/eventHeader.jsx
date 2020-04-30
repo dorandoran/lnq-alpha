@@ -11,40 +11,43 @@ import { HeaderButton } from '@common'
 import { theme } from '@util'
 import { SCREEN_HEIGHT } from '@util/constants'
 
-const EventHeader = ({ open, toggleOpen }) => {
+const EventHeader = ({ state, toggleOpen }) => {
   const { throwWarning } = useNotification()
-  const {
-    dialog: {
-      cache: { isAvatar }
-    },
-    dispatch,
-    actions
-  } = useOverlay()
+  const { dispatch, actions } = useOverlay()
+  const { topBtn, media } = state
 
   const closeModal = () => {
     dispatch({ type: actions.modal.close })
   }
 
   const handleAddMedia = () => {
-    dispatch({
-      type: actions.dialog.events.addMedia
-    })
+    dispatch({ type: actions.dialog.events.addMedia })
   }
 
   const handleDeleteMedia = () => {
-    dispatch({
-      type: actions.dialog.events.deleteMedia
-    })
+    if (media.isAvatar) {
+      throwWarning('Cannot delete featured image!')
+    } else {
+      dispatch({
+        type: actions.dialog.events.deleteMedia,
+        payload: media
+      })
+    }
   }
 
   const handleChangeAvatar = () => {
-    if (isAvatar) {
+    if (media.isAvatar) {
       // TODO : throwInfo change
-      throwWarning('This image is the main image!')
+      throwWarning('This image is the featured image!')
     } else {
-      dispatch({ type: actions.dialog.events.changeAvatar })
+      dispatch({
+        type: actions.dialog.events.changeAvatar,
+        payload: media
+      })
     }
   }
+
+  if (!media) return null
 
   return (
     <Fragment>
@@ -59,13 +62,13 @@ const EventHeader = ({ open, toggleOpen }) => {
       />
       <HeaderButton
         type='material-community'
-        name={isAvatar ? 'star' : 'star-outline'}
-        color={isAvatar ? 'yellow' : 'tertiary'}
+        name={media.isAvatar ? 'star' : 'star-outline'}
+        color={media.isAvatar ? 'yellow' : 'tertiary'}
         backgroundColor='shadow'
         containerStyle={[styles.iconContainer, styles.avatarButton]}
         onPress={handleChangeAvatar}
       />
-      {!open ? (
+      {!topBtn ? (
         <HeaderButton
           type='material-community'
           name='menu'
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
 })
 
 EventHeader.propTypes = {
-  open: PropTypes.bool,
+  state: PropTypes.object,
   toggleOpen: PropTypes.func
 }
 
