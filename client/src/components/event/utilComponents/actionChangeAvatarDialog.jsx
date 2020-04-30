@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import useDeleteMedia from '@graphql/media/useDeleteMedia'
+import useChangeAvatar from '@graphql/event/useChangeAvatar'
 import useNotification from '@hooks/useNotification'
 import useOverlay from '@context/overlayContext'
 
@@ -9,36 +9,32 @@ import LoadingDialog from '@components/overlay/loadingDialog'
 import { theme } from '@util'
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { BUCKET } from '@util/constants'
 
-const ActionDeleteMediaDialog = () => {
+const ActionChangeAvatarDialog = () => {
   const {
     dispatch,
     actions,
-    modal: { data },
-    dialog: { cache }
+    dialog: { cache },
+    modal: { data }
   } = useOverlay()
   const { throwSuccess, throwError } = useNotification()
-  const [deleteMedia, loading] = useDeleteMedia({
+  const [changeAvatar, loading] = useChangeAvatar({
     onCompleted: () => {
-      throwSuccess('Image successfully deleted.')
-      handleClose(actions.dialog.clearCache)
+      throwSuccess('Avatar successfully changed')
+      handleClose()
     }
   })
 
   const handleConfirm = () => {
-    if (data.avatarId === cache.id) {
-      throwError('Cannot delete avatar image!')
-      handleClose()
+    if (!cache.isAvatar) {
+      changeAvatar({ id: data.id, mediaId: cache.id })
     } else {
-      deleteMedia({ id: cache.id, linkId: data.id, bucket: BUCKET.EVENT })
+      throwError('This is the event avatar')
     }
   }
 
-  const handleClose = payload => {
-    const action = { type: actions.dialog.close }
-    if (payload) action.payload = payload
-    dispatch(action)
+  const handleClose = () => {
+    dispatch({ type: actions.dialog.close })
   }
 
   if (loading) return <LoadingDialog />
@@ -46,9 +42,7 @@ const ActionDeleteMediaDialog = () => {
   return (
     <Fragment>
       <View style={styles.messageContainer}>
-        <Text style={styles.message}>
-          Are you sure you want to delete this image?
-        </Text>
+        <Text style={styles.message}>Use current as featured image?</Text>
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.iconContainer} onPress={handleClose}>
@@ -91,9 +85,9 @@ const styles = StyleSheet.create({
   }
 })
 
-ActionDeleteMediaDialog.propTypes = {
+ActionChangeAvatarDialog.propTypes = {
   id: PropTypes.string,
   onComplete: PropTypes.func
 }
 
-export default ActionDeleteMediaDialog
+export default ActionChangeAvatarDialog

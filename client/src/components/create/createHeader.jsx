@@ -69,7 +69,11 @@ const CreateHeader = ({ navigation }) => {
           onSuccess={handleSuccess}
         />
       ) : checkDisabled() ? (
-        <Icon type='font-awesome' name='exclamation' color='secondary' />
+        <Icon
+          type='font-awesome'
+          name='exclamation'
+          color={theme.color.secondary}
+        />
       ) : (
         <HeaderButton
           type='material'

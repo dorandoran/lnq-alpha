@@ -10,8 +10,8 @@ import { SCREEN_WIDTH } from '@util/constants'
 import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
 import { Loading } from '@common'
 
-const EventMediaSwiper = ({ media, setIndex }) => {
-  const renderItem = ({ item }) => {
+const EventMediaSwiper = ({ media, updateMedia }) => {
+  const renderItem = ({ item, index }) => {
     return (
       <Image
         source={{ uri: item.uri }}
@@ -30,7 +30,7 @@ const EventMediaSwiper = ({ media, setIndex }) => {
       itemHeight={adjustedScreenHeight}
       inactiveSlideOpacity={1}
       inactiveSlideScale={1}
-      onSnapToItem={setIndex}
+      onBeforeSnapToItem={updateMedia}
       loop
     />
   )

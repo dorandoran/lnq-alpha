@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import useOverlay from '@context/overlayContext'
 
 import { Modal } from 'react-native'
@@ -9,12 +9,14 @@ import Notification from '@components/main/notification'
 import { BUCKET } from '@util/constants'
 
 const AppModal = () => {
-  const { modal } = useOverlay()
+  const { modal, dialog } = useOverlay()
 
   return (
     <Modal visible={!!modal.type} statusBarTranslucent>
       <ViewContainer>
-        {modal.type === BUCKET.EVENT && <EventContainer id={modal.data.id} />}
+        {modal.type === BUCKET.EVENT && (
+          <EventContainer id={modal.data.id} isDialogOpen={!!dialog.id} />
+        )}
       </ViewContainer>
       <Dialog />
       <Notification />

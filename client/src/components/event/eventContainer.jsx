@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import useOverlay from '@context/overlayContext'
 
 import { useQuery } from '@apollo/react-hooks'
 import { GetEvent } from '@graphql/event/queries.js'
@@ -18,18 +17,26 @@ import EventMediaSwiper from '@components/event/eventMediaSwiper'
 import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
 
 const initialState = {
-  top: false,
-  bottom: false
+  topBtn: false,
+  bottomBtn: false,
+  media: { index: 0 }
 }
 
-const EventContainer = ({ id }) => {
-  const [buttons, setButtons] = useState(initialState)
-  const { dispatch, actions } = useOverlay()
+const EventContainer = ({ id, isDialogOpen }) => {
+  const [state, setState] = useState(initialState)
 
   const { data, loading } = useQuery(GetEvent, {
     variables: { id },
+    fetchPolicy: 'cache-and-network',
     skip: !id
   })
+
+  useEffect(() => {
+    if (data?.event && !isDialogOpen) {
+      updateMedia(state.media.index)
+    }
+    return () => setState({ ...state, topBtn: false, bottomBtn: false })
+  }, [data?.event, isDialogOpen])
 
   if (loading) {
     return <Loading />
@@ -38,21 +45,18 @@ const EventContainer = ({ id }) => {
   if (!data) return null
   const { event } = data
 
-  const toggleTop = () => {
-    setButtons({ ...buttons, bottom: false, top: !buttons.top })
-  }
-
-  const toggleBottom = () => {
-    setButtons({ ...buttons, top: false, bottom: !buttons.bottom })
-  }
-
-  const resetButtons = () => {
-    setButtons(initialState)
-  }
-
-  const setMediaIndex = index => {
+  const updateMedia = index => {
     const media = event.media[index]
-    dispatch({ type: actions.dialog.updateCache, payload: { media } })
+    const isAvatar = event.avatarId === media.id
+    setState({ ...state, media: { ...media, index, isAvatar } })
+  }
+
+  const toggleTopBtn = () => {
+    setState({ ...state, bottomBtn: false, topBtn: !state.topBtn })
+  }
+
+  const toggleBottomBtn = () => {
+    setState({ ...state, topBtn: false, bottomBtn: !state.bottomBtn })
   }
 
   return (
@@ -61,19 +65,10 @@ const EventContainer = ({ id }) => {
       snapToInterval={adjustedScreenHeight}
       decelerationRate='fast'
     >
-      <EventMediaSwiper media={event.media} setIndex={setMediaIndex} />
-      <EventHeader
-        event={event}
-        open={buttons.top}
-        toggleOpen={toggleTop}
-        reset={resetButtons}
-      />
-      <EventFooter
-        event={event}
-        open={buttons.bottom}
-        toggleOpen={toggleBottom}
-      />
-      <EventDetails event={data.event} styleProps={styles.image} />
+      <EventMediaSwiper media={event.media} updateMedia={updateMedia} />
+      <EventHeader state={state} toggleOpen={toggleTopBtn} />
+      <EventFooter open={state.bottomBtn} toggleOpen={toggleBottomBtn} />
+      <EventDetails event={event} styleProps={styles.image} />
     </ScrollView>
   )
 }
@@ -86,7 +81,8 @@ const styles = StyleSheet.create({
 })
 
 EventContainer.propTypes = {
-  id: PropTypes.string
+  id: PropTypes.string,
+  isDialogOpen: PropTypes.bool
 }
 
 export default EventContainer
