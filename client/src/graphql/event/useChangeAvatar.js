@@ -33,12 +33,6 @@ export default function useUpdateEvent ({ onCompleted }) {
                 }
               `,
               data: {
-                // media: [
-                //   cachedEvent.media.find(item => item.id === variables.mediaId),
-                //   ...cachedEvent.media.filter(
-                //     item => item.id !== variables.mediaId
-                //   )
-                // ],
                 avatarId: avatarData.avatar.id,
                 avatar: avatarData.avatar,
                 __typename: 'Event'

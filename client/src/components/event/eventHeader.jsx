@@ -40,7 +40,7 @@ const EventHeader = ({ open, toggleOpen }) => {
   const handleChangeAvatar = () => {
     if (isAvatar) {
       // TODO : throwInfo change
-      throwWarning('This is the current  event avatar!')
+      throwWarning('This image is the main image!')
     } else {
       dispatch({ type: actions.dialog.events.changeAvatar })
     }
