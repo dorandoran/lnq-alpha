@@ -123,7 +123,7 @@ export const AuthProvider = props => {
           result.idToken
         )
         const response = await auth.signInWithCredential(credential)
-        console.log(response)
+
         const id = response.user.uid
         throwSuccess('Successfully logged in.')
         dispatch({ type: actions.loginSuccess, payload: id })
