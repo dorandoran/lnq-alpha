@@ -14,7 +14,7 @@ export default function useChangeAvatar ({ onCompleted }) {
           const cachedEvent = cache.readFragment({
             id: `Event:${variables.id}`,
             fragment: gql`
-              fragment eventAvatarUpdate on Event {
+              fragment changedAvatar on Event {
                 id
               }
             `
@@ -27,7 +27,7 @@ export default function useChangeAvatar ({ onCompleted }) {
             cache.writeFragment({
               id: `Event:${variables.id}`,
               fragment: gql`
-                fragment updatedEventAvatar on Event {
+                fragment changedEventAvatar on Event {
                   avatarId
                   avatar {
                     id
