@@ -43,8 +43,8 @@ const AuthenticatedApp = () => {
         <NavigationContainer
           ref={navigationRef}
           onStateChange={state => {
-            // Updates the route context, so that a sibling <TabBar /> can use
-            // without rendering this component every time
+            // Updates the route context, so that the sibling, <TabBar />,
+            // can use without rendering this component every time
             const route = getActiveRouteName(state)
             dispatch({ type: actions.updateRoute, payload: route })
           }}

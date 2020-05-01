@@ -25,7 +25,7 @@ export const inputMap = [
     disabled: true
   },
   {
-    label: 'URL',
+    label: 'Website',
     value: 'url',
     keyboardType: 'email-address'
   },

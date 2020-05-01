@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 const LocateScreen = ({ navigation }) => {
-  // console.log('run')
   return (
     <View>
       <Text>Locate Screen</Text>

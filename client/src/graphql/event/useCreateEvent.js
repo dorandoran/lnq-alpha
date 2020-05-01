@@ -17,7 +17,7 @@ export default function useCreateEvent () {
             data: { getUserEvents: [...data.getUserEvents, eventData] }
           })
         } catch (e) {
-          console.log()
+          console.log(e)
         }
       }
     })

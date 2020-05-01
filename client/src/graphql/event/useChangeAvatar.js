@@ -2,7 +2,7 @@ import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
 import { ChangeAvatar } from '@graphql/event/mutations.js'
 
-export default function useUpdateEvent ({ onCompleted }) {
+export default function useChangeAvatar ({ onCompleted }) {
   const [changeAvatar, { loading }] = useMutation(ChangeAvatar, { onCompleted })
 
   return [

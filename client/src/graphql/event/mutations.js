@@ -47,6 +47,16 @@ export const ChangeAvatar = gql`
   }
 `
 
+export const UpdateEvent = gql`
+  ${eventFragment}
+
+  mutation UpdateEvent($id: String!, $updates: EventUpdateInput!) {
+    updateEvent(id: $id, updates: $updates) {
+      ...eventFields
+    }
+  }
+`
+
 export const DeleteEvent = gql`
   mutation DeleteEvent($id: String!) {
     deleteEvent(id: $id)

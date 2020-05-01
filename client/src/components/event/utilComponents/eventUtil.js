@@ -16,10 +16,13 @@ export const eventDetails = [
     iconName: 'clock-outline'
   },
   {
-    key: 'description'
+    key: 'url',
+    title: ({ url }) => `${url || 'None'}`,
+    iconName: 'web'
   },
   {
-    key: 'url',
-    title: ({ url }) => `Website: ${url || 'None'}`
+    key: 'description',
+    title: ({ description }) => description,
+    iconName: 'card-text-outline'
   }
 ]

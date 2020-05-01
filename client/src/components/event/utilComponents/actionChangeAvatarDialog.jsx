@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+
 import useChangeAvatar from '@graphql/event/useChangeAvatar'
 import useNotification from '@hooks/useNotification'
 import useOverlay from '@context/overlayContext'
@@ -7,8 +8,8 @@ import useOverlay from '@context/overlayContext'
 import LoadingDialog from '@components/overlay/loadingDialog'
 
 import { theme } from '@util'
-import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
-import { Icon } from 'react-native-elements'
+import { StyleSheet, View, Text } from 'react-native'
+import { DialogConfirmActions } from '@common'
 
 const ActionChangeAvatarDialog = () => {
   const {
@@ -44,24 +45,10 @@ const ActionChangeAvatarDialog = () => {
       <View style={styles.messageContainer}>
         <Text style={styles.message}>Use current as featured image?</Text>
       </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.iconContainer} onPress={handleClose}>
-          <Icon
-            type='ionicon'
-            name='md-close'
-            color={theme.color.error}
-            reverse
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconContainer} onPress={handleConfirm}>
-          <Icon
-            type='ionicon'
-            name='md-checkmark'
-            color={theme.color.success}
-            reverse
-          />
-        </TouchableOpacity>
-      </View>
+      <DialogConfirmActions
+        handleClose={handleClose}
+        handleConfirm={handleConfirm}
+      />
     </Fragment>
   )
 }
@@ -69,14 +56,6 @@ const ActionChangeAvatarDialog = () => {
 const styles = StyleSheet.create({
   messageContainer: {
     padding: '5%'
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  iconContainer: {
-    paddingLeft: '10%',
-    paddingRight: '10%'
   },
   message: {
     textAlign: 'center',
