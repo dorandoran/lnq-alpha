@@ -1,5 +1,4 @@
 import React from 'react'
-import { navigate } from '@util/navigationRef'
 import { useRouteState } from '@hooks/useRoute'
 import PropTypes from 'prop-types'
 
@@ -7,7 +6,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import Fab from '@components/main/tabBarFab'
 
-import { theme } from '@util'
+import { theme, navigate } from '@util'
 import { SCREEN_HEIGHT } from '@util/constants'
 
 const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {

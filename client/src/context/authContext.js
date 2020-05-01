@@ -6,7 +6,7 @@ import config from '@config'
 import { f, auth } from '@services/firebase'
 import useNotification from '@hooks/useNotification'
 import useCreateUser from '@graphql/user/useCreateUser'
-import { navigate } from '@util/navigationRef'
+import { navigate } from '@util'
 
 const actions = {
   registerUser: 'registerUser',
@@ -123,6 +123,7 @@ export const AuthProvider = props => {
           result.idToken
         )
         const response = await auth.signInWithCredential(credential)
+        console.log(response)
         const id = response.user.uid
         throwSuccess('Successfully logged in.')
         dispatch({ type: actions.loginSuccess, payload: id })
@@ -161,9 +162,9 @@ export const AuthProvider = props => {
     auth
       .signOut()
       .then(() => {
+        dispatch({ type: actions.logout })
         throwWarning('Logged out.')
         navigate('Login')
-        dispatch({ type: actions.logout })
       })
       .catch(e => {
         // TODO: Error Handling

@@ -1,5 +1,5 @@
 import React from 'react'
-import { navigationRef } from '@util/navigationRef'
+import { navigationRef } from '@util'
 import { useRouteDispatch } from '@hooks/useRoute'
 import { TouchableWithoutFeedback, View } from 'react-native'
 
@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator()
 const AuthenticatedApp = () => {
   const { dispatch, actions } = useRouteDispatch()
 
-  console.log('run')
+  console.log('rendered')
 
   const getActiveRouteName = state => {
     const route = state.routes[state.index]
@@ -44,7 +44,7 @@ const AuthenticatedApp = () => {
           ref={navigationRef}
           onStateChange={state => {
             // Updates the route context, so that a sibling <TabBar /> can use
-            // without rerendering this component every time
+            // without rendering this component every time
             const route = getActiveRouteName(state)
             dispatch({ type: actions.updateRoute, payload: route })
           }}

@@ -3,7 +3,7 @@ import React from 'react'
 // Navigators
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { navigationRef } from '@util/navigationRef'
+import { navigationRef } from '@util'
 
 // Screens
 import LoginScreen from '@screens/loginScreen'

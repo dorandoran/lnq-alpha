@@ -28,7 +28,7 @@ const SearchEventList = ({ text }) => {
   if (loading) return <Loading />
   if (refreshing) setRefreshing(false)
 
-  if (!data || !data.search.length) {
+  if (!data?.search?.length) {
     return (
       <View style={styles.noResults}>
         <Text style={[styles.text, styles.noResultsText]}>

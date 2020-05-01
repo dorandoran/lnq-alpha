@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext } from 'react'
-import { navigate } from '@util/navigationRef'
+import { navigate } from '@util'
 import { Route } from '@context/routeStore'
 
 import { theme } from '@util'
