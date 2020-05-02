@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 import useOverlay from '@context/overlayContext'
 
 import { theme } from '@util'
-import { View, StyleSheet } from 'react-native'
+// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { View, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util/constants'
 
 import AddMediaDialog from '@components/event/utilComponents/actionAddMediaDialog'
 import DeleteMedia from '@components/event/utilComponents/actionDeleteMediaDialog'
 import ChangeAvatar from '@components/event/utilComponents/actionChangeAvatarDialog'
+import UpdateEvent from '@components/event/utilComponents/actionUpdateEventDialog'
 
 const EventDialog = () => {
   const { dialog, actions } = useOverlay()
@@ -21,6 +23,8 @@ const EventDialog = () => {
         return <DeleteMedia />
       case actions.dialog.events.changeAvatar:
         return <ChangeAvatar />
+      case actions.dialog.events.updateEvent:
+        return <UpdateEvent />
       default:
         return null
     }
@@ -28,7 +32,9 @@ const EventDialog = () => {
 
   return dialog.id ? (
     <View style={styles.container}>
-      <View style={styles.dialogContainer}>{renderDialog()}</View>
+      <KeyboardAvoidingView behavior='height' style={styles.awareView}>
+        <View style={styles.dialogContainer}>{renderDialog()}</View>
+      </KeyboardAvoidingView>
     </View>
   ) : null
 }
@@ -41,6 +47,10 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 5
+  },
+  awareView: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -48,7 +58,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.accent,
     borderRadius: 25,
     alignItems: 'center',
-    padding: '3%'
+    paddingHorizontal: '3%',
+    borderWidth: 2,
+    borderColor: theme.color.backgroundColor
   }
 })
 

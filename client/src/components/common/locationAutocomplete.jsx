@@ -11,7 +11,7 @@ const LocationAutoComplete = ({ handleSelect }) => {
     <GooglePlacesAutocomplete
       placeholder='Search'
       minLength={2}
-      autoFocus={false}
+      enablePoweredByContainer={false}
       returnKeyType='search'
       listViewDisplayed='false'
       fetchDetails={true}
@@ -22,7 +22,6 @@ const LocationAutoComplete = ({ handleSelect }) => {
           longitude: details?.geometry?.location.lng,
           text: details?.formatted_address
         }
-
         handleSelect(location)
       }}
       getDefaultValue={() => ''}
@@ -36,7 +35,7 @@ const LocationAutoComplete = ({ handleSelect }) => {
       currentLocationLabel='Current location'
       nearbyPlacesAPI='GooglePlacesSearch'
       GooglePlacesDetailsQuery={{ fields: ['formatted_address', 'geometry'] }}
-      debounce={200}
+      debounce={0}
     />
   )
 }

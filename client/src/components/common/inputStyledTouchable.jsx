@@ -9,12 +9,14 @@ const InputStyledTouchable = ({
   labelTitle,
   text,
   styleProps,
+  reverse,
   centerText = false
 }) => {
+  const backgroundColor = reverse ? theme.color.background : theme.color.accent
   return (
     <TouchableOpacity onPress={handlePress} style={styleProps}>
       <Text style={styles.label}>{labelTitle}</Text>
-      <View style={styles.inputContainer}>
+      <View style={[styles.inputContainer, { backgroundColor }]}>
         <Text
           style={[styles.input, centerText && styles.center]}
           numberOfLines={1}
@@ -35,7 +37,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     height: 40,
-    backgroundColor: theme.color.accent,
     borderRadius: 25,
     justifyContent: 'center'
   },
@@ -56,7 +57,8 @@ InputStyledTouchable.propTypes = {
   text: PropTypes.string,
   handlePress: PropTypes.func,
   styleProps: PropTypes.object,
-  centerText: PropTypes.bool
+  centerText: PropTypes.bool,
+  reverse: PropTypes.bool
 }
 
 export default InputStyledTouchable

@@ -1,20 +1,17 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+
 import useOverlay from '@context/overlayContext'
 import useStorage from '@hooks/useStorage'
 import useNotification from '@hooks/useNotification'
 
-import { theme } from '@util'
-import {
-  TouchableOpacity,
-  StyleSheet,
-  View,
-  ActivityIndicator
-} from 'react-native'
-import { Icon, Image } from 'react-native-elements'
-
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
+
+import { theme } from '@util'
 import { CAMERA_SELECTION, BUCKET } from '@util/constants'
+import { StyleSheet, View, ActivityIndicator } from 'react-native'
+import { Image } from 'react-native-elements'
+import { DialogConfirmActions } from '@common'
 
 const initialState = {
   selected: null,
@@ -23,7 +20,7 @@ const initialState = {
 
 const ActionAddMediaDialog = () => {
   const [uri, setUri] = useState(initialState)
-  const { throwSuccess } = useNotification()
+  const { throwSuccess, throwError } = useNotification()
   const {
     modal: { data },
     dispatch,
@@ -57,7 +54,9 @@ const ActionAddMediaDialog = () => {
   }, [media])
 
   const handleConfirm = () => {
-    setUri({ ...uri, confirmed: uri.selected })
+    if (uri) {
+      setUri({ ...uri, confirmed: uri.selected })
+    }
   }
 
   const handleImageSelected = ({ uri }) => {
@@ -97,35 +96,15 @@ const ActionAddMediaDialog = () => {
           </View>
         )}
       </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.iconContainer} onPress={handleClose}>
-          <Icon
-            type='ionicon'
-            name='md-close'
-            color={theme.color.error}
-            reverse
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconContainer} onPress={handleConfirm}>
-          <Icon
-            type='ionicon'
-            name='md-checkmark'
-            color={theme.color.success}
-            reverse
-          />
-        </TouchableOpacity>
-      </View>
+      <DialogConfirmActions
+        handleClose={handleClose}
+        handleConfirm={handleConfirm}
+      />
     </Fragment>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: theme.color.secondary,
-    borderRadius: 25,
-    aspectRatio: 1,
-    justifyContent: 'center'
-  },
   actionContainer: {
     flexDirection: 'row',
     borderWidth: 1,
@@ -134,14 +113,6 @@ const styles = StyleSheet.create({
   },
   padding: {
     padding: '5%'
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  iconContainer: {
-    paddingLeft: '10%',
-    paddingRight: '10%'
   },
   image: {
     width: 200,

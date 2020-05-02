@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import useOverlay from '@context/overlayContext'
 import useNotification from '@hooks/useNotification'
-import ActionEditEvent from '@components/event/utilComponents/actionEditEvent'
 import ActionLeaveEvent from '@components/event/utilComponents/actionLeaveEvent'
 
 import { View, StyleSheet } from 'react-native'
@@ -93,7 +92,6 @@ const EventHeader = ({ state, toggleOpen }) => {
             backgroundColor='secondary'
             onPress={handleAddMedia}
           />
-          <ActionEditEvent />
           <HeaderButton
             type='material-community'
             name='close'
@@ -125,7 +123,7 @@ const styles = StyleSheet.create({
   },
   openMenu: {
     right: 25,
-    height: SCREEN_HEIGHT / 4,
+    height: SCREEN_HEIGHT / 5,
     justifyContent: 'space-around',
     padding: 1,
     backgroundColor: theme.color.shadow,

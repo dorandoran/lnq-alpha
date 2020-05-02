@@ -11,7 +11,7 @@ import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil
 import { Loading } from '@common'
 
 const EventMediaSwiper = ({ media, updateMedia }) => {
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({ item }) => {
     return (
       <Image
         source={{ uri: item.uri }}

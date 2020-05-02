@@ -1,24 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import useOverlay from '@context/overlayContext'
+
 import { theme } from '@util'
 import { View, Text, StyleSheet } from 'react-native'
 import { Icon, ListItem, Button } from 'react-native-elements'
+import { HeaderButton } from '@common'
 
 import { eventDetails } from '@components/event/utilComponents/eventUtil'
 
 const EventTicketInfo = ({ event }) => {
+  const { dispatch, actions } = useOverlay()
+
+  const handlePress = key => {
+    dispatch({
+      type: actions.dialog.events.updateEvent,
+      payload: { key, event }
+    })
+  }
+
   return (
     <View style={styles.container}>
       {eventDetails.map(({ key, title, iconName }) => {
-        if (key === 'description') {
-          return (
-            <Text key={key} style={[styles.text, styles.margins]}>
-              {event.description}
-            </Text>
-          )
-        }
-
         return (
           <ListItem
             key={key}
@@ -27,10 +31,12 @@ const EventTicketInfo = ({ event }) => {
             title={title(event)}
             leftIcon={
               iconName && (
-                <Icon
+                <HeaderButton
                   type='material-community'
                   name={iconName}
-                  color={theme.color.tertiary}
+                  color='tertiary'
+                  backgroundColor='secondary'
+                  onPress={() => handlePress(key)}
                 />
               )
             }
@@ -65,8 +71,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   buttonContainer: {
-    marginTop: '5%',
-    marginBottom: '3%'
+    paddingVertical: '3%'
   },
   listItem: {
     backgroundColor: theme.color.background
@@ -90,8 +95,9 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 25,
     backgroundColor: theme.color.secondary,
-    width: '95%',
-    alignSelf: 'center'
+    width: '90%',
+    alignSelf: 'center',
+    paddingBottom: '2%'
   }
 })
 

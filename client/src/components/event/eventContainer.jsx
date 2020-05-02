@@ -4,17 +4,15 @@ import PropTypes from 'prop-types'
 import { useQuery } from '@apollo/react-hooks'
 import { GetEvent } from '@graphql/event/queries.js'
 
-import { theme } from '@util'
-import { StyleSheet, ScrollView } from 'react-native'
-
-import { Loading } from '@common'
-
 import EventHeader from '@components/event/eventHeader'
 import EventFooter from '@components/event/eventFooter'
 import EventDetails from '@components/event/eventDetails'
 import EventMediaSwiper from '@components/event/eventMediaSwiper'
 
+import { theme } from '@util'
 import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
+import { StyleSheet, ScrollView } from 'react-native'
+import { Loading } from '@common'
 
 const initialState = {
   topBtn: false,
@@ -35,7 +33,6 @@ const EventContainer = ({ id, isDialogOpen }) => {
     if (data?.event && !isDialogOpen) {
       updateMedia(state.media.index)
     }
-    return () => setState({ ...state, topBtn: false, bottomBtn: false })
   }, [data?.event, isDialogOpen])
 
   if (loading) {
@@ -47,7 +44,7 @@ const EventContainer = ({ id, isDialogOpen }) => {
 
   const updateMedia = index => {
     const media = event.media[index]
-    const isAvatar = event.avatarId === media.id
+    const isAvatar = event.avatarId === media?.id
     setState({ ...state, media: { ...media, index, isAvatar } })
   }
 
