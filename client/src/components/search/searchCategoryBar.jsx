@@ -1,7 +1,7 @@
 import React from 'react'
+
 import useSearch, { actions } from '@context/searchContext'
 
-import { theme } from '@util'
 import {
   View,
   FlatList,
@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Text
 } from 'react-native'
-import { SCREEN_WIDTH } from '@util/constants'
+import { theme, SCREEN_WIDTH } from '@util'
 import { categoryList } from '@components/search/utilComponents/searchUtil'
 
 const SearchCategoryBar = () => {

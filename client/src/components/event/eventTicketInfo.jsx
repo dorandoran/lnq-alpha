@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import useOverlay from '@context/overlayContext'
@@ -10,58 +10,94 @@ import { HeaderButton } from '@common'
 
 import { eventDetails } from '@components/event/utilComponents/eventUtil'
 
-const EventTicketInfo = ({ event }) => {
+const EventTicketInfo = ({ event, edit, updateKey }) => {
   const { dispatch, actions } = useOverlay()
 
-  const handlePress = key => {
-    dispatch({
-      type: actions.dialog.events.updateEvent,
-      payload: { key, event }
-    })
+  const handlePress = (key, additionalKeys) => {
+    if (edit) {
+      dispatch({
+        type: actions.dialog.events.updateEvent,
+        payload: { key, additionalKeys, event, updateKey }
+      })
+    }
   }
+
+  if (!event) return null
 
   return (
     <View style={styles.container}>
-      {eventDetails.map(({ key, title, iconName }) => {
-        return (
+      {eventDetails.map(
+        ({
+          key,
+          additionalKeys,
+          title,
+          iconName,
+          rightTitle,
+          rightIconType,
+          rightIconName
+        }) => {
+          const isName = key === 'name'
+          // In edit mode, event name moves into the component
+          if (!edit && isName) return null
+
+          return (
+            <ListItem
+              key={key}
+              containerStyle={styles.listItem}
+              onPress={() => handlePress(key, additionalKeys)}
+              titleStyle={[styles.text, isName ? styles.name : null]}
+              title={title(event)}
+              leftIcon={
+                iconName && (
+                  <HeaderButton
+                    type='material-community'
+                    name={iconName}
+                    color='tertiary'
+                    backgroundColor={edit ? 'secondary' : 'background'}
+                    onPress={() => handlePress(key, additionalKeys)}
+                  />
+                )
+              }
+              rightTitleStyle={styles.text}
+              rightTitle={rightTitle && rightTitle(event)}
+              rightIcon={
+                rightIconName && (
+                  <HeaderButton
+                    type={rightIconType || 'material-community'}
+                    name={rightIconName(event)}
+                    color='tertiary'
+                    backgroundColor={edit ? 'secondary' : 'background'}
+                    onPress={() => handlePress(key, additionalKeys)}
+                  />
+                )
+              }
+            />
+          )
+        }
+      )}
+
+      {!edit && (
+        <Fragment>
+          <View style={styles.buttonContainer}>
+            <Button title='Tickets' buttonStyle={styles.button} />
+          </View>
+
+          <Text style={styles.similarEventText}>Similar Events</Text>
+
           <ListItem
-            key={key}
             containerStyle={styles.listItem}
             titleStyle={styles.text}
-            title={title(event)}
+            title='No similar events found...'
             leftIcon={
-              iconName && (
-                <HeaderButton
-                  type='material-community'
-                  name={iconName}
-                  color='tertiary'
-                  backgroundColor='secondary'
-                  onPress={() => handlePress(key)}
-                />
-              )
+              <Icon
+                type='material-community'
+                name='emoticon-cry-outline'
+                color={theme.color.tertiary}
+              />
             }
           />
-        )
-      })}
-
-      <View style={styles.buttonContainer}>
-        <Button title='Tickets' buttonStyle={styles.button} />
-      </View>
-
-      <Text style={styles.similarEventText}>Similar Events</Text>
-
-      <ListItem
-        containerStyle={styles.listItem}
-        titleStyle={styles.text}
-        title='No similar events found...'
-        leftIcon={
-          <Icon
-            type='material-community'
-            name='emoticon-cry-outline'
-            color={theme.color.tertiary}
-          />
-        }
-      />
+        </Fragment>
+      )}
     </View>
   )
 }
@@ -79,6 +115,10 @@ const styles = StyleSheet.create({
   text: {
     color: theme.color.tertiary,
     fontSize: 18
+  },
+  name: {
+    fontWeight: 'bold',
+    fontSize: 20
   },
   similarEventText: {
     color: theme.color.tertiary,
@@ -102,7 +142,9 @@ const styles = StyleSheet.create({
 })
 
 EventTicketInfo.propTypes = {
-  event: PropTypes.object
+  event: PropTypes.object,
+  edit: PropTypes.bool,
+  updateKey: PropTypes.func
 }
 
 export default EventTicketInfo

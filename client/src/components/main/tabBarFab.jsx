@@ -1,13 +1,11 @@
 import React, { Fragment, useState, useContext } from 'react'
-import { navigate } from '@util'
 import { Route } from '@context/routeStore'
 
-import { theme } from '@util'
+import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
+
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
-
-import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
-import { CAMERA_SELECTION } from '@util/constants'
+import { theme, navigate, CAMERA_SELECTION } from '@util'
 
 const TabBarFab = () => {
   const [fabPosition, setFabPosition] = useState(null)

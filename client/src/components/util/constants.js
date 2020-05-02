@@ -50,6 +50,17 @@ export const EVENT_TYPES = {
   other: 'Other'
 }
 
+export const INPUT_TYPES = {
+  name: 'Event Name',
+  type: 'Event Type',
+  location: 'Event Location',
+  date: 'Date and Time',
+  url: 'Website',
+  description: 'Description',
+  plusOne: 'Plus One',
+  isPrivate: 'Private'
+}
+
 export const EVENT_TYPES_ARRAY = Object.keys(EVENT_TYPES).map(key => {
   return { label: EVENT_TYPES[key], value: key }
 })

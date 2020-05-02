@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import useAuth from '@context/authContext'
 import PropTypes from 'prop-types'
 
-import { theme } from '@util'
 import {
   View,
   Text,
@@ -16,7 +15,7 @@ import AuthSubmit from '@components/auth/AuthSubmit'
 import ResetModal from '@components/auth/ResetModal'
 import { Spacer, KeyboardDismiss } from '@common'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { SCREEN_HEIGHT } from '@util/constants'
+import { theme, SCREEN_HEIGHT } from '@util'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')

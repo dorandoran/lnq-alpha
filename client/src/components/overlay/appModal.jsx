@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+
 import useOverlay from '@context/overlayContext'
 
-import { Modal } from 'react-native'
 import EventContainer from '@components/event/eventContainer'
 import ViewContainer from '@components/main/viewContainer'
 import Dialog from '@components/overlay/modalDialog'
 import Notification from '@components/main/notification'
-import { BUCKET } from '@util/constants'
+
+import { Modal } from 'react-native'
+import { BUCKET } from '@util'
 
 const AppModal = () => {
   const { modal, dialog } = useOverlay()

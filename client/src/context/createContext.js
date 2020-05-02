@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { TOMORROW_DATETIME } from '@util/constants'
+import { TOMORROW_DATETIME } from '@util'
 import { SCREEN } from '@components/create/utilComponents/createUtil'
 
 const CreateContext = createContext()

@@ -7,8 +7,7 @@ import useNotification from '@hooks/useNotification'
 
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
 
-import { theme } from '@util'
-import { CAMERA_SELECTION, BUCKET } from '@util/constants'
+import { theme, CAMERA_SELECTION, BUCKET } from '@util'
 import { StyleSheet, View, ActivityIndicator } from 'react-native'
 import { Image } from 'react-native-elements'
 import { DialogConfirmActions } from '@common'

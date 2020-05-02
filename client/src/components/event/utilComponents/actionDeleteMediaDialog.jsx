@@ -7,8 +7,7 @@ import useOverlay from '@context/overlayContext'
 
 import LoadingDialog from '@components/overlay/loadingDialog'
 
-import { theme } from '@util'
-import { BUCKET } from '@util/constants'
+import { theme, BUCKET } from '@util'
 import { StyleSheet, View, Text } from 'react-native'
 import { DialogConfirmActions } from '@common'
 

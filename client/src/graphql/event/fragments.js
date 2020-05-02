@@ -22,6 +22,7 @@ export const eventFragment = gql`
     media {
       id
       uri
+      userId
     }
     likes
     plusOne

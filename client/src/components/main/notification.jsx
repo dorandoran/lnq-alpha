@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import NotificationContext from '@context/notificationContext'
 import { useDebounce } from '@hooks/useDebounce'
 
-import { theme } from '@util'
 import {
   View,
   TouchableOpacity,
@@ -11,7 +10,7 @@ import {
   ActivityIndicator
 } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '@util/constants'
+import { theme, SCREEN_WIDTH, SCREEN_HEIGHT } from '@util'
 
 const typeMap = {
   success: {
@@ -82,7 +81,7 @@ const Notification = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 65,
+    bottom: 100,
     right: 0,
     flexDirection: 'row',
     width: SCREEN_WIDTH,

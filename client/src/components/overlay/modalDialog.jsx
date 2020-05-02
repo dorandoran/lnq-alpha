@@ -2,15 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import useOverlay from '@context/overlayContext'
 
-import { theme } from '@util'
-// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { View, StyleSheet, KeyboardAvoidingView } from 'react-native'
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util/constants'
-
 import AddMediaDialog from '@components/event/utilComponents/actionAddMediaDialog'
 import DeleteMedia from '@components/event/utilComponents/actionDeleteMediaDialog'
 import ChangeAvatar from '@components/event/utilComponents/actionChangeAvatarDialog'
 import UpdateEvent from '@components/event/utilComponents/actionUpdateEventDialog'
+
+import { View, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { theme, SCREEN_HEIGHT, SCREEN_WIDTH } from '@util'
 
 const EventDialog = () => {
   const { dialog, actions } = useOverlay()
