@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import useCreate from '@context/createContext'
 import useNotification from '@hooks/useNotification'
@@ -8,10 +7,10 @@ import ActionSaveEvent from '@components/create/utilComponents/actionSaveEvent'
 import { View, Keyboard, Text, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { Header, HeaderButton } from '@common'
-import { theme } from '@util'
+import { theme, navigate } from '@util'
 import { SCREEN } from '@components/create/utilComponents/createUtil'
 
-const CreateHeader = ({ navigation }) => {
+const CreateHeader = () => {
   const { details, resetDetails, screen, setScreen } = useCreate()
   const { throwSuccess, throwLoading } = useNotification()
   const isInvite = screen === SCREEN.INVITES
@@ -23,7 +22,7 @@ const CreateHeader = ({ navigation }) => {
   const closeScreen = () => {
     Keyboard.dismiss()
     resetDetails()
-    navigation.navigate('Home')
+    navigate('Home')
   }
 
   const navigateToInvite = () => {
@@ -94,9 +93,5 @@ const styles = StyleSheet.create({
     fontSize: 18
   }
 })
-
-CreateHeader.propTypes = {
-  navigation: PropTypes.object.isRequired
-}
 
 export default CreateHeader

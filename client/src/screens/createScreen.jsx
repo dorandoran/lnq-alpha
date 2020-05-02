@@ -10,7 +10,7 @@ import Header from '@components/create/createHeader'
 import { theme } from '@util'
 import { SCREEN } from '@components/create/utilComponents/createUtil'
 
-const CreateView = ({ navigation }) => {
+const CreateView = () => {
   const { screen } = useCreate()
 
   const renderScreen = () => {
@@ -26,7 +26,7 @@ const CreateView = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Header navigation={navigation} />
+      <Header />
       {renderScreen()}
     </View>
   )
@@ -39,25 +39,20 @@ const styles = StyleSheet.create({
   }
 })
 
-CreateView.propTypes = {
-  navigation: PropTypes.object.isRequired
-}
-
-const CreateScreen = ({ route, navigation }) => {
+const CreateScreen = ({ route }) => {
   // This is the uri and aspect ratio passed from <tabBarFab />.
   // This information is the initial information used to start an event.
   const initialMedia = route.params.params.media
 
   return (
     <CreateProvider initialMedia={initialMedia}>
-      <CreateView navigation={navigation} />
+      <CreateView />
     </CreateProvider>
   )
 }
 
 CreateScreen.propTypes = {
-  route: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired
+  route: PropTypes.object.isRequired
 }
 
 export default CreateScreen
