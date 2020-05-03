@@ -29,7 +29,7 @@ const ActionDeleteEventDialog = () => {
   }
 
   const handleClose = () => {
-    dispatch({ type: actions.dialog.close })
+    dispatch({ type: actions.modal.close })
   }
 
   if (loading) return <LoadingDialog />
