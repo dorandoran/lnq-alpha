@@ -43,6 +43,11 @@ export const eventDetails = [
     key: 'description',
     title: ({ description }) => description,
     iconName: 'card-text-outline'
+  },
+  {
+    key: 'delete',
+    title: () => 'Delete',
+    iconName: 'delete'
   }
 ]
 

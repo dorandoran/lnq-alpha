@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import useOverlay from '@context/overlayContext'
 
 import { theme } from '@util'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon, ListItem, Button } from 'react-native-elements'
 import { HeaderButton } from '@common'
 
@@ -16,10 +16,14 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
   const handlePress = (key, additionalKeys) => {
     if (edit) {
       dispatch({
-        type: actions.dialog.events.updateEvent,
+        type: actions.dialog.events.update,
         payload: { key, additionalKeys, event, updateKey }
       })
     }
+  }
+
+  const handleDeleteEvent = () => {
+    dispatch({ type: actions.dialog.events.delete })
   }
 
   if (!event) return null
@@ -36,16 +40,38 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
           rightIconType,
           rightIconName
         }) => {
-          const isName = key === 'name'
+          const hideUntilEdit = ['name', 'delete']
           // In edit mode, event name moves into the component
-          if (!edit && isName) return null
+          if (!edit && hideUntilEdit.includes(key)) return null
+          if (key === 'delete') {
+            return (
+              <TouchableOpacity
+                key={key}
+                style={styles.editListItem}
+                onPress={() => handleDeleteEvent()}
+              >
+                <HeaderButton
+                  type='material-community'
+                  name={iconName}
+                  color='tertiary'
+                  backgroundColor='secondary'
+                />
+                <Text style={[styles.text, styles.name, styles.marginLeft]}>
+                  {title()}
+                </Text>
+              </TouchableOpacity>
+            )
+          }
 
           return (
             <ListItem
               key={key}
               containerStyle={styles.listItem}
               onPress={() => handlePress(key, additionalKeys)}
-              titleStyle={[styles.text, isName ? styles.name : null]}
+              titleStyle={[
+                styles.text,
+                hideUntilEdit.includes(key) ? styles.name : null
+              ]}
               title={title(event)}
               leftIcon={
                 iconName && (
@@ -53,7 +79,7 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
                     type='material-community'
                     name={iconName}
                     color='tertiary'
-                    backgroundColor={edit ? 'secondary' : 'background'}
+                    borderColor={edit ? 'secondary' : 'background'}
                     onPress={() => handlePress(key, additionalKeys)}
                   />
                 )
@@ -66,7 +92,7 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
                     type={rightIconType || 'material-community'}
                     name={rightIconName(event)}
                     color='tertiary'
-                    backgroundColor={edit ? 'secondary' : 'background'}
+                    borderColor={edit ? 'secondary' : 'background'}
                     onPress={() => handlePress(key, additionalKeys)}
                   />
                 )
@@ -110,6 +136,20 @@ const styles = StyleSheet.create({
     paddingVertical: '3%'
   },
   listItem: {
+    backgroundColor: theme.color.background
+  },
+  marginLeft: {
+    marginLeft: '5%'
+  },
+  editListItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25,
+    padding: 5,
+    marginHorizontal: '20%',
+    borderColor: theme.color.tertiary,
+    borderWidth: 2,
     backgroundColor: theme.color.background
   },
   text: {

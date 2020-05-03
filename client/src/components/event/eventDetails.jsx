@@ -85,7 +85,7 @@ const EventDetails = ({ event, edit, setEdit, canEdit }) => {
             <HeaderButton
               type='material-community'
               name='pencil-outline'
-              backgroundColor={edit ? 'secondary' : 'background'}
+              borderColor='secondary'
               color='tertiary'
               onPress={handleEdit}
               containerStyle={styles.editButton}

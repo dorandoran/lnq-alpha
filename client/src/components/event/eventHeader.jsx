@@ -63,7 +63,7 @@ const EventHeader = ({ canEdit, canEditMedia, state, toggleOpen }) => {
           type='material-community'
           name={media.isAvatar ? 'star' : 'star-outline'}
           color={media.isAvatar ? 'yellow' : 'tertiary'}
-          backgroundColor='shadow'
+          borderColor='shadow'
           containerStyle={[styles.iconContainer, styles.avatarButton]}
           onPress={handleChangeAvatar}
         />
