@@ -15,7 +15,7 @@ import {
 } from 'react-native'
 import { Icon } from 'react-native-elements'
 
-import ViewContainer from '@components/main/viewContainer'
+// import ViewContainer from '@components/main/viewContainer'
 import { Header } from '@common'
 
 const AppModal = () => {
@@ -29,7 +29,7 @@ const AppModal = () => {
 
   return (
     <Modal visible={modal} statusBarTranslucent>
-      <ViewContainer>
+      {/* <ViewContainer> */}
         {loading ? (
           <React.Fragment>
             <Text style={styles.text}>App Modal</Text>
@@ -62,7 +62,7 @@ const AppModal = () => {
             </Header>
           </ImageBackground>
         )}
-      </ViewContainer>
+      {/* </ViewContainer> */}
     </Modal>
   )
 }
