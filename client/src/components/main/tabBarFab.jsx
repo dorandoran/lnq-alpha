@@ -1,55 +1,66 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { Fragment, useState, useContext } from 'react'
+import { navigate } from '@util'
+import { Route } from '@context/routeStore'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
-import { CAMERA_SELECTION } from '@components/util/constants'
+import { CAMERA_SELECTION } from '@util/constants'
 
-const TabBarFab = ({ mainFlowRef }) => {
-  const [fabPosition, setFabPostion] = useState(null)
-  const [showButton, setShowButton] = useState(false)
+const TabBarFab = () => {
+  const [fabPosition, setFabPosition] = useState(null)
+  const { tabBar } = useContext(Route.State)
+  const dispatch = useContext(Route.Dispatch)
+  const { fabButton } = tabBar
 
   const navigateToDetails = media => {
     // Passes media to <CreateDetails />
-    mainFlowRef.current.navigate('Create', {
+    navigate('Create', {
       screen: 'Create',
       params: { media }
     })
   }
 
+  const toggleFabButton = () => {
+    dispatch({ type: 'toggleTabBarFab' })
+  }
+
   return (
-    <React.Fragment>
-      {showButton && (
+    <Fragment>
+      {fabButton && (
         <View style={[styles.fabContainer, fabPosition]}>
           <ActionSelectMedia
             type={CAMERA_SELECTION}
             navigateToDetails={navigateToDetails}
+            closeIconContainer={toggleFabButton}
           />
 
-          <ActionSelectMedia navigateToDetails={navigateToDetails} />
+          <ActionSelectMedia
+            navigateToDetails={navigateToDetails}
+            closeIconContainer={toggleFabButton}
+          />
         </View>
       )}
       <TouchableOpacity
         activeOpacity={0.5}
         style={styles.iconContainer}
-        onPress={() => setShowButton(!showButton)}
+        onPress={toggleFabButton}
         onLayout={({ nativeEvent: { layout } }) => {
           // Sets position of hidden fabs based on the Create button
-          if (!fabPosition) setFabPostion({ bottom: layout.height * 1.5 })
+          if (!fabPosition) setFabPosition({ bottom: layout.height * 1.5 })
         }}
       >
         <Icon
-          tabName="Create"
-          type={showButton ? 'material' : 'feather'}
-          name={showButton ? 'close' : 'plus'}
+          tabName='Create'
+          type={fabButton ? 'material' : 'feather'}
+          name={fabButton ? 'close' : 'plus'}
           color={theme.color.secondary}
           reverse
         />
       </TouchableOpacity>
-    </React.Fragment>
+    </Fragment>
   )
 }
 
@@ -60,20 +71,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   fabContainer: {
-    position: 'absolute'
-  },
-  textStyle: {
-    fontFamily: 'notoserif',
-    color: theme.color.tertiary,
-    backgroundColor: theme.color.secondary,
-    padding: 10,
-    borderRadius: 25
+    position: 'absolute',
+    height: 120,
+    justifyContent: 'space-around'
   }
 })
-
-TabBarFab.propTypes = {
-  mainFlowRef: PropTypes.object,
-  fabPosition: PropTypes.object
-}
 
 export default TabBarFab

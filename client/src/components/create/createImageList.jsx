@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react'
-import CreateContext from '@context/createContext'
+import React from 'react'
+import useCreate from '@context/createContext'
 
 import {
   View,
@@ -10,25 +10,24 @@ import {
 } from 'react-native'
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
 import ActionRemoveMedia from '@components/create/utilComponents/actionRemoveMedia'
-import { CAMERA_SELECTION } from '@components/util/constants'
-import { theme } from '@src/theme'
+import { CAMERA_SELECTION } from '@util/constants'
+import { theme } from '@util'
 
 const CreateImageList = () => {
-  const [edit, setEdit] = useState(false)
-  const { details, updateMedia } = useContext(CreateContext)
-
-  useEffect(() => {
-    return () => {
-      setEdit(false)
-    }
-  }, [])
+  const {
+    details,
+    updateMedia,
+    imageEdit,
+    toggleImageEdit,
+    closeImageEdit
+  } = useCreate()
 
   const handleMediaPress = () => {
-    setEdit(!edit)
+    toggleImageEdit()
   }
 
   const handleUpdate = (index, media) => {
-    setEdit(false)
+    closeImageEdit()
     updateMedia(index, media)
   }
 
@@ -47,16 +46,20 @@ const CreateImageList = () => {
                 style={styles.image}
                 borderRadius={25}
               >
-                {edit && (
+                {imageEdit && (
                   <View style={styles.actionContainer}>
                     <ActionSelectMedia
                       type={CAMERA_SELECTION}
-                      color={theme.color.background}
+                      color={theme.color.tertiary}
+                      backgroundColor={theme.color.shadow}
                       onComplete={media => handleUpdate(index, media)}
+                      closeIconContainer={closeImageEdit}
                     />
                     <ActionSelectMedia
-                      color={theme.color.background}
+                      color={theme.color.tertiary}
+                      backgroundColor={theme.color.shadow}
                       onComplete={media => handleUpdate(index, media)}
+                      closeIconContainer={closeImageEdit}
                     />
                     <ActionRemoveMedia index={index} />
                   </View>
@@ -77,7 +80,9 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   actionContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-around'
   },
   text: {
     color: 'white'

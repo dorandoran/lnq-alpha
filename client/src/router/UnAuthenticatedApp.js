@@ -3,7 +3,7 @@ import React from 'react'
 // Navigators
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { navigationRef } from '@components/util/navigationRef'
+import { navigationRef } from '@util'
 
 // Screens
 import LoginScreen from '@screens/loginScreen'
@@ -14,9 +14,9 @@ const Stack = createStackNavigator()
 const authFlow = () => {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator headerMode="none" initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Navigator headerMode='none' initialRouteName='Login'>
+        <Stack.Screen name='Login' component={LoginScreen} />
+        <Stack.Screen name='Signup' component={SignupScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

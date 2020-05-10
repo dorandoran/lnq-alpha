@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import useAuth from '@context/authContext'
 import PropTypes from 'prop-types'
+
+import { theme } from '@util'
 import {
   View,
   Text,
@@ -12,10 +15,8 @@ import {
 import AuthSubmit from '@components/auth/AuthSubmit'
 import ResetModal from '@components/auth/ResetModal'
 import { Spacer, KeyboardDismiss } from '@common'
-import { useAuth } from '@context/authContext'
-import { theme } from '@src/theme'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { SCREEN_HEIGHT } from '@components/util/constants'
+import { SCREEN_HEIGHT } from '@util/constants'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -27,17 +28,35 @@ const LoginScreen = () => {
     tryLocalSignIn,
     signInWithGoogleAsync,
     signInWithFacebook,
-    err,
-    clearErr
+    clearError,
+    authState
   } = useAuth()
 
   useEffect(() => {
-    tryLocalSignIn()
-    if (err) {
-      alert(err)
+    if (authState.error) {
+      alert(authState.error)
     }
-    return clearErr()
-  }, [err])
+    return clearError()
+  }, [authState.error])
+
+  /**
+   * Attempts to login user on app open
+   *   - tryLocalSignIn() returns a function to unsubscribe from onAuthStateChanged
+   *   - after attempting to login, the app unsubscribes from the listener
+   *     in order to save battery and a constant authState connection
+   */
+
+  useEffect(() => {
+    let unsubscribe
+    async function attemptLogin () {
+      unsubscribe = await tryLocalSignIn()
+    }
+
+    attemptLogin()
+    return () => {
+      if (unsubscribe) unsubscribe()
+    }
+  }, [])
 
   const resetModalViewHandler = () => {
     setViewModal(!viewModal)
@@ -88,8 +107,8 @@ const LoginScreen = () => {
               <TextInput
                 style={styles.inputStyle}
                 autoCorrect={false}
-                autoCapitalize="none"
-                placeholder="Email"
+                autoCapitalize='none'
+                placeholder='Email'
                 value={email}
                 onChangeText={setEmail}
               />
@@ -98,8 +117,8 @@ const LoginScreen = () => {
               <TextInput
                 style={styles.inputStyle}
                 autoCorrect={false}
-                autoCapitalize="none"
-                placeholder="Password"
+                autoCapitalize='none'
+                placeholder='Password'
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
@@ -118,9 +137,9 @@ const LoginScreen = () => {
             </Spacer>
 
             <AuthSubmit
-              submitButtonTitle="Login"
-              navigationRoute="Signup"
-              routeContent="New user? Sign up here"
+              submitButtonTitle='Login'
+              navigationRoute='Signup'
+              routeContent='New user? Sign up here'
               onSubmit={() => {
                 Keyboard.dismiss()
                 submitButtonHandler()

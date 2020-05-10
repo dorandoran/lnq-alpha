@@ -1,35 +1,58 @@
 import React, { createContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
-// Context
-const State = createContext()
-const Dispatch = createContext()
+export const actions = {
+  updateRoute: 'updateRoute',
+  openModal: 'openModal',
+  closeModal: 'closeModal',
+  toggleFab: 'toggleTabBarFab',
+  closeFab: 'closeTabBarFab'
+}
+
+const initialState = {
+  name: 'Home',
+  tabBar: {
+    show: true,
+    fabButton: false
+  },
+  selected: null
+}
 
 // Screens to disable tab bar
 const disableTabBar = ['Create']
 
-const initialState = {
-  name: 'Home',
-  tabBar: true,
-  modal: false,
-  objectId: null
-}
+// Context
+const State = createContext()
+const Dispatch = createContext()
 
 // Reducer
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'changeRoute':
+    case actions.updateRoute:
       return {
         ...state,
         name: action.payload,
-        tabBar: !disableTabBar.includes(action.payload)
+        tabBar: {
+          show: !disableTabBar.includes(action.payload),
+          fabButton: false
+        }
       }
-    case 'openModal':
-      return { ...state, modal: true, objectId: action.payload }
-    case 'closeModal':
-      return { ...state, modal: false, objectId: null }
+    case actions.openModal:
+      return { ...state, selected: action.payload }
+    case actions.closeModal:
+      return { ...state, selected: null }
+    case actions.toggleFab:
+      return {
+        ...state,
+        tabBar: { ...state.tabBar, fabButton: !state.tabBar.fabButton }
+      }
+    case actions.closeFab:
+      return {
+        ...state,
+        tabBar: { ...state.tabBar, fabButton: false }
+      }
     default:
-      return state
+      throw new Error()
   }
 }
 

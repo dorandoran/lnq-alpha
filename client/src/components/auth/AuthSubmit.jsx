@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import useAuth from '@context/authContext'
+import { withNavigation } from '@react-navigation/compat'
+
+import { theme } from '@util'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Spacer } from '@common'
-import { withNavigation } from '@react-navigation/compat'
-import { useAuth } from '@context/authContext'
-import { theme } from '@src/theme'
 
 const AuthSubmit = ({
   submitButtonTitle,
@@ -16,12 +17,12 @@ const AuthSubmit = ({
   onGoogleSubmit,
   onFacebookSubmit
 }) => {
-  const { isLoading } = useAuth()
+  const { authState } = useAuth()
 
   return (
     <Fragment>
       <Spacer>
-        {isLoading ? (
+        {authState.loading ? (
           <Button
             loading={true}
             buttonStyle={styles.submitButtonStyle}
@@ -52,12 +53,12 @@ const AuthSubmit = ({
         <View style={styles.oauthStyle}>
           <Button
             buttonStyle={styles.authButtonsFb}
-            title="FACEBOOK"
+            title='FACEBOOK'
             onPress={onFacebookSubmit}
           />
           <Button
             buttonStyle={styles.authButtonsGg}
-            title="GOOGLE"
+            title='GOOGLE'
             onPress={onGoogleSubmit}
           />
         </View>

@@ -6,7 +6,7 @@ exports.typeDef = gql`
   type Media {
     id: String!
     userId: String!
-    linkId: String!
+    linkId: [String]!
     uri: String!
     created_at: Date!
   }
@@ -20,7 +20,10 @@ exports.resolvers = {
   },
   Mutation: {
     createMedia: (parent, args) => {
-      return Media.saveToDb(args)
+      return Media.saveToStore(args)
+    },
+    deleteMedia: (parent, args) => {
+      return Media.deleteFromStore(args)
     }
   },
   Media: {}

@@ -1,11 +1,20 @@
 import React, { createContext, useContext } from 'react'
-import { useAuth } from '@context/authContext'
+import { useQuery } from '@apollo/react-hooks'
+import { GetUser } from '@graphql/user/queries'
+import useAuth from '@context/authContext'
 
 const UserContext = createContext()
 
-const UserProvider = props => {
-  const { token } = useAuth()
-  return <UserContext.Provider value={token} {...props} />
+export const UserProvider = props => {
+  const { authState } = useAuth()
+
+  // Cache user
+  useQuery(GetUser, {
+    variables: { id: authState.user },
+    skip: !authState.user
+  })
+
+  return <UserContext.Provider value={authState.user} {...props} />
 }
 
 const useUser = () => {
@@ -17,4 +26,4 @@ const useUser = () => {
   return context
 }
 
-export { UserProvider, useUser, UserContext }
+export default useUser

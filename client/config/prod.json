@@ -1,5 +1,5 @@
 {
-  "GRAPHQL_ENDPOINT": "https://us-central1-lnq-alpha.cloudfunctions.net/graphql",
+  "GRAPHQL_ENDPOINT": "https://us-central1-lnq-alpha.cloudfunctions.net/app",
   "GOOGLE": {
     "API_KEY": "AIzaSyC1V1JZUnk_L_13zV4P6A96mCh3I87z9Ko",
     "AUTH_DOMAIN": "lnq-alpha.firebaseapp.com",
@@ -10,7 +10,8 @@
     "APP_ID": "1:650252507366:web:231fe87e0bc720d7ab4327",
     "MEASUREMENT_ID": "G-9WDTZ5KMXJ",
     "ASYNC_ANDROID_CLIENT_ID": "650252507366-1mb3kjm7qtb42mnc7ktnop1qgvb37tpi.apps.googleusercontent.com",
-    "ASYNC_IOS_CLIENT_ID": "650252507366-a7r20o66k8jqekuajbmkcr6vjpairhsp.apps.googleusercontent.com"
+    "ASYNC_IOS_CLIENT_ID": "650252507366-a7r20o66k8jqekuajbmkcr6vjpairhsp.apps.googleusercontent.com",
+    "PLACES_API_KEY": "AIzaSyAYCfYsEiefhca5dRK5Nqv8tExmLruLWWA"
   },
   "FACEBOOK_ASYNC_ID": "880713082385563"
 }

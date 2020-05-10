@@ -1,35 +1,30 @@
-import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
-import { Route } from '@context/routeStore'
+import React, { useState } from 'react'
+import { SearchProvider } from '@context/searchContext'
 
-import { useQuery } from '@apollo/react-hooks'
-import { GetEvent } from '@graphql/event/queries.graphql'
+import EventList from '@components/search/searchEventList'
+import CategoryBar from '@components/search/searchCategoryBar'
 
-import { theme } from '@src/theme'
-import { ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
-import { Card, ListItem } from 'react-native-elements'
-
-const TEST_ID = 'LP8fNdWlcMXrCf3Ugavp'
+import { theme } from '@util'
+import { View, StyleSheet } from 'react-native'
+import { SearchBar } from 'react-native-elements'
 
 const SearchScreen = () => {
-  const dispatch = useContext(Route.Dispatch)
-  const { data, loading } = useQuery(GetEvent, {
-    variables: { id: TEST_ID }
-  })
-
-  if (loading)
-    return <ActivityIndicator size="large" color={theme.color.secondary} />
+  const [text, setText] = useState('')
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Card>
-        <ListItem
-          title={data.event.name}
-          rightAvatar={{ source: data.event.media[0] }}
-          onPress={() => dispatch({ type: 'openModal', payload: TEST_ID })}
+    <SearchProvider>
+      <View style={styles.container}>
+        <SearchBar
+          placeholder='Search'
+          value={text}
+          onChangeText={text => setText(text)}
+          containerStyle={styles.containerStyle}
+          inputContainerStyle={styles.inputContainer}
         />
-      </Card>
-    </ScrollView>
+        <CategoryBar />
+        <EventList text={text} />
+      </View>
+    </SearchProvider>
   )
 }
 
@@ -38,13 +33,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.color.background
   },
-  text: {
-    color: theme.color.tertiary
+  containerStyle: {
+    backgroundColor: theme.color.background,
+    marginBottom: '5%'
+  },
+  inputContainer: {
+    backgroundColor: theme.color.accent,
+    borderRadius: 25,
+    paddingLeft: '3%',
+    borderBottomWidth: 0
   }
 })
-
-SearchScreen.propTypes = {
-  navigation: PropTypes.object
-}
 
 export default SearchScreen

@@ -1,25 +1,19 @@
-import React, { useContext, useEffect } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import PropTypes from 'prop-types'
+import React from 'react'
 
-const HomeScreen = ({ navigation }) => {
-  // console.log('run')
-  return (
-    <View>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-      <Text>Home Screen</Text>
-    </View>
-  )
+import { theme } from '@util'
+import { View, StyleSheet } from 'react-native'
+
+const HomeScreen = () => {
+  return <View style={styles.container}></View>
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.color.background
+  }
+})
 
-HomeScreen.propTypes = {
-  navigation: PropTypes.object
-}
+HomeScreen.propTypes = {}
 
 export default HomeScreen

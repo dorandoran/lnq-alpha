@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import useAuth from '@context/authContext'
 import PropTypes from 'prop-types'
+
+import { theme } from '@util'
 import {
   View,
   Text,
@@ -10,9 +13,7 @@ import {
 } from 'react-native'
 import { Spacer, KeyboardDismiss } from '@common'
 import AuthSubmit from '@components/auth/AuthSubmit'
-import { useAuth } from '@context/authContext'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { theme } from '@src/theme'
 
 const SignupScreen = () => {
   const [email, setEmail] = useState('')
@@ -21,14 +22,14 @@ const SignupScreen = () => {
   const [username, setUsername] = useState('')
   const [confirmPass, setConfirmPass] = useState('')
 
-  const { register, err, clearErr } = useAuth()
+  const { register, clearError, authState } = useAuth()
 
   useEffect(() => {
-    if (err) {
-      alert(err)
+    if (authState.error) {
+      alert(authState.error)
     }
-    return clearErr()
-  }, [err])
+    return clearError()
+  }, [authState.error])
 
   const submitButtonHandler = () => {
     if (name.length <= 0 || username.length <= 0) {
@@ -60,8 +61,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder="Name"
-                autoCapitalize="none"
+                placeholder='Name'
+                autoCapitalize='none'
                 autoCorrect={false}
                 value={name}
                 onChangeText={setName}
@@ -70,8 +71,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder="Username"
-                autoCapitalize="none"
+                placeholder='Username'
+                autoCapitalize='none'
                 autoCorrect={false}
                 value={username}
                 onChangeText={setUsername}
@@ -80,8 +81,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder="Email Address"
-                autoCapitalize="none"
+                placeholder='Email Address'
+                autoCapitalize='none'
                 autoCorrect={false}
                 value={email}
                 onChangeText={setEmail}
@@ -90,8 +91,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder="Password"
-                autoCapitalize="none"
+                placeholder='Password'
+                autoCapitalize='none'
                 autoCorrect={false}
                 value={password}
                 onChangeText={setPassword}
@@ -100,8 +101,8 @@ const SignupScreen = () => {
             <Spacer>
               <TextInput
                 style={styles.inputStyle}
-                placeholder="Confirm Password"
-                autoCapitalize="none"
+                placeholder='Confirm Password'
+                autoCapitalize='none'
                 autoCorrect={false}
                 value={confirmPass}
                 onChangeText={setConfirmPass}
@@ -109,9 +110,9 @@ const SignupScreen = () => {
             </Spacer>
 
             <AuthSubmit
-              submitButtonTitle="Sign Up"
-              navigationRoute="Login"
-              routeContent="Have an account already? Sign In Here"
+              submitButtonTitle='Sign Up'
+              navigationRoute='Login'
+              routeContent='Have an account already? Sign In Here'
               onSubmit={() => {
                 Keyboard.dismiss()
                 submitButtonHandler()

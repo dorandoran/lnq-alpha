@@ -1,17 +1,23 @@
+/* eslint-disable no-undef */
 import React from 'react'
-import { View, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native'
-import PropTypes from 'prop-types'
-import { useAuth } from '@context/authContext'
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity
+} from 'react-native'
+
+import useAuth from '@context/authContext'
 import { SCREEN_HEIGHT } from '@components/util/constants'
 import { SCREEN_WIDTH } from '@components/util/constants'
 
 import ProfileListView from '@components/profile/profileListView'
 import ProfileMenu from '@components/profile/profileMenu'
 import ProfileTab from '@components/profile/profileTab'
-import ProfileAccontStats from '@components/profile/profileAccountStats'
+import ProfileAccountStats from '@components/profile/profileAccountStats'
 import ProfileInfo from '@components/profile/profileInfo'
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
   const { logout } = useAuth()
 
   const logoutButtonHandler = () => {
@@ -23,15 +29,15 @@ const ProfileScreen = ({ navigation }) => {
         source={require('../../assets/profile-main.png')}
         style={styles.imageStyle}
       >
-        <View style={styles.profileMenuContainer} >
-          <TouchableOpacity onPress={logoutButtonHandler} >
+        <View style={styles.profileMenuContainer}>
+          <TouchableOpacity onPress={logoutButtonHandler}>
             <ProfileMenu />
           </TouchableOpacity>
         </View>
       </ImageBackground>
       <View style={styles.profileContainer}>
         <ProfileInfo />
-        <ProfileAccontStats />
+        <ProfileAccountStats />
         <ProfileTab />
         <ProfileListView />
       </View>
@@ -45,12 +51,12 @@ const styles = StyleSheet.create({
   },
   profileMenuContainer: {
     flexDirection: 'row-reverse',
-    marginTop: SCREEN_HEIGHT/12,
+    marginTop: SCREEN_HEIGHT / 12,
     marginLeft: 20
   },
   imageStyle: {
     width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT/3
+    height: SCREEN_HEIGHT / 3
   },
   profileContainer: {
     flex: 1,
@@ -60,9 +66,5 @@ const styles = StyleSheet.create({
     marginTop: -20
   }
 })
-
-ProfileScreen.propTypes = {
-  navigation: PropTypes.object
-}
 
 export default ProfileScreen

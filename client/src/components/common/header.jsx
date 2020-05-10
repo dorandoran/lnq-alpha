@@ -1,15 +1,24 @@
 import React, { Children } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet } from 'react-native'
-import { theme } from '@src/theme'
 
-const Header = ({ children, position, backgroundColor }) => {
+import { View, StyleSheet } from 'react-native'
+import { theme } from '@util'
+
+const Header = ({
+  children,
+  position,
+  backgroundColor,
+  styleProps,
+  rightStyleProps
+}) => {
   const numChildren = Children.count(children)
 
   const addCustomStyles = () => {
     const customStyles = {}
     if (position) customStyles.position = position
-    if (backgroundColor) customStyles.backgroundColor = backgroundColor
+    if (backgroundColor)
+      customStyles.backgroundColor =
+        theme.color[backgroundColor] || backgroundColor
     return customStyles
   }
 
@@ -30,12 +39,14 @@ const Header = ({ children, position, backgroundColor }) => {
   }
 
   return (
-    <View style={[styles.container, addCustomStyles()]}>
+    <View style={[styles.container, addCustomStyles(), styleProps]}>
       <View style={[styles.section, styles.left]}>{renderLeftSection()}</View>
       <View style={[styles.section, styles.middle]}>
         {renderMiddleSection()}
       </View>
-      <View style={[styles.section, styles.right]}>{renderRightSection()}</View>
+      <View style={[styles.section, styles.right, rightStyleProps]}>
+        {renderRightSection()}
+      </View>
     </View>
   )
 }
@@ -68,7 +79,9 @@ const styles = StyleSheet.create({
 Header.propTypes = {
   children: PropTypes.node.isRequired,
   position: PropTypes.string,
-  backgroundColor: PropTypes.string
+  backgroundColor: PropTypes.string,
+  styleProps: PropTypes.object,
+  rightStyleProps: PropTypes.object
 }
 
 export default Header

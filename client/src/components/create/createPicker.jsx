@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import Picker from 'react-native-picker-select'
 import { View, Text, StyleSheet, Keyboard } from 'react-native'
 
-import { theme } from '@src/theme'
-import { EVENT_TYPE_MAP } from '@components/util/constants'
+import { theme } from '@util'
+import { EVENT_TYPES } from '@util/constants'
 
 const CreatePicker = ({ value, onValueChange }) => {
   const placeholder = { label: 'Select an Event Type', value: '' }
-  const items = Object.keys(EVENT_TYPE_MAP).map(value => {
-    return { label: EVENT_TYPE_MAP[value], value }
+  const items = Object.keys(EVENT_TYPES).map(value => {
+    return { label: EVENT_TYPES[value], value }
   })
 
   return (
@@ -23,6 +23,9 @@ const CreatePicker = ({ value, onValueChange }) => {
         onValueChange={onValueChange}
         onOpen={Keyboard.dismiss}
         useNativeAndroidPickerStyle={false}
+        touchableWrapperProps={{
+          activeOpacity: 0.2
+        }}
       />
     </View>
   )

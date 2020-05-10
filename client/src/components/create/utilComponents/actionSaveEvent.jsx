@@ -1,38 +1,47 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+
 import useStorage from '@hooks/useStorage'
-import { useUser } from '@context/userContext'
-import CreateContext from '@context/createContext'
+import useUser from '@context/userContext'
+import useCreate from '@context/createContext'
 import useCreateEvent from '@graphql/event/useCreateEvent'
 
-import { ActivityIndicator } from 'react-native'
-import { Icon } from 'react-native-elements'
-import { theme } from '@src/theme'
-import { EVENT_CONST } from '@components/util/constants'
+import { ActivityIndicator, Keyboard } from 'react-native'
+import { HeaderButton } from '@common'
+import { theme } from '@util'
+import { BUCKET } from '@util/constants'
 
-const ActionSaveEvent = ({ onComplete }) => {
+const ActionSaveEvent = ({ onOpen, onComplete, onSuccess }) => {
   const [actionSelected, setActionSelected] = useState(false)
-  const { details } = useContext(CreateContext)
+  const { details } = useCreate()
   const createEvent = useCreateEvent()
-  const userId = useUser()
+  const ownerId = useUser()
 
   // If action is selected, run useStorage
   const { media } = useStorage({
     uri: details.media[0].uri,
-    bucketName: EVENT_CONST,
+    bucketName: BUCKET.EVENT,
     skip: !actionSelected
   })
+
+  const selectAction = () => {
+    Keyboard.dismiss()
+    if (onOpen) onOpen()
+    setActionSelected(true)
+  }
 
   useEffect(() => {
     let didCancel = false
     if (media) {
       // Clean up event object and send to server
-      details.media = [media.id]
       details.id = media.linkId
-      !didCancel && createEvent({ ...details, userId })
+      details.avatarId = media.id
+      delete details.media
+      !didCancel && createEvent({ ...details, ownerId })
 
       // Action clean up
       setActionSelected(false)
+      if (onSuccess) onSuccess()
       onComplete()
 
       return () => {
@@ -42,21 +51,24 @@ const ActionSaveEvent = ({ onComplete }) => {
   }, [media])
 
   if (actionSelected) {
-    return <ActivityIndicator size="small" color={theme.color.secondary} />
+    return <ActivityIndicator size='small' color={theme.color.secondary} />
   }
 
   return (
-    <Icon
-      type="ionicon"
-      name="md-share"
+    <HeaderButton
+      type='ionicon'
+      name='md-share'
       color={theme.color.tertiary}
-      onPress={() => setActionSelected(true)}
+      backgroundColor={theme.color.shadow}
+      onPress={selectAction}
     />
   )
 }
 
 ActionSaveEvent.propTypes = {
-  onComplete: PropTypes.func.isRequired
+  onOpen: PropTypes.func,
+  onComplete: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func
 }
 
 export default ActionSaveEvent

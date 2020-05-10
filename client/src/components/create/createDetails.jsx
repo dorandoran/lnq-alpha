@@ -1,127 +1,157 @@
-import React, { useState, useContext } from 'react'
-import CreateContext from '@context/createContext'
+import React, { useState, Fragment } from 'react'
+import useCreate from '@context/createContext'
 
-import { theme } from '@src/theme'
+import { theme } from '@util'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { View, StyleSheet, Switch, Text, Keyboard } from 'react-native'
+import ReactNative, {
+  View,
+  StyleSheet,
+  Switch,
+  Text,
+  Keyboard
+} from 'react-native'
 import { Input } from 'react-native-elements'
 
 import DateTimePicker from '@components/create/createDateTimePicker'
 import ImageList from '@components/create/createImageList'
 import Picker from '@components/create/createPicker'
+import DetailModal from '@components/create/createModal'
 
-import { KEYBOARD_AVOID_HEIGHT } from '@components/util/constants'
+import { StyledTouchable } from '@common'
 import { inputMap } from '@components/create/utilComponents/createUtil'
 
-const initialDTState = {
-  visible: false,
-  mode: 'date'
-}
-
 const CreateDetails = () => {
-  const [dtPicker, setDTPicker] = useState(initialDTState)
-  const { updateDetails, details } = useContext(CreateContext)
+  const [modalValue, setModalValue] = useState(null)
+  const { updateDetails, details } = useCreate()
+
+  // Programmatically scroll to inputs
+  const _scrollToInput = node => {
+    this.scroll.props.scrollToFocusedInput(node)
+  }
 
   return (
-    <KeyboardAwareScrollView
-      enableOnAndroid
-      extraHeight={KEYBOARD_AVOID_HEIGHT}
-      contentContainerStyle={styles.awareContainer}
-    >
-      <View style={styles.container}>
-        <ImageList />
-        <View style={styles.formContainer}>
-          {inputMap.map(({ label, value, ...rest }) => {
-            const { date, type } = details
+    <Fragment>
+      <KeyboardAwareScrollView
+        enableOnAndroid
+        contentContainerStyle={styles.awareContainer}
+        innerRef={ref => (this.scroll = ref)}
+      >
+        <View style={styles.view}>
+          <ImageList />
+          <View style={[styles.formContainer, styles.marginBottom]}>
+            {inputMap.map(({ label, value, ...rest }) => {
+              const { date, type } = details
 
-            // Date and Time component
-            if (value === 'date') {
-              return (
-                <DateTimePicker
-                  key={value}
-                  date={date}
-                  state={dtPicker}
-                  setState={setDTPicker}
-                  setDate={date => updateDetails('date', date)}
-                />
-              )
-            }
+              // Date and Time component
+              if (value === 'date') {
+                return (
+                  <DateTimePicker
+                    key={value}
+                    date={date}
+                    setDate={date => updateDetails('date', date)}
+                  />
+                )
+              }
 
-            // Event type component
-            if (value === 'type') {
-              return (
-                <Picker
-                  key={value}
-                  value={type}
-                  onValueChange={value => {
-                    Keyboard.dismiss()
-                    updateDetails('type', value)
-                  }}
-                />
-              )
-            }
-
-            // Plus one and Private component
-            if (['plusOne', 'isPrivate'].includes(value)) {
-              return (
-                <View style={styles.switchContainer} key={value}>
-                  <Text style={styles.label}>{label}</Text>
-                  <Switch
-                    value={details[value]}
-                    onChange={({ nativeEvent }) =>
-                      updateDetails(value, nativeEvent.value)
-                    }
-                    thumbColor={
-                      details[value] ? theme.color.secondary : '#f4f3f4'
-                    }
-                    trackColor={{
-                      false: '#767577',
-                      true: theme.color.secondaryAccent
+              // Event type component
+              if (value === 'type') {
+                return (
+                  <Picker
+                    key={value}
+                    value={type}
+                    onValueChange={value => {
+                      Keyboard.dismiss()
+                      updateDetails('type', value)
                     }}
                   />
-                </View>
-              )
-            }
+                )
+              }
 
-            // Input components
-            return (
-              <Input
-                key={value}
-                containerStyle={styles.containerStyle}
-                inputContainerStyle={styles.inputContainer}
-                labelStyle={styles.label}
-                inputStyle={styles.input}
-                underlineColorAndroid="transparent"
-                label={label}
-                onChange={({ nativeEvent }) =>
-                  updateDetails(value, nativeEvent.text)
-                }
-                value={details[value]}
-                {...rest}
-              />
-            )
-          })}
+              // Location type component
+              if (['location', 'description'].includes(value)) {
+                return (
+                  <StyledTouchable
+                    key={value}
+                    labelTitle={label}
+                    text={details[value]?.text || details[value]}
+                    handlePress={() => setModalValue({ label, value })}
+                    styleProps={{ width: '95%', marginBottom: '5%' }}
+                  />
+                )
+              }
+
+              // Plus one and Private component
+              if (['plusOne', 'isPrivate'].includes(value)) {
+                return (
+                  <View style={styles.switchContainer} key={value}>
+                    <Text style={styles.label}>{label}</Text>
+                    <Switch
+                      value={details[value]}
+                      onChange={({ nativeEvent }) =>
+                        updateDetails(value, nativeEvent.value)
+                      }
+                      thumbColor={
+                        details[value] ? theme.color.secondary : '#f4f3f4'
+                      }
+                      trackColor={{
+                        false: '#767577',
+                        true: theme.color.secondaryAccent
+                      }}
+                    />
+                  </View>
+                )
+              }
+
+              // Input components
+              return (
+                <Input
+                  onFocus={event => {
+                    _scrollToInput(ReactNative.findNodeHandle(event.target))
+                  }}
+                  key={value}
+                  containerStyle={styles.marginBottom}
+                  inputContainerStyle={styles.inputContainer}
+                  labelStyle={styles.label}
+                  inputStyle={styles.input}
+                  underlineColorAndroid='transparent'
+                  label={label}
+                  autoCapitalize={value === 'url' ? 'none' : 'words'}
+                  onChange={({ nativeEvent }) =>
+                    updateDetails(value, nativeEvent.text)
+                  }
+                  value={details[value]}
+                  {...rest}
+                />
+              )
+            })}
+          </View>
         </View>
-      </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+
+      <DetailModal
+        modalValue={modalValue}
+        clearValue={() => setModalValue(null)}
+        detail={details[modalValue?.value]}
+        handleChange={value => updateDetails(modalValue.value, value)}
+      />
+    </Fragment>
   )
 }
 
 const styles = StyleSheet.create({
-  awareContainer: {
-    backgroundColor: theme.color.background
-  },
-  container: {
+  view: {
     flex: 1,
     alignItems: 'center'
   },
+  marginBottom: {
+    marginBottom: '5%'
+  },
   formContainer: {
     width: '100%',
-    marginBottom: '5%',
     alignItems: 'center'
   },
-  containerStyle: {
-    marginBottom: '5%'
+  awareContainer: {
+    backgroundColor: theme.color.background
   },
   inputContainer: {
     backgroundColor: theme.color.accent,

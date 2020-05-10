@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
-import { Route } from '@context/routeStore'
+import React from 'react'
+import { useRouteState } from '@hooks/useRoute'
 import PropTypes from 'prop-types'
 
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import Fab from '@components/main/tabBarFab'
 
-import { theme } from '@src/theme'
-import { SCREEN_HEIGHT } from '@components/util/constants'
+import { theme, navigate } from '@util'
+import { SCREEN_HEIGHT } from '@util/constants'
 
 const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {
   const iconColor =
@@ -23,53 +23,54 @@ const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {
   )
 }
 
-const TabBar = ({ mainFlowRef }) => {
-  const { name, tabBar } = useContext(Route.State)
+const TabBar = () => {
+  const { name, tabBar } = useRouteState()
+  const { show } = tabBar
 
   const handlePress = screen => {
-    mainFlowRef.current?.navigate(screen)
+    navigate(screen)
   }
 
   // Turns off tab bar
   // Useful for things like <CreateScreen />
-  if (!tabBar) return null
+  if (!show) return null
 
   return (
     <View style={styles.container}>
       <View style={styles.tabContainer}>
         <TabIcon
-          tabName="Home"
-          type="ionicon"
-          name="ios-home"
+          tabName='Home'
+          type='ionicon'
+          name='ios-home'
           onPress={handlePress}
           route={name}
         />
         <TabIcon
-          tabName="Search"
-          type="material"
-          name="search"
+          tabName='Search'
+          type='material'
+          name='search'
           size={28}
           onPress={handlePress}
           route={name}
         />
         <TabIcon
-          tabName="Locate"
-          type="ionicon"
-          name="md-pin"
+          tabName='Locate'
+          type='ionicon'
+          name='md-pin'
           onPress={handlePress}
           route={name}
         />
         <TabIcon
-          tabName="Profile"
-          type="material-community"
-          name="account"
+          tabName='Profile'
+          type='material-community'
+          name='account'
           size={28}
           onPress={handlePress}
           route={name}
         />
       </View>
       <View style={styles.createContainer}>
-        <Fab mainFlowRef={mainFlowRef} />
+        <Fab />
       </View>
     </View>
   )

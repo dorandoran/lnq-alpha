@@ -1,11 +1,10 @@
-const { firestore } = require('../firebase')
+const { firestore } = require('../../services/firebase')
 const admin = require('firebase-admin')
 const timestamp = admin.firestore.Timestamp
 
 const usersRef = firestore().collection('users')
 
-const saveToDb = user => {
-  user.events = []
+const saveToStore = user => {
   user.created_at = timestamp.now()
 
   return usersRef
@@ -39,6 +38,6 @@ const findById = ({ id }) => {
 const update = user => {}
 
 module.exports = {
-  saveToDb,
+  saveToStore,
   findById
 }

@@ -1,34 +1,38 @@
-import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
-import CreateContext from '@context/createContext'
+import React from 'react'
+
+import useCreate from '@context/createContext'
+import useNotification from '@hooks/useNotification'
+import ActionSaveEvent from '@components/create/utilComponents/actionSaveEvent'
 
 import { View, Keyboard, Text, StyleSheet } from 'react-native'
-import { Header } from '@common'
 import { Icon } from 'react-native-elements'
-import { theme } from '@src/theme'
+import { Header, HeaderButton } from '@common'
+import { theme, navigate } from '@util'
+import { SCREEN } from '@components/create/utilComponents/createUtil'
 
-import ActionSaveEvent from '@components/create/utilComponents/actionSaveEvent'
-import { screenMap } from '@components/create/utilComponents/createUtil'
+const CreateHeader = () => {
+  const { details, resetDetails, screen, setScreen } = useCreate()
+  const { throwSuccess, throwLoading } = useNotification()
+  const isInvite = screen === SCREEN.INVITES
 
-const CreateHeader = ({ navigation }) => {
-  const { details, resetDetails, screen, setScreen } = useContext(CreateContext)
-  const { INVITES, DETAILS } = screenMap
-  const isInvite = screen === INVITES
+  const handleSuccess = () => {
+    throwSuccess('Event successfully created!')
+  }
 
   const closeScreen = () => {
     Keyboard.dismiss()
     resetDetails()
-    navigation.navigate('Home')
+    navigate('Home')
   }
 
   const navigateToInvite = () => {
     Keyboard.dismiss()
-    setScreen(INVITES)
+    setScreen(SCREEN.INVITES)
   }
 
   const goBack = () => {
     Keyboard.dismiss()
-    setScreen(DETAILS)
+    setScreen(SCREEN.DETAILS)
   }
 
   // Checks if keys that have strings are filled
@@ -39,32 +43,42 @@ const CreateHeader = ({ navigation }) => {
       if (typeof details[key] === 'string' && !details[key].length) {
         disabled = true
       }
+      if (details[key] == null) {
+        disabled = true
+      }
     })
     return disabled
   }
 
   return (
-    <Header position="relative" backgroundColor={theme.color.background}>
-      <Icon
-        type="ionicon"
-        name="ios-arrow-back"
-        color={theme.color.tertiary}
+    <Header position='relative' backgroundColor='background'>
+      <HeaderButton
+        type='material'
+        name='chevron-left'
+        color='tertiary'
+        backgroundColor='shadow'
         onPress={isInvite ? goBack : closeScreen}
+        size={30}
       />
       {isInvite ? <Text style={styles.header}>Invite</Text> : <View />}
       {isInvite ? (
-        <ActionSaveEvent onComplete={closeScreen} />
+        <ActionSaveEvent
+          onOpen={throwLoading}
+          onComplete={closeScreen}
+          onSuccess={handleSuccess}
+        />
       ) : checkDisabled() ? (
         <Icon
-          type="font-awesome"
-          name="exclamation"
+          type='font-awesome'
+          name='exclamation'
           color={theme.color.secondary}
         />
       ) : (
-        <Icon
-          type="material"
-          name="person-add"
-          color={theme.color.tertiary}
+        <HeaderButton
+          type='material'
+          name='person-add'
+          color='tertiary'
+          backgroundColor='shadow'
           onPress={navigateToInvite}
         />
       )}
@@ -79,9 +93,5 @@ const styles = StyleSheet.create({
     fontSize: 18
   }
 })
-
-CreateHeader.propTypes = {
-  navigation: PropTypes.object.isRequired
-}
 
 export default CreateHeader

@@ -2,6 +2,7 @@ const { gql } = require('apollo-server-cloud-functions')
 
 const User = require('../../databases/store/user')
 const Event = require('../../databases/store/event')
+const Invite = require('../../databases/store/invite')
 
 // Type Definition
 exports.typeDef = gql`
@@ -14,6 +15,7 @@ exports.typeDef = gql`
     description: String
     avatarUrl: String
     events: [Event]
+    invites: [Invite]
     created_at: Date
   }
 `
@@ -23,19 +25,23 @@ exports.resolvers = {
   // Global query
   Query: {
     user: (parent, args, context, info) => {
-      return User.findById(args)
+      const id = args.id || context.user.id
+      return User.findById({ id })
     }
   },
   // Mutations
   Mutation: {
     createUser: (parent, args) => {
-      return User.saveToDb(args)
+      return User.saveToStore(args)
     }
   },
   // Field Resolve
   User: {
     events: (parent, args, context, info) => {
-      return Event.findByUserId({ userId: parent.id })
+      return Event.findAllByOwnerId({ ownerId: parent.id })
+    },
+    invites: (parent, args, context, info) => {
+      return Invite.findAllByUserId({ userId: parent.id })
     }
   }
 }

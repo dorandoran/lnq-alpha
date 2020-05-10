@@ -1,5 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react'
+import useAuth from '@context/authContext'
 import PropTypes from 'prop-types'
+
+import { theme } from '@util'
 import {
   View,
   Text,
@@ -9,31 +12,30 @@ import {
 } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Spacer } from '@common'
-import { useAuth } from '@context/authContext'
-import { theme } from '@src/theme'
 
 const ResetModal = ({ isModalShown, cancelModal, emailHolder }) => {
   const [email, setEmail] = useState(emailHolder)
 
-  const { passReset, success, isLoading, err } = useAuth()
+  const { resetPassword, authState } = useAuth()
+  const { loading, error, resetEmailSent } = authState
 
   useEffect(() => {
-    if (err) {
-      alert(err)
+    if (error) {
+      alert(error)
     }
-  }, [err])
+  }, [error])
 
   let submitButton
   let modal = null
 
-  if (isLoading) {
+  if (loading) {
     submitButton = (
       <Button
         buttonStyle={styles.buttonSubmitStyle}
         loading={true}
-        title="Reset Password"
+        title='Reset Password'
         onPress={async () => {
-          await passReset({ email })
+          await resetPassword({ email })
         }}
       />
     )
@@ -41,9 +43,9 @@ const ResetModal = ({ isModalShown, cancelModal, emailHolder }) => {
     submitButton = (
       <Button
         buttonStyle={styles.buttonSubmitStyle}
-        title="Reset Password"
+        title='Reset Password'
         onPress={async () => {
-          await passReset({ email })
+          await resetPassword({ email })
           setTimeout(() => {
             cancelModal()
           }, 1500)
@@ -52,7 +54,7 @@ const ResetModal = ({ isModalShown, cancelModal, emailHolder }) => {
     )
   }
 
-  if (isModalShown && success) {
+  if (isModalShown && resetEmailSent) {
     modal = (
       <Fragment>
         <TouchableOpacity style={styles.modalBackdrop} onPress={cancelModal} />
@@ -75,8 +77,8 @@ const ResetModal = ({ isModalShown, cancelModal, emailHolder }) => {
             <TextInput
               style={styles.inputStyle}
               autoCorrect={false}
-              autoCapitalize="none"
-              placeholder="Enter Your Email for Recovery"
+              autoCapitalize='none'
+              placeholder='Enter Your Email for Recovery'
               value={email}
               onChangeText={setEmail}
             />
@@ -86,7 +88,7 @@ const ResetModal = ({ isModalShown, cancelModal, emailHolder }) => {
               {submitButton}
               <Button
                 buttonStyle={styles.buttonCancelStyle}
-                title="Cancel"
+                title='Cancel'
                 onPress={cancelModal}
               />
             </View>

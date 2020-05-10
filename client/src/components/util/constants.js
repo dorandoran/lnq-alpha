@@ -1,7 +1,5 @@
 import { Dimensions } from 'react-native'
 
-export { default as NOTCH_LIST } from './notchList'
-
 export const SCREEN_HEIGHT = Dimensions.get('window').height
 export const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -10,18 +8,19 @@ export const KEYBOARD_AVOID_HEIGHT = SCREEN_HEIGHT / 7
 export const CAMERA_SELECTION = 'camera'
 export const GALLERY_SELECTION = 'gallery'
 
-// Google Firebase/Cloud Path Constants
-export const EVENT_CONST = 'events'
-export const MEDIA_CONST = 'media'
-export const USER_CONST = 'users'
+export const BUCKET = {
+  EVENT: 'events',
+  MEDIA: 'media',
+  USER: 'user'
+}
 
-export const DATE_FORMAT = 'MMMM D, YYYY'
+export const DATE_FORMAT = 'MMM D, YYYY'
 export const TIME_FORMAT = 'h:mm A'
 export const TOMORROW_DATETIME = new Date(
   new Date().getTime() + 24 * 60 * 60 * 1000
 )
 
-export const EVENT_TYPE_MAP = {
+export const EVENT_TYPES = {
   food: 'Food and Drink',
   art: 'Art',
   game: 'Gaming',
@@ -44,9 +43,13 @@ export const EVENT_TYPE_MAP = {
   business: 'Business',
   hobby: 'Hobbies',
   photo: 'Photo and Video',
-  spirt: 'Spirituality',
+  spirit: 'Spirituality',
   season: 'Seasonal',
   auto: 'Auto',
   comedy: 'Comedy',
   other: 'Other'
 }
+
+export const EVENT_TYPES_ARRAY = Object.keys(EVENT_TYPES).map(key => {
+  return { label: EVENT_TYPES[key], value: key }
+})

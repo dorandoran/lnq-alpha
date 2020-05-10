@@ -1,24 +1,28 @@
 import { useState, useEffect } from 'react'
 import { storage, firestore } from '@services/firebase'
 import useCreateMedia from '@graphql/media/useCreateMedia'
-import { useUser } from '@context/userContext'
-import { MEDIA_CONST } from '@components/util/constants'
+import useUser from '@context/userContext'
+import { BUCKET } from '@util/constants'
 
-const useStorage = ({ uri, bucketName, skip }) => {
+const useStorage = ({ uri, bucketName, linkId, skip, onSuccess, onError }) => {
   const [media, setMedia] = useState(null)
   const [loading, setLoading] = useState(false)
   const createMedia = useCreateMedia()
   const userId = useUser()
+  let newMediaLinkId = linkId
 
-  const mediaRef = firestore.collection(MEDIA_CONST).doc()
-  const linkRef = firestore.collection(bucketName).doc()
-  const linkStorage = storage.ref().child(`${bucketName}/${mediaRef.id}`)
+  const mediaRef = firestore.collection(BUCKET.MEDIA).doc()
+  const mediaStorage = storage.ref().child(`${bucketName}/${mediaRef.id}`)
+
+  if (!newMediaLinkId) {
+    newMediaLinkId = firestore.collection(bucketName).doc().id
+  }
 
   useEffect(() => {
     // Clean up variable
     let didCancel = false
 
-    async function upload() {
+    async function upload () {
       !didCancel && setLoading(true)
       !didCancel && setMedia(null)
 
@@ -39,8 +43,8 @@ const useStorage = ({ uri, bucketName, skip }) => {
       })
 
       // Send blob to storage
-      const newMedia = { id: mediaRef.id, userId, linkId: linkRef.id }
-      const uploadTask = linkStorage.put(mediaBlob)
+      const newMedia = { id: mediaRef.id, userId, linkId: newMediaLinkId }
+      const uploadTask = mediaStorage.put(mediaBlob)
 
       // Check progress
       uploadTask.on(
@@ -59,10 +63,11 @@ const useStorage = ({ uri, bucketName, skip }) => {
         // Finished sending media
         async () => {
           mediaBlob.close()
-          newMedia.uri = await linkStorage.getDownloadURL()
+          newMedia.uri = await mediaStorage.getDownloadURL()
 
           // Save Media to Firestore
           createMedia(newMedia)
+          if (onSuccess) onSuccess()
           !didCancel && setMedia(newMedia)
           !didCancel && setLoading(false)
         }

@@ -1,23 +1,23 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import CreateContext, { CreateProvider } from '@context/createContext'
+import useCreate, { CreateProvider } from '@context/createContext'
 
-import { View } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import CreateDetails from '@components/create/createDetails'
 import CreateInvite from '@components/create/createInvite'
 import Header from '@components/create/createHeader'
 
-import { screenMap } from '@components/create/utilComponents/createUtil'
+import { theme } from '@util'
+import { SCREEN } from '@components/create/utilComponents/createUtil'
 
-const CreateView = ({ navigation }) => {
-  const { screen } = useContext(CreateContext)
-  const { DETAILS, INVITES } = screenMap
+const CreateView = () => {
+  const { screen } = useCreate()
 
   const renderScreen = () => {
     switch (screen) {
-      case DETAILS:
+      case SCREEN.DETAILS:
         return <CreateDetails />
-      case INVITES:
+      case SCREEN.INVITES:
         return <CreateInvite />
       default:
         return <CreateDetails />
@@ -25,32 +25,34 @@ const CreateView = ({ navigation }) => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <Header navigation={navigation} />
+    <View style={styles.container}>
+      <Header />
       {renderScreen()}
     </View>
   )
 }
 
-const CreateScreen = ({ route, navigation }) => {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.color.background
+  }
+})
+
+const CreateScreen = ({ route }) => {
   // This is the uri and aspect ratio passed from <tabBarFab />.
   // This information is the initial information used to start an event.
   const initialMedia = route.params.params.media
 
   return (
     <CreateProvider initialMedia={initialMedia}>
-      <CreateView navigation={navigation} />
+      <CreateView />
     </CreateProvider>
   )
 }
 
-CreateView.propTypes = {
-  navigation: PropTypes.object.isRequired
-}
-
 CreateScreen.propTypes = {
-  route: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired
+  route: PropTypes.object.isRequired
 }
 
 export default CreateScreen
