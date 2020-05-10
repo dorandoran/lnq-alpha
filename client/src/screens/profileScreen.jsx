@@ -51,12 +51,12 @@ const styles = StyleSheet.create({
   },
   profileMenuContainer: {
     flexDirection: 'row-reverse',
-    marginTop: SCREEN_HEIGHT / 12,
+    marginTop: '5%',
     marginLeft: 20
   },
   imageStyle: {
     width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT / 3
+    height: SCREEN_HEIGHT / 4
   },
   profileContainer: {
     flex: 1,

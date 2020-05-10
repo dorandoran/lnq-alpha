@@ -10,7 +10,7 @@ import AppProviders from '@components/main/appProviders'
 import AuthenticatedApp from '@src/router/AuthenticatedApp'
 import UnAuthenticatedApp from '@src/router/UnAuthenticatedApp'
 
-// import ViewContainer from '@components/main/viewContainer'
+import ViewContainer from '@components/main/viewContainer'
 
 const AppContainer = () => {
   const user = useUser()
@@ -25,9 +25,9 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <AppProviders>
-        {/* <ViewContainer> */}
+        <ViewContainer>
           <AppContainer />
-        {/* </ViewContainer> */}
+        </ViewContainer>
       </AppProviders>
     </ApolloProvider>
   )

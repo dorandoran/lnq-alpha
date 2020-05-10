@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, StyleSheet, FlatList } from 'react-native'
-import ProfileListViewCard from './profileListViewCard'
+import { StyleSheet, FlatList } from 'react-native'
+import ProfileListViewCard from '@components/profile/profileListViewCard'
 
 const ProfileListView = () => {
   // eslint-disable-next-line no-undef
@@ -80,14 +80,12 @@ const ProfileListView = () => {
   }
 
   return (
-    <View>
-      <FlatList
-        keyExtractor={item => item.eventName}
-        data={myData}
-        renderItem={({ item }) => profileListViewCardHandler(item)}
-        showsVerticalScrollIndicator={false}
-      />
-    </View>
+    <FlatList
+      keyExtractor={item => item.eventName}
+      data={myData}
+      renderItem={({ item }) => profileListViewCardHandler(item)}
+      showsVerticalScrollIndicator={false}
+    />
   )
 }
 
