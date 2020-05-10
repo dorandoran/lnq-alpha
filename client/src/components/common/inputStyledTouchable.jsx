@@ -41,8 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   input: {
-    paddingLeft: '4%',
-    paddingRight: '4%',
+    paddingHorizontal: '4%',
     color: theme.color.tertiary,
     fontSize: 18
   },
