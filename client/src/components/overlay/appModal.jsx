@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import useOverlay from '@context/overlayContext'
 
 import { Modal } from 'react-native'
