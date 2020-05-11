@@ -21,7 +21,7 @@ const AuthSubmit = ({
 
   return (
     <Fragment>
-      <Spacer>
+      {/* <Spacer>
         {authState.loading ? (
           <Button
             loading={true}
@@ -36,12 +36,12 @@ const AuthSubmit = ({
             onPress={onSubmit}
           />
         )}
-      </Spacer>
-      <Spacer>
+      </Spacer> */}
+      {/* <Spacer>
         <TouchableOpacity onPress={() => navigation.navigate(navigationRoute)}>
           <Text style={styles.signinStyle}>{routeContent}</Text>
         </TouchableOpacity>
-      </Spacer>
+      </Spacer> */}
       <Spacer>
         <View style={styles.lineStyle}>
           <Text style={styles.lineStyle}>

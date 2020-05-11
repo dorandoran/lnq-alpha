@@ -24,7 +24,7 @@ const CreateDetails = () => {
   const { updateDetails, details } = useCreate()
 
   // Programmatically scroll to inputs
-  const _scrollToInput = node => {
+  const scrollToInput = node => {
     this.scroll.props.scrollToFocusedInput(node)
   }
 
@@ -105,7 +105,7 @@ const CreateDetails = () => {
               return (
                 <StyledInput
                   onFocus={event => {
-                    _scrollToInput(ReactNative.findNodeHandle(event.target))
+                    scrollToInput(ReactNative.findNodeHandle(event.target))
                   }}
                   key={value}
                   label={label}

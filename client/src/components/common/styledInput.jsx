@@ -12,8 +12,16 @@ const StyledInput = ({
   autoCapitalize,
   onChange,
   value,
-  keyboardType
+  placeholder,
+  keyboardType,
+  autoCorrect,
+  secureTextEntry,
+  backgroundColor,
+  color
 }) => {
+  const inputBackgroundColor = backgroundColor || theme.color.accent
+  const inputColor = color || theme.color.tertiary
+
   return (
     <Input
       label={label || ''}
@@ -21,19 +29,25 @@ const StyledInput = ({
       onFocus={onFocus}
       onChange={onChange}
       containerStyle={containerStyle}
-      inputContainerStyle={styles.inputContainer}
-      labelStyle={styles.label}
-      inputStyle={styles.input}
+      labelStyle={label ? styles.label : { height: 0 }}
+      errorStyle={{ height: 0 }}
+      inputContainerStyle={[
+        styles.inputContainer,
+        { backgroundColor: inputBackgroundColor }
+      ]}
+      inputStyle={{ color: inputColor }}
       underlineColorAndroid='transparent'
       autoCapitalize={autoCapitalize}
       keyboardType={keyboardType}
+      placeholder={placeholder}
+      autoCorrect={autoCorrect}
+      secureTextEntry={secureTextEntry}
     />
   )
 }
 
 const styles = StyleSheet.create({
   inputContainer: {
-    backgroundColor: theme.color.accent,
     borderRadius: 25,
     paddingLeft: '3%',
     borderBottomWidth: 0
@@ -43,9 +57,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     paddingBottom: '1%'
-  },
-  input: {
-    color: theme.color.tertiary
   }
 })
 
@@ -56,7 +67,12 @@ StyledInput.propTypes = {
   onChange: PropTypes.func,
   containerStyle: PropTypes.object,
   autoCapitalize: PropTypes.string,
-  keyboardType: PropTypes.string
+  keyboardType: PropTypes.string,
+  placeholder: PropTypes.string,
+  autoCorrect: PropTypes.bool,
+  secureTextEntry: PropTypes.bool,
+  backgroundColor: PropTypes.string,
+  color: PropTypes.string
 }
 
 export default StyledInput

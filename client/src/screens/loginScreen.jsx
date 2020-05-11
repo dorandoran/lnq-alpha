@@ -2,21 +2,15 @@ import React, { useState, useEffect } from 'react'
 import useAuth from '@context/authContext'
 import PropTypes from 'prop-types'
 
+import LoginForm from '@components/auth/authForm'
+import LoginButtons from '@components/auth/authButtonGroup'
+import OAuthButtons from '@components/auth/authOAuthButtons'
+
 import { theme } from '@util'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Keyboard,
-  ImageBackground
-} from 'react-native'
-import AuthSubmit from '@components/auth/AuthSubmit'
+import { View, Text, StyleSheet, ImageBackground } from 'react-native'
 import ResetModal from '@components/auth/ResetModal'
 import { Spacer, KeyboardDismiss } from '@common'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { SCREEN_HEIGHT } from '@util/constants'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -58,6 +52,11 @@ const LoginScreen = () => {
     }
   }, [])
 
+  // Programmatically scroll to inputs
+  const scrollToInput = node => {
+    this.scroll.props.scrollToFocusedInput(node)
+  }
+
   const resetModalViewHandler = () => {
     setViewModal(!viewModal)
   }
@@ -88,7 +87,7 @@ const LoginScreen = () => {
       <KeyboardAwareScrollView
         enableOnAndroid
         contentContainerStyle={styles.keyboardScrollContainer}
-        extraHeight={SCREEN_HEIGHT / 7}
+        innerRef={ref => (this.scroll = ref)}
       >
         <KeyboardDismiss>
           <View style={styles.containerStyle}>
@@ -103,7 +102,10 @@ const LoginScreen = () => {
             <Spacer>
               <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
             </Spacer>
-            <Spacer>
+            <LoginForm onFocus={scrollToInput} />
+            <LoginButtons />
+            <OAuthButtons />
+            {/* <Spacer>
               <TextInput
                 style={styles.inputStyle}
                 autoCorrect={false}
@@ -123,9 +125,9 @@ const LoginScreen = () => {
                 value={password}
                 onChangeText={setPassword}
               />
-            </Spacer>
+            </Spacer> */}
 
-            <Spacer>
+            {/* <Spacer>
               <TouchableOpacity
                 onPress={() => {
                   Keyboard.dismiss()
@@ -134,8 +136,8 @@ const LoginScreen = () => {
               >
                 <Text style={styles.resetStyle}>Reset your Password</Text>
               </TouchableOpacity>
-            </Spacer>
-
+            </Spacer> */}
+            {/* 
             <AuthSubmit
               submitButtonTitle='Login'
               navigationRoute='Signup'
@@ -146,7 +148,7 @@ const LoginScreen = () => {
               }}
               onGoogleSubmit={googleSubmitButtonHandler}
               onFacebookSubmit={facebookSubmitButtonHandler}
-            />
+            /> */}
           </View>
         </KeyboardDismiss>
       </KeyboardAwareScrollView>
@@ -175,17 +177,6 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: theme.color.tertiary,
     marginLeft: 20
-  },
-  inputStyle: {
-    backgroundColor: theme.color.tertiary,
-    fontSize: 20,
-    padding: 10,
-    borderRadius: 20
-  },
-  resetStyle: {
-    alignSelf: 'center',
-    fontSize: 20,
-    color: theme.color.secondary
   },
   image: {
     flex: 1,
