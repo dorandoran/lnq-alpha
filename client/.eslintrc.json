@@ -21,6 +21,7 @@
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
     "object-curly-spacing": ["error", "always"],
-    "no-console": "off"
+    "no-console": "off",
+    "global-require": "off"
   }
 }
