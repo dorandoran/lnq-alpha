@@ -1,20 +1,21 @@
-import React, { createContext, useContext } from 'react'
-import { useQuery } from '@apollo/react-hooks'
-import { GetUser } from '@graphql/user/queries'
+import React, { createContext, useContext, useEffect } from 'react'
 import useAuth from '@context/authContext'
+import useNotification from '@hooks/useNotification'
 
 const UserContext = createContext()
 
 export const UserProvider = props => {
-  const { authState } = useAuth()
+  const { data } = useAuth()
+  const { throwSuccess } = useNotification()
+  const user = data?.user || null
 
-  // Cache user
-  useQuery(GetUser, {
-    variables: { id: authState.user },
-    skip: !authState.user
-  })
+  useEffect(() => {
+    if (user) {
+      throwSuccess('Successfully logged in.')
+    }
+  }, [user])
 
-  return <UserContext.Provider value={authState.user} {...props} />
+  return <UserContext.Provider value={user} {...props} />
 }
 
 const useUser = () => {

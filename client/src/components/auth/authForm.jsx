@@ -1,41 +1,29 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-import { theme } from '@util'
 import { View, StyleSheet } from 'react-native'
 import { StyledInput } from '@common'
+import { theme } from '@util'
+import {
+  LoginInputMap,
+  SignupInputMap
+} from '@components/auth/utilComponents/authUtil'
 
-const inputMap = [
-  {
-    label: 'Email',
-    value: 'email'
-  },
-  {
-    label: 'Password',
-    value: 'password'
-  }
-]
-
-const initialState = {
-  email: '',
-  password: ''
-}
-
-const AuthForm = ({ onFocus }) => {
-  const [loginInput, setLoginInput] = useState(initialState)
+const AuthForm = ({ onFocus, inputState, setInput, screen }) => {
+  const inputs = screen === 'Login' ? LoginInputMap : SignupInputMap
 
   const updateInput = (value, text) => {
-    setLoginInput({ ...loginInput, [value]: text })
+    setInput({ ...inputState, [value]: text })
   }
 
   return (
     <View style={styles.container}>
-      {inputMap.map(({ label, value }) => {
+      {inputs.map(({ label, value }) => {
         return (
           <StyledInput
             onFocus={event => onFocus(event.target)}
             key={value}
-            value={loginInput[value]}
+            value={inputState[value]}
             onChange={({ nativeEvent }) => updateInput(value, nativeEvent.text)}
             placeholder={label}
             autoCapitalize='none'
@@ -62,7 +50,10 @@ const styles = StyleSheet.create({
 })
 
 AuthForm.propTypes = {
-  onFocus: PropTypes.func
+  onFocus: PropTypes.func,
+  inputState: PropTypes.object,
+  setInput: PropTypes.func,
+  screen: PropTypes.string
 }
 
 export default AuthForm

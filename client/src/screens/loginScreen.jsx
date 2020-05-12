@@ -12,13 +12,16 @@ import ResetModal from '@components/auth/ResetModal'
 import { Spacer, KeyboardDismiss } from '@common'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+const initialState = {
+  email: '',
+  password: ''
+}
+
 const LoginScreen = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [loginInput, setLoginInput] = useState(initialState)
   const [viewModal, setViewModal] = useState(false)
 
   const {
-    login,
     tryLocalSignIn,
     signInWithGoogleAsync,
     signInWithFacebook,
@@ -66,10 +69,6 @@ const LoginScreen = () => {
     setPassword('')
   }
 
-  const submitButtonHandler = () => {
-    login({ email, password })
-  }
-
   const googleSubmitButtonHandler = () => {
     signInWithGoogleAsync()
   }
@@ -102,50 +101,16 @@ const LoginScreen = () => {
             <Spacer>
               <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
             </Spacer>
-            <LoginForm onFocus={scrollToInput} />
-            <LoginButtons />
+            <LoginForm
+              onFocus={scrollToInput}
+              inputState={loginInput}
+              setInput={setLoginInput}
+              screen='Login'
+            />
+            <LoginButtons input={loginInput} screen='Login' />
             <OAuthButtons />
-            {/* <Spacer>
-              <TextInput
-                style={styles.inputStyle}
-                autoCorrect={false}
-                autoCapitalize='none'
-                placeholder='Email'
-                value={email}
-                onChangeText={setEmail}
-              />
-            </Spacer>
-            <Spacer>
-              <TextInput
-                style={styles.inputStyle}
-                autoCorrect={false}
-                autoCapitalize='none'
-                placeholder='Password'
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-              />
-            </Spacer> */}
-
-            {/* <Spacer>
-              <TouchableOpacity
-                onPress={() => {
-                  Keyboard.dismiss()
-                  resetModalViewHandler()
-                }}
-              >
-                <Text style={styles.resetStyle}>Reset your Password</Text>
-              </TouchableOpacity>
-            </Spacer> */}
             {/* 
             <AuthSubmit
-              submitButtonTitle='Login'
-              navigationRoute='Signup'
-              routeContent='New user? Sign up here'
-              onSubmit={() => {
-                Keyboard.dismiss()
-                submitButtonHandler()
-              }}
               onGoogleSubmit={googleSubmitButtonHandler}
               onFacebookSubmit={facebookSubmitButtonHandler}
             /> */}

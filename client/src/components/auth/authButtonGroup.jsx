@@ -3,26 +3,61 @@ import PropTypes from 'prop-types'
 
 import useAuth from '@context/authContext'
 
-import { theme } from '@util'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { Button } from 'react-native-elements'
+import { theme, navigate } from '@util'
+import { validateSignup } from '@components/auth/utilComponents/authUtil'
 
-const AuthButtonGroup = () => {
-  const { login } = useAuth()
+const AuthButtonGroup = ({ input, screen }) => {
+  const { login, register, authState } = useAuth()
+  const isLogin = screen === 'Login'
+  const submitButtonText = isLogin ? 'Login' : 'Sign Up'
+  const userButtonText = isLogin
+    ? 'New user? Sign up here'
+    : 'Have an account already? Sign in here'
+
+  const handleUserPress = () => {
+    if (isLogin) {
+      navigate('Signup')
+    } else {
+      navigate('Login')
+    }
+  }
+
+  const handleSubmit = () => {
+    if (isLogin) {
+      login(input)
+    } else {
+      const errors = validateSignup(input)
+      const dob = '03/01/2000' // TODO: Add date of birth to registration
+
+      if (!errors.length) {
+        register({ ...input, dob })
+      }
+    }
+  }
 
   return (
     <View style={styles.container}>
       <Button
         containerStyle={styles.buttonContainer}
         buttonStyle={styles.button}
-        title='Login'
-        onPress={() => {}}
+        title={submitButtonText}
+        onPress={handleSubmit}
+        loading={authState.loading}
       />
-      <TouchableOpacity style={styles.buttonContainer} onPress={() => {}}>
-        <Text style={[styles.text, styles.reset]}>Reset your Password</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.buttonContainer} onPress={() => {}}>
-        <Text style={[styles.text, styles.new]}>New user? Sign up here</Text>
+
+      {isLogin && (
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => {}}>
+          <Text style={[styles.text, styles.reset]}>Reset your Password</Text>
+        </TouchableOpacity>
+      )}
+
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={handleUserPress}
+      >
+        <Text style={[styles.text, styles.new]}>{userButtonText}</Text>
       </TouchableOpacity>
     </View>
   )
@@ -50,6 +85,9 @@ const styles = StyleSheet.create({
   new: { color: theme.color.tertiary }
 })
 
-AuthButtonGroup.propTypes = {}
+AuthButtonGroup.propTypes = {
+  input: PropTypes.object,
+  screen: PropTypes.string
+}
 
 export default AuthButtonGroup

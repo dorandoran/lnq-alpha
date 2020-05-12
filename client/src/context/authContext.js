@@ -1,11 +1,15 @@
 import React, { createContext, useContext, useReducer } from 'react'
 import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
-
-import config from '@config'
 import { f, auth } from '@services/firebase'
+import config from '@config'
+
 import useNotification from '@hooks/useNotification'
+import { useQuery } from '@apollo/react-hooks'
+import { GetUser } from '@graphql/user/queries'
 import useCreateUser from '@graphql/user/useCreateUser'
+
+import { Loading } from '@common'
 import { navigate } from '@util'
 
 const actions = {
@@ -51,8 +55,7 @@ function reducer (state, action) {
         error: action.payload
       }
     default:
-      // TODO: Error Handling
-      throw new Error()
+      throw new Error('Something went wrong with the auth context.')
   }
 }
 
@@ -61,8 +64,20 @@ const AuthContext = createContext()
 export const AuthProvider = props => {
   const [authState, dispatch] = useReducer(reducer, initialState)
   const { throwSuccess, throwWarning } = useNotification()
-  const createUser = useCreateUser()
+  const [createUser, loading] = useCreateUser()
+  const skip = !authState.user || loading
 
+  // Get the user data from store
+  const { data, loading: userLoading } = useQuery(GetUser, {
+    variables: { id: authState.user },
+    skip
+  })
+
+  if (userLoading || loading) {
+    return <Loading fullScreen />
+  }
+
+  // Auth Actions
   const clearError = () => {
     dispatch({ type: actions.clearError })
   }
@@ -78,7 +93,7 @@ export const AuthProvider = props => {
       const id = response.user.uid
 
       createUser({ email, username, name, dob, id })
-      throwSuccess('Successfully logged in.')
+      // throwSuccess('Successfully logged in.')
       dispatch({ type: actions.loginSuccess, payload: id })
     } catch (error) {
       dispatch({ type: actions.loginError, payload: error })
@@ -90,8 +105,6 @@ export const AuthProvider = props => {
       dispatch({ type: actions.startLoading })
       const response = await auth.signInWithEmailAndPassword(email, password)
       const id = response.user.uid
-
-      throwSuccess('Successfully logged in.')
       dispatch({ type: actions.loginSuccess, payload: id })
     } catch (error) {
       dispatch({ type: actions.loginError, payload: error })
@@ -103,7 +116,6 @@ export const AuthProvider = props => {
     const unsubscribe = auth.onAuthStateChanged(async user => {
       if (user) {
         const id = user.uid
-        throwSuccess('Successfully logged in.')
         dispatch({ type: actions.loginSuccess, payload: id })
       }
       dispatch({ type: actions.stopLoading })
@@ -186,6 +198,7 @@ export const AuthProvider = props => {
   return (
     <AuthContext.Provider
       value={{
+        data,
         authState,
         register,
         login,
