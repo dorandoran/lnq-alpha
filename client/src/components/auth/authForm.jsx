@@ -6,11 +6,17 @@ import { StyledInput } from '@common'
 import { theme } from '@util'
 import {
   LoginInputMap,
-  SignupInputMap
+  SignupInputMap,
+  OAuthSignupInputMap
 } from '@components/auth/utilComponents/authUtil'
 
 const AuthForm = ({ onFocus, inputState, setInput, screen }) => {
-  const inputs = screen === 'Login' ? LoginInputMap : SignupInputMap
+  let inputs =
+    screen === 'Login'
+      ? LoginInputMap
+      : screen === 'Signup'
+      ? SignupInputMap
+      : OAuthSignupInputMap
 
   const updateInput = (value, text) => {
     setInput({ ...inputState, [value]: text })

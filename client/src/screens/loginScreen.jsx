@@ -21,13 +21,7 @@ const LoginScreen = () => {
   const [loginInput, setLoginInput] = useState(initialState)
   const [viewModal, setViewModal] = useState(false)
 
-  const {
-    tryLocalSignIn,
-    signInWithGoogleAsync,
-    signInWithFacebook,
-    clearError,
-    authState
-  } = useAuth()
+  const { tryLocalSignIn, clearError, authState } = useAuth()
 
   useEffect(() => {
     if (authState.error) {
@@ -57,7 +51,7 @@ const LoginScreen = () => {
 
   // Programmatically scroll to inputs
   const scrollToInput = node => {
-    this.scroll.props.scrollToFocusedInput(node)
+    this.loginScroll.props.scrollToFocusedInput(node)
   }
 
   const resetModalViewHandler = () => {
@@ -69,14 +63,6 @@ const LoginScreen = () => {
     setPassword('')
   }
 
-  const googleSubmitButtonHandler = () => {
-    signInWithGoogleAsync()
-  }
-
-  const facebookSubmitButtonHandler = () => {
-    signInWithFacebook()
-  }
-
   return (
     <ImageBackground
       // eslint-disable-next-line no-undef
@@ -86,7 +72,7 @@ const LoginScreen = () => {
       <KeyboardAwareScrollView
         enableOnAndroid
         contentContainerStyle={styles.keyboardScrollContainer}
-        innerRef={ref => (this.scroll = ref)}
+        innerRef={ref => (this.loginScroll = ref)}
       >
         <KeyboardDismiss>
           <View style={styles.containerStyle}>
@@ -109,11 +95,6 @@ const LoginScreen = () => {
             />
             <LoginButtons input={loginInput} screen='Login' />
             <OAuthButtons />
-            {/* 
-            <AuthSubmit
-              onGoogleSubmit={googleSubmitButtonHandler}
-              onFacebookSubmit={facebookSubmitButtonHandler}
-            /> */}
           </View>
         </KeyboardDismiss>
       </KeyboardAwareScrollView>

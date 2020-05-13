@@ -6,10 +6,10 @@ import SignupForm from '@components/auth/authForm'
 import SignupButtons from '@components/auth/authButtonGroup'
 import OAuthButtons from '@components/auth/authOAuthButtons'
 
-import { theme } from '@util'
 import { View, Text, StyleSheet, ImageBackground } from 'react-native'
 import { Spacer, KeyboardDismiss } from '@common'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { theme } from '@util'
 
 const initialState = {
   name: '',
@@ -19,9 +19,11 @@ const initialState = {
   confirmPass: ''
 }
 
-const SignupScreen = () => {
-  const [signupInput, setSignupInput] = useState(initialState)
-
+const SignupScreen = ({ route }) => {
+  const user = route.params?.user || {}
+  const [signupInput, setSignupInput] = useState({ ...initialState, ...user })
+  const isOAuthForm = route.params?.oauth || null
+  const screen = route.params?.oauth ? 'oAuth' : 'Signup'
   const { clearError, authState } = useAuth()
 
   useEffect(() => {
@@ -31,9 +33,16 @@ const SignupScreen = () => {
     return clearError()
   }, [authState.error])
 
+  useEffect(() => {
+    const user = route.params?.user || {}
+    if (user.id) {
+      setSignupInput({ ...initialState, ...user })
+    }
+  }, [route.params])
+
   // Programmatically scroll to inputs
   const scrollToInput = node => {
-    this.scroll.props.scrollToFocusedInput(node)
+    this.signupScroll.props.scrollToFocusedInput(node)
   }
 
   return (
@@ -45,28 +54,26 @@ const SignupScreen = () => {
       <KeyboardAwareScrollView
         enableOnAndroid
         contentContainerStyle={styles.keyboardScrollContainer}
-        innerRef={ref => (this.scroll = ref)}
+        innerRef={ref => (this.signupScroll = ref)}
       >
         <KeyboardDismiss>
           <View style={styles.containerStyle}>
             <Spacer>
-              <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
+              {isOAuthForm ? (
+                <Text style={styles.oauth}>Almost done....</Text>
+              ) : (
+                <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
+              )}
             </Spacer>
 
             <SignupForm
               onFocus={scrollToInput}
               inputState={signupInput}
               setInput={setSignupInput}
-              screen='Signup'
+              screen={screen}
             />
-            <SignupButtons input={signupInput} screen='Signup' />
-            <OAuthButtons />
-            {/* <AuthSubmit
-              onSubmit={() => {
-                Keyboard.dismiss()
-                submitButtonHandler()
-              }}
-            /> */}
+            <SignupButtons input={signupInput} screen={screen} />
+            <OAuthButtons screen={screen} />
           </View>
         </KeyboardDismiss>
       </KeyboardAwareScrollView>
@@ -90,22 +97,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: theme.color.tertiary
   },
-  inputStyle: {
-    backgroundColor: theme.color.tertiary,
-    fontSize: 20,
-    padding: 10,
-    borderRadius: 20
-  },
   image: {
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
     backgroundColor: theme.color.background
+  },
+  oauth: {
+    color: theme.color.tertiary,
+    fontSize: 25,
+    fontWeight: 'bold',
+    alignSelf: 'center'
   }
 })
 
 SignupScreen.propTypes = {
-  navigation: PropTypes.object
+  route: PropTypes.object
 }
 
 export default SignupScreen

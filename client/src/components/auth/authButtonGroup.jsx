@@ -9,16 +9,21 @@ import { theme, navigate } from '@util'
 import { validateSignup } from '@components/auth/utilComponents/authUtil'
 
 const AuthButtonGroup = ({ input, screen }) => {
-  const { login, register, authState } = useAuth()
+  const { login, register, logout, authState } = useAuth()
   const isLogin = screen === 'Login'
+  const isOAuth = screen === 'oAuth'
   const submitButtonText = isLogin ? 'Login' : 'Sign Up'
   const userButtonText = isLogin
     ? 'New user? Sign up here'
+    : isOAuth
+    ? 'Cancel signing up here'
     : 'Have an account already? Sign in here'
 
   const handleUserPress = () => {
     if (isLogin) {
       navigate('Signup')
+    } else if (isOAuth) {
+      logout({ hideNotification: true })
     } else {
       navigate('Login')
     }
@@ -28,7 +33,9 @@ const AuthButtonGroup = ({ input, screen }) => {
     if (isLogin) {
       login(input)
     } else {
-      const errors = validateSignup(input)
+      const errors = validateSignup(input, {
+        disablePass: isOAuth ? true : false
+      })
       const dob = '03/01/2000' // TODO: Add date of birth to registration
 
       if (!errors.length) {

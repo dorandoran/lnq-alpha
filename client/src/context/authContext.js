@@ -10,14 +10,17 @@ import { GetUser } from '@graphql/user/queries'
 import useCreateUser from '@graphql/user/useCreateUser'
 
 import { Loading } from '@common'
-import { navigate } from '@util'
+import { navigate, resetNavigate, getOAuthUserInfo } from '@util'
 
 const actions = {
+  reset: 'resetAuth',
   registerUser: 'registerUser',
   clearError: 'clearError',
   startLoading: 'startLoading',
   stopLoading: 'stopLoading',
   loginSuccess: 'loginSuccess',
+  loginOAuthSuccess: 'loginOAuthSuccess',
+  loginFacebookSuccess: 'loginFacebookSuccess',
   loginError: 'loginError',
   logout: 'logout',
   resetEmailSuccess: 'resetEmailSuccess',
@@ -27,12 +30,15 @@ const actions = {
 const initialState = {
   loading: false,
   error: '',
+  userId: null,
   user: null,
   resetEmailSent: false
 }
 
 function reducer (state, action) {
   switch (action.type) {
+    case actions.reset:
+      return initialState
     case actions.clearError:
       return { ...state, error: '' }
     case actions.startLoading:
@@ -40,11 +46,18 @@ function reducer (state, action) {
     case actions.stopLoading:
       return { ...state, loading: false }
     case actions.loginSuccess:
-      return { ...state, loading: false, user: action.payload }
+      return { ...state, loading: false, userId: action.payload }
+    case actions.loginOAuthSuccess:
+      return {
+        ...state,
+        loading: false,
+        userId: action.payload.uid,
+        user: action.payload
+      }
     case actions.loginError:
       return { ...state, loading: false, error: action.payload }
     case actions.logout:
-      return { ...state, user: null }
+      return { ...state, userId: null }
     case actions.resetEmailSuccess:
       return { ...state, loading: false, resetEmailSent: true }
     case actions.resetEmailError:
@@ -64,37 +77,55 @@ const AuthContext = createContext()
 export const AuthProvider = props => {
   const [authState, dispatch] = useReducer(reducer, initialState)
   const { throwSuccess, throwWarning } = useNotification()
-  const [createUser, loading] = useCreateUser()
-  const skip = !authState.user || loading
+  const [createUser, createLoading] = useCreateUser({
+    onCompleted: ({ id }) => {
+      dispatch({ type: actions.loginSuccess, payload: id })
+    }
+  })
+  const skip = !authState.userId || createLoading
 
   // Get the user data from store
-  const { data, loading: userLoading } = useQuery(GetUser, {
-    variables: { id: authState.user },
+  const { data, loading } = useQuery(GetUser, {
+    variables: { id: authState.userId },
     skip
   })
 
-  if (userLoading || loading) {
+  if (loading || createLoading) {
     return <Loading fullScreen />
   }
 
+  // Google/Facebook first time sign up
+  if (authState.userId && !data?.user) {
+    navigate('Signup', {
+      oauth: true,
+      user: getOAuthUserInfo(authState.user)
+    })
+  }
+
   // Auth Actions
+  const reset = () => {
+    resetNavigate({ index: 0, routes: [{ name: 'Login' }, { name: 'Signup' }] })
+    dispatch({ type: actions.reset })
+  }
+
   const clearError = () => {
     dispatch({ type: actions.clearError })
   }
 
-  const register = async ({ email, password, username, name, dob }) => {
+  const register = async ({ email, password, username, name, dob, id }) => {
+    let _id = id
     try {
-      dispatch({ type: actions.startLoading })
-      const response = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      )
-      await response.user.updateProfile({ displayName: username })
-      const id = response.user.uid
+      if (password) {
+        dispatch({ type: actions.startLoading })
+        const response = await auth.createUserWithEmailAndPassword(
+          email,
+          password
+        )
+        _id = response.user.uid
+      }
 
-      createUser({ email, username, name, dob, id })
-      // throwSuccess('Successfully logged in.')
-      dispatch({ type: actions.loginSuccess, payload: id })
+      // Dispatch is placed within createUser above
+      createUser({ email, username, name, dob, id: _id })
     } catch (error) {
       dispatch({ type: actions.loginError, payload: error })
     }
@@ -135,10 +166,7 @@ export const AuthProvider = props => {
           result.idToken
         )
         const response = await auth.signInWithCredential(credential)
-
-        const id = response.user.uid
-        throwSuccess('Successfully logged in.')
-        dispatch({ type: actions.loginSuccess, payload: id })
+        dispatch({ type: actions.loginOAuthSuccess, payload: response.user })
       } else {
         return { cancelled: true }
       }
@@ -161,21 +189,19 @@ export const AuthProvider = props => {
         // Get the user's name using Facebook's Graph API
         const credential = await f.auth.FacebookAuthProvider.credential(fbToken)
         const response = await auth.signInWithCredential(credential)
-        const id = response.user.uid
-        throwSuccess('Successfully logged in.')
-        dispatch({ type: actions.loginSuccess, payload: id })
+        dispatch({ type: actions.loginOAuthSuccess, payload: response.user })
       }
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`)
     }
   }
 
-  const logout = async () => {
+  const logout = async options => {
     auth
       .signOut()
       .then(() => {
         dispatch({ type: actions.logout })
-        throwWarning('Logged out.')
+        if (!options?.hideNotification) throwWarning('Logged out.')
         navigate('Login')
       })
       .catch(e => {
@@ -207,7 +233,8 @@ export const AuthProvider = props => {
         signInWithFacebook,
         logout,
         resetPassword,
-        clearError
+        clearError,
+        reset
       }}
       {...props}
     />

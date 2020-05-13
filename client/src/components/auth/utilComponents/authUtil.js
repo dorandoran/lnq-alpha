@@ -32,8 +32,24 @@ export const SignupInputMap = [
   }
 ]
 
-export const validateSignup = data => {
+export const OAuthSignupInputMap = [
+  {
+    label: 'Name',
+    value: 'name'
+  },
+  {
+    label: 'Username',
+    value: 'username'
+  }
+]
+
+export const validateSignup = (data, options) => {
   let error = new Set()
+
+  if (options.disablePass) {
+    delete data.password
+    delete data.confirmPass
+  }
 
   // Check empty fields
   Object.keys(data).forEach(key => {

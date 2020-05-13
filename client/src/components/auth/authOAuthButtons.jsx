@@ -7,8 +7,10 @@ import { theme } from '@util'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { SocialIcon, Divider } from 'react-native-elements'
 
-const AuthButtonGroup = () => {
-  const { login } = useAuth()
+const AuthButtonGroup = ({ screen }) => {
+  const { signInWithGoogleAsync, signInWithFacebook } = useAuth()
+
+  if (screen === 'oAuth') return null
 
   return (
     <View style={styles.container}>
@@ -18,10 +20,16 @@ const AuthButtonGroup = () => {
         <Divider style={styles.divider} />
       </View>
       <View style={styles.sectionContainer}>
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={signInWithGoogleAsync}
+        >
           <SocialIcon title='Sign In' button type='google' />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={signInWithFacebook}
+        >
           <SocialIcon title='Sign In' button type='facebook' />
         </TouchableOpacity>
       </View>
@@ -54,6 +62,8 @@ const styles = StyleSheet.create({
   }
 })
 
-AuthButtonGroup.propTypes = {}
+AuthButtonGroup.propTypes = {
+  screen: PropTypes.string
+}
 
 export default AuthButtonGroup
