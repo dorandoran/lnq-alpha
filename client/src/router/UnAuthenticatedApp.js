@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+
+import Dialog from '@components/overlay/authDialog'
 
 // Navigators
 import { NavigationContainer } from '@react-navigation/native'
@@ -13,12 +15,15 @@ const Stack = createStackNavigator()
 
 const authFlow = () => {
   return (
-    <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator headerMode='none' initialRouteName='Login'>
-        <Stack.Screen name='Login' component={LoginScreen} />
-        <Stack.Screen name='Signup' component={SignupScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Fragment>
+      <NavigationContainer ref={navigationRef}>
+        <Stack.Navigator headerMode='none' initialRouteName='Login'>
+          <Stack.Screen name='Login' component={LoginScreen} />
+          <Stack.Screen name='Signup' component={SignupScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <Dialog />
+    </Fragment>
   )
 }
 

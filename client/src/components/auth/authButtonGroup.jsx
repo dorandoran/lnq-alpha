@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import useAuth from '@context/authContext'
+import useNotification from '@hooks/useNotification'
+import useOverlay from '@context/overlayContext'
 
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { Button } from 'react-native-elements'
@@ -10,6 +12,9 @@ import { validateSignup } from '@components/auth/utilComponents/authUtil'
 
 const AuthButtonGroup = ({ input, screen }) => {
   const { login, register, logout, authState } = useAuth()
+  const { dispatch, actions } = useOverlay()
+  const { throwError } = useNotification()
+
   const isLogin = screen === 'Login'
   const isOAuth = screen === 'oAuth'
   const submitButtonText = isLogin ? 'Login' : 'Sign Up'
@@ -41,7 +46,12 @@ const AuthButtonGroup = ({ input, screen }) => {
       if (!errors.length) {
         register({ ...input, dob })
       }
+      throwError(errors.join('\n'))
     }
+  }
+
+  const handleResetPass = () => {
+    dispatch({ type: actions.dialog.auth.reset })
   }
 
   return (
@@ -55,7 +65,10 @@ const AuthButtonGroup = ({ input, screen }) => {
       />
 
       {isLogin && (
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={handleResetPass}
+        >
           <Text style={[styles.text, styles.reset]}>Reset your Password</Text>
         </TouchableOpacity>
       )}

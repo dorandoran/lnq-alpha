@@ -23,8 +23,7 @@ const actions = {
   loginFacebookSuccess: 'loginFacebookSuccess',
   loginError: 'loginError',
   logout: 'logout',
-  resetEmailSuccess: 'resetEmailSuccess',
-  resetEmailError: 'resetEmailError'
+  resetEmailSuccess: 'resetEmailSuccess'
 }
 
 const initialState = {
@@ -60,13 +59,6 @@ function reducer (state, action) {
       return { ...state, userId: null }
     case actions.resetEmailSuccess:
       return { ...state, loading: false, resetEmailSent: true }
-    case actions.resetEmailError:
-      return {
-        ...state,
-        loading: false,
-        resetEmailSent: false,
-        error: action.payload
-      }
     default:
       throw new Error('Something went wrong with the auth context.')
   }
@@ -76,7 +68,7 @@ const AuthContext = createContext()
 
 export const AuthProvider = props => {
   const [authState, dispatch] = useReducer(reducer, initialState)
-  const { throwSuccess, throwWarning } = useNotification()
+  const { throwSuccess, throwWarning, throwError } = useNotification()
   const [createUser, createLoading] = useCreateUser({
     onCompleted: ({ id }) => {
       dispatch({ type: actions.loginSuccess, payload: id })
@@ -113,6 +105,8 @@ export const AuthProvider = props => {
   }
 
   const register = async ({ email, password, username, name, dob, id }) => {
+    // First time OAuth Users will have an id, but not saved to database
+    // register will be passed in id in this situation
     let _id = id
     try {
       if (password) {
@@ -127,6 +121,7 @@ export const AuthProvider = props => {
       // Dispatch is placed within createUser above
       createUser({ email, username, name, dob, id: _id })
     } catch (error) {
+      throwError(error.message)
       dispatch({ type: actions.loginError, payload: error })
     }
   }
@@ -138,6 +133,7 @@ export const AuthProvider = props => {
       const id = response.user.uid
       dispatch({ type: actions.loginSuccess, payload: id })
     } catch (error) {
+      throwError(error.message)
       dispatch({ type: actions.loginError, payload: error })
     }
   }
@@ -167,12 +163,10 @@ export const AuthProvider = props => {
         )
         const response = await auth.signInWithCredential(credential)
         dispatch({ type: actions.loginOAuthSuccess, payload: response.user })
-      } else {
-        return { cancelled: true }
       }
-    } catch (e) {
-      console.log('error with login', e)
-      return { error: true }
+    } catch (error) {
+      throwError(error.message)
+      dispatch({ type: actions.loginError, payload: error })
     }
   }
 
@@ -191,8 +185,9 @@ export const AuthProvider = props => {
         const response = await auth.signInWithCredential(credential)
         dispatch({ type: actions.loginOAuthSuccess, payload: response.user })
       }
-    } catch ({ message }) {
-      alert(`Facebook Login Error: ${message}`)
+    } catch (error) {
+      throwError(error.message)
+      dispatch({ type: actions.loginError, payload: error })
     }
   }
 
@@ -204,20 +199,22 @@ export const AuthProvider = props => {
         if (!options?.hideNotification) throwWarning('Logged out.')
         navigate('Login')
       })
-      .catch(e => {
-        // TODO: Error Handling
-        console.log(e)
+      .catch(error => {
+        throwError(error.message)
+        dispatch({ type: actions.loginError, payload: error })
       })
   }
 
-  const resetPassword = async ({ email }) => {
+  const resetPassword = async ({ email, onComplete }) => {
     try {
       dispatch({ type: actions.startLoading })
       await auth.sendPasswordResetEmail(email)
-      throwSuccess('Email sent!')
+      throwSuccess('Email sent! Check to reset password.')
+      if (onComplete) onComplete()
       dispatch({ type: actions.resetEmailSuccess })
     } catch (error) {
-      dispatch({ type: actions.resetEmailError, payload: error })
+      throwError(error.message)
+      dispatch({ type: actions.loginError, payload: error })
     }
   }
 

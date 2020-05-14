@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import useAuth from '@context/authContext'
 import PropTypes from 'prop-types'
 
 import SignupForm from '@components/auth/authForm'
@@ -24,14 +23,6 @@ const SignupScreen = ({ route }) => {
   const [signupInput, setSignupInput] = useState({ ...initialState, ...user })
   const isOAuthForm = route.params?.oauth || null
   const screen = route.params?.oauth ? 'oAuth' : 'Signup'
-  const { clearError, authState } = useAuth()
-
-  useEffect(() => {
-    if (authState.error) {
-      alert(authState.error)
-    }
-    return clearError()
-  }, [authState.error])
 
   useEffect(() => {
     const user = route.params?.user || {}
@@ -53,11 +44,11 @@ const SignupScreen = ({ route }) => {
     >
       <KeyboardAwareScrollView
         enableOnAndroid
-        contentContainerStyle={styles.keyboardScrollContainer}
+        contentContainerStyle={styles.awareContainer}
         innerRef={ref => (this.signupScroll = ref)}
       >
         <KeyboardDismiss>
-          <View style={styles.containerStyle}>
+          <View style={styles.container}>
             <Spacer>
               {isOAuthForm ? (
                 <Text style={styles.oauth}>Almost done....</Text>
@@ -82,14 +73,14 @@ const SignupScreen = ({ route }) => {
 }
 
 const styles = StyleSheet.create({
-  keyboardScrollContainer: {
+  awareContainer: {
     flexGrow: 1,
     justifyContent: 'center'
   },
-  containerStyle: {
+  container: {
     flex: 1,
     justifyContent: 'center',
-    marginBottom: 30
+    marginBottom: '8%'
   },
   logoPlaceholderStyle: {
     fontWeight: 'bold',

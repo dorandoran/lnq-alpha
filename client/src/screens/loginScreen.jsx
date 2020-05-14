@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import useAuth from '@context/authContext'
 import PropTypes from 'prop-types'
+
+import useAuth from '@context/authContext'
 
 import LoginForm from '@components/auth/authForm'
 import LoginButtons from '@components/auth/authButtonGroup'
@@ -8,7 +9,6 @@ import OAuthButtons from '@components/auth/authOAuthButtons'
 
 import { theme } from '@util'
 import { View, Text, StyleSheet, ImageBackground } from 'react-native'
-import ResetModal from '@components/auth/ResetModal'
 import { Spacer, KeyboardDismiss } from '@common'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
@@ -19,16 +19,7 @@ const initialState = {
 
 const LoginScreen = () => {
   const [loginInput, setLoginInput] = useState(initialState)
-  const [viewModal, setViewModal] = useState(false)
-
-  const { tryLocalSignIn, clearError, authState } = useAuth()
-
-  useEffect(() => {
-    if (authState.error) {
-      alert(authState.error)
-    }
-    return clearError()
-  }, [authState.error])
+  const { tryLocalSignIn } = useAuth()
 
   /**
    * Attempts to login user on app open
@@ -54,15 +45,6 @@ const LoginScreen = () => {
     this.loginScroll.props.scrollToFocusedInput(node)
   }
 
-  const resetModalViewHandler = () => {
-    setViewModal(!viewModal)
-  }
-
-  const cancelModalViewHandler = () => {
-    setViewModal(false)
-    setPassword('')
-  }
-
   return (
     <ImageBackground
       // eslint-disable-next-line no-undef
@@ -71,19 +53,12 @@ const LoginScreen = () => {
     >
       <KeyboardAwareScrollView
         enableOnAndroid
-        contentContainerStyle={styles.keyboardScrollContainer}
+        contentContainerStyle={styles.awareContainer}
         innerRef={ref => (this.loginScroll = ref)}
       >
         <KeyboardDismiss>
-          <View style={styles.containerStyle}>
-            {viewModal ? (
-              <ResetModal
-                isModalShown={viewModal}
-                cancelModal={cancelModalViewHandler}
-                emailHolder={email}
-              />
-            ) : null}
-            <Text style={styles.welcomeMessageStyle}>Welcome {'\n'}Back</Text>
+          <View style={styles.container}>
+            <Text style={styles.welcome}>Welcome {'\n'}Back</Text>
             <Spacer>
               <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
             </Spacer>
@@ -103,14 +78,14 @@ const LoginScreen = () => {
 }
 
 const styles = StyleSheet.create({
-  keyboardScrollContainer: {
+  awareContainer: {
     flexGrow: 1,
     justifyContent: 'center'
   },
-  containerStyle: {
+  container: {
     flex: 1,
     justifyContent: 'center',
-    marginBottom: 30
+    marginBottom: '8%'
   },
   logoPlaceholderStyle: {
     fontWeight: 'bold',
@@ -118,7 +93,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: theme.color.tertiary
   },
-  welcomeMessageStyle: {
+  welcome: {
     fontWeight: 'bold',
     fontSize: 40,
     color: theme.color.tertiary,
