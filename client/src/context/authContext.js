@@ -106,7 +106,7 @@ export const AuthProvider = props => {
 
   const register = async ({ email, password, username, name, dob, id }) => {
     // First time OAuth Users will have an id, but not saved to database
-    // register will be passed in id in this situation
+    // register will be passed an id in this situation
     let _id = id
     try {
       if (password) {

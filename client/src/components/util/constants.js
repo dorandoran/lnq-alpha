@@ -1,4 +1,5 @@
 import { Dimensions } from 'react-native'
+import dayjs from 'dayjs'
 
 export const SCREEN_HEIGHT = Dimensions.get('window').height
 export const SCREEN_WIDTH = Dimensions.get('window').width
@@ -18,6 +19,18 @@ export const DATE_FORMAT = 'MMM D, YYYY'
 export const TIME_FORMAT = 'h:mm A'
 export const TOMORROW_DATETIME = new Date(
   new Date().getTime() + 24 * 60 * 60 * 1000
+)
+export const EIGHTEEN_YRS_AGO = new Date(
+  dayjs()
+    .subtract(18, 'year')
+    .set('hour', 0)
+    .set('minute', 0)
+    .set('second', 0)
+)
+export const PLACEHOLDER_18_YRS = new Date(
+  dayjs(EIGHTEEN_YRS_AGO)
+    .set('minute', 13)
+    .set('second', 29)
 )
 
 export const EVENT_TYPES = {

@@ -73,7 +73,7 @@ const CreateDetails = () => {
                     key={value}
                     labelTitle={label}
                     text={details[value]?.text || details[value]}
-                    handlePress={() => setModalValue({ label, value })}
+                    onPress={() => setModalValue({ label, value })}
                     styleProps={{ width: '95%', marginBottom: '5%' }}
                   />
                 )

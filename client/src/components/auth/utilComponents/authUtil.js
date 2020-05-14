@@ -1,3 +1,5 @@
+import { PLACEHOLDER_18_YRS } from '@util/constants'
+
 export const LoginInputMap = [
   {
     label: 'Email',
@@ -17,6 +19,10 @@ export const SignupInputMap = [
   {
     label: 'Username',
     value: 'username'
+  },
+  {
+    label: 'Date of Birth',
+    value: 'dob'
   },
   {
     label: 'Email Address',
@@ -40,6 +46,10 @@ export const OAuthSignupInputMap = [
   {
     label: 'Username',
     value: 'username'
+  },
+  {
+    label: 'Date of Birth',
+    value: 'dob'
   }
 ]
 
@@ -53,14 +63,20 @@ export const validateSignup = (data, options) => {
 
   // Check empty fields
   Object.keys(data).forEach(key => {
+    // text inputs
     if (typeof data[key] === 'string' && !data[key].length) {
-      error.add('Fields cannot be left empty!')
+      error.add('Fields cannot be left empty')
+    }
+
+    // dob
+    if (data.dob === PLACEHOLDER_18_YRS) {
+      error.add('Must select date of birth')
     }
   })
 
   // Check if passwords match
   if (data.password !== data.confirmPass) {
-    error.add('Passwords do not match!')
+    error.add('Passwords do not match')
   }
 
   return [...error]

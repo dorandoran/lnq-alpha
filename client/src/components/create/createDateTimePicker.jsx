@@ -24,7 +24,7 @@ const CreateDateTimePicker = ({ date, setDate, reverseColor }) => {
     setState({ mode, visible: false })
     setDate(updateDateTime({ newDT: dt, oldDT: date, mode }))
   }
-
+  console.log('date time picker ', reverseColor)
   return (
     <Fragment>
       <View style={styles.container}>
@@ -32,7 +32,7 @@ const CreateDateTimePicker = ({ date, setDate, reverseColor }) => {
           labelTitle='Date'
           text={formatDateTime({ type: 'date', date })}
           centerText
-          handlePress={() => handlePress('date')}
+          onPress={() => handlePress('date')}
           styleProps={styles.dateInputContainer}
           reverse={reverseColor}
         />
@@ -40,7 +40,7 @@ const CreateDateTimePicker = ({ date, setDate, reverseColor }) => {
           labelTitle='Time'
           text={formatDateTime({ type: 'time', date })}
           centerText
-          handlePress={() => handlePress('time')}
+          onPress={() => handlePress('time')}
           styleProps={styles.timeInputContainer}
           reverse={reverseColor}
         />

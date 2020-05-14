@@ -50,6 +50,14 @@ export const formatDateTime = ({ type, date }) => {
   if (type === 'time') return dayjs(date).format(TIME_FORMAT)
   return dayjs(date).format(`${DATE_FORMAT}  |  ${TIME_FORMAT}`)
 }
+export const stripTime = date => {
+  return new Date(
+    dayjs(date)
+      .set('hour', 0)
+      .set('minute', 0)
+      .set('second', 0)
+  )
+}
 
 // Auth Context Util
 export const getOAuthUserInfo = user => {
