@@ -4,10 +4,10 @@ import * as Facebook from 'expo-facebook'
 import { f, auth } from '@services/firebase'
 import config from '@config'
 
-import useNotification from '@hooks/useNotification'
 import { useQuery } from '@apollo/react-hooks'
 import { GetUser } from '@graphql/user/queries'
 import useCreateUser from '@graphql/user/useCreateUser'
+import useNotification from '@hooks/useNotification'
 
 import { Loading } from '@common'
 import { navigate, resetNavigate, getOAuthUserInfo } from '@util'

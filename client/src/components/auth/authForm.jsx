@@ -107,9 +107,7 @@ const styles = StyleSheet.create({
     marginVertical: '1%'
   },
   touchable: {
-    width: '95%',
-    marginTop: '1%',
-    marginBottom: '3%'
+    marginTop: '1%'
   }
 })
 

@@ -74,7 +74,6 @@ const CreateDetails = () => {
                     labelTitle={label}
                     text={details[value]?.text || details[value]}
                     onPress={() => setModalValue({ label, value })}
-                    styleProps={{ width: '95%', marginBottom: '5%' }}
                   />
                 )
               }

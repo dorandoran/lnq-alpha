@@ -9,10 +9,10 @@ import Fab from '@components/main/tabBarFab'
 import { theme, navigate } from '@util'
 import { SCREEN_HEIGHT } from '@util/constants'
 
-const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {
+const TabIcon = ({ onPress, tabName, color, ...rest }) => {
+  const { name } = useRouteState()
   const iconColor =
-    color || tabName === route ? theme.color.accent : theme.color.tertiary
-
+    color || tabName === name ? theme.color.accent : theme.color.tertiary
   return (
     <TouchableOpacity
       style={styles.iconContainer}
@@ -24,7 +24,7 @@ const TabIcon = ({ onPress, tabName, color, route, ...rest }) => {
 }
 
 const TabBar = () => {
-  const { name, tabBar } = useRouteState()
+  const { tabBar } = useRouteState()
   const { show } = tabBar
 
   const handlePress = screen => {
@@ -43,7 +43,6 @@ const TabBar = () => {
           type='ionicon'
           name='ios-home'
           onPress={handlePress}
-          route={name}
         />
         <TabIcon
           tabName='Search'
@@ -51,14 +50,12 @@ const TabBar = () => {
           name='search'
           size={28}
           onPress={handlePress}
-          route={name}
         />
         <TabIcon
           tabName='Locate'
           type='ionicon'
           name='md-pin'
           onPress={handlePress}
-          route={name}
         />
         <TabIcon
           tabName='Profile'
@@ -66,7 +63,6 @@ const TabBar = () => {
           name='account'
           size={28}
           onPress={handlePress}
-          route={name}
         />
       </View>
       <View style={styles.createContainer}>
@@ -112,8 +108,7 @@ const styles = StyleSheet.create({
 TabIcon.propTypes = {
   onPress: PropTypes.func.isRequired,
   tabName: PropTypes.string.isRequired,
-  color: PropTypes.string,
-  route: PropTypes.string
+  color: PropTypes.string
 }
 
 TabBar.propTypes = {

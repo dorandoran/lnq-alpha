@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { theme } from '@util'
-import { Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, TouchableOpacity, StyleSheet, View } from 'react-native'
 
 const InputStyledTouchable = ({
   onPress,
@@ -20,40 +20,45 @@ const InputStyledTouchable = ({
   const inputColor = color || theme.color.tertiary
 
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={[
-        styles.inputContainer,
-        styleProps,
-        { backgroundColor: inputBackgroundColor }
-      ]}
-    >
+    <View style={[styles.container, styleProps]}>
       {labelTitle && <Text style={styles.label}>{labelTitle}</Text>}
-      <Text
+      <TouchableOpacity
+        onPress={onPress}
         style={[
-          styles.input,
-          { color: inputColor },
-          centerText && styles.center
+          styles.inputContainer,
+          { backgroundColor: inputBackgroundColor }
         ]}
-        numberOfLines={1}
       >
-        {text}
-      </Text>
-    </TouchableOpacity>
+        <Text
+          style={[
+            styles.input,
+            { color: inputColor },
+            centerText && styles.center
+          ]}
+          numberOfLines={1}
+        >
+          {text}
+        </Text>
+      </TouchableOpacity>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  label: {
-    color: theme.color.tertiary,
-    fontWeight: 'bold',
-    fontSize: 16,
-    paddingBottom: '1%'
+  container: {
+    width: '95%',
+    marginBottom: '3%'
   },
   inputContainer: {
     height: 40,
     borderRadius: 25,
     justifyContent: 'center'
+  },
+  label: {
+    color: theme.color.tertiary,
+    fontWeight: 'bold',
+    fontSize: 16,
+    paddingBottom: '1%'
   },
   input: {
     paddingHorizontal: '4%',
