@@ -4,13 +4,12 @@ import PropTypes from 'prop-types'
 import DatePicker from 'react-native-modal-datetime-picker'
 import { View, StyleSheet } from 'react-native'
 import { StyledInput, StyledTouchable } from '@common'
-import { theme, formatDateTime, stripTime } from '@util'
+import { theme, formatDateTime, stripTime, EIGHTEEN_YEARS_AGO } from '@util'
 import {
   LoginInputMap,
   SignupInputMap,
   OAuthSignupInputMap
 } from '@components/auth/utilComponents/authUtil'
-import { EIGHTEEN_YEARS_AGO } from '@util/constants'
 
 const initialState = { visible: false, placeholder: true }
 

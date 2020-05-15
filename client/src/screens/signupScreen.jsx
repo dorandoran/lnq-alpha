@@ -8,8 +8,7 @@ import OAuthButtons from '@components/auth/authOAuthButtons'
 import { View, Text, StyleSheet, ImageBackground } from 'react-native'
 import { Spacer, KeyboardDismiss } from '@common'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { theme } from '@util'
-import { PLACEHOLDER_18_YRS } from '@util/constants'
+import { theme, PLACEHOLDER_18_YRS } from '@util'
 
 const initialState = {
   name: '',

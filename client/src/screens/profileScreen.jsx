@@ -9,8 +9,7 @@ import {
 
 import useAuth from '@context/authContext'
 import { useRouteDispatch } from '@hooks/useRoute'
-import { SCREEN_HEIGHT } from '@components/util/constants'
-import { SCREEN_WIDTH } from '@components/util/constants'
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util'
 
 import ProfileListView from '@components/profile/profileListView'
 import ProfileMenu from '@components/profile/profileMenu'

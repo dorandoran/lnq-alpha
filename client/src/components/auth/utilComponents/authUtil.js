@@ -1,4 +1,4 @@
-import { PLACEHOLDER_18_YRS } from '@util/constants'
+import { PLACEHOLDER_18_YRS } from '@util'
 
 export const LoginInputMap = [
   {

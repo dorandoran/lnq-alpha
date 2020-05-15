@@ -24,6 +24,18 @@ export const TIME_FORMAT = 'h:mm A'
 export const TOMORROW_DATETIME = new Date(
   new Date().getTime() + 24 * 60 * 60 * 1000
 )
+export const EIGHTEEN_YRS_AGO = new Date(
+  dayjs()
+    .subtract(18, 'year')
+    .set('hour', 0)
+    .set('minute', 0)
+    .set('second', 0)
+)
+export const PLACEHOLDER_18_YRS = new Date(
+  dayjs(EIGHTEEN_YRS_AGO)
+    .set('minute', 13)
+    .set('second', 29)
+)
 
 export const EVENT_TYPES = {
   food: 'Food and Drink',

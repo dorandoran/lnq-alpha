@@ -1,23 +1,14 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Button } from 'react-native-elements'
-import { SCREEN_WIDTH } from '@components/util/constants'
+import { SCREEN_WIDTH } from '@util'
 
 const ProfileTab = () => {
   return (
     <View style={styles.listContentStyleTab}>
-      <Button
-        title="Events"
-        buttonStyle={styles.eventTabStyle}
-      />
-      <Button
-        title="RVSP"
-        buttonStyle={styles.rvspTabStyle}
-      />
-      <Button
-        title="Saves"
-        buttonStyle={styles.savesTabStyle}
-      />
+      <Button title='Events' buttonStyle={styles.eventTabStyle} />
+      <Button title='RVSP' buttonStyle={styles.rvspTabStyle} />
+      <Button title='Saves' buttonStyle={styles.savesTabStyle} />
     </View>
   )
 }
@@ -30,19 +21,19 @@ const styles = StyleSheet.create({
   },
   eventTabStyle: {
     backgroundColor: 'red',
-    width: SCREEN_WIDTH/3,
+    width: SCREEN_WIDTH / 3,
     borderTopLeftRadius: 25,
     borderBottomLeftRadius: 25
   },
   rvspTabStyle: {
-    width: SCREEN_WIDTH/3,
+    width: SCREEN_WIDTH / 3,
     backgroundColor: '#333'
   },
   savesTabStyle: {
-    width: SCREEN_WIDTH/3,
+    width: SCREEN_WIDTH / 3,
     borderTopRightRadius: 25,
     borderBottomRightRadius: 25,
-    backgroundColor: '#333',
+    backgroundColor: '#333'
   }
 })
 
