@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
 
@@ -23,7 +23,7 @@ const EventDetails = ({ event, edit, setEdit, canEdit }) => {
   const { throwLoading, throwSuccess } = useNotification()
   const [updateEvent] = useUpdateEvent({
     onCompleted: () => {
-      throwSuccess('Event updated and edit mode closed.')
+      throwSuccess('Event updated and edit mode disabled')
       setEdit(null)
     }
   })
@@ -31,15 +31,15 @@ const EventDetails = ({ event, edit, setEdit, canEdit }) => {
   const handleEdit = () => {
     if (edit) {
       setEdit(null)
-      throwSuccess('Edit mode closed.')
+      throwSuccess('Edit mode disabled with no changes made')
     } else {
       setEdit(event)
-      throwSuccess('Edit mode enabled.')
+      throwSuccess('Edit mode enabled')
     }
   }
 
   const updateKey = ({ key, value }) => {
-    if (typeof value === 'object') {
+    if (['isPrivate', 'type', 'plusOne'].includes(key)) {
       setEdit({ ...edit, ...value })
     } else {
       setEdit({ ...edit, [key]: value })
@@ -53,73 +53,65 @@ const EventDetails = ({ event, edit, setEdit, canEdit }) => {
 
   return (
     <View style={styles.container}>
-      {edit ? (
-        // Edit On
-        <Fragment>
-          <View style={[styles.editContainer, styles.edit]}>
-            <Text style={[styles.text, styles.editText]}>Save changes?</Text>
-            <View style={styles.iconView}>
-              <Icon
-                type='ionicon'
-                name='md-close'
-                color={theme.color.error}
-                reverseColor={theme.color.tertiary}
-                reverse
-                onPress={handleEdit}
-              />
-              <Icon
-                type='ionicon'
-                name='md-checkmark'
-                color={theme.color.success}
-                disabled={isEqual(event, edit)}
-                reverse
-                onPress={handleConfirmEdit}
-              />
-            </View>
-          </View>
-        </Fragment>
-      ) : (
-        // Edit Off
-        <Fragment>
-          {canEdit && (
-            <HeaderButton
-              type='material-community'
-              name='pencil-outline'
-              borderColor='secondary'
-              color='tertiary'
-              onPress={handleEdit}
-              containerStyle={styles.editButton}
-            />
-          )}
+      <View style={styles.headerContainer}>
+        <View style={styles.sideContainer} />
+
+        <View style={styles.middleContainer}>
           <Text style={[styles.text, styles.name]}>{event.name}</Text>
-          <View style={styles.editContainer}>
-            <Text style={styles.text}>{`@${event.owner.username}`}</Text>
-            <View style={styles.iconView}>
-              <Icon
-                type='ionicon'
-                name='ios-more'
-                color={
-                  !isComments ? theme.color.secondary : theme.color.background
-                }
-                reverseColor={theme.color.tertiary}
-                reverse={!isComments}
-                raised={isComments}
-                onPress={() => setIsComments(false)}
-              />
-              <Icon
-                type='ionicon'
-                name='ios-text'
-                color={
-                  isComments ? theme.color.secondary : theme.color.background
-                }
-                reverse={isComments}
-                raised={!isComments}
-                onPress={() => setIsComments(true)}
-              />
-            </View>
+          <Text style={styles.text}>{`@${event.owner.username}`}</Text>
+          <View style={styles.iconView}>
+            <Icon
+              type='ionicon'
+              name='ios-more'
+              color={!isComments ? theme.color.secondary : theme.color.accent}
+              reverseColor={theme.color.tertiary}
+              reverse
+              onPress={() => setIsComments(false)}
+            />
+            <Icon
+              type='ionicon'
+              name='ios-text'
+              color={isComments ? theme.color.secondary : theme.color.accent}
+              reverse
+              disabled={!!edit}
+              onPress={() => setIsComments(true)}
+            />
           </View>
-        </Fragment>
-      )}
+        </View>
+        <View style={styles.sideContainer}>
+          {canEdit &&
+            (edit ? (
+              <View>
+                <HeaderButton
+                  type='ionicon'
+                  name='md-close'
+                  backgroundColor='error'
+                  color='tertiary'
+                  onPress={handleEdit}
+                  containerStyle={styles.editButton}
+                />
+                <HeaderButton
+                  type='ionicon'
+                  name='md-checkmark'
+                  backgroundColor='success'
+                  color='tertiary'
+                  onPress={handleConfirmEdit}
+                  containerStyle={styles.editButton}
+                  disabled={isEqual(event, edit)}
+                />
+              </View>
+            ) : (
+              <HeaderButton
+                type='material-community'
+                name='pencil-outline'
+                backgroundColor='accent'
+                color='tertiary'
+                onPress={handleEdit}
+                containerStyle={styles.editButton}
+              />
+            ))}
+        </View>
+      </View>
       {isComments ? (
         <EventComments />
       ) : (
@@ -138,26 +130,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: adjustedScreenHeight
   },
-  editContainer: {
-    width: '70%',
-    alignItems: 'center',
-    borderColor: theme.color.tertiary
+  headerContainer: {
+    flexDirection: 'row',
+    borderBottomWidth: 2,
+    borderColor: theme.color.accent
   },
-  edit: {
-    marginTop: '2%',
-    borderRadius: 25,
-    borderWidth: 2
+  middleContainer: {
+    width: '70%',
+    alignItems: 'center'
+  },
+  sideContainer: {
+    width: '15%',
+    alignItems: 'center'
   },
   text: {
     color: theme.color.tertiary,
     fontWeight: 'bold',
+    fontSize: 16,
     marginTop: '3%'
   },
-  editText: {
-    fontSize: 18
-  },
   name: {
-    fontSize: 30
+    marginTop: '5%',
+    fontSize: 26,
+    textAlign: 'center'
   },
   iconView: {
     width: '80%',
@@ -166,9 +161,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   editButton: {
-    position: 'absolute',
-    top: 15,
-    right: 15
+    marginTop: 15
   }
 })
 

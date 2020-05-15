@@ -81,7 +81,7 @@ const Notification = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 100,
+    top: 25,
     right: 0,
     flexDirection: 'row',
     marginHorizontal: '2%',
@@ -105,6 +105,8 @@ const styles = StyleSheet.create({
   notificationContainer: {
     backgroundColor: theme.color.accent,
     borderRadius: 25,
+    borderWidth: 2,
+    borderColor: theme.color.tertiary,
     paddingVertical: '2%',
     paddingHorizontal: '4%',
     flex: 1
@@ -112,6 +114,8 @@ const styles = StyleSheet.create({
   iconContainer: {
     padding: '2%',
     borderRadius: 50,
+    borderWidth: 2,
+    borderColor: theme.color.tertiary,
     aspectRatio: 1,
     alignItems: 'center',
     marginRight: '1%'

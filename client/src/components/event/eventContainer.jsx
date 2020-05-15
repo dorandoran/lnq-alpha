@@ -23,7 +23,7 @@ const initialState = {
 }
 
 const EventContainer = ({ id, isDialogOpen }) => {
-  const userId = useUser()
+  const user = useUser()
   const [state, setState] = useState(initialState)
   const editEnabled = !!state.edit
 
@@ -45,8 +45,8 @@ const EventContainer = ({ id, isDialogOpen }) => {
 
   if (!data) return null
   const { event } = data
-  const canEdit = event.owner.id === userId
-  const canEditMedia = (state.media.userId || event.owner.id) === userId
+  const canEdit = event.owner.id === user.id
+  const canEditMedia = (state.media.userId || event.owner.id) === user.id
 
   const updateMedia = index => {
     const media = event.media[index]

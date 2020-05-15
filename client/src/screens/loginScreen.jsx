@@ -57,7 +57,6 @@ const LoginScreen = () => {
       >
         <KeyboardDismiss>
           <View style={styles.container}>
-            <Text style={styles.welcome}>Welcome {'\n'}Back</Text>
             <Spacer>
               <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
             </Spacer>

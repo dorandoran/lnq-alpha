@@ -1,10 +1,16 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import useOverlay from '@context/overlayContext'
 
 import { theme } from '@util'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity
+} from 'react-native'
 import { Icon, ListItem, Button } from 'react-native-elements'
 import { HeaderButton } from '@common'
 
@@ -29,7 +35,7 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
   if (!event) return null
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} nestedScrollEnabled={!edit}>
       {eventDetails.map(
         ({
           key,
@@ -43,6 +49,8 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
           const hideUntilEdit = ['name', 'delete']
           // In edit mode, event name moves into the component
           if (!edit && hideUntilEdit.includes(key)) return null
+
+          // Delete Button in edit mode
           if (key === 'delete') {
             return (
               <TouchableOpacity
@@ -79,7 +87,7 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
                     type='material-community'
                     name={iconName}
                     color='tertiary'
-                    borderColor={edit ? 'secondary' : 'background'}
+                    backgroundColor={edit ? 'secondary' : 'accent'}
                     onPress={() => handlePress(key, additionalKeys)}
                   />
                 )
@@ -92,7 +100,7 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
                     type={rightIconType || 'material-community'}
                     name={rightIconName(event)}
                     color='tertiary'
-                    borderColor={edit ? 'secondary' : 'background'}
+                    backgroundColor={edit ? 'secondary' : 'accent'}
                     onPress={() => handlePress(key, additionalKeys)}
                   />
                 )
@@ -103,13 +111,9 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
       )}
 
       {!edit && (
-        <Fragment>
-          <View style={styles.buttonContainer}>
-            <Button title='Tickets' buttonStyle={styles.button} />
-          </View>
-
+        <View style={styles.buttonContainer}>
+          <Button title='Tickets' buttonStyle={styles.button} />
           <Text style={styles.similarEventText}>Similar Events</Text>
-
           <ListItem
             containerStyle={styles.listItem}
             titleStyle={styles.text}
@@ -122,18 +126,19 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
               />
             }
           />
-        </Fragment>
+        </View>
       )}
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     width: '100%'
   },
   buttonContainer: {
-    paddingVertical: '3%'
+    marginVertical: '5%'
   },
   listItem: {
     backgroundColor: theme.color.background
@@ -166,11 +171,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: '5%',
     marginLeft: '4%'
-  },
-  margins: {
-    marginLeft: '4%',
-    marginBottom: '2%',
-    marginTop: '2%'
   },
   button: {
     borderRadius: 25,

@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     color: theme.color.tertiary,
     fontSize: 18,
     margin: 0,
-    paddingVertical: 0,
+    marginBottom: 5,
     paddingHorizontal: '3%',
     height: 40
   },

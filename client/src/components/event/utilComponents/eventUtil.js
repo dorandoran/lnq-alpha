@@ -46,7 +46,7 @@ export const eventDetails = [
   },
   {
     key: 'delete',
-    title: () => 'Delete',
+    title: () => 'Delete Event',
     iconName: 'delete'
   }
 ]

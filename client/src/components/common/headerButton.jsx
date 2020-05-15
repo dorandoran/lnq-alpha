@@ -13,19 +13,23 @@ const HeaderButton = ({
   onPress,
   type,
   name,
-  size
+  size,
+  disabled
 }) => {
   const extraStyles = {
-    backgroundColor: theme.color[backgroundColor] || backgroundColor,
+    backgroundColor: disabled
+      ? theme.color.disabled
+      : theme.color[backgroundColor] || backgroundColor,
     color: theme.color[color] || color,
     borderWidth: borderColor ? 2 : 0,
-    borderColor: borderColor ? theme.color[borderColor] || color : 'transparent'
+    borderColor: borderColor ? theme.color[borderColor] : 'transparent'
   }
 
   return (
     <TouchableOpacity
       style={[styles.container, { ...extraStyles }, containerStyle]}
       onPress={onPress}
+      disabled={disabled}
     >
       <Icon
         type={type}
@@ -54,7 +58,8 @@ HeaderButton.propTypes = {
   onPress: PropTypes.func,
   type: PropTypes.string,
   name: PropTypes.string,
-  size: PropTypes.number
+  size: PropTypes.number,
+  disabled: PropTypes.bool
 }
 
 export default HeaderButton

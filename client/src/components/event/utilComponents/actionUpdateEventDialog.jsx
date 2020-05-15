@@ -6,11 +6,11 @@ import DateTimePicker from '@components/create/createDateTimePicker'
 import Picker from '@components/create/createPicker'
 
 import { View, Text, StyleSheet } from 'react-native'
-import { Input } from 'react-native-elements'
 import {
   DialogConfirmActions,
   LocationAutoComplete,
-  StyledSwitch
+  StyledSwitch,
+  StyledInput
 } from '@common'
 import { theme, SCREEN_WIDTH } from '@util'
 import {
@@ -51,7 +51,7 @@ const ActionUpdateEventDialog = () => {
           <View style={styles.center}>
             <DateTimePicker
               date={new Date(attr)}
-              setDate={setAttr}
+              setDate={date => setAttr(date)}
               backgroundColor={theme.color.background}
             />
           </View>
@@ -60,12 +60,9 @@ const ActionUpdateEventDialog = () => {
       case 'url':
       case 'description':
         return (
-          <Input
+          <StyledInput
             containerStyle={styles.marginBottom}
-            inputContainerStyle={styles.inputContainer}
-            labelStyle={styles.label}
-            inputStyle={styles.input}
-            underlineColorAndroid='transparent'
+            backgroundColor={theme.color.background}
             autoCapitalize={cache.key === 'url' ? 'none' : 'sentences'}
             keyboardType={cache.key === 'url' ? 'email-address' : 'default'}
             onChangeText={text => setAttr(text)}
@@ -82,7 +79,8 @@ const ActionUpdateEventDialog = () => {
             <Picker
               value={attr.type}
               onValueChange={value => setAttr({ ...attr, type: value })}
-              reverseColor
+              backgroundColor={theme.color.background}
+              styleProps={styles.picker}
             />
             <StyledSwitch
               value={attr.plusOne}
@@ -136,24 +134,17 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: theme.color.background
   },
-  inputContainer: {
-    backgroundColor: theme.color.background,
-    borderRadius: 25,
-    paddingHorizontal: '5%',
-    paddingVertical: '1%',
-    borderBottomWidth: 0
-  },
   message: {
     textAlign: 'center',
     fontSize: 24,
     color: theme.color.tertiary
   },
+  picker: {
+    marginHorizontal: '3%'
+  },
   key: {
     fontSize: 20,
     color: theme.color.secondary
-  },
-  input: {
-    color: theme.color.tertiary
   },
   center: {
     alignItems: 'center'

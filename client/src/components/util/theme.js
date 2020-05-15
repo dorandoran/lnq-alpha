@@ -13,7 +13,8 @@ const theme = {
     warning: '#FFCC00',
     active: '#B61700',
     inactive: '#F9F9F9',
-    placeholder: '#c1c1c1'
+    placeholder: '#c1c1c1',
+    disabled: '#D1D5D8'
   },
   zIndex: {
     header: 100

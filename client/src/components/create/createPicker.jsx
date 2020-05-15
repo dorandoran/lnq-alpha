@@ -6,7 +6,12 @@ import Picker from 'react-native-picker-select'
 import { View, Text, StyleSheet, Keyboard } from 'react-native'
 import { theme, EVENT_TYPES } from '@util'
 
-const CreatePicker = ({ value, onValueChange, reverseColor }) => {
+const CreatePicker = ({
+  value,
+  onValueChange,
+  backgroundColor,
+  styleProps
+}) => {
   const placeholder = { label: 'Select an Event Type', value: '' }
   const items = Object.keys(EVENT_TYPES).map(value => {
     return { label: EVENT_TYPES[value], value }
@@ -16,9 +21,7 @@ const CreatePicker = ({ value, onValueChange, reverseColor }) => {
     inputAndroid: {
       color: theme.color.tertiary,
       fontSize: 18,
-      backgroundColor: reverseColor
-        ? theme.color.background
-        : theme.color.accent,
+      backgroundColor: backgroundColor || theme.color.accent,
       borderRadius: 25,
       paddingLeft: '3%',
       borderBottomWidth: 0,
@@ -26,9 +29,7 @@ const CreatePicker = ({ value, onValueChange, reverseColor }) => {
       justifyContent: 'center'
     },
     viewContainer: {
-      backgroundColor: reverseColor
-        ? theme.color.background
-        : theme.color.accent,
+      backgroundColor: backgroundColor || theme.color.accent,
       borderRadius: 25,
       paddingLeft: '3%',
       borderBottomWidth: 0,
@@ -40,7 +41,7 @@ const CreatePicker = ({ value, onValueChange, reverseColor }) => {
   const allStyles = { ...styles, ...stylesAfterColor }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, styleProps]}>
       <Text style={styles.label}>Event Type</Text>
       <Picker
         placeholder={placeholder}
@@ -78,7 +79,8 @@ const styles = StyleSheet.create({
 CreatePicker.propTypes = {
   onValueChange: PropTypes.func.isRequired,
   value: PropTypes.string,
-  reverseColor: PropTypes.bool
+  backgroundColor: PropTypes.string,
+  styleProps: PropTypes.object
 }
 
 export default CreatePicker

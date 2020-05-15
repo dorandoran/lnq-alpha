@@ -11,13 +11,16 @@ const StyledInput = ({
   label,
   autoCapitalize,
   onChange,
+  onChangeText,
   value,
   placeholder,
   keyboardType,
   autoCorrect,
   secureTextEntry,
   backgroundColor,
-  color
+  color,
+  multiline,
+  maxLength
 }) => {
   const inputBackgroundColor = backgroundColor || theme.color.accent
   const inputColor = color || theme.color.tertiary
@@ -28,6 +31,7 @@ const StyledInput = ({
       value={value}
       onFocus={onFocus}
       onChange={onChange}
+      onChangeText={onChangeText}
       containerStyle={containerStyle}
       labelStyle={label ? styles.label : { height: 0 }}
       errorStyle={{ height: 0 }}
@@ -42,13 +46,15 @@ const StyledInput = ({
       placeholder={placeholder}
       autoCorrect={autoCorrect}
       secureTextEntry={secureTextEntry}
+      multiline={multiline}
+      maxLength={maxLength}
     />
   )
 }
 
 const styles = StyleSheet.create({
   inputContainer: {
-    borderRadius: 25,
+    borderRadius: 10,
     paddingLeft: '3%',
     borderBottomWidth: 0
   },
@@ -65,6 +71,7 @@ StyledInput.propTypes = {
   label: PropTypes.string,
   onFocus: PropTypes.func,
   onChange: PropTypes.func,
+  onChangeText: PropTypes.func,
   containerStyle: PropTypes.object,
   autoCapitalize: PropTypes.string,
   keyboardType: PropTypes.string,
@@ -72,7 +79,9 @@ StyledInput.propTypes = {
   autoCorrect: PropTypes.bool,
   secureTextEntry: PropTypes.bool,
   backgroundColor: PropTypes.string,
-  color: PropTypes.string
+  color: PropTypes.string,
+  multiline: PropTypes.bool,
+  maxLength: PropTypes.number
 }
 
 export default StyledInput
