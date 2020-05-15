@@ -176,8 +176,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     backgroundColor: theme.color.secondary,
     width: '90%',
-    alignSelf: 'center',
-    paddingBottom: '2%'
+    alignSelf: 'center'
   }
 })
 

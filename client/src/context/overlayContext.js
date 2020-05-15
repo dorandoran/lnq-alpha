@@ -41,6 +41,9 @@ const actions = {
     updateCache: 'updateCache',
     clearCache: 'clearCache',
     close: 'closeDialog',
+    auth: {
+      reset: 'resetPassword'
+    },
     events: {
       addMedia: 'addMedia',
       deleteMedia: 'deleteMedia',
@@ -67,6 +70,9 @@ const reducer = (state, action) => {
     case modal.close:
       return initialState
     // Dialog
+    // Auth
+    case dialog.auth.reset:
+      return { ...state, dialog: { id: actions.dialog.auth.reset } }
     // Events
     case dialog.events.addMedia:
       return {

@@ -52,7 +52,7 @@ const reducer = (state, action) => {
         tabBar: { ...state.tabBar, fabButton: false }
       }
     default:
-      throw new Error()
+      throw new Error('Something happened with the route context!')
   }
 }
 

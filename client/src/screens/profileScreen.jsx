@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 
 import useAuth from '@context/authContext'
+import { useRouteDispatch } from '@hooks/useRoute'
 import { SCREEN_HEIGHT } from '@components/util/constants'
 import { SCREEN_WIDTH } from '@components/util/constants'
 
@@ -18,9 +19,11 @@ import ProfileAccountStats from '@components/profile/profileAccountStats'
 import ProfileInfo from '@components/profile/profileInfo'
 
 const ProfileScreen = () => {
+  const { dispatch, actions } = useRouteDispatch()
   const { logout } = useAuth()
 
   const logoutButtonHandler = () => {
+    dispatch({ type: actions.updateRoute, payload: 'Home' })
     logout()
   }
   return (

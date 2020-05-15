@@ -8,7 +8,7 @@ const useStorage = ({ uri, bucketName, linkId, skip, onSuccess, onError }) => {
   const [media, setMedia] = useState(null)
   const [loading, setLoading] = useState(false)
   const createMedia = useCreateMedia()
-  const userId = useUser()
+  const { id: userId } = useUser()
   let newMediaLinkId = linkId
 
   const mediaRef = firestore.collection(BUCKET.MEDIA).doc()

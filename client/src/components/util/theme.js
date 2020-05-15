@@ -12,7 +12,8 @@ const theme = {
     error: '#FF0000',
     warning: '#FFCC00',
     active: '#B61700',
-    inactive: '#F9F9F9'
+    inactive: '#F9F9F9',
+    placeholder: '#c1c1c1'
   },
   zIndex: {
     header: 100

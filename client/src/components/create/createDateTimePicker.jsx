@@ -8,7 +8,7 @@ import { StyledTouchable } from '@common'
 import { updateDateTime } from '@components/create/utilComponents/createUtil'
 import { formatDateTime } from '@util'
 
-const CreateDateTimePicker = ({ date, setDate, reverseColor }) => {
+const CreateDateTimePicker = ({ date, setDate, backgroundColor }) => {
   const [state, setState] = useState({ visible: false, mode: 'date' })
   const { mode, visible } = state
 
@@ -32,17 +32,17 @@ const CreateDateTimePicker = ({ date, setDate, reverseColor }) => {
           labelTitle='Date'
           text={formatDateTime({ type: 'date', date })}
           centerText
-          handlePress={() => handlePress('date')}
+          onPress={() => handlePress('date')}
           styleProps={styles.dateInputContainer}
-          reverse={reverseColor}
+          backgroundColor={backgroundColor}
         />
         <StyledTouchable
           labelTitle='Time'
           text={formatDateTime({ type: 'time', date })}
           centerText
-          handlePress={() => handlePress('time')}
+          onPress={() => handlePress('time')}
           styleProps={styles.timeInputContainer}
-          reverse={reverseColor}
+          backgroundColor={backgroundColor}
         />
       </View>
       <DateTimePicker
@@ -61,7 +61,6 @@ const CreateDateTimePicker = ({ date, setDate, reverseColor }) => {
 const styles = StyleSheet.create({
   container: {
     width: '93%',
-    marginBottom: '5%',
     flexDirection: 'row',
     justifyContent: 'space-around'
   },
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
 CreateDateTimePicker.propTypes = {
   date: PropTypes.object.isRequired,
   setDate: PropTypes.func.isRequired,
-  reverseColor: PropTypes.bool
+  backgroundColor: PropTypes.string
 }
 
 export default CreateDateTimePicker
