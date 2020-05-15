@@ -56,7 +56,7 @@ const ActionUpdateEventDialog = () => {
             <DateTimePicker
               date={new Date(attr)}
               setDate={setAttr}
-              reverseColor
+              backgroundColor={theme.color.background}
             />
           </View>
         )

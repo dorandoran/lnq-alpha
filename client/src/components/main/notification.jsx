@@ -40,7 +40,7 @@ const Notification = () => {
 
   useDebounce(
     () => notificationDispatch({ type: 'closeNotification' }),
-    3000,
+    4000,
     open
   )
 
@@ -85,14 +85,14 @@ const styles = StyleSheet.create({
     top: 65,
     right: 0,
     flexDirection: 'row',
-    width: SCREEN_WIDTH,
-    height: 25,
+    marginHorizontal: '2%',
     justifyContent: 'center',
     alignItems: 'center'
   },
   full: {
     top: 0,
     height: SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
     backgroundColor: theme.color.shadow
   },
   loadingContainer: {
@@ -106,9 +106,9 @@ const styles = StyleSheet.create({
   notificationContainer: {
     backgroundColor: theme.color.accent,
     borderRadius: 25,
-    padding: '2%',
-    paddingLeft: '4%',
-    paddingRight: '4%'
+    paddingVertical: '2%',
+    paddingHorizontal: '4%',
+    flex: 1
   },
   iconContainer: {
     padding: '2%',
@@ -120,7 +120,8 @@ const styles = StyleSheet.create({
   text: {
     marginBottom: 0,
     fontSize: 16,
-    color: theme.color.tertiary
+    color: theme.color.tertiary,
+    textAlign: 'center'
   }
 })
 

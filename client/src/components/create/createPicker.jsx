@@ -34,7 +34,7 @@ const CreatePicker = ({ value, onValueChange }) => {
 const styles = StyleSheet.create({
   container: {
     width: '95%',
-    marginBottom: '5%'
+    marginBottom: '3%'
   },
   inputAndroid: {
     color: theme.color.tertiary,

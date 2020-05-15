@@ -11,18 +11,18 @@ import Notification from '@components/main/notification'
 const AppProviders = ({ children }) => {
   return (
     <NotificationProvider>
-      <AuthProvider>
-        <UserProvider>
-          <RouteStore>
-            <OverlayProvider>
+      <OverlayProvider>
+        <AuthProvider>
+          <UserProvider>
+            <RouteStore>
               <Fragment>
                 {children}
                 <Notification />
               </Fragment>
-            </OverlayProvider>
-          </RouteStore>
-        </UserProvider>
-      </AuthProvider>
+            </RouteStore>
+          </UserProvider>
+        </AuthProvider>
+      </OverlayProvider>
     </NotificationProvider>
   )
 }

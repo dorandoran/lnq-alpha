@@ -2,47 +2,66 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { theme } from '@util'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, TouchableOpacity, StyleSheet, View } from 'react-native'
 
 const InputStyledTouchable = ({
-  handlePress,
+  onPress,
   labelTitle,
   text,
   styleProps,
   reverse,
+  backgroundColor,
+  color,
   centerText = false
 }) => {
-  const backgroundColor = reverse ? theme.color.background : theme.color.accent
+  const inputBackgroundColor = reverse
+    ? theme.color.background
+    : backgroundColor || theme.color.accent
+  const inputColor = color || theme.color.tertiary
+
   return (
-    <TouchableOpacity onPress={handlePress} style={styleProps}>
-      <Text style={styles.label}>{labelTitle}</Text>
-      <View style={[styles.inputContainer, { backgroundColor }]}>
+    <View style={[styles.container, styleProps]}>
+      {labelTitle && <Text style={styles.label}>{labelTitle}</Text>}
+      <TouchableOpacity
+        onPress={onPress}
+        style={[
+          styles.inputContainer,
+          { backgroundColor: inputBackgroundColor }
+        ]}
+      >
         <Text
-          style={[styles.input, centerText && styles.center]}
+          style={[
+            styles.input,
+            { color: inputColor },
+            centerText && styles.center
+          ]}
           numberOfLines={1}
         >
           {text}
         </Text>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  label: {
-    color: theme.color.tertiary,
-    fontWeight: 'bold',
-    fontSize: 16,
-    paddingBottom: '1%'
+  container: {
+    width: '95%',
+    marginBottom: '3%'
   },
   inputContainer: {
     height: 40,
     borderRadius: 25,
     justifyContent: 'center'
   },
+  label: {
+    color: theme.color.tertiary,
+    fontWeight: 'bold',
+    fontSize: 16,
+    paddingBottom: '1%'
+  },
   input: {
-    paddingLeft: '4%',
-    paddingRight: '4%',
+    paddingHorizontal: '4%',
     color: theme.color.tertiary,
     fontSize: 18
   },
@@ -53,12 +72,14 @@ const styles = StyleSheet.create({
 })
 
 InputStyledTouchable.propTypes = {
-  labelTitle: PropTypes.string.isRequired,
+  labelTitle: PropTypes.string,
   text: PropTypes.string,
-  handlePress: PropTypes.func,
+  onPress: PropTypes.func,
   styleProps: PropTypes.object,
   centerText: PropTypes.bool,
-  reverse: PropTypes.bool
+  reverse: PropTypes.bool,
+  backgroundColor: PropTypes.string,
+  color: PropTypes.string
 }
 
 export default InputStyledTouchable

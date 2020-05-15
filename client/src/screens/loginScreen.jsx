@@ -1,43 +1,25 @@
 import React, { useState, useEffect } from 'react'
-import useAuth from '@context/authContext'
 import PropTypes from 'prop-types'
 
+import useAuth from '@context/authContext'
+
+import LoginForm from '@components/auth/authForm'
+import LoginButtons from '@components/auth/authButtonGroup'
+import OAuthButtons from '@components/auth/authOAuthButtons'
+
 import { theme } from '@util'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Keyboard,
-  ImageBackground
-} from 'react-native'
-import AuthSubmit from '@components/auth/AuthSubmit'
-import ResetModal from '@components/auth/ResetModal'
+import { View, Text, StyleSheet, ImageBackground } from 'react-native'
 import { Spacer, KeyboardDismiss } from '@common'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { SCREEN_HEIGHT } from '@util/constants'
+
+const initialState = {
+  email: '',
+  password: ''
+}
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [viewModal, setViewModal] = useState(false)
-
-  const {
-    login,
-    tryLocalSignIn,
-    signInWithGoogleAsync,
-    signInWithFacebook,
-    clearError,
-    authState
-  } = useAuth()
-
-  useEffect(() => {
-    if (authState.error) {
-      alert(authState.error)
-    }
-    return clearError()
-  }, [authState.error])
+  const [loginInput, setLoginInput] = useState(initialState)
+  const { tryLocalSignIn } = useAuth()
 
   /**
    * Attempts to login user on app open
@@ -58,25 +40,9 @@ const LoginScreen = () => {
     }
   }, [])
 
-  const resetModalViewHandler = () => {
-    setViewModal(!viewModal)
-  }
-
-  const cancelModalViewHandler = () => {
-    setViewModal(false)
-    setPassword('')
-  }
-
-  const submitButtonHandler = () => {
-    login({ email, password })
-  }
-
-  const googleSubmitButtonHandler = () => {
-    signInWithGoogleAsync()
-  }
-
-  const facebookSubmitButtonHandler = () => {
-    signInWithFacebook()
+  // Programmatically scroll to inputs
+  const scrollToInput = node => {
+    this.loginScroll.props.scrollToFocusedInput(node)
   }
 
   return (
@@ -87,66 +53,23 @@ const LoginScreen = () => {
     >
       <KeyboardAwareScrollView
         enableOnAndroid
-        contentContainerStyle={styles.keyboardScrollContainer}
-        extraHeight={SCREEN_HEIGHT / 7}
+        contentContainerStyle={styles.awareContainer}
+        innerRef={ref => (this.loginScroll = ref)}
       >
         <KeyboardDismiss>
-          <View style={styles.containerStyle}>
-            {viewModal ? (
-              <ResetModal
-                isModalShown={viewModal}
-                cancelModal={cancelModalViewHandler}
-                emailHolder={email}
-              />
-            ) : null}
-            <Text style={styles.welcomeMessageStyle}>Welcome {'\n'}Back</Text>
+          <View style={styles.container}>
+            <Text style={styles.welcome}>Welcome {'\n'}Back</Text>
             <Spacer>
               <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
             </Spacer>
-            <Spacer>
-              <TextInput
-                style={styles.inputStyle}
-                autoCorrect={false}
-                autoCapitalize='none'
-                placeholder='Email'
-                value={email}
-                onChangeText={setEmail}
-              />
-            </Spacer>
-            <Spacer>
-              <TextInput
-                style={styles.inputStyle}
-                autoCorrect={false}
-                autoCapitalize='none'
-                placeholder='Password'
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-              />
-            </Spacer>
-
-            <Spacer>
-              <TouchableOpacity
-                onPress={() => {
-                  Keyboard.dismiss()
-                  resetModalViewHandler()
-                }}
-              >
-                <Text style={styles.resetStyle}>Reset your Password</Text>
-              </TouchableOpacity>
-            </Spacer>
-
-            <AuthSubmit
-              submitButtonTitle='Login'
-              navigationRoute='Signup'
-              routeContent='New user? Sign up here'
-              onSubmit={() => {
-                Keyboard.dismiss()
-                submitButtonHandler()
-              }}
-              onGoogleSubmit={googleSubmitButtonHandler}
-              onFacebookSubmit={facebookSubmitButtonHandler}
+            <LoginForm
+              onFocus={scrollToInput}
+              inputState={loginInput}
+              setInput={setLoginInput}
+              screen='Login'
             />
+            <LoginButtons input={loginInput} screen='Login' />
+            <OAuthButtons />
           </View>
         </KeyboardDismiss>
       </KeyboardAwareScrollView>
@@ -155,14 +78,14 @@ const LoginScreen = () => {
 }
 
 const styles = StyleSheet.create({
-  keyboardScrollContainer: {
+  awareContainer: {
     flexGrow: 1,
     justifyContent: 'center'
   },
-  containerStyle: {
+  container: {
     flex: 1,
     justifyContent: 'center',
-    marginBottom: 30
+    marginBottom: '8%'
   },
   logoPlaceholderStyle: {
     fontWeight: 'bold',
@@ -170,22 +93,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: theme.color.tertiary
   },
-  welcomeMessageStyle: {
+  welcome: {
     fontWeight: 'bold',
     fontSize: 40,
     color: theme.color.tertiary,
     marginLeft: 20
-  },
-  inputStyle: {
-    backgroundColor: theme.color.tertiary,
-    fontSize: 20,
-    padding: 10,
-    borderRadius: 20
-  },
-  resetStyle: {
-    alignSelf: 'center',
-    fontSize: 20,
-    color: theme.color.secondary
   },
   image: {
     flex: 1,

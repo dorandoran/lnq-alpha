@@ -7,6 +7,9 @@ import { DATE_FORMAT, TIME_FORMAT } from '@util/constants'
 
 // Navigator Utils
 export const navigationRef = createRef()
+export const resetNavigate = options => {
+  navigationRef.current?.reset(options)
+}
 export const navigate = (routeName, params) => {
   navigationRef.current?.navigate(routeName, params)
 }
@@ -46,6 +49,25 @@ export const formatDateTime = ({ type, date }) => {
   if (type === 'date') return dayjs(date).format(DATE_FORMAT)
   if (type === 'time') return dayjs(date).format(TIME_FORMAT)
   return dayjs(date).format(`${DATE_FORMAT}  |  ${TIME_FORMAT}`)
+}
+export const stripTime = date => {
+  return new Date(
+    dayjs(date)
+      .set('hour', 0)
+      .set('minute', 0)
+      .set('second', 0)
+  )
+}
+
+// Auth Context Util
+export const getOAuthUserInfo = user => {
+  const name = user?.displayName.length > 2 ? user?.displayName : null
+
+  return {
+    id: user?.uid,
+    name,
+    email: user?.email
+  }
 }
 
 // Exports

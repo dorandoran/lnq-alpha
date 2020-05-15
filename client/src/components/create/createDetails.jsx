@@ -10,14 +10,13 @@ import ReactNative, {
   Text,
   Keyboard
 } from 'react-native'
-import { Input } from 'react-native-elements'
 
 import DateTimePicker from '@components/create/createDateTimePicker'
 import ImageList from '@components/create/createImageList'
 import Picker from '@components/create/createPicker'
 import DetailModal from '@components/create/createModal'
 
-import { StyledTouchable } from '@common'
+import { StyledTouchable, StyledInput } from '@common'
 import { inputMap } from '@components/create/utilComponents/createUtil'
 
 const CreateDetails = () => {
@@ -25,7 +24,7 @@ const CreateDetails = () => {
   const { updateDetails, details } = useCreate()
 
   // Programmatically scroll to inputs
-  const _scrollToInput = node => {
+  const scrollToInput = node => {
     this.scroll.props.scrollToFocusedInput(node)
   }
 
@@ -74,8 +73,7 @@ const CreateDetails = () => {
                     key={value}
                     labelTitle={label}
                     text={details[value]?.text || details[value]}
-                    handlePress={() => setModalValue({ label, value })}
-                    styleProps={{ width: '95%', marginBottom: '5%' }}
+                    onPress={() => setModalValue({ label, value })}
                   />
                 )
               }
@@ -104,16 +102,11 @@ const CreateDetails = () => {
 
               // Input components
               return (
-                <Input
+                <StyledInput
                   onFocus={event => {
-                    _scrollToInput(ReactNative.findNodeHandle(event.target))
+                    scrollToInput(ReactNative.findNodeHandle(event.target))
                   }}
                   key={value}
-                  containerStyle={styles.marginBottom}
-                  inputContainerStyle={styles.inputContainer}
-                  labelStyle={styles.label}
-                  inputStyle={styles.input}
-                  underlineColorAndroid='transparent'
                   label={label}
                   autoCapitalize={value === 'url' ? 'none' : 'words'}
                   onChange={({ nativeEvent }) =>
@@ -153,12 +146,6 @@ const styles = StyleSheet.create({
   awareContainer: {
     backgroundColor: theme.color.background
   },
-  inputContainer: {
-    backgroundColor: theme.color.accent,
-    borderRadius: 25,
-    paddingLeft: '3%',
-    borderBottomWidth: 0
-  },
   switchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -171,9 +158,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     paddingBottom: '1%'
-  },
-  input: {
-    color: theme.color.tertiary
   }
 })
 
