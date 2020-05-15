@@ -48,7 +48,7 @@ const Notification = () => {
   // Loading notification component
   if (loading) {
     return (
-      <View style={[styles.container, styles.full]}>
+      <View style={[styles.full, styles.container]}>
         <View style={styles.loadingContainer}>
           <ActivityIndicator size='large' color={theme.color.secondary} />
         </View>
@@ -81,7 +81,7 @@ const Notification = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 25,
+    top: 100,
     right: 0,
     flexDirection: 'row',
     marginHorizontal: '2%',

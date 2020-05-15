@@ -24,6 +24,7 @@ const StyledInput = ({
 }) => {
   const inputBackgroundColor = backgroundColor || theme.color.accent
   const inputColor = color || theme.color.tertiary
+  const borderRadius = multiline ? 15 : 25
 
   return (
     <Input
@@ -37,7 +38,7 @@ const StyledInput = ({
       errorStyle={{ height: 0 }}
       inputContainerStyle={[
         styles.inputContainer,
-        { backgroundColor: inputBackgroundColor }
+        { backgroundColor: inputBackgroundColor, borderRadius }
       ]}
       inputStyle={{ color: inputColor }}
       underlineColorAndroid='transparent'
@@ -54,7 +55,6 @@ const StyledInput = ({
 
 const styles = StyleSheet.create({
   inputContainer: {
-    borderRadius: 10,
     paddingLeft: '3%',
     borderBottomWidth: 0
   },
