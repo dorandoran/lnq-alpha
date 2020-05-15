@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { storage, firestore } from '@services/firebase'
 import useCreateMedia from '@graphql/media/useCreateMedia'
 import useUser from '@context/userContext'
-import { BUCKET } from '@util/constants'
+import { BUCKET } from '@util'
 
 const useStorage = ({ uri, bucketName, linkId, skip, onSuccess, onError }) => {
   const [media, setMedia] = useState(null)

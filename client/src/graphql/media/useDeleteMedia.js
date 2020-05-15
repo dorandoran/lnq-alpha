@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
 import { DeleteMedia } from '@graphql/media/mutations.js'
-import { BUCKET } from '@util/constants'
+import { BUCKET } from '@util'
 
 export default function useDeleteMedia ({ onCompleted }) {
   const [deleteMedia, { loading }] = useMutation(DeleteMedia, { onCompleted })

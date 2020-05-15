@@ -8,21 +8,35 @@ import { theme } from '@util'
 const HeaderButton = ({
   backgroundColor,
   color,
+  borderColor,
   containerStyle,
   onPress,
   type,
   name,
-  size
+  size,
+  disabled
 }) => {
-  backgroundColor = theme.color[backgroundColor] || backgroundColor
-  color = theme.color[color] || color
+  const extraStyles = {
+    backgroundColor: disabled
+      ? theme.color.disabled
+      : theme.color[backgroundColor] || backgroundColor,
+    color: theme.color[color] || color,
+    borderWidth: borderColor ? 2 : 0,
+    borderColor: borderColor ? theme.color[borderColor] : 'transparent'
+  }
 
   return (
     <TouchableOpacity
-      style={[styles.container, { backgroundColor }, containerStyle]}
+      style={[styles.container, { ...extraStyles }, containerStyle]}
       onPress={onPress}
+      disabled={disabled}
     >
-      <Icon type={type} name={name} color={color} size={size} />
+      <Icon
+        type={type}
+        name={name}
+        color={theme.color[color] || color}
+        size={size}
+      />
     </TouchableOpacity>
   )
 }
@@ -39,11 +53,13 @@ const styles = StyleSheet.create({
 HeaderButton.propTypes = {
   backgroundColor: PropTypes.string,
   color: PropTypes.string,
+  borderColor: PropTypes.string,
   containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onPress: PropTypes.func,
   type: PropTypes.string,
   name: PropTypes.string,
-  size: PropTypes.number
+  size: PropTypes.number,
+  disabled: PropTypes.bool
 }
 
 export default HeaderButton

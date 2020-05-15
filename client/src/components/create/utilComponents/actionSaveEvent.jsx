@@ -8,8 +8,7 @@ import useCreateEvent from '@graphql/event/useCreateEvent'
 
 import { ActivityIndicator, Keyboard } from 'react-native'
 import { HeaderButton } from '@common'
-import { theme } from '@util'
-import { BUCKET } from '@util/constants'
+import { theme, BUCKET } from '@util'
 
 const ActionSaveEvent = ({ onOpen, onComplete, onSuccess }) => {
   const [actionSelected, setActionSelected] = useState(false)

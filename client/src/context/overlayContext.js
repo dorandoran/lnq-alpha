@@ -48,7 +48,8 @@ const actions = {
       addMedia: 'addMedia',
       deleteMedia: 'deleteMedia',
       changeAvatar: 'changeAvatar',
-      updateEvent: 'updateEvent'
+      update: 'updateEvent',
+      delete: 'deleteEvent'
     }
   }
 }
@@ -94,11 +95,19 @@ const reducer = (state, action) => {
           cache: action.payload
         }
       }
-    case dialog.events.updateEvent:
+    case dialog.events.update:
       return {
         ...state,
         dialog: {
-          id: actions.dialog.events.updateEvent,
+          id: actions.dialog.events.update,
+          cache: action.payload
+        }
+      }
+    case dialog.events.delete:
+      return {
+        ...state,
+        dialog: {
+          id: actions.dialog.events.delete,
           cache: action.payload
         }
       }

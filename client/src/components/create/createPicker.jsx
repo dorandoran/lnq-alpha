@@ -1,25 +1,53 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import Picker from 'react-native-picker-select'
+
 import { View, Text, StyleSheet, Keyboard } from 'react-native'
+import { theme, EVENT_TYPES } from '@util'
 
-import { theme } from '@util'
-import { EVENT_TYPES } from '@util/constants'
-
-const CreatePicker = ({ value, onValueChange }) => {
+const CreatePicker = ({
+  value,
+  onValueChange,
+  backgroundColor,
+  styleProps
+}) => {
   const placeholder = { label: 'Select an Event Type', value: '' }
   const items = Object.keys(EVENT_TYPES).map(value => {
     return { label: EVENT_TYPES[value], value }
   })
 
+  const stylesAfterColor = {
+    inputAndroid: {
+      color: theme.color.tertiary,
+      fontSize: 18,
+      backgroundColor: backgroundColor || theme.color.accent,
+      borderRadius: 25,
+      paddingLeft: '3%',
+      borderBottomWidth: 0,
+      height: 40,
+      justifyContent: 'center'
+    },
+    viewContainer: {
+      backgroundColor: backgroundColor || theme.color.accent,
+      borderRadius: 25,
+      paddingLeft: '3%',
+      borderBottomWidth: 0,
+      height: 40,
+      justifyContent: 'center'
+    }
+  }
+
+  const allStyles = { ...styles, ...stylesAfterColor }
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, styleProps]}>
       <Text style={styles.label}>Event Type</Text>
       <Picker
         placeholder={placeholder}
         items={items}
         value={value}
-        style={{ ...styles }}
+        style={{ ...allStyles }}
         onValueChange={onValueChange}
         onOpen={Keyboard.dismiss}
         useNativeAndroidPickerStyle={false}
@@ -36,27 +64,9 @@ const styles = StyleSheet.create({
     width: '95%',
     marginBottom: '3%'
   },
-  inputAndroid: {
-    color: theme.color.tertiary,
-    fontSize: 18,
-    backgroundColor: theme.color.accent,
-    borderRadius: 25,
-    paddingLeft: '3%',
-    borderBottomWidth: 0,
-    height: 40,
-    justifyContent: 'center'
-  },
   inputIOS: {
     color: theme.color.tertiary,
     fontSize: 18
-  },
-  viewContainer: {
-    backgroundColor: theme.color.accent,
-    borderRadius: 25,
-    paddingLeft: '3%',
-    borderBottomWidth: 0,
-    height: 40,
-    justifyContent: 'center'
   },
   label: {
     color: theme.color.tertiary,
@@ -68,7 +78,9 @@ const styles = StyleSheet.create({
 
 CreatePicker.propTypes = {
   onValueChange: PropTypes.func.isRequired,
-  value: PropTypes.string
+  value: PropTypes.string,
+  backgroundColor: PropTypes.string,
+  styleProps: PropTypes.object
 }
 
 export default CreatePicker

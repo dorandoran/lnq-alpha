@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 
 import { View, StyleSheet } from 'react-native'
 import { HeaderButton } from '@common'
-import { theme } from '@util'
-import { SCREEN_HEIGHT } from '@util/constants'
+import { theme, SCREEN_HEIGHT } from '@util'
 
 const EventFooter = ({ open, toggleOpen }) => {
   // Temporary save state

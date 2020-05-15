@@ -7,10 +7,9 @@ import ActionLeaveEvent from '@components/event/utilComponents/actionLeaveEvent'
 
 import { View, StyleSheet } from 'react-native'
 import { HeaderButton } from '@common'
-import { theme } from '@util'
-import { SCREEN_HEIGHT } from '@util/constants'
+import { theme, SCREEN_HEIGHT } from '@util'
 
-const EventHeader = ({ state, toggleOpen }) => {
+const EventHeader = ({ canEdit, canEditMedia, state, toggleOpen }) => {
   const { throwWarning } = useNotification()
   const { dispatch, actions } = useOverlay()
   const { topBtn, media } = state
@@ -59,14 +58,16 @@ const EventHeader = ({ state, toggleOpen }) => {
         size={30}
         containerStyle={[styles.iconContainer, styles.backButton]}
       />
-      <HeaderButton
-        type='material-community'
-        name={media.isAvatar ? 'star' : 'star-outline'}
-        color={media.isAvatar ? 'yellow' : 'tertiary'}
-        backgroundColor='shadow'
-        containerStyle={[styles.iconContainer, styles.avatarButton]}
-        onPress={handleChangeAvatar}
-      />
+      {canEdit && (
+        <HeaderButton
+          type='material-community'
+          name={media.isAvatar ? 'star' : 'star-outline'}
+          color={media.isAvatar ? 'yellow' : 'tertiary'}
+          backgroundColor='shadow'
+          containerStyle={[styles.iconContainer, styles.avatarButton]}
+          onPress={handleChangeAvatar}
+        />
+      )}
       {!topBtn ? (
         <HeaderButton
           type='material-community'
@@ -86,18 +87,20 @@ const EventHeader = ({ state, toggleOpen }) => {
             onPress={toggleOpen}
           />
           <HeaderButton
-            type='feather'
-            name='plus'
+            type='material-community'
+            name='library-plus'
             color='tertiary'
             backgroundColor='secondary'
             onPress={handleAddMedia}
           />
-          <HeaderButton
-            type='material-community'
-            name='close'
-            color='tertiary'
-            onPress={handleDeleteMedia}
-          />
+          {canEditMedia && (
+            <HeaderButton
+              type='material-community'
+              name='close'
+              color='tertiary'
+              onPress={handleDeleteMedia}
+            />
+          )}
           <ActionLeaveEvent />
         </View>
       )}
@@ -132,6 +135,8 @@ const styles = StyleSheet.create({
 })
 
 EventHeader.propTypes = {
+  canEdit: PropTypes.bool,
+  canEditMedia: PropTypes.bool,
   state: PropTypes.object,
   toggleOpen: PropTypes.func
 }

@@ -12,7 +12,7 @@ import {
 import Modal from 'react-native-modal'
 import { Icon } from 'react-native-elements'
 import { LocationAutoComplete, KeyboardDismiss } from '@common'
-import { SCREEN_HEIGHT } from '@util/constants'
+import { SCREEN_HEIGHT } from '@util'
 
 const CreateModal = ({ modalValue, clearValue, detail, handleChange }) => {
   const [tempVar, setTempVar] = useState(detail || null)

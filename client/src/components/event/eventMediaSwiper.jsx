@@ -6,7 +6,7 @@ import Carousel from 'react-native-snap-carousel'
 import { StyleSheet } from 'react-native'
 import { Image } from 'react-native-elements'
 
-import { SCREEN_WIDTH } from '@util/constants'
+import { SCREEN_WIDTH } from '@util'
 import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
 import { Loading } from '@common'
 

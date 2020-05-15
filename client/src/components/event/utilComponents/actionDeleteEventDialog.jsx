@@ -1,43 +1,35 @@
 import React, { Fragment } from 'react'
 
-import useDeleteMedia from '@graphql/media/useDeleteMedia'
+import useDeleteEvent from '@graphql/event/useDeleteEvent'
 import useNotification from '@hooks/useNotification'
 import useOverlay from '@context/overlayContext'
 
 import LoadingDialog from '@components/overlay/loadingDialog'
 
-import { theme, BUCKET } from '@util'
+import { theme } from '@util'
 import { StyleSheet, View, Text } from 'react-native'
 import { DialogConfirmActions } from '@common'
 
-const ActionDeleteMediaDialog = () => {
+const ActionDeleteEventDialog = () => {
   const {
     dispatch,
     actions,
-    modal: { data },
-    dialog: { cache }
+    modal: { data }
   } = useOverlay()
-  const { throwSuccess, throwError } = useNotification()
-  const [deleteMedia, loading] = useDeleteMedia({
-    onCompleted: () => {
-      throwSuccess('Image successfully deleted.')
-      handleClose(actions.dialog.clearCache)
+  const { throwSuccess } = useNotification()
+  const [deleteEvent, loading] = useDeleteEvent({
+    onComplete: () => {
+      throwSuccess('Event deleted.')
+      handleClose()
     }
   })
 
   const handleConfirm = () => {
-    if (data.avatarId === cache.id) {
-      throwError('Cannot delete avatar image!')
-      handleClose()
-    } else {
-      deleteMedia({ id: cache.id, linkId: data.id, bucket: BUCKET.EVENT })
-    }
+    deleteEvent({ id: data.id })
   }
 
-  const handleClose = payload => {
-    const action = { type: actions.dialog.close }
-    if (payload) action.payload = payload
-    dispatch(action)
+  const handleClose = () => {
+    dispatch({ type: actions.modal.close })
   }
 
   if (loading) return <LoadingDialog />
@@ -46,7 +38,7 @@ const ActionDeleteMediaDialog = () => {
     <Fragment>
       <View style={styles.messageContainer}>
         <Text style={styles.message}>
-          Are you sure you want to delete this image?
+          Are you sure you want to delete this event?
         </Text>
       </View>
       <DialogConfirmActions
@@ -65,7 +57,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 24,
     color: theme.color.tertiary
+  },
+  subMessage: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: theme.color.tertiary
   }
 })
 
-export default ActionDeleteMediaDialog
+export default ActionDeleteEventDialog

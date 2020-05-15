@@ -10,8 +10,7 @@ import { View, StyleSheet, FlatList, Text, RefreshControl } from 'react-native'
 import { ListItem, Image } from 'react-native-elements'
 import { Loading } from '@common'
 
-import { theme, formatDateTime } from '@util'
-import { BUCKET } from '@util/constants'
+import { theme, formatDateTime, BUCKET } from '@util'
 
 const SearchEventList = ({ text }) => {
   const [refreshing, setRefreshing] = useState(false)

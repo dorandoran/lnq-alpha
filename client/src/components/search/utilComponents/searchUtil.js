@@ -1,4 +1,4 @@
-import { EVENT_TYPES_ARRAY } from '@util/constants'
+import { EVENT_TYPES_ARRAY } from '@util'
 
 export const categoryList = [
   // { label: 'Near Me', value: 'near' },

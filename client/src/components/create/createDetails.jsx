@@ -1,23 +1,17 @@
 import React, { useState, Fragment } from 'react'
-import useCreate from '@context/createContext'
 
-import { theme } from '@util'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import ReactNative, {
-  View,
-  StyleSheet,
-  Switch,
-  Text,
-  Keyboard
-} from 'react-native'
+import useCreate from '@context/createContext'
 
 import DateTimePicker from '@components/create/createDateTimePicker'
 import ImageList from '@components/create/createImageList'
 import Picker from '@components/create/createPicker'
 import DetailModal from '@components/create/createModal'
 
-import { StyledTouchable, StyledInput } from '@common'
+import { theme } from '@util'
 import { inputMap } from '@components/create/utilComponents/createUtil'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import ReactNative, { View, StyleSheet, Keyboard } from 'react-native'
+import { StyledTouchable, StyledSwitch, StyledInput } from '@common'
 
 const CreateDetails = () => {
   const [modalValue, setModalValue] = useState(null)
@@ -81,22 +75,12 @@ const CreateDetails = () => {
               // Plus one and Private component
               if (['plusOne', 'isPrivate'].includes(value)) {
                 return (
-                  <View style={styles.switchContainer} key={value}>
-                    <Text style={styles.label}>{label}</Text>
-                    <Switch
-                      value={details[value]}
-                      onChange={({ nativeEvent }) =>
-                        updateDetails(value, nativeEvent.value)
-                      }
-                      thumbColor={
-                        details[value] ? theme.color.secondary : '#f4f3f4'
-                      }
-                      trackColor={{
-                        false: '#767577',
-                        true: theme.color.secondaryAccent
-                      }}
-                    />
-                  </View>
+                  <StyledSwitch
+                    key={value}
+                    value={details[value]}
+                    label={label}
+                    handleChange={item => updateDetails(value, item)}
+                  />
                 )
               }
 

@@ -25,7 +25,6 @@ const LoginScreen = () => {
    * Attempts to login user on app open
    *   - tryLocalSignIn() returns a function to unsubscribe from onAuthStateChanged
    *   - after attempting to login, the app unsubscribes from the listener
-   *     in order to save battery and a constant authState connection
    */
 
   useEffect(() => {
@@ -58,7 +57,6 @@ const LoginScreen = () => {
       >
         <KeyboardDismiss>
           <View style={styles.container}>
-            <Text style={styles.welcome}>Welcome {'\n'}Back</Text>
             <Spacer>
               <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
             </Spacer>
