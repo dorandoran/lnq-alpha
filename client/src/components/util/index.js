@@ -1,4 +1,5 @@
 import { createRef } from 'react'
+import Constants from 'expo-constants'
 import * as Device from 'expo-device'
 import dayjs from 'dayjs'
 import config from '@config'
@@ -7,6 +8,7 @@ import { Dimensions } from 'react-native'
 
 export const SCREEN_HEIGHT = Dimensions.get('window').height
 export const SCREEN_WIDTH = Dimensions.get('window').width
+export const ADJUSTED_HEIGHT = SCREEN_HEIGHT - Constants.statusBarHeight
 
 export const KEYBOARD_AVOID_HEIGHT = SCREEN_HEIGHT / 7
 
@@ -16,7 +18,8 @@ export const GALLERY_SELECTION = 'gallery'
 export const BUCKET = {
   EVENT: 'events',
   MEDIA: 'media',
-  USER: 'user'
+  USER: 'user',
+  NEW: 'new'
 }
 
 export const DATE_FORMAT = 'MMM D, YYYY'

@@ -19,7 +19,7 @@ const CreateDetails = () => {
 
   // Programmatically scroll to inputs
   const scrollToInput = node => {
-    this.scroll.props.scrollToFocusedInput(node)
+    this.createScroll.props.scrollToFocusedInput(node)
   }
 
   return (
@@ -27,7 +27,7 @@ const CreateDetails = () => {
       <KeyboardAwareScrollView
         enableOnAndroid
         contentContainerStyle={styles.awareContainer}
-        innerRef={ref => (this.scroll = ref)}
+        innerRef={ref => (this.createScroll = ref)}
       >
         <View style={styles.view}>
           <ImageList />

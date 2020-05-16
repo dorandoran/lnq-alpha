@@ -51,7 +51,6 @@ const TabBarFab = () => {
         }}
       >
         <Icon
-          tabName='Create'
           type={fabButton ? 'material' : 'feather'}
           name={fabButton ? 'close' : 'plus'}
           color={theme.color.secondary}
