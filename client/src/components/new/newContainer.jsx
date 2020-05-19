@@ -73,20 +73,11 @@ const styles = StyleSheet.create({
     height: ADJUSTED_HEIGHT,
     width: SCREEN_WIDTH
   },
-  headerContainer: {
-    height: '20%',
-    paddingHorizontal: '5%',
-    justifyContent: 'flex-end'
-  },
   footerContainer: {
     height: '5%',
     paddingHorizontal: '10%',
     flexDirection: 'row',
     justifyContent: 'space-between'
-  },
-  header: {
-    fontSize: 26,
-    fontWeight: 'bold'
   },
   text: {
     color: theme.color.tertiary,
