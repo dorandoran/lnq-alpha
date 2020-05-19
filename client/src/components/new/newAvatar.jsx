@@ -1,27 +1,44 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import useUser from '@context/userContext'
 import useStorage from '@hooks/useStorage'
 
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
 
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { Icon, Image } from 'react-native-elements'
 import { theme, CAMERA_SELECTION, BUCKET } from '@util'
-import { Loading } from '@common'
 
-const initialState = {
-  selected: null,
-  confirmed: null
-}
-
-const NewAvatar = () => {
+const NewAvatar = ({ userId, nextPressed, goNext }) => {
   const [pressed, setPressed] = useState(false)
-  const [uri, setUri] = useState(initialState)
+  const [uri, setUri] = useState(null)
+  const showColor = pressed ? theme.color.tertiary : theme.color.background
+  const showBackgroundColor = pressed
+    ? theme.color.accent
+    : theme.color.background
+
+  const { media, loading } = useStorage({
+    uri,
+    bucketName: BUCKET.USER,
+    linkId: userId,
+    skip: !nextPressed || !uri
+  })
+
+  React.useEffect(() => {
+    let didCancel = false
+
+    if (!didCancel && media) {
+      setUri(null)
+      setPressed(false)
+      goNext()
+    }
+    return () => {
+      didCancel = true
+    }
+  }, [media])
 
   const handleImageSelected = ({ uri }) => {
-    setUri({ selected: uri })
+    setUri(uri)
     setPressed(false)
   }
 
@@ -30,30 +47,21 @@ const NewAvatar = () => {
       <View style={styles.actionContainer}>
         <ActionSelectMedia
           type={CAMERA_SELECTION}
-          color={pressed ? theme.color.tertiary : theme.color.background}
-          backgroundColor={
-            pressed ? theme.color.accent : theme.color.background
-          }
-          disabled={!pressed}
+          color={showColor}
+          backgroundColor={showBackgroundColor}
+          disabled={!pressed || loading}
           onComplete={handleImageSelected}
         />
         <ActionSelectMedia
-          color={pressed ? theme.color.tertiary : theme.color.background}
-          backgroundColor={
-            pressed ? theme.color.accent : theme.color.background
-          }
-          disabled={!pressed}
+          color={showColor}
+          backgroundColor={showBackgroundColor}
+          disabled={!pressed || loading}
           onComplete={handleImageSelected}
         />
       </View>
-      <TouchableOpacity onPress={() => setPressed(!pressed)}>
-        {uri.selected ? (
-          <Image
-            source={{ uri: uri.selected }}
-            style={styles.image}
-            borderRadius={100}
-            PlaceholderContent={<Loading />}
-          />
+      <TouchableOpacity onPress={() => setPressed(!pressed)} disabled={loading}>
+        {uri ? (
+          <Image source={{ uri }} style={styles.image} borderRadius={100} />
         ) : (
           <Icon
             type='ionicon'
@@ -86,7 +94,10 @@ const styles = StyleSheet.create({
 
 NewAvatar.propTypes = {
   id: PropTypes.string,
-  isDialogOpen: PropTypes.bool
+  isDialogOpen: PropTypes.bool,
+  userId: PropTypes.string,
+  nextPressed: PropTypes.bool,
+  goNext: PropTypes.func
 }
 
 export default NewAvatar
