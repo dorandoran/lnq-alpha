@@ -1,24 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import size from 'lodash/size'
 
 import useUser from '@context/userContext'
+import useOverlay from '@context/overlayContext'
 
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator
-} from 'react-native'
-import ComponentMap from '@components/new/utilComponents/newComponentMap'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import ComponentMap, {
+  componentMap
+} from '@components/new/utilComponents/newComponentMap'
 import Header from '@components/new/utilComponents/newComponentHeader'
+import { Loading } from '@common'
 import { theme, ADJUSTED_HEIGHT, SCREEN_WIDTH } from '@util'
 
 const NewContainer = () => {
   const [index, setIndex] = React.useState(0)
   const [nextPressed, setNextPressed] = React.useState(false)
   const user = useUser()
+  const { dispatch, actions } = useOverlay()
+  const isLastPage = index + 1 === size(componentMap)
 
   // Programmatically scroll to inputs
   const scrollToInput = node => {
@@ -26,7 +26,11 @@ const NewContainer = () => {
   }
 
   const handleNextPress = () => {
-    setNextPressed(true)
+    if (isLastPage) {
+      dispatch({ type: actions.modal.close })
+    } else {
+      setNextPressed(true)
+    }
   }
 
   const goNext = () => {
@@ -38,29 +42,28 @@ const NewContainer = () => {
     <View style={styles.container}>
       <Header index={index} />
 
-      <KeyboardAwareScrollView
-        enableOnAndroid
-        innerRef={ref => (this.newScroll = ref)}
-        contentContainerStyle={{ flex: 1 }}
-      >
-        <ComponentMap
-          userId={user.id}
-          nextPressed={nextPressed}
-          goNext={goNext}
-          index={index}
-          onFocus={scrollToInput}
-        />
-      </KeyboardAwareScrollView>
+      <ComponentMap
+        userId={user.id}
+        nextPressed={nextPressed}
+        goNext={goNext}
+        index={index}
+        onFocus={scrollToInput}
+      />
 
       <View style={styles.footerContainer}>
-        <TouchableOpacity disabled={nextPressed} onPress={goNext}>
-          <Text style={[styles.text, styles.skip]}>Skip</Text>
-        </TouchableOpacity>
+        {!isLastPage ? (
+          <TouchableOpacity disabled={nextPressed} onPress={goNext}>
+            <Text style={[styles.text, styles.skip]}>Skip</Text>
+          </TouchableOpacity>
+        ) : (
+          <View />
+        )}
+
         {nextPressed ? (
-          <ActivityIndicator size='small' color={theme.color.tertiary} />
+          <Loading />
         ) : (
           <TouchableOpacity onPress={handleNextPress}>
-            <Text style={styles.text}>Next</Text>
+            <Text style={styles.text}>{isLastPage ? 'Finish' : 'Next'}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -74,8 +77,9 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH
   },
   footerContainer: {
-    height: '5%',
+    height: '10%',
     paddingHorizontal: '10%',
+    paddingTop: '4%',
     flexDirection: 'row',
     justifyContent: 'space-between'
   },

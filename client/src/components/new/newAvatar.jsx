@@ -44,6 +44,19 @@ const NewAvatar = ({ userId, nextPressed, goNext }) => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => setPressed(!pressed)} disabled={loading}>
+        {uri ? (
+          <Image source={{ uri }} style={styles.image} borderRadius={100} />
+        ) : (
+          <Icon
+            type='ionicon'
+            name='ios-contact'
+            color={theme.color.tertiary}
+            size={200}
+          />
+        )}
+      </TouchableOpacity>
+
       <View style={styles.actionContainer}>
         <ActionSelectMedia
           type={CAMERA_SELECTION}
@@ -59,18 +72,6 @@ const NewAvatar = ({ userId, nextPressed, goNext }) => {
           onComplete={handleImageSelected}
         />
       </View>
-      <TouchableOpacity onPress={() => setPressed(!pressed)} disabled={loading}>
-        {uri ? (
-          <Image source={{ uri }} style={styles.image} borderRadius={100} />
-        ) : (
-          <Icon
-            type='ionicon'
-            name='ios-contact'
-            color={theme.color.tertiary}
-            size={200}
-          />
-        )}
-      </TouchableOpacity>
     </View>
   )
 }
@@ -93,8 +94,6 @@ const styles = StyleSheet.create({
 })
 
 NewAvatar.propTypes = {
-  id: PropTypes.string,
-  isDialogOpen: PropTypes.bool,
   userId: PropTypes.string,
   nextPressed: PropTypes.bool,
   goNext: PropTypes.func

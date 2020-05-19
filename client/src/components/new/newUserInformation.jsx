@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DatePicker from 'react-native-modal-datetime-picker'
 import { View, StyleSheet } from 'react-native'
 import { StyledInput, StyledTouchable } from '@common'
@@ -41,45 +42,53 @@ const NewUserInformation = ({ onFocus }) => {
 
   return (
     <React.Fragment>
-      <View style={styles.container}>
-        {inputMap.map(({ label, value }) => {
-          if (value === 'dob') {
-            const placeholder = ''
+      <KeyboardAwareScrollView
+        enableOnAndroid
+        innerRef={ref => (this.newScroll = ref)}
+        contentContainerStyle={{ flex: 1 }}
+      >
+        <View style={styles.container}>
+          {inputMap.map(({ label, value }) => {
+            if (value === 'dob') {
+              const placeholder = ''
+
+              return (
+                <StyledTouchable
+                  key={value}
+                  labelTitle={label}
+                  text={
+                    datePicker.placeholder
+                      ? placeholder
+                      : formatDateTime({ type: 'date', date: input.dob })
+                  }
+                  styleProps={styles.touchable}
+                  color={
+                    datePicker.placeholder
+                      ? theme.color.placeholder
+                      : theme.color.tertiary
+                  }
+                  onPress={() =>
+                    setDatePicker({ ...datePicker, visible: true })
+                  }
+                />
+              )
+            }
 
             return (
-              <StyledTouchable
+              <StyledInput
                 key={value}
-                labelTitle={label}
-                text={
-                  datePicker.placeholder
-                    ? placeholder
-                    : formatDateTime({ type: 'date', date: input.dob })
+                label={label}
+                value={input[value]}
+                placeholder=''
+                onChange={({ nativeEvent }) =>
+                  updateInput(value, nativeEvent.text)
                 }
-                styleProps={styles.touchable}
-                color={
-                  datePicker.placeholder
-                    ? theme.color.placeholder
-                    : theme.color.tertiary
-                }
-                onPress={() => setDatePicker({ ...datePicker, visible: true })}
+                onFocus={event => onFocus(event.target)}
               />
             )
-          }
-
-          return (
-            <StyledInput
-              key={value}
-              label={label}
-              value={input[value]}
-              placeholder=''
-              onChange={({ nativeEvent }) =>
-                updateInput(value, nativeEvent.text)
-              }
-              onFocus={event => onFocus(event.target)}
-            />
-          )
-        })}
-      </View>
+          })}
+        </View>
+      </KeyboardAwareScrollView>
       <DatePicker
         date={input.dob}
         isVisible={datePicker.visible}

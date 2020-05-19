@@ -18,9 +18,9 @@ const NewComponentHeader = ({ index }) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: '20%',
+    height: '15%',
     paddingHorizontal: '5%',
-    justifyContent: 'flex-end'
+    justifyContent: 'center'
   },
   header: {
     fontSize: 26,

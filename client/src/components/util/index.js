@@ -28,45 +28,27 @@ export const TOMORROW_DATETIME = new Date(
   new Date().getTime() + 24 * 60 * 60 * 1000
 )
 export const EIGHTEEN_YRS_AGO = new Date(
-  dayjs()
-    .subtract(18, 'year')
-    .set('hour', 0)
-    .set('minute', 0)
-    .set('second', 0)
+  dayjs().subtract(18, 'year').set('hour', 0).set('minute', 0).set('second', 0)
 )
 export const PLACEHOLDER_18_YRS = new Date(
-  dayjs(EIGHTEEN_YRS_AGO)
-    .set('minute', 13)
-    .set('second', 29)
+  dayjs(EIGHTEEN_YRS_AGO).set('minute', 13).set('second', 29)
 )
 
 export const EVENT_TYPES = {
   food: 'Food and Drink',
-  art: 'Art',
   game: 'Gaming',
-  sport: 'Sports',
-  beauty: 'Beauty',
-  fitness: 'Fitness',
-  health: 'Health and Wellness',
-  learning: 'Learning',
-  family: 'Family',
-  outdoors: 'Outdoors',
+  sport: 'Sports & Fitness',
+  beauty: 'Healthy & Beauty',
   tech: 'Tech and Science',
-  music: 'Music',
   culture: 'Culture and Community',
-  film: 'Film and Media',
-  dance: 'Dance',
-  movements: 'Movements',
-  animals: 'Animals',
-  fashion: 'Fashion',
+  entertainment: 'Media and Entertainment',
   social: 'Social',
+  fashion: 'Fashion',
+  family: 'Family & Kids',
+  outdoors: 'Outdoors',
   business: 'Business',
-  hobby: 'Hobbies',
-  photo: 'Photo and Video',
   spirit: 'Spirituality',
-  season: 'Seasonal',
   auto: 'Auto',
-  comedy: 'Comedy',
   other: 'Other'
 }
 
@@ -131,12 +113,7 @@ export const formatDateTime = ({ type, date }) => {
   return dayjs(date).format(`${DATE_FORMAT}  |  ${TIME_FORMAT}`)
 }
 export const stripTime = date => {
-  return new Date(
-    dayjs(date)
-      .set('hour', 0)
-      .set('minute', 0)
-      .set('second', 0)
-  )
+  return new Date(dayjs(date).set('hour', 0).set('minute', 0).set('second', 0))
 }
 
 // Auth Context Util
