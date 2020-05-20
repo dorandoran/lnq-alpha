@@ -2,13 +2,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import useUpdateUser from '@graphql/user/useUpdateUser'
+
 import DraggableFlatList from 'react-native-draggable-flatlist'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
-import { categoryMap } from '@components/new/utilComponents/newUtil'
+import {
+  categoryMap,
+  formatCategories
+} from '@components/new/utilComponents/newUtil'
 
 const NewCategories = ({ userId, nextPressed, goNext }) => {
   const [data, setData] = React.useState(categoryMap)
+  const [updateUser] = useUpdateUser({
+    onCompleted: () => {
+      goNext()
+    }
+  })
+
+  React.useEffect(() => {
+    if (nextPressed) {
+      const updates = { categories: formatCategories(data) }
+      updateUser({ id: userId, updates })
+    }
+  }, [nextPressed])
 
   const renderItem = ({ item, drag, index }) => {
     return (

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import useStorage from '@hooks/useStorage'
+import useNotification from '@hooks/useNotification'
+import useUpdateUser from '@graphql/user/useUpdateUser'
 
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
 
@@ -9,9 +11,17 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { Icon, Image } from 'react-native-elements'
 import { theme, CAMERA_SELECTION, BUCKET } from '@util'
 
-const NewAvatar = ({ userId, nextPressed, goNext }) => {
+const NewAvatar = ({ userId, nextPressed, goNext, resetPressed }) => {
   const [pressed, setPressed] = useState(false)
   const [uri, setUri] = useState(null)
+  const { throwError } = useNotification()
+  const [updateUser] = useUpdateUser({
+    onCompleted: () => {
+      goNext()
+    }
+  })
+
+  const skip = !nextPressed || !uri
   const showColor = pressed ? theme.color.tertiary : theme.color.background
   const showBackgroundColor = pressed
     ? theme.color.accent
@@ -21,21 +31,27 @@ const NewAvatar = ({ userId, nextPressed, goNext }) => {
     uri,
     bucketName: BUCKET.USER,
     linkId: userId,
-    skip: !nextPressed || !uri
+    skip
   })
 
   React.useEffect(() => {
     let didCancel = false
 
     if (!didCancel && media) {
-      setUri(null)
-      setPressed(false)
-      goNext()
+      const updates = { avatarUrl: media.uri }
+      !didCancel && updateUser({ id: userId, updates })
     }
     return () => {
       didCancel = true
     }
   }, [media])
+
+  React.useEffect(() => {
+    if (!media && skip) {
+      throwError('No image selected')
+      resetPressed()
+    }
+  }, [nextPressed])
 
   const handleImageSelected = ({ uri }) => {
     setUri(uri)
@@ -89,14 +105,16 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 200,
-    width: 200
+    width: 200,
+    marginBottom: '10%'
   }
 })
 
 NewAvatar.propTypes = {
   userId: PropTypes.string,
   nextPressed: PropTypes.bool,
-  goNext: PropTypes.func
+  goNext: PropTypes.func,
+  resetPressed: PropTypes.func
 }
 
 export default NewAvatar

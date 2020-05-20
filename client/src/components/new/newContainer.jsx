@@ -2,15 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import size from 'lodash/size'
 
+import useUpdateUser from '@graphql/user/useUpdateUser'
+
 import useUser from '@context/userContext'
 import useOverlay from '@context/overlayContext'
 
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator
+} from 'react-native'
 import ComponentMap, {
   componentMap
 } from '@components/new/utilComponents/newComponentMap'
 import Header from '@components/new/utilComponents/newComponentHeader'
-import { Loading } from '@common'
 import { theme, ADJUSTED_HEIGHT, SCREEN_WIDTH } from '@util'
 
 const NewContainer = () => {
@@ -18,6 +25,11 @@ const NewContainer = () => {
   const [nextPressed, setNextPressed] = React.useState(false)
   const user = useUser()
   const { dispatch, actions } = useOverlay()
+  const [updateUser] = useUpdateUser({
+    onCompleted: () => {
+      dispatch({ type: actions.modal.close })
+    }
+  })
   const isLastPage = index + 1 === size(componentMap)
 
   // Programmatically scroll to inputs
@@ -27,7 +39,7 @@ const NewContainer = () => {
 
   const handleNextPress = () => {
     if (isLastPage) {
-      dispatch({ type: actions.modal.close })
+      updateUser({ id: user.id, updates: { new: false } })
     } else {
       setNextPressed(true)
     }
@@ -38,6 +50,10 @@ const NewContainer = () => {
     setIndex(index + 1)
   }
 
+  const resetPressed = () => {
+    setNextPressed(false)
+  }
+
   return (
     <View style={styles.container}>
       <Header index={index} />
@@ -45,6 +61,7 @@ const NewContainer = () => {
       <ComponentMap
         userId={user.id}
         nextPressed={nextPressed}
+        resetPressed={resetPressed}
         goNext={goNext}
         index={index}
         onFocus={scrollToInput}
@@ -60,7 +77,9 @@ const NewContainer = () => {
         )}
 
         {nextPressed ? (
-          <Loading />
+          <View style={styles.loading}>
+            <ActivityIndicator color={theme.color.secondary} />
+          </View>
         ) : (
           <TouchableOpacity onPress={handleNextPress}>
             <Text style={styles.text}>{isLastPage ? 'Finish' : 'Next'}</Text>
@@ -82,6 +101,9 @@ const styles = StyleSheet.create({
     paddingTop: '4%',
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  loading: {
+    justifyContent: 'flex-start'
   },
   text: {
     color: theme.color.tertiary,

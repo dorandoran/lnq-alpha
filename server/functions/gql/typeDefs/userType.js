@@ -6,16 +6,6 @@ const Invite = require('../../databases/store/invite')
 
 // Type Definition
 exports.typeDef = gql`
-  type UserPreference {
-    new: Boolean!
-    categories: [String]
-  }
-
-  input UserPreferenceInput {
-    new: Boolean
-    categories: [String]!
-  }
-
   type User {
     id: String!
     username: String
@@ -26,10 +16,23 @@ exports.typeDef = gql`
     description: String
     avatarUrl: String
     website: String
-    preferences: UserPreference
+    new: Boolean
+    categories: [String]
     events: [Event]
     invites: [Invite]
     created_at: Date
+  }
+
+  input UserUpdateInput {
+    username: String
+    firstName: String
+    lastName: String
+    dob: Date
+    description: String
+    avatarUrl: String
+    website: String
+    new: Boolean
+    categories: [String]
   }
 `
 
@@ -46,6 +49,9 @@ exports.resolvers = {
   Mutation: {
     createUser: (parent, args) => {
       return User.saveToStore(args)
+    },
+    updateUser: (parent, args) => {
+      return User.update(args)
     }
   },
   // Field Resolve

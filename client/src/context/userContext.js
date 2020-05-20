@@ -12,19 +12,20 @@ export const UserProvider = props => {
   const { dispatch, actions } = useOverlay()
   const { throwSuccess } = useNotification()
   const user = data?.user || null
+  const userId = user?.id || null
 
   useEffect(() => {
-    if (user?.id) {
+    if (userId) {
       throwSuccess('Successfully logged in.')
     }
 
-    if (!user?.preferences || user?.preferences.new) {
+    if (user?.new) {
       dispatch({
         type: actions.modal.open,
         payload: { type: BUCKET.NEW, data: user }
       })
     }
-  }, [user])
+  }, [userId])
 
   return <UserContext.Provider value={user} {...props} />
 }

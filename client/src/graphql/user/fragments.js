@@ -11,10 +11,8 @@ export const allInfoUserFragment = gql`
     description
     dob
     website
-    preferences {
-      new
-      categories
-    }
+    new
+    categories
   }
 `
 

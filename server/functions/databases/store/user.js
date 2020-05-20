@@ -6,7 +6,7 @@ const usersRef = firestore().collection('users')
 
 const saveToStore = user => {
   user.created_at = timestamp.now()
-  user.preferences = { new: true }
+  user.new = true
 
   return usersRef
     .doc(user.id)
@@ -36,9 +36,20 @@ const findById = ({ id }) => {
     })
 }
 
-const update = user => {}
+const update = updateInput => {
+  const { id, updates } = updateInput
+  return usersRef
+    .doc(id)
+    .update(updates)
+    .then(() => findById({ id }))
+    .catch(e => {
+      console.log(e)
+      return null
+    })
+}
 
 module.exports = {
   saveToStore,
-  findById
+  findById,
+  update
 }

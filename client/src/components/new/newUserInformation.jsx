@@ -1,12 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import useUpdateUser from '@graphql/user/useUpdateUser'
+import useNotification from '@hooks/useNotification'
+
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import DatePicker from 'react-native-modal-datetime-picker'
 import { View, StyleSheet } from 'react-native'
 import { StyledInput, StyledTouchable } from '@common'
 
-import { inputMap } from '@components/new/utilComponents/newUtil'
+import {
+  inputMap,
+  validateUpdates
+} from '@components/new/utilComponents/newUtil'
 import {
   PLACEHOLDER_18_YRS,
   EIGHTEEN_YEARS_AGO,
@@ -16,16 +22,42 @@ import {
 } from '@util'
 
 const initialState = {
-  name: '',
   username: '',
   dob: PLACEHOLDER_18_YRS,
   website: ''
 }
 const initialPickerState = { visible: false, placeholder: true }
 
-const NewUserInformation = ({ onFocus }) => {
+const NewUserInformation = ({
+  onFocus,
+  userId,
+  nextPressed,
+  resetPressed,
+  goNext
+}) => {
   const [input, setInput] = React.useState(initialState)
   const [datePicker, setDatePicker] = React.useState(initialPickerState)
+  const { throwError } = useNotification()
+  const [updateUser] = useUpdateUser({
+    onCompleted: () => {
+      setInput(initialState)
+      setDatePicker(initialPickerState)
+      goNext()
+    }
+  })
+
+  React.useEffect(() => {
+    if (nextPressed) {
+      const errors = validateUpdates(input)
+
+      if (errors.length) {
+        throwError(errors.join('\n'))
+        resetPressed()
+      } else {
+        updateUser({ id: userId, updates: input })
+      }
+    }
+  }, [nextPressed])
 
   const updateInput = (value, text) => {
     setInput({ ...input, [value]: text })
@@ -110,7 +142,11 @@ const styles = StyleSheet.create({
 })
 
 NewUserInformation.propTypes = {
-  onFocus: PropTypes.func
+  onFocus: PropTypes.func,
+  userId: PropTypes.string,
+  nextPressed: PropTypes.bool,
+  goNext: PropTypes.func,
+  resetPressed: PropTypes.func
 }
 
 export default NewUserInformation
