@@ -50,9 +50,8 @@ const Other = gql`
   type Mutation {
     createUser(
       id: String!
-      username: String!
-      name: String!
-      dob: Date!
+      firstName: String!
+      lastName: String!
       email: String!
     ): User
     createEvent(

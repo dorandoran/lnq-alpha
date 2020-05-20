@@ -1,5 +1,3 @@
-import { PLACEHOLDER_18_YRS } from '@util'
-
 export const LoginInputMap = [
   {
     label: 'Email',
@@ -13,16 +11,12 @@ export const LoginInputMap = [
 
 export const SignupInputMap = [
   {
-    label: 'Name',
-    value: 'name'
+    label: 'First Name',
+    value: 'firstName'
   },
   {
-    label: 'Username',
-    value: 'username'
-  },
-  {
-    label: 'Date of Birth',
-    value: 'dob'
+    label: 'Last Name',
+    value: 'lastName'
   },
   {
     label: 'Email Address',
@@ -40,16 +34,12 @@ export const SignupInputMap = [
 
 export const OAuthSignupInputMap = [
   {
-    label: 'Name',
-    value: 'name'
+    label: 'First Name',
+    value: 'firstName'
   },
   {
-    label: 'Username',
-    value: 'username'
-  },
-  {
-    label: 'Date of Birth',
-    value: 'dob'
+    label: 'Last Name',
+    value: 'lastName'
   }
 ]
 
@@ -66,11 +56,6 @@ export const validateSignup = (data, options) => {
     // text inputs
     if (typeof data[key] === 'string' && !data[key].length) {
       error.add('Fields cannot be left empty')
-    }
-
-    // dob
-    if (data.dob === PLACEHOLDER_18_YRS) {
-      error.add('Must select date of birth')
     }
   })
 

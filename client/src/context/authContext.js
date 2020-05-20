@@ -5,7 +5,7 @@ import { f, auth } from '@services/firebase'
 import config from '@config'
 
 import { useQuery } from '@apollo/react-hooks'
-import { GetUser } from '@graphql/user/queries'
+import { GetCurrentUser } from '@graphql/user/queries'
 import useCreateUser from '@graphql/user/useCreateUser'
 import useNotification from '@hooks/useNotification'
 
@@ -34,7 +34,7 @@ const initialState = {
   resetEmailSent: false
 }
 
-function reducer (state, action) {
+function reducer(state, action) {
   switch (action.type) {
     case actions.reset:
       return initialState
@@ -77,7 +77,7 @@ export const AuthProvider = props => {
   const skip = !authState.userId || createLoading
 
   // Get the user data from store
-  const { data, loading } = useQuery(GetUser, {
+  const { data, loading } = useQuery(GetCurrentUser, {
     variables: { id: authState.userId },
     skip
   })
@@ -104,7 +104,7 @@ export const AuthProvider = props => {
     dispatch({ type: actions.clearError })
   }
 
-  const register = async ({ email, password, username, name, dob, id }) => {
+  const register = async ({ email, password, firstName, lastName, id }) => {
     // First time OAuth Users will have an id, but not saved to database
     // register will be passed an id in this situation
     let _id = id
@@ -119,7 +119,8 @@ export const AuthProvider = props => {
       }
 
       // Dispatch is placed within createUser above
-      createUser({ email, username, name, dob, id: _id })
+      // TODO: Delete authUser if createUser fails
+      createUser({ email, firstName, lastName, id: _id })
     } catch (error) {
       throwError(error.message)
       dispatch({ type: actions.loginError, payload: error })

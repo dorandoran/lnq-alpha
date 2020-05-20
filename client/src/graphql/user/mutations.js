@@ -1,24 +1,22 @@
 import { gql } from 'apollo-boost'
-import { userFragment } from '@graphql/user/fragments'
+import { allInfoUserFragment } from '@graphql/user/fragments'
 
 export const CreateUser = gql`
-  ${userFragment}
+  ${allInfoUserFragment}
 
   mutation CreateUser(
     $id: String!
-    $username: String!
-    $name: String!
-    $dob: Date!
+    $firstName: String!
+    $lastName: String!
     $email: String!
   ) {
     createUser(
       id: $id
-      username: $username
-      name: $name
-      dob: $dob
+      firstName: $firstName
+      lastName: $lastName
       email: $email
     ) {
-      ...userFields
+      ...allInfoUserFields
     }
   }
 `

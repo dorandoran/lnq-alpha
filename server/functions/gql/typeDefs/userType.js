@@ -6,14 +6,27 @@ const Invite = require('../../databases/store/invite')
 
 // Type Definition
 exports.typeDef = gql`
+  type UserPreference {
+    new: Boolean!
+    categories: [String]
+  }
+
+  input UserPreferenceInput {
+    new: Boolean
+    categories: [String]!
+  }
+
   type User {
     id: String!
-    username: String!
-    name: String!
-    dob: Date!
+    username: String
+    firstName: String!
+    lastName: String!
+    dob: Date
     email: String!
     description: String
     avatarUrl: String
+    website: String
+    preferences: UserPreference
     events: [Event]
     invites: [Invite]
     created_at: Date

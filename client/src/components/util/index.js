@@ -118,11 +118,8 @@ export const stripTime = date => {
 
 // Auth Context Util
 export const getOAuthUserInfo = user => {
-  const name = user?.displayName.length > 2 ? user?.displayName : null
-
   return {
     id: user?.uid,
-    name,
     email: user?.email
   }
 }

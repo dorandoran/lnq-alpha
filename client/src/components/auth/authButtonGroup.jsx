@@ -41,10 +41,9 @@ const AuthButtonGroup = ({ input, screen }) => {
       const errors = validateSignup(input, {
         disablePass: isOAuth ? true : false
       })
-      const dob = '03/01/2000' // TODO: Add date of birth to registration
 
       if (!errors.length) {
-        register({ ...input, dob })
+        register(input)
       }
       throwError(errors.join('\n'))
     }

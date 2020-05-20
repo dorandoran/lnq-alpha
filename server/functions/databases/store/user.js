@@ -6,6 +6,7 @@ const usersRef = firestore().collection('users')
 
 const saveToStore = user => {
   user.created_at = timestamp.now()
+  user.preferences = { new: true }
 
   return usersRef
     .doc(user.id)

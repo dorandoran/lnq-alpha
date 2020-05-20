@@ -17,7 +17,8 @@ export const UserProvider = props => {
     if (user?.id) {
       throwSuccess('Successfully logged in.')
     }
-    if (!user?.avatarUrl) {
+
+    if (!user?.preferences || user?.preferences.new) {
       dispatch({
         type: actions.modal.open,
         payload: { type: BUCKET.NEW, data: user }
