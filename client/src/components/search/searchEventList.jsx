@@ -6,11 +6,11 @@ import useSearch, { actions } from '@context/searchContext'
 import useSearchQuery from '@graphql/search/useSearchQuery'
 import { useDebounce } from '@hooks/useDebounce'
 
-import { View, StyleSheet, FlatList, Text, RefreshControl } from 'react-native'
-import { ListItem, Image } from 'react-native-elements'
+import EventList from '@components/shared/eventList'
+import { View, StyleSheet, Text } from 'react-native'
 import { Loading } from '@common'
 
-import { theme, formatDateTime, BUCKET } from '@util'
+import { theme, BUCKET } from '@util'
 
 const SearchEventList = ({ text }) => {
   const [refreshing, setRefreshing] = useState(false)
@@ -37,89 +37,31 @@ const SearchEventList = ({ text }) => {
     )
   }
 
+  const handleEventPress = item => {
+    overlayDispatch({
+      type: overlayActions.modal.open,
+      payload: { data: item, type: BUCKET.EVENT }
+    })
+  }
+
   const handleRefresh = () => {
     setRefreshing(true)
     refetch()
   }
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        style={{ minHeight: 100 }}
-        refreshControl={
-          <RefreshControl
-            onRefresh={handleRefresh}
-            refreshing={refreshing}
-            title='Pull to Refresh'
-            titleColor={theme.color.tertiary}
-            tintColor={theme.color.secondary}
-          />
-        }
-        data={[...data.search]}
-        keyExtractor={event => event.id}
-        ListFooterComponent={<View style={styles.image} />}
-        renderItem={({ item }) => {
-          const { name, avatar, location, date } = item
-
-          return (
-            <ListItem
-              title={
-                <View>
-                  <Text style={styles.titleStyle} numberOfLines={2}>
-                    {name}
-                  </Text>
-                  <Text style={styles.text} numberOfLines={1}>
-                    {location.text}
-                  </Text>
-                  <Text style={styles.text} numberOfLines={1}>
-                    {formatDateTime({ date })}
-                  </Text>
-                </View>
-              }
-              leftElement={
-                <Image
-                  source={{ uri: avatar.uri }}
-                  style={styles.image}
-                  borderRadius={10}
-                  PlaceholderContent={<Loading size='small' />}
-                />
-              }
-              containerStyle={styles.containerStyle}
-              onPress={() =>
-                overlayDispatch({
-                  type: overlayActions.modal.open,
-                  payload: { data: item, type: BUCKET.EVENT }
-                })
-              }
-            />
-          )
-        }}
-      />
-    </View>
+    <EventList
+      data={[...data.search]}
+      onEventPress={handleEventPress}
+      onRefresh={handleRefresh}
+      refreshing={refreshing}
+    />
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 10
-  },
-  containerStyle: {
-    borderRadius: 10,
-    backgroundColor: theme.color.accent,
-    margin: 5
-  },
-  titleStyle: {
-    color: theme.color.tertiary,
-    fontSize: 18,
-    fontWeight: 'bold'
-  },
   text: {
     color: theme.color.tertiary
-  },
-  image: {
-    height: 75,
-    width: 75
   },
   noResults: {
     flex: 1,
