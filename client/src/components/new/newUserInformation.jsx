@@ -37,11 +37,10 @@ const NewUserInformation = ({
 }) => {
   const [input, setInput] = React.useState(initialState)
   const [datePicker, setDatePicker] = React.useState(initialPickerState)
-  const { throwError } = useNotification()
+  const { throwError, throwLoading, closeNotification } = useNotification()
   const [updateUser] = useUpdateUser({
     onCompleted: () => {
-      setInput(initialState)
-      setDatePicker(initialPickerState)
+      closeNotification()
       goNext()
     }
   })
@@ -54,6 +53,7 @@ const NewUserInformation = ({
         throwError(errors.join('\n'))
         resetPressed()
       } else {
+        throwLoading(true)
         updateUser({ id: userId, updates: input })
       }
     }

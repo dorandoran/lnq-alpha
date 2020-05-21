@@ -5,46 +5,52 @@ const initialState = {
   message: null,
   type: null,
   open: false,
-  loading: false
+  loading: false,
+  hideIndicator: false
 }
 
-function reducer (state, action) {
+function reducer(state, action) {
   switch (action.type) {
     case 'success':
       return {
         message: action.payload.message,
         type: 'success',
         open: true,
-        loading: false
+        loading: false,
+        hideIndicator: false
       }
     case 'error':
       return {
         message: action.payload.message,
         type: 'error',
         open: true,
-        loading: false
+        loading: false,
+        hideIndicator: false
       }
     case 'warning':
       return {
         message: action.payload.message,
         type: 'warning',
         open: true,
-        loading: false
+        loading: false,
+        hideIndicator: false
       }
     case 'notification':
       return {
         message: action.payload.message,
         type: action.payload.type,
         open: true,
-        loading: false
+        loading: false,
+        hideIndicator: false
       }
     case 'loading':
       return {
         ...state,
-        loading: true
+        loading: true,
+        hideIndicator: action.payload.hideIndicator || false
       }
     case 'closeNotification':
-      return { ...state, open: false }
+      return { ...state, loading: false, open: false }
     default:
       // TODO: Error handling
       throw new Error()

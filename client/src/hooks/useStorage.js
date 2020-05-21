@@ -4,7 +4,7 @@ import useCreateMedia from '@graphql/media/useCreateMedia'
 import useUser from '@context/userContext'
 import { BUCKET } from '@util'
 
-const useStorage = ({ uri, bucketName, linkId, skip, onSuccess, onError }) => {
+const useStorage = ({ uri, bucketName, linkId, skip, onSuccess, onStart }) => {
   const [media, setMedia] = useState(null)
   const [loading, setLoading] = useState(false)
   const createMedia = useCreateMedia()
@@ -22,10 +22,10 @@ const useStorage = ({ uri, bucketName, linkId, skip, onSuccess, onError }) => {
     // Clean up variable
     let didCancel = false
 
-    async function upload () {
+    async function upload() {
+      if (onStart) onStart()
       !didCancel && setLoading(true)
       !didCancel && setMedia(null)
-
       // Create blob from media uri
       const mediaBlob = await new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest()

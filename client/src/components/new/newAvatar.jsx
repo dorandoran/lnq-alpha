@@ -14,9 +14,10 @@ import { theme, CAMERA_SELECTION, BUCKET } from '@util'
 const NewAvatar = ({ userId, nextPressed, goNext, resetPressed }) => {
   const [pressed, setPressed] = useState(false)
   const [uri, setUri] = useState(null)
-  const { throwError } = useNotification()
+  const { throwError, throwLoading, closeNotification } = useNotification()
   const [updateUser] = useUpdateUser({
     onCompleted: () => {
+      closeNotification()
       goNext()
     }
   })
@@ -31,7 +32,8 @@ const NewAvatar = ({ userId, nextPressed, goNext, resetPressed }) => {
     uri,
     bucketName: BUCKET.USER,
     linkId: userId,
-    skip
+    skip,
+    onStart: () => throwLoading(true)
   })
 
   React.useEffect(() => {
@@ -47,7 +49,7 @@ const NewAvatar = ({ userId, nextPressed, goNext, resetPressed }) => {
   }, [media])
 
   React.useEffect(() => {
-    if (!media && skip) {
+    if (nextPressed && !media && skip) {
       throwError('No image selected')
       resetPressed()
     }

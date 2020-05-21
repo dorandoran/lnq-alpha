@@ -5,7 +5,8 @@ const useNotification = () => {
   const { notificationDispatch } = useContext(NotificationContext)
 
   const throwLoading = useCallback(
-    () => notificationDispatch({ type: 'loading' }),
+    hideIndicator =>
+      notificationDispatch({ type: 'loading', payload: { hideIndicator } }),
     []
   )
 
@@ -28,12 +29,17 @@ const useNotification = () => {
     notificationDispatch({ type: 'notification', payload: { message, type } })
   )
 
+  const closeNotification = useCallback(() =>
+    notificationDispatch({ type: 'closeNotification' })
+  )
+
   return {
     throwLoading,
     throwSuccess,
     throwError,
     throwWarning,
-    throwNotification
+    throwNotification,
+    closeNotification
   }
 }
 
