@@ -21,7 +21,7 @@ const Loading = ({ styleProps, fullScreen, size = 'large' }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.color.background,
+    backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%'

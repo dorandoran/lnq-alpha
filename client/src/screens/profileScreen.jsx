@@ -1,47 +1,47 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import {
-  View,
-  StyleSheet,
-  ImageBackground,
-  TouchableOpacity
-} from 'react-native'
 
-import useAuth from '@context/authContext'
-import { useRouteDispatch } from '@hooks/useRoute'
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util'
-
-import ProfileListView from '@components/profile/profileListView'
+import EventList from '@components/profile/utilComponents/profileEventList'
+import RSVPList from '@components/profile/utilComponents/profileResponseList'
+import SavesList from '@components/profile/utilComponents/profileSavesList'
+import ProfileTabs from '@components/profile/utilComponents/profileTabs'
 import ProfileMenu from '@components/profile/profileMenu'
-import ProfileTab from '@components/profile/profileTab'
 import ProfileAccountStats from '@components/profile/profileAccountStats'
-import ProfileInfo from '@components/profile/profileInfo'
+import ProfileInformation from '@components/profile/profileInformation'
+
+import { View, StyleSheet, ImageBackground } from 'react-native'
+import { SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
+import { tabs } from '@components/profile/utilComponents/profileUtil'
 
 const ProfileScreen = () => {
-  const { dispatch, actions } = useRouteDispatch()
-  const { logout } = useAuth()
+  const [tab, setTab] = React.useState(tabs.events)
 
-  const logoutButtonHandler = () => {
-    dispatch({ type: actions.updateRoute, payload: 'Home' })
-    logout()
+  const renderTab = () => {
+    switch (tab) {
+      case tabs.events:
+        return <EventList />
+      case tabs.rsvp:
+        return <RSVPList />
+      case tabs.saves:
+        return <SavesList />
+      default:
+        throw new Error('Something went wrong with the ProfileListView.')
+    }
   }
+
   return (
     <View style={styles.container}>
       <ImageBackground
         source={require('../../assets/profile-main.png')}
-        style={styles.imageStyle}
+        style={styles.image}
       >
-        <View style={styles.profileMenuContainer}>
-          <TouchableOpacity onPress={logoutButtonHandler}>
-            <ProfileMenu />
-          </TouchableOpacity>
-        </View>
+        <ProfileMenu />
       </ImageBackground>
       <View style={styles.profileContainer}>
-        <ProfileInfo />
+        <ProfileInformation />
         <ProfileAccountStats />
-        <ProfileTab />
-        <ProfileListView />
+        <ProfileTabs currentTab={tab} setTab={setTab} />
+        {renderTab()}
       </View>
     </View>
   )
@@ -51,20 +51,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  profileMenuContainer: {
-    flexDirection: 'row-reverse',
-    marginTop: '5%',
-    marginLeft: 20
-  },
-  imageStyle: {
+  image: {
     width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT / 4
+    height: SCREEN_HEIGHT / 6
   },
   profileContainer: {
     flex: 1,
-    backgroundColor: 'black',
-    borderTopRightRadius: 21,
-    borderTopLeftRadius: 21,
+    backgroundColor: theme.color.background,
+    borderTopRightRadius: 25,
+    borderTopLeftRadius: 25,
     marginTop: -20
   }
 })

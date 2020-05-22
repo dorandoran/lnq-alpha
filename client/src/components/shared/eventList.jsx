@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import { View, StyleSheet, FlatList, Text, RefreshControl } from 'react-native'
@@ -7,7 +7,13 @@ import { Loading } from '@common'
 
 import { theme, formatDateTime } from '@util'
 
-const EventList = ({ data, onEventPress, refreshing, onRefresh }) => {
+const EventList = ({
+  data,
+  onEventPress,
+  refreshing,
+  onRefresh,
+  hideAvatar = false
+}) => {
   return (
     <View style={styles.container}>
       <FlatList
@@ -25,22 +31,37 @@ const EventList = ({ data, onEventPress, refreshing, onRefresh }) => {
         keyExtractor={event => event.id}
         ListFooterComponent={<View style={styles.image} />}
         renderItem={({ item }) => {
-          const { name, avatar, location, date } = item
+          const { name, avatar, location, date, owner } = item
 
           return (
             <ListItem
               title={
-                <View>
-                  <Text style={styles.titleStyle} numberOfLines={2}>
-                    {name}
-                  </Text>
-                  <Text style={styles.text} numberOfLines={1}>
-                    {location.text}
-                  </Text>
-                  <Text style={styles.text} numberOfLines={1}>
-                    {formatDateTime({ date })}
-                  </Text>
-                </View>
+                <Fragment>
+                  <View style={styles.textContainer}>
+                    <Text style={styles.title} numberOfLines={2}>
+                      {name}
+                    </Text>
+                    <Text style={styles.text} numberOfLines={1}>
+                      {location.text}
+                    </Text>
+                    <Text style={styles.text} numberOfLines={1}>
+                      {formatDateTime({ date })}
+                    </Text>
+                  </View>
+                  <View style={styles.avatarContainer}>
+                    {!hideAvatar && owner?.avatarUrl ? (
+                      <Image
+                        source={{ uri: owner.avatarUrl }}
+                        style={styles.avatar}
+                        borderRadius={25}
+                        placeholderStyle={styles.placeholder}
+                        PlaceholderContent={
+                          <Loading size='small' backgroundColor='transparent' />
+                        }
+                      />
+                    ) : null}
+                  </View>
+                </Fragment>
               }
               leftElement={
                 <Image
@@ -48,6 +69,7 @@ const EventList = ({ data, onEventPress, refreshing, onRefresh }) => {
                   style={styles.image}
                   borderRadius={10}
                   PlaceholderContent={<Loading size='small' />}
+                  placeholderStyle={styles.placeholder}
                 />
               }
               containerStyle={styles.containerStyle}
@@ -68,19 +90,38 @@ const styles = StyleSheet.create({
   containerStyle: {
     borderRadius: 10,
     backgroundColor: theme.color.accent,
-    margin: 5
+    margin: 5,
+    paddingVertical: 0,
+    paddingHorizontal: 10
   },
-  titleStyle: {
+  textContainer: {
+    height: 100,
+    paddingVertical: 15,
+    paddingRight: 20
+  },
+  avatarContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 0
+  },
+  placeholder: {
+    backgroundColor: 'transparent'
+  },
+  title: {
     color: theme.color.tertiary,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold'
   },
   text: {
-    color: theme.color.tertiary
+    color: theme.color.placeholder
   },
   image: {
-    height: 75,
-    width: 75
+    height: 80,
+    width: 80
+  },
+  avatar: {
+    height: 25,
+    width: 25
   },
   noResults: {
     flex: 1,
@@ -96,7 +137,8 @@ EventList.propTypes = {
   data: PropTypes.array,
   onEventPress: PropTypes.func,
   onRefresh: PropTypes.func,
-  refreshing: PropTypes.bool
+  refreshing: PropTypes.bool,
+  hideAvatar: PropTypes.bool
 }
 
 export default EventList

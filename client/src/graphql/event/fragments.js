@@ -42,5 +42,9 @@ export const searchEventFragment = gql`
     location {
       text
     }
+    owner {
+      id
+      avatarUrl
+    }
   }
 `
