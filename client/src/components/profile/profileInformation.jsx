@@ -19,8 +19,10 @@ const ProfileInfo = () => {
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={[styles.text, styles.name]}>{name}</Text>
-          <Text style={styles.text}>{`@${user.username}`}</Text>
-          <Text style={[styles.text]}>{user.website}</Text>
+          <Text style={styles.text}>{`@${
+            user.username || 'No Username!'
+          }`}</Text>
+          <Text style={[styles.text]}>{user.website || '-'}</Text>
           <Text style={[styles.text, styles.description]} numberOfLines={1}>
             {user.description || 'No description...'}
           </Text>

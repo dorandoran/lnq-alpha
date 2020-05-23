@@ -25,7 +25,7 @@ const ProfileScreen = () => {
       case tabs.saves:
         return <SavesList />
       default:
-        throw new Error('Something went wrong with the ProfileListView.')
+        throw new Error('Something went wrong with the ProfileScreen.')
     }
   }
 
