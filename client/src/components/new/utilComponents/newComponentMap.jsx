@@ -35,14 +35,7 @@ export const componentMap = {
   }
 }
 
-const NewComponentMap = ({
-  userId,
-  nextPressed,
-  goNext,
-  index,
-  onFocus,
-  resetPressed
-}) => {
+const NewComponentMap = ({ userId, goNext, index, onFocus }) => {
   const map = [
     {
       index: 0,
@@ -51,9 +44,7 @@ const NewComponentMap = ({
           <Avatar
             key={componentMap[this.index]}
             userId={userId}
-            nextPressed={nextPressed}
             goNext={goNext}
-            resetPressed={resetPressed}
           />
         )
       }
@@ -65,10 +56,8 @@ const NewComponentMap = ({
           <UserInformation
             key={componentMap[this.index]}
             userId={userId}
-            nextPressed={nextPressed}
             goNext={goNext}
             onFocus={onFocus}
-            resetPressed={resetPressed}
           />
         )
       }
@@ -80,7 +69,6 @@ const NewComponentMap = ({
           <Categories
             key={componentMap[this.index]}
             userId={userId}
-            nextPressed={nextPressed}
             goNext={goNext}
           />
         )
@@ -93,7 +81,6 @@ const NewComponentMap = ({
           <Suggested
             key={componentMap[this.index]}
             userId={userId}
-            nextPressed={nextPressed}
             goNext={goNext}
           />
         )
@@ -106,7 +93,6 @@ const NewComponentMap = ({
           <Friends
             key={componentMap[this.index]}
             userId={userId}
-            nextPressed={nextPressed}
             goNext={goNext}
           />
         )

@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import isEqual from 'lodash/isEqual'
 
 import useUpdateUser from '@graphql/user/useUpdateUser'
 import useNotification from '@hooks/useNotification'
@@ -8,6 +9,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import DatePicker from 'react-native-modal-datetime-picker'
 import { View, StyleSheet } from 'react-native'
 import { StyledInput, StyledTouchable } from '@common'
+import BottomBar from '@components/new/utilComponents/newBottomButtonBar'
 
 import {
   inputMap,
@@ -28,13 +30,7 @@ const initialState = {
 }
 const initialPickerState = { visible: false, placeholder: true }
 
-const NewUserInformation = ({
-  onFocus,
-  userId,
-  nextPressed,
-  resetPressed,
-  goNext
-}) => {
+const NewUserInformation = ({ onFocus, userId, goNext }) => {
   const [input, setInput] = React.useState(initialState)
   const [datePicker, setDatePicker] = React.useState(initialPickerState)
   const { throwError, throwLoading, closeNotification } = useNotification()
@@ -44,20 +40,6 @@ const NewUserInformation = ({
       goNext()
     }
   })
-
-  React.useEffect(() => {
-    if (nextPressed) {
-      const errors = validateUpdates(input)
-
-      if (errors.length) {
-        throwError(errors.join('\n'))
-        resetPressed()
-      } else {
-        throwLoading(true)
-        updateUser({ id: userId, updates: input })
-      }
-    }
-  }, [nextPressed])
 
   const updateInput = (value, text) => {
     setInput({ ...input, [value]: text })
@@ -72,15 +54,26 @@ const NewUserInformation = ({
     updateInput('dob', stripTime(date))
   }
 
+  const handleNext = () => {
+    const errors = validateUpdates(input)
+
+    if (errors.length) {
+      throwError(errors.join('\n'))
+    } else {
+      throwLoading()
+      updateUser({ id: userId, updates: input })
+    }
+  }
+
   return (
-    <React.Fragment>
+    <Fragment>
       <KeyboardAwareScrollView
         enableOnAndroid
         innerRef={ref => (this.newScroll = ref)}
         contentContainerStyle={{ flex: 1 }}
       >
         <View style={styles.container}>
-          {inputMap.map(({ label, value }) => {
+          {inputMap.map(({ label, value, ...rest }) => {
             if (value === 'dob') {
               const placeholder = ''
 
@@ -116,11 +109,17 @@ const NewUserInformation = ({
                   updateInput(value, nativeEvent.text)
                 }
                 onFocus={event => onFocus(event.target)}
+                {...rest}
               />
             )
           })}
         </View>
       </KeyboardAwareScrollView>
+      <BottomBar
+        disabled={isEqual(initialState, input)}
+        onActionPress={handleNext}
+        onSkipPress={goNext}
+      />
       <DatePicker
         date={input.dob}
         isVisible={datePicker.visible}
@@ -129,7 +128,7 @@ const NewUserInformation = ({
         is24Hour={false}
         minimumDate={EIGHTEEN_YEARS_AGO}
       />
-    </React.Fragment>
+    </Fragment>
   )
 }
 

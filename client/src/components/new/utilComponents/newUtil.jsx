@@ -1,4 +1,5 @@
-import { EVENT_TYPES_ARRAY, PLACEHOLDER_18_YRS } from '@util'
+/* eslint-disable no-useless-escape */
+import { EVENT_TYPES_ARRAY } from '@util'
 
 export const inputMap = [
   {
@@ -11,7 +12,9 @@ export const inputMap = [
   },
   {
     label: 'Website',
-    value: 'website'
+    value: 'website',
+    keyboardType: 'email-address',
+    autoCapitalize: 'none'
   }
 ]
 
@@ -27,17 +30,37 @@ export const categoryMap = EVENT_TYPES_ARRAY.map((item, index) => {
 export const validateUpdates = updates => {
   let error = new Set()
 
+  const checkLength = (input, label) => {
+    if (6 > input.length > 0) {
+      error.add(`- ${label} must be at least 6 characters!`)
+    }
+    return null
+  }
+
+  const checkUrl = input => {
+    if (
+      !input.match(
+        /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
+      )
+    ) {
+      error.add('- Not a valid Website url!')
+    }
+  }
+
   Object.keys(updates).forEach(key => {
+    const input = updates[key]
+    const label = inputMap.find(({ value }) => value === key).label
     // username
-    if (key === 'username' && !updates[key].length) {
-      error.add('Username cannot be left empty')
+    if (key === 'username') {
+      checkLength(input, label)
+    }
+
+    // website
+    if (key === 'website') {
+      checkLength(input, label)
+      checkUrl(input)
     }
   })
-
-  // dob
-  if (updates.dob === PLACEHOLDER_18_YRS) {
-    error.add('Must select date of birth')
-  }
 
   return [...error]
 }

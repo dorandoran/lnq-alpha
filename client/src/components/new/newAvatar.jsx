@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import useStorage from '@hooks/useStorage'
@@ -6,15 +6,17 @@ import useNotification from '@hooks/useNotification'
 import useUpdateUser from '@graphql/user/useUpdateUser'
 
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
+import BottomBar from '@components/new/utilComponents/newBottomButtonBar'
 
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { Icon, Image } from 'react-native-elements'
 import { theme, CAMERA_SELECTION, BUCKET } from '@util'
 
-const NewAvatar = ({ userId, nextPressed, goNext, resetPressed }) => {
-  const [pressed, setPressed] = useState(false)
+const NewAvatar = ({ userId, goNext }) => {
+  const [avatarPressed, setAvatarPressed] = useState(false)
+  const [nextPressed, setNextPress] = useState(false)
   const [uri, setUri] = useState(null)
-  const { throwError, throwLoading, closeNotification } = useNotification()
+  const { throwLoading, closeNotification } = useNotification()
   const [updateUser] = useUpdateUser({
     onCompleted: () => {
       closeNotification()
@@ -22,9 +24,10 @@ const NewAvatar = ({ userId, nextPressed, goNext, resetPressed }) => {
     }
   })
 
-  const skip = !nextPressed || !uri
-  const showColor = pressed ? theme.color.tertiary : theme.color.background
-  const showBackgroundColor = pressed
+  const showColor = avatarPressed
+    ? theme.color.tertiary
+    : theme.color.background
+  const showBackgroundColor = avatarPressed
     ? theme.color.accent
     : theme.color.background
 
@@ -32,8 +35,8 @@ const NewAvatar = ({ userId, nextPressed, goNext, resetPressed }) => {
     uri,
     bucketName: BUCKET.USER,
     linkId: userId,
-    skip,
-    onStart: () => throwLoading(true)
+    skip: !nextPressed || !uri,
+    onStart: () => throwLoading()
   })
 
   React.useEffect(() => {
@@ -48,49 +51,58 @@ const NewAvatar = ({ userId, nextPressed, goNext, resetPressed }) => {
     }
   }, [media])
 
-  React.useEffect(() => {
-    if (nextPressed && !media && skip) {
-      throwError('No image selected')
-      resetPressed()
-    }
-  }, [nextPressed])
-
   const handleImageSelected = ({ uri }) => {
     setUri(uri)
-    setPressed(false)
+    setAvatarPressed(false)
+  }
+
+  const handleNext = () => {
+    if (uri) {
+      setNextPress(true)
+    }
   }
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => setPressed(!pressed)} disabled={loading}>
-        {uri ? (
-          <Image source={{ uri }} style={styles.image} borderRadius={100} />
-        ) : (
-          <Icon
-            type='ionicon'
-            name='ios-contact'
-            color={theme.color.tertiary}
-            size={200}
-          />
-        )}
-      </TouchableOpacity>
+    <Fragment>
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => setAvatarPressed(!avatarPressed)}
+          disabled={loading}
+        >
+          {uri ? (
+            <Image source={{ uri }} style={styles.image} borderRadius={100} />
+          ) : (
+            <Icon
+              type='ionicon'
+              name='ios-contact'
+              color={theme.color.tertiary}
+              size={200}
+            />
+          )}
+        </TouchableOpacity>
 
-      <View style={styles.actionContainer}>
-        <ActionSelectMedia
-          type={CAMERA_SELECTION}
-          color={showColor}
-          backgroundColor={showBackgroundColor}
-          disabled={!pressed || loading}
-          onComplete={handleImageSelected}
-        />
-        <ActionSelectMedia
-          color={showColor}
-          backgroundColor={showBackgroundColor}
-          disabled={!pressed || loading}
-          onComplete={handleImageSelected}
-        />
+        <View style={styles.actionContainer}>
+          <ActionSelectMedia
+            type={CAMERA_SELECTION}
+            color={showColor}
+            backgroundColor={showBackgroundColor}
+            disabled={!avatarPressed || loading}
+            onComplete={handleImageSelected}
+          />
+          <ActionSelectMedia
+            color={showColor}
+            backgroundColor={showBackgroundColor}
+            disabled={!avatarPressed || loading}
+            onComplete={handleImageSelected}
+          />
+        </View>
       </View>
-    </View>
+      <BottomBar
+        disabled={!uri}
+        onActionPress={handleNext}
+        onSkipPress={goNext}
+      />
+    </Fragment>
   )
 }
 
@@ -114,9 +126,7 @@ const styles = StyleSheet.create({
 
 NewAvatar.propTypes = {
   userId: PropTypes.string,
-  nextPressed: PropTypes.bool,
-  goNext: PropTypes.func,
-  resetPressed: PropTypes.func
+  goNext: PropTypes.func
 }
 
 export default NewAvatar

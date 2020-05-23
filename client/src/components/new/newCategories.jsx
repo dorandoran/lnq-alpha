@@ -1,31 +1,34 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import useUpdateUser from '@graphql/user/useUpdateUser'
+import useNotification from '@hooks/useNotification'
 
 import DraggableFlatList from 'react-native-draggable-flatlist'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
+import BottomBar from '@components/new/utilComponents/newBottomButtonBar'
 import { SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
 import {
   categoryMap,
   formatCategories
 } from '@components/new/utilComponents/newUtil'
 
-const NewCategories = ({ userId, nextPressed, goNext }) => {
+const NewCategories = ({ userId, goNext }) => {
   const [data, setData] = React.useState(categoryMap)
+  const { throwLoading, closeNotification } = useNotification()
   const [updateUser] = useUpdateUser({
     onCompleted: () => {
+      closeNotification()
       goNext()
     }
   })
 
-  React.useEffect(() => {
-    if (nextPressed) {
-      const updates = { categories: formatCategories(data) }
-      updateUser({ id: userId, updates })
-    }
-  }, [nextPressed])
+  const handleNext = () => {
+    throwLoading()
+    const updates = { categories: formatCategories(data) }
+    updateUser({ id: userId, updates })
+  }
 
   const renderItem = ({ item, drag, index }) => {
     return (
@@ -52,14 +55,17 @@ const NewCategories = ({ userId, nextPressed, goNext }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <DraggableFlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={item => item.value}
-        onDragEnd={handleDrag}
-      />
-    </View>
+    <Fragment>
+      <View style={styles.container}>
+        <DraggableFlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={item => item.value}
+          onDragEnd={handleDrag}
+        />
+      </View>
+      <BottomBar onActionPress={handleNext} onSkipPress={goNext} />
+    </Fragment>
   )
 }
 

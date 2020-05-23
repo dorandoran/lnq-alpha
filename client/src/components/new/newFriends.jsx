@@ -1,23 +1,27 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import { SearchBar } from 'react-native-elements'
 import { View, StyleSheet } from 'react-native'
+import BottomBar from '@components/new/utilComponents/newBottomButtonBar'
 import { theme } from '@util'
 
-const NewFriends = ({ userId, nextPressed, goNext }) => {
+const NewFriends = ({ userId, goNext }) => {
   const [text, setText] = React.useState('')
 
   return (
-    <View style={styles.container}>
-      <SearchBar
-        placeholder='Search'
-        value={text}
-        onChangeText={text => setText(text)}
-        containerStyle={styles.containerStyle}
-        inputContainerStyle={styles.inputContainer}
-      />
-    </View>
+    <Fragment>
+      <View style={styles.container}>
+        <SearchBar
+          placeholder='Search'
+          value={text}
+          onChangeText={text => setText(text)}
+          containerStyle={styles.containerStyle}
+          inputContainerStyle={styles.inputContainer}
+        />
+      </View>
+      <BottomBar onActionPress={goNext} showFinish />
+    </Fragment>
   )
 }
 
@@ -41,7 +45,6 @@ const styles = StyleSheet.create({
 
 NewFriends.propTypes = {
   userId: PropTypes.string,
-  nextPressed: PropTypes.bool,
   goNext: PropTypes.func
 }
 

@@ -101,7 +101,6 @@ const styles = StyleSheet.create({
     height: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.color.accent,
     borderRadius: 25
   },
   notificationContainer: {
