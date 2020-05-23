@@ -16,8 +16,8 @@ const ProfileEventList = () => {
   // eslint-disable-next-line quotes
   const noEvents = "You haven't created any events yet!"
 
-  if (loading) return <Loading />
-  if (!data?.user.events) {
+  if (loading) return <Loading position='top' />
+  if (!data?.user.events || !data.user.events.length) {
     return (
       <View style={styles.noResults}>
         <Text style={[styles.text, styles.noResultsText]}>{noEvents}</Text>

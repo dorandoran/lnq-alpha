@@ -4,13 +4,14 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native'
 import { theme } from '@util'
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util'
 
-const Loading = ({ styleProps, fullScreen, size = 'large' }) => {
+const Loading = ({ styleProps, fullScreen, position, size = 'large' }) => {
   return (
     <View
       style={[
         styles.container,
         styleProps,
-        fullScreen ? styles.fullScreen : null
+        fullScreen ? styles.fullScreen : null,
+        position === 'top' ? styles.top : null
       ]}
     >
       <ActivityIndicator size={size} color={theme.color.secondary} />
@@ -29,13 +30,18 @@ const styles = StyleSheet.create({
   fullScreen: {
     height: SCREEN_HEIGHT,
     width: SCREEN_WIDTH
+  },
+  top: {
+    justifyContent: 'flex-start',
+    marginTop: 75
   }
 })
 
 Loading.propTypes = {
   styleProps: PropTypes.object,
   size: PropTypes.string,
-  fullScreen: PropTypes.bool
+  fullScreen: PropTypes.bool,
+  position: PropTypes.string
 }
 
 export default Loading
