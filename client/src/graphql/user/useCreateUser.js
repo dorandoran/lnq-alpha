@@ -21,11 +21,8 @@ export default function useCreateUser({ onCompleted }) {
             description: null,
             dob: null,
             website: null,
-            preferences: {
-              new: true,
-              categories: null,
-              __typename: 'UserPreference'
-            },
+            new: true,
+            categories: null,
             __typename: 'User'
           }
 

@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import { View, StyleSheet } from 'react-native'
 
-const NewSuggested = ({ userId, nextPressed, goNext }) => {
-  return <View style={styles.container}></View>
+import BottomBar from '@components/new/utilComponents/newBottomButtonBar'
+
+const NewSuggested = ({ userId, goNext }) => {
+  return (
+    <Fragment>
+      <View style={styles.container} />
+      <BottomBar onActionPress={goNext} onSkipPress={goNext} />
+    </Fragment>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -17,7 +24,6 @@ const styles = StyleSheet.create({
 
 NewSuggested.propTypes = {
   userId: PropTypes.string,
-  nextPressed: PropTypes.bool,
   goNext: PropTypes.func
 }
 

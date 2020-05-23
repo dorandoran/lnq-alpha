@@ -42,10 +42,11 @@ const AuthButtonGroup = ({ input, screen }) => {
         disablePass: isOAuth ? true : false
       })
 
-      if (!errors.length) {
+      if (errors.length) {
+        throwError(errors.join('\n'))
+      } else {
         register(input)
       }
-      throwError(errors.join('\n'))
     }
   }
 
