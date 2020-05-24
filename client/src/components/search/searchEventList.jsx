@@ -24,7 +24,7 @@ const SearchEventList = ({ text }) => {
     text
   )
 
-  if (loading) return <Loading />
+  if (loading) return <Loading position='top' />
   if (refreshing) setRefreshing(false)
 
   if (!data?.search?.length) {

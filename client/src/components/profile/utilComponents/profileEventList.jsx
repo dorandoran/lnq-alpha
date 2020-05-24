@@ -10,13 +10,15 @@ import { Loading } from '@common'
 import { theme } from '@util'
 
 const ProfileEventList = () => {
-  const { data, loading } = useQuery(GetCurrentUserEvents, {
+  const [refreshing, setRefreshing] = React.useState(false)
+  const { data, loading, refetch } = useQuery(GetCurrentUserEvents, {
     fetchPolicy: 'cache-and-network'
   })
   // eslint-disable-next-line quotes
   const noEvents = "You haven't created any events yet!"
 
   if (loading) return <Loading position='top' />
+  if (refreshing) setRefreshing(false)
   if (!data?.user.events || !data.user.events.length) {
     return (
       <View style={styles.noResults}>
@@ -25,8 +27,19 @@ const ProfileEventList = () => {
     )
   }
 
+  const handleRefresh = () => {
+    setRefreshing(true)
+    refetch()
+  }
+
   return (
-    <EventList data={data.user.events} onEventPress={() => {}} hideAvatar />
+    <EventList
+      data={data.user.events}
+      onEventPress={() => {}}
+      hideAvatar
+      onRefresh={handleRefresh}
+      refreshing={refreshing}
+    />
   )
 }
 

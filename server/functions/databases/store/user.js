@@ -21,6 +21,7 @@ const saveToStore = user => {
 }
 
 const findById = ({ id }) => {
+  if (!id) return null
   return usersRef
     .doc(id)
     .get()

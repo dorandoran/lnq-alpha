@@ -4,7 +4,7 @@ import useUser from '@context/userContext'
 
 import { View, StyleSheet, Text } from 'react-native'
 import { Image } from 'react-native-elements'
-import { HeaderButton } from '@common'
+import { HeaderButton, Loading } from '@common'
 import { theme } from '@util'
 
 const ProfileInfo = () => {
@@ -14,7 +14,13 @@ const ProfileInfo = () => {
   return (
     <Fragment>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: user.avatarUrl }} />
+        <Image
+          style={styles.image}
+          source={{ uri: user.avatarUrl }}
+          PlaceholderContent={
+            <Loading size='small' styleProps={styles.loading} />
+          }
+        />
       </View>
       <View style={styles.container}>
         <View style={styles.textContainer}>
