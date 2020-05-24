@@ -9,15 +9,13 @@ import { View, Text, StyleSheet, ImageBackground } from 'react-native'
 import { Spacer, KeyboardDismiss } from '@common'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { theme } from '@util'
-import { PLACEHOLDER_18_YRS } from '@util/constants'
 
 const initialState = {
-  name: '',
-  username: '',
+  firstName: '',
+  lastName: '',
   email: '',
   password: '',
-  confirmPass: '',
-  dob: PLACEHOLDER_18_YRS
+  confirmPass: ''
 }
 
 const SignupScreen = ({ route }) => {

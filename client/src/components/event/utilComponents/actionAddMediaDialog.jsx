@@ -8,9 +8,9 @@ import useNotification from '@hooks/useNotification'
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
 
 import { theme, CAMERA_SELECTION, BUCKET } from '@util'
-import { StyleSheet, View, ActivityIndicator } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Image } from 'react-native-elements'
-import { DialogConfirmActions } from '@common'
+import { DialogConfirmActions, Loading } from '@common'
 
 const initialState = {
   selected: null,
@@ -19,7 +19,7 @@ const initialState = {
 
 const ActionAddMediaDialog = () => {
   const [uri, setUri] = useState(initialState)
-  const { throwSuccess, throwError } = useNotification()
+  const { throwSuccess } = useNotification()
   const {
     modal: { data },
     dispatch,
@@ -52,6 +52,8 @@ const ActionAddMediaDialog = () => {
     }
   }, [media])
 
+  if (loading) return <Loading />
+
   const handleConfirm = () => {
     if (uri) {
       setUri({ ...uri, confirmed: uri.selected })
@@ -60,14 +62,6 @@ const ActionAddMediaDialog = () => {
 
   const handleImageSelected = ({ uri }) => {
     setUri({ selected: uri })
-  }
-
-  if (loading) {
-    return (
-      <View style={styles.image}>
-        <ActivityIndicator size='large' color={theme.color.secondary} />
-      </View>
-    )
   }
 
   return (

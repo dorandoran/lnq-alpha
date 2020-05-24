@@ -50,9 +50,8 @@ const Other = gql`
   type Mutation {
     createUser(
       id: String!
-      username: String!
-      name: String!
-      dob: Date!
+      firstName: String!
+      lastName: String!
       email: String!
     ): User
     createEvent(
@@ -76,6 +75,7 @@ const Other = gql`
       uri: String!
     ): Media
     createInvites(recipientIds: [String!], eventId: String!): [Invite]
+    updateUser(id: String!, updates: UserUpdateInput!): User
     updateEvent(id: String!, updates: EventUpdateInput!): Event
     deleteEvent(id: String!): Boolean
     deleteMedia(

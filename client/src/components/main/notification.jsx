@@ -34,7 +34,7 @@ const Notification = () => {
   const { notificationState, notificationDispatch } = useContext(
     NotificationContext
   )
-  const { message, type, open, loading } = notificationState
+  const { message, type, open, loading, hideIndicator } = notificationState
   const typeStyles = typeMap[type]
 
   useDebounce(
@@ -48,10 +48,12 @@ const Notification = () => {
   // Loading notification component
   if (loading) {
     return (
-      <View style={[styles.full, styles.container]}>
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size='large' color={theme.color.secondary} />
-        </View>
+      <View style={[styles.container, styles.full]}>
+        {!hideIndicator && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size='large' color={theme.color.secondary} />
+          </View>
+        )}
       </View>
     )
   }
@@ -99,7 +101,6 @@ const styles = StyleSheet.create({
     height: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.color.accent,
     borderRadius: 25
   },
   notificationContainer: {

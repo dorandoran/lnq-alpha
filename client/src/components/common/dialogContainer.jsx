@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { theme } from '@util'
 import { View, StyleSheet, KeyboardAvoidingView } from 'react-native'
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util/constants'
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util'
 
 const DialogContainer = ({ children }) => {
   return (

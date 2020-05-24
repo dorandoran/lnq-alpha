@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, ActivityIndicator, StyleSheet } from 'react-native'
 import { theme } from '@util'
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util/constants'
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util'
 
-const Loading = ({ styleProps, size = 'large', fullScreen }) => {
+const Loading = ({ styleProps, fullScreen, size = 'large' }) => {
   return (
     <View
       style={[

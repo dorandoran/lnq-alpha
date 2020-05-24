@@ -12,6 +12,7 @@ const ActionSelectMedia = ({
   onComplete,
   type,
   styleProps,
+  disabled,
   color = theme.color.tertiary,
   backgroundColor = theme.color.secondary
 }) => {
@@ -88,7 +89,7 @@ const ActionSelectMedia = ({
   return (
     <TouchableOpacity
       onPress={handleButtonPress}
-      disabled={isSelected}
+      disabled={isSelected || disabled}
       activeOpacity={0.8}
       style={[styles.container, styleProps, { backgroundColor }]}
     >
@@ -119,6 +120,7 @@ const styles = StyleSheet.create({
 ActionSelectMedia.propTypes = {
   navigateToDetails: PropTypes.func,
   onComplete: PropTypes.func,
+  disabled: PropTypes.bool,
   type: PropTypes.string,
   color: PropTypes.string,
   backgroundColor: PropTypes.string,

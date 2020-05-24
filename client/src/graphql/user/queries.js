@@ -1,12 +1,12 @@
 import { gql } from 'apollo-boost'
-import { userFragment } from '@graphql/user/fragments'
+import { allInfoUserFragment } from '@graphql/user/fragments'
 
-export const GetUser = gql`
-  ${userFragment}
+export const GetCurrentUser = gql`
+  ${allInfoUserFragment}
 
-  query GetUser($id: String) {
+  query GetCurrentUser($id: String) {
     user(id: $id) {
-      ...userFields
+      ...allInfoUserFields
     }
   }
 `

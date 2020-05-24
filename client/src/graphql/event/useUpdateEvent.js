@@ -16,7 +16,7 @@ import { UpdateEvent } from '@graphql/event/mutations.js'
  * }
  */
 
-export default function useUpdateEvent ({ onCompleted }) {
+export default function useUpdateEvent({ onCompleted }) {
   const [updateEvent, { loading }] = useMutation(UpdateEvent, { onCompleted })
 
   return [
@@ -27,7 +27,7 @@ export default function useUpdateEvent ({ onCompleted }) {
           const cachedEvent = cache.readFragment({
             id: `Event:${variables.id}`,
             fragment: gql`
-              fragment eventAvatarUpdate on Event {
+              fragment eventUpdate on Event {
                 id
               }
             `
@@ -37,7 +37,7 @@ export default function useUpdateEvent ({ onCompleted }) {
             cache.writeFragment({
               id: `Event:${variables.id}`,
               fragment: gql`
-                fragment updatedEventAvatar on Event {
+                fragment updatedEvent on Event {
                   name
                   type
                   date
