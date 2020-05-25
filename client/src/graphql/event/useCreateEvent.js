@@ -9,37 +9,36 @@ export default function useCreateEvent() {
     createEvent({
       variables,
       update: (cache, { data: { createEvent: eventData } }) => {
-        const cachedUser = cache.readFragment({
-          id: `User:${variables.ownerId}`,
-          fragment: gql`
-            fragment userBeforeNewEvent on User {
-              id
-              events {
+        try {
+          const cachedUser = cache.readFragment({
+            id: `User:${variables.ownerId}`,
+            fragment: gql`
+              fragment userBeforeNewEvent on User {
                 id
-                name
-                date
-                avatar {
+                events {
                   id
-                  uri
-                }
-                location {
-                  text
-                }
-                owner {
-                  id
-                  avatarUrl
+                  name
+                  date
+                  avatar {
+                    id
+                    uri
+                  }
+                  location {
+                    text
+                  }
+                  owner {
+                    id
+                    avatarUrl
+                  }
                 }
               }
-            }
-          `
-        })
+            `
+          })
 
-        if (cachedUser.events)
           cache.writeFragment({
             id: `User:${variables.ownerId}`,
             fragment: gql`
               fragment userAfterNewEvent on User {
-                id
                 events {
                   id
                   name
@@ -63,6 +62,8 @@ export default function useCreateEvent() {
               __typename: 'User'
             }
           })
+          // eslint-disable-next-line no-empty
+        } catch {}
       }
     })
   }

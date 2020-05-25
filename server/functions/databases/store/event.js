@@ -39,7 +39,7 @@ const saveToStore = event => {
   return writeBatch
     .commit()
     .then(() => {
-      return event
+      return findById(event)
     })
     .catch(e => {
       // TODO: Error Handling

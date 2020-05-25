@@ -31,12 +31,12 @@ const ActionSaveEvent = ({ onOpen, onComplete, onSuccess }) => {
 
   useEffect(() => {
     let didCancel = false
-    if (media) {
+    if (!didCancel && media) {
       // Clean up event object and send to server
       details.id = media.linkId
       details.avatarId = media.id
       delete details.media
-      !didCancel && createEvent({ ...details, ownerId })
+      createEvent({ ...details, ownerId })
 
       // Action clean up
       setActionSelected(false)
