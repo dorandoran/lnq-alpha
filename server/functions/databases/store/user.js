@@ -5,6 +5,7 @@ const timestamp = admin.firestore.Timestamp
 const usersRef = firestore().collection('users')
 
 const saveToStore = user => {
+  // User Default Fields
   user.created_at = timestamp.now()
   user.new = true
 
@@ -21,6 +22,7 @@ const saveToStore = user => {
 }
 
 const findById = ({ id }) => {
+  if (!id) return null
   return usersRef
     .doc(id)
     .get()

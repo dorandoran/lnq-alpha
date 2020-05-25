@@ -18,7 +18,7 @@ const apolloServer = new ApolloServer({
       .then(user => {
         if (!user) {
           if (!isNewUser) {
-            throw new AuthenticationError('must authenticate')
+            return { user: {} }
           }
         }
         return { user }

@@ -53,17 +53,15 @@ const styles = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
     paddingBottom: 10,
-    paddingLeft: 10,
-    paddingRight: 10
+    paddingHorizontal: 10
   },
   listContainer: {
     backgroundColor: theme.color.accent,
     borderRadius: 25
   },
   buttonContainer: {
-    padding: 10,
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     borderRadius: 25
   },
   text: {

@@ -45,7 +45,12 @@ function reducer(state, action) {
     case actions.stopLoading:
       return { ...state, loading: false }
     case actions.loginSuccess:
-      return { ...state, loading: false, userId: action.payload }
+      return {
+        ...state,
+        loading: false,
+        userId: action.payload.id,
+        user: action.payload
+      }
     case actions.loginOAuthSuccess:
       return {
         ...state,
@@ -70,8 +75,8 @@ export const AuthProvider = props => {
   const [authState, dispatch] = useReducer(reducer, initialState)
   const { throwSuccess, throwWarning, throwError } = useNotification()
   const [createUser, createLoading] = useCreateUser({
-    onCompleted: ({ id }) => {
-      dispatch({ type: actions.loginSuccess, payload: id })
+    onCompleted: user => {
+      dispatch({ type: actions.loginSuccess, payload: user })
     }
   })
   const skip = !authState.userId || createLoading
@@ -132,7 +137,10 @@ export const AuthProvider = props => {
       dispatch({ type: actions.startLoading })
       const response = await auth.signInWithEmailAndPassword(email, password)
       const id = response.user.uid
-      dispatch({ type: actions.loginSuccess, payload: id })
+      dispatch({
+        type: actions.loginSuccess,
+        payload: { id, ...response.user }
+      })
     } catch (error) {
       throwError(error.message)
       dispatch({ type: actions.loginError, payload: error })
@@ -144,7 +152,7 @@ export const AuthProvider = props => {
     const unsubscribe = auth.onAuthStateChanged(async user => {
       if (user) {
         const id = user.uid
-        dispatch({ type: actions.loginSuccess, payload: id })
+        dispatch({ type: actions.loginSuccess, payload: { id, ...user } })
       }
       dispatch({ type: actions.stopLoading })
     })

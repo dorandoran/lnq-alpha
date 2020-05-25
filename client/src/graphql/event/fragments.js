@@ -7,7 +7,10 @@ export const eventFragment = gql`
       id
       username
     }
-    avatarId
+    avatar {
+      id
+      uri
+    }
     name
     type
     date
@@ -41,6 +44,10 @@ export const searchEventFragment = gql`
     }
     location {
       text
+    }
+    owner {
+      id
+      avatarUrl
     }
   }
 `

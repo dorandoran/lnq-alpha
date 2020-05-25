@@ -1,12 +1,26 @@
 import { gql } from 'apollo-boost'
 import { allInfoUserFragment } from '@graphql/user/fragments'
+import { searchEventFragment } from '@graphql/event/fragments'
 
 export const GetCurrentUser = gql`
   ${allInfoUserFragment}
 
-  query GetCurrentUser($id: String) {
-    user(id: $id) {
+  query GetCurrentUser {
+    user {
       ...allInfoUserFields
+    }
+  }
+`
+
+export const GetCurrentUserEvents = gql`
+  ${searchEventFragment}
+
+  query GetCurrentUserEvents {
+    user {
+      id
+      events {
+        ...searchEventFields
+      }
     }
   }
 `
