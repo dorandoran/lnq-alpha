@@ -1,7 +1,4 @@
-const {
-  ApolloServer,
-  AuthenticationError
-} = require('apollo-server-cloud-functions')
+const { ApolloServer } = require('apollo-server-cloud-functions')
 const { typeDefs, resolvers } = require('./schema')
 
 const { checkNewUser, getToken, getUser } = require('../auth')

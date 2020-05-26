@@ -26,9 +26,10 @@ const saveToStore = event => {
 
     const invite = {
       id: docRef.id,
+      type: 'INVITE',
       recipientId,
-      eventId: event.id,
-      answer: 'invited',
+      senderId: event.id,
+      answer: 'REQUESTED',
       updated_at: timestamp.now()
     }
     writeBatch.create(docRef, invite)

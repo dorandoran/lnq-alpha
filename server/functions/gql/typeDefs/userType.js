@@ -17,9 +17,15 @@ exports.typeDef = gql`
     avatarUrl: String
     website: String
     new: Boolean
+    numEvents: Int
+    numFollowers: Int
+    numFollowing: Int
     categories: [String]
     events: [Event]
-    invites: [Invite]
+    followers: [SocialLink]
+    following: [SocialLink]
+    invites: [SocialLink]
+    allowFollowers: Boolean
     created_at: Date
   }
 
@@ -33,6 +39,7 @@ exports.typeDef = gql`
     website: String
     new: Boolean
     categories: [String]
+    allowFollowers: Boolean
   }
 `
 

@@ -24,7 +24,7 @@ const typeDef = gql`
     likes: Int
     plusOne: Boolean
     isPrivate: Boolean
-    invites: [Invite]
+    invites: [SocialLink]
   }
 
   input EventUpdateInput {

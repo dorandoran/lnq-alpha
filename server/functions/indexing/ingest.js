@@ -27,6 +27,9 @@ const indexAll = async (req, res) => {
     )
     .catch(e => console.log(e))
   await SearchIndex.users.clearObjects()
+  await SearchIndex.users.setSettings({
+    attributesForFaceting: ['id']
+  })
   await SearchIndex.users.saveObjects(users)
 
   // Index Events

@@ -9,6 +9,7 @@ export default function useCreateEvent() {
     createEvent({
       variables,
       update: (cache, { data: { createEvent: eventData } }) => {
+        // Only updates if user has checked their events
         try {
           const cachedUser = cache.readFragment({
             id: `User:${variables.ownerId}`,

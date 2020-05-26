@@ -16,9 +16,9 @@ const {
   resolvers: mediaResolvers
 } = require('./typeDefs/mediaType')
 const {
-  typeDef: Invite,
-  resolvers: inviteResolvers
-} = require('./typeDefs/inviteType')
+  typeDef: SocialLink,
+  resolvers: socialLinkResolvers
+} = require('./typeDefs/socialLinkType')
 const {
   typeDef: Location,
   resolvers: locationResolvers
@@ -74,7 +74,8 @@ const Other = gql`
       linkId: String!
       uri: String!
     ): Media
-    createInvites(recipientIds: [String!], eventId: String!): [Invite]
+    createInvites(recipientIds: [String!]): [SocialLink]
+    requestFollow(recipientIds: [String!]): [SocialLink]
     updateUser(id: String!, updates: UserUpdateInput!): User
     updateEvent(id: String!, updates: EventUpdateInput!): Event
     deleteEvent(id: String!): Boolean
@@ -86,7 +87,7 @@ const Other = gql`
   }
 `
 // Combine all typeDefs
-const typeDefs = [Other, User, Event, Media, Invite, Location, Search]
+const typeDefs = [Other, User, Event, Media, SocialLink, Location, Search]
 
 // Provide resolver functions for your fields
 // Merge resolvers
@@ -95,7 +96,7 @@ const resolvers = merge(
   userResolvers,
   dateResolvers,
   mediaResolvers,
-  inviteResolvers,
+  socialLinkResolvers,
   locationResolvers,
   searchResolvers
 )

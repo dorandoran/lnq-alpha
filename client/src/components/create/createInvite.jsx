@@ -1,21 +1,32 @@
-import React, { useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import React from 'react'
+import { StyleSheet } from 'react-native'
 import { theme } from '@util'
 
-import { SearchBar } from 'react-native-elements'
+import UserSearchList from '@components/shared/userSearchList'
 
 const CreateInvite = () => {
-  const [search, setSearch] = useState('')
+  const [text, setText] = React.useState('')
+  const [selected, setSelected] = React.useState([])
+
+  const handleItemPress = item => {
+    const index = selected.indexOf(item.id)
+    let categories = []
+
+    if (index > -1) {
+      categories = selected.filter((_, idx) => index !== idx)
+    } else {
+      categories = [...selected, item.id]
+    }
+    setSelected(categories)
+  }
+
   return (
-    <View style={styles.container}>
-      <SearchBar
-        placeholder='Search'
-        value={search}
-        onChangeText={setSearch}
-        containerStyle={styles.containerStyle}
-        inputContainerStyle={styles.inputContainer}
-      />
-    </View>
+    <UserSearchList
+      value={text}
+      onChangeText={text => setText(text)}
+      selected={selected}
+      onItemPress={handleItemPress}
+    />
   )
 }
 

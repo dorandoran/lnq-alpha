@@ -5,38 +5,49 @@ const timestamp = admin.firestore.Timestamp
 const usersRef = firestore().collection('users')
 const eventsRef = firestore().collection('events')
 
-const saveAllToDb = ({ recipientIds, eventId }) => {
+const saveAllToDb = ({ type, senderId, recipientIds }) => {
   const writeBatch = firestore().batch()
-  const invitesRef = eventsRef.doc(invite.eventId).collection('invites')
-  const invites = []
+  const documents = []
+  // Sender: Events send invites, Follows send following/followers
+  let collection = 'followers'
+  let documentRef = usersRef.doc(senderId).collection('following')
+  if (type === 'EVENT') {
+    collection = 'invites'
+    documentRef = eventsRef.doc(senderId).collection('invites')
+  }
 
   recipientIds.forEach(recipientId => {
-    const docRef = invitesRef.doc()
-    const userRef = usersRef
+    let senderRef = documentRef.doc(recipientId)
+    let recipientRef = usersRef
       .doc(recipientId)
-      .collection('invites')
-      .doc(docRef.id)
-
-    const invite = {
-      id: docRef.id,
-      recipientId,
-      eventId,
-      answer: 'invited',
+      .collection(collection)
+      .doc(senderId)
+    // Create new document
+    let document = {
+      answer: 'REQUESTED',
       updated_at: timestamp.now()
     }
-    writeBatch.create(docRef, invite)
-    writeBatch.create(userRef, invite)
-    invites.push(invite)
+
+    if (type === 'EVENT') {
+      senderRef = documentRef.doc()
+      document.id = senderRef.id
+      document.senderId = senderId
+      document.recipientId = recipientId
+    }
+
+    writeBatch.set(senderRef, document)
+    writeBatch.set(recipientRef, document)
+    documents.push(document)
   })
 
   return writeBatch
     .commit()
     .then(() => {
-      return invites
+      return documents
     })
     .catch(e => {
       // TODO: Error Handling
-      console.log(e)
+      console.log('invite batch error ', e)
       return null
     })
 }

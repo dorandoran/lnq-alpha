@@ -8,6 +8,10 @@ const saveToStore = user => {
   // User Default Fields
   user.created_at = timestamp.now()
   user.new = true
+  user.allowFollowers = true
+  user.numFollowers = 0
+  user.numFollowing = 0
+  user.numEvents = 0
 
   return usersRef
     .doc(user.id)

@@ -1,47 +1,51 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-import { SearchBar } from 'react-native-elements'
-import { View, StyleSheet } from 'react-native'
-import BottomBar from '@components/new/utilComponents/newBottomButtonBar'
-import { theme } from '@util'
+import useRequestFollow from '@graphql/follow/useRequestFollow'
+import useNotification from '@hooks/useNotification'
 
-const NewFriends = ({ userId, goNext }) => {
+import UserSearchList from '@components/shared/userSearchList'
+import BottomBar from '@components/new/utilComponents/newBottomButtonBar'
+
+const NewFriends = ({ goNext }) => {
   const [text, setText] = React.useState('')
+  const [selected, setSelected] = React.useState([])
+  const { throwLoading } = useNotification()
+  const requestFollow = useRequestFollow({
+    onCompleted: () => {
+      goNext()
+    }
+  })
+
+  const handleFinish = () => {
+    throwLoading()
+    requestFollow({ recipientIds: selected })
+  }
+
+  const handleItemPress = item => {
+    const index = selected.indexOf(item.id)
+    let categories = []
+
+    if (index > -1) {
+      categories = selected.filter((_, idx) => index !== idx)
+    } else {
+      categories = [...selected, item.id]
+    }
+    setSelected(categories)
+  }
 
   return (
     <Fragment>
-      <View style={styles.container}>
-        <SearchBar
-          placeholder='Search'
-          value={text}
-          onChangeText={text => setText(text)}
-          containerStyle={styles.containerStyle}
-          inputContainerStyle={styles.inputContainer}
-        />
-      </View>
-      <BottomBar onActionPress={goNext} showFinish />
+      <UserSearchList
+        value={text}
+        onChangeText={text => setText(text)}
+        selected={selected}
+        onItemPress={handleItemPress}
+      />
+      <BottomBar onActionPress={handleFinish} showFinish />
     </Fragment>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: '75%',
-    alignItems: 'center'
-  },
-  containerStyle: {
-    backgroundColor: theme.color.background,
-    width: '100%',
-    marginBottom: '5%'
-  },
-  inputContainer: {
-    backgroundColor: theme.color.accent,
-    borderRadius: 25,
-    paddingLeft: '3%',
-    borderBottomWidth: 0
-  }
-})
 
 NewFriends.propTypes = {
   userId: PropTypes.string,

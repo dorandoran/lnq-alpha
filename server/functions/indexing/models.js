@@ -2,9 +2,12 @@ const user = data => {
   const additionalAttr = {
     objectID: data.id, // Algolia search id key
     created_at_timestamp: data.created_at.seconds, // Turn firebase Timestamp to seconds
-    created_at: data.created_at.toDate(), // Turn firebase Timestamp to Date
-    dob_timestamp: data.dob.seconds,
-    dob: data.dob.toDate()
+    created_at: data.created_at.toDate() // Turn firebase Timestamp to Date
+  }
+
+  if (data.dob) {
+    additionalAttr.dob_timestamp = data.dob.seconds
+    additionalAttr.dob = data.dob.toDate()
   }
 
   return Object.assign(data, additionalAttr)

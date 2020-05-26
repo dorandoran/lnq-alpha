@@ -14,7 +14,7 @@ const initialState = {
   page: 0
 }
 
-function reducer (state, action) {
+function reducer(state, action) {
   switch (action.type) {
     case actions.updateQuery:
       return {
@@ -34,7 +34,7 @@ function reducer (state, action) {
 
       return {
         ...state,
-        categories: categories
+        categories
       }
     }
     case actions.updateBucket:

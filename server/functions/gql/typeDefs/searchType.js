@@ -21,7 +21,7 @@ const resolvers = {
   Search: {},
   Hit: {
     __resolveType: (obj, context, info) => {
-      if (obj.username) return 'User'
+      if (obj.firstName) return 'User'
       if (obj.ownerId) return 'Event'
       return null
     }

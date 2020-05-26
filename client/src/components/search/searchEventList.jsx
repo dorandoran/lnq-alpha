@@ -6,7 +6,7 @@ import useSearch, { actions } from '@context/searchContext'
 import useSearchQuery from '@graphql/search/useSearchQuery'
 import { useDebounce } from '@hooks/useDebounce'
 
-import EventList from '@components/shared/eventList'
+import EventList from '@components/shared/itemList'
 import { View, StyleSheet, Text } from 'react-native'
 import { Loading } from '@common'
 
@@ -52,7 +52,7 @@ const SearchEventList = ({ text }) => {
   return (
     <EventList
       data={[...data.search]}
-      onEventPress={handleEventPress}
+      onItemPress={handleEventPress}
       onRefresh={handleRefresh}
       refreshing={refreshing}
     />
