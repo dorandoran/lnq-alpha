@@ -45,12 +45,37 @@ const saveAllToDb = ({ senderId, recipientIds }) => {
     })
 }
 
-const findAllByUserId = async ({ type, userId }) => {
+const findAllByUserId = ({ type, userId }) => {
   // type: SocialLinkType
-  const socialLinkRef = await usersRef.doc(userId).collection(type)
+  const socialLinkRef = usersRef.doc(userId).collection(type.toLowerCase())
+  const isFollowing = type === 'FOLLOWING'
   let socialLinks = []
 
   return socialLinkRef
+    .get()
+    .then(snap => {
+      snap.forEach(doc => {
+        link = doc.data()
+        // Creates a foreign-key id
+        link.id = `${userId}-${isFollowing ? link.recipientId : link.senderId}`
+        link.type = type
+        socialLinks.push(link)
+      })
+      return socialLinks
+    })
+    .catch(e => {
+      console.log(e)
+      return socialLinks
+    })
+}
+
+const findAcceptedByUserId = ({ type, userId }) => {
+  // type: SocialLinkType
+  const socialLinkRef = usersRef.doc(userId).collection(type.toLowerCase())
+  let socialLinks = []
+
+  return socialLinkRef
+    .where('answer', '==', 'ACCEPTED')
     .get()
     .then(snap => {
       snap.forEach(doc => {
@@ -66,5 +91,6 @@ const findAllByUserId = async ({ type, userId }) => {
 
 module.exports = {
   saveAllToDb,
-  findAllByUserId
+  findAllByUserId,
+  findAcceptedByUserId
 }

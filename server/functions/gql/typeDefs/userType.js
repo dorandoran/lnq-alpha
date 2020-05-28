@@ -3,6 +3,7 @@ const { gql } = require('apollo-server-cloud-functions')
 const User = require('../../databases/store/user')
 const Event = require('../../databases/store/event')
 const Invite = require('../../databases/store/invite')
+const Follow = require('../../databases/store/follow')
 
 // Type Definition
 exports.typeDef = gql`
@@ -68,6 +69,14 @@ exports.resolvers = {
     },
     invites: (parent, args, context, info) => {
       return Invite.findAllByUserId({ userId: parent.id })
+    },
+    following: (parent, args, context, info) => {
+      const userId = context.user.id
+      return Follow.findAllByUserId({ type: 'FOLLOWING', userId })
+    },
+    followers: (parent, args, context, info) => {
+      const userId = context.user.id
+      return Follow.findAllByUserId({ type: 'FOLLOWERS', userId })
     }
   }
 }

@@ -6,6 +6,16 @@ const typeDef = gql`
   type Search {
     hits: [Hit]
   }
+
+  type UserHit {
+    id: String!
+    username: String
+    firstName: String!
+    lastName: String!
+    avatarUrl: String
+    description: String
+    isFollowing: Boolean
+  }
 `
 
 const resolvers = {
@@ -13,6 +23,10 @@ const resolvers = {
   Query: {
     search: (parent, args, context, info) => {
       return Search.base(args)
+    },
+    userSearch: (parent, args, context, info) => {
+      args.userId = context.user.id
+      return Search.user(args)
     }
   },
   // Mutations
@@ -21,7 +35,7 @@ const resolvers = {
   Search: {},
   Hit: {
     __resolveType: (obj, context, info) => {
-      if (obj.firstName) return 'User'
+      if (obj.firstName) return 'UserHit'
       if (obj.ownerId) return 'Event'
       return null
     }

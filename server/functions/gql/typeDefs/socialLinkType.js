@@ -28,7 +28,7 @@ exports.typeDef = gql`
     senderId: String
     sender: Hit
     answer: SocialLinkAnswer
-    updatedAt: Date
+    updated_at: Date
   }
 `
 

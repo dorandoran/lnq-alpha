@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useDebounce } from '@hooks/useDebounce'
 import { useQuery } from '@apollo/react-hooks'
 import { UserSearch } from '@graphql/search/queries'
-import useUser from '@context/userContext'
+import { GetFollowing } from '@graphql/follow/queries'
 
 import { SearchBar } from 'react-native-elements'
 import { View, StyleSheet, Text } from 'react-native'
@@ -17,22 +17,33 @@ const UserSearchList = ({
   value,
   onChangeText,
   selected,
+  followSelected,
   onItemPress,
-  buttonLabel = 'Follow'
+  onFollowPress
 }) => {
-  const [text, setText] = React.useState('')
-  const user = useUser()
-  const variables = {
-    query: text,
-    filters: `NOT id:${user.id}`
-  }
-  const { data, loading } = useQuery(UserSearch, { variables })
+  const [query, setQuery] = React.useState('')
+  const { data: followData } = useQuery(GetFollowing, {
+    fetchPolicy: 'cache-and-network',
+    skip: following
+  })
 
-  useDebounce(() => setText(value), 1000, value)
+  const following =
+    followData?.user?.following.map(link => {
+      if (link.answer === 'ACCEPTED') {
+        return link.recipientId
+      }
+    }) || null
+
+  const { data, loading } = useQuery(UserSearch, {
+    variables: { query, page: 0, following },
+    skip: !following
+  })
+
+  useDebounce(() => setQuery(value), 1000, value)
 
   const renderList = () => {
-    if (loading) return <Loading position='top' />
-    if (!data?.search?.length) {
+    if (data === undefined || loading) return <Loading position='top' />
+    if (!data?.userSearch?.length) {
       return (
         <View style={styles.noResults}>
           <Text style={[styles.text, styles.noResultsText]}>
@@ -44,10 +55,11 @@ const UserSearchList = ({
     return (
       <UserList
         type='users'
-        data={[...data.search]}
+        data={[...data.userSearch]}
         onItemPress={onItemPress}
         selected={selected}
-        actionLabel={buttonLabel}
+        followSelected={followSelected}
+        onFollowPress={onFollowPress}
       />
     )
   }
@@ -98,9 +110,10 @@ UserSearchList.propTypes = {
   styleProps: PropTypes.object,
   value: PropTypes.string,
   onChangeText: PropTypes.func,
+  followSelected: PropTypes.array,
   selected: PropTypes.array,
   onItemPress: PropTypes.func,
-  buttonLabel: PropTypes.string
+  onFollowPress: PropTypes.func
 }
 
 export default UserSearchList

@@ -14,14 +14,27 @@ export const Search = gql`
   }
 `
 
-export const UserSearch = gql`
+export const NewUserSearch = gql`
   ${userFragment}
 
-  query UserSearch($query: String, $filters: String) {
+  query NewUserSearch($query: String, $filters: String) {
     search(bucket: "users", query: $query, filters: $filters, page: 0) {
       ... on User {
         ...userFields
       }
+    }
+  }
+`
+
+export const UserSearch = gql`
+  query UserSearch($query: String, $page: Int, $following: [String]) {
+    userSearch(query: $query, page: $page, following: $following) {
+      id
+      firstName
+      lastName
+      username
+      avatarUrl
+      isFollowing
     }
   }
 `

@@ -32,7 +32,7 @@ const {
 // Global Query Object
 const Other = gql`
   scalar Date
-  union Hit = User | Event
+  union Hit = UserHit | Event
 
   type StoreDeleteResponse {
     completed: Boolean!
@@ -45,6 +45,7 @@ const Other = gql`
     media(id: String!): Media
     getUserEvents(id: String): [Event]
     search(bucket: String!, query: String, filters: String, page: Int): [Hit]
+    userSearch(query: String, page: Int, following: [String]): [UserHit]
   }
 
   type Mutation {

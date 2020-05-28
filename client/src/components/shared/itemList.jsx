@@ -17,11 +17,11 @@ import { theme, formatDateTime } from '@util'
 const ItemList = ({
   data,
   onItemPress,
+  onFollowPress,
   refreshing,
   onRefresh,
   selected,
-  actionLabel = 'Friend',
-  selectedLabel = null,
+  followSelected = selected,
   type = 'events',
   hideAvatar = false
 }) => {
@@ -82,8 +82,10 @@ const ItemList = ({
 
   // User ListItem
   const renderUserListItem = item => {
-    const { firstName, lastName, username, avatarUrl, id } = item
+    const { firstName, lastName, username, avatarUrl, isFollowing, id } = item
+    const isFollowSelected = followSelected?.includes(id) || false
     const isSelected = selected?.includes(id) || false
+
     return (
       <ListItem
         title={
@@ -109,7 +111,12 @@ const ItemList = ({
               placeholderStyle={styles.placeholder}
             />
           ) : (
-            <View style={styles.userImage} />
+            <View
+              style={[
+                styles.userImage,
+                { backgroundColor: theme.color.background }
+              ]}
+            />
           )
         }
         rightElement={
@@ -117,19 +124,50 @@ const ItemList = ({
             style={[
               styles.actionButton,
               {
-                backgroundColor: isSelected
+                borderColor: isFollowing
+                  ? theme.color.tertiary
+                  : isFollowSelected
                   ? theme.color.success
+                  : theme.color.tertiary,
+                backgroundColor: isFollowing
+                  ? theme.color.success
+                  : isFollowSelected
+                  ? theme.color.tertiary
                   : theme.color.background
               }
             ]}
-            onPress={() => onItemPress(item)}
+            onPress={
+              onFollowPress
+                ? () => onFollowPress(item)
+                : () => onItemPress(item)
+            }
           >
-            <Text style={styles.actionText}>
-              {isSelected && selectedLabel ? selectedLabel : actionLabel}
+            <Text
+              style={[
+                styles.actionText,
+                {
+                  color: isFollowSelected
+                    ? theme.color.background
+                    : theme.color.tertiary
+                }
+              ]}
+            >
+              {isFollowing
+                ? 'Following'
+                : isFollowSelected
+                ? 'Pending'
+                : 'Follow'}
             </Text>
           </TouchableOpacity>
         }
-        containerStyle={[styles.userContainerStyle]}
+        containerStyle={[
+          styles.userContainerStyle,
+          {
+            backgroundColor: isSelected
+              ? theme.color.success
+              : theme.color.background
+          }
+        ]}
         onPress={() => onItemPress(item)}
       />
     )
@@ -177,8 +215,8 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingHorizontal: 10,
     backgroundColor: theme.color.background,
-    borderWidth: 1,
-    borderColor: theme.color.tertiary
+    borderColor: theme.color.tertiary,
+    borderWidth: 2
   },
   textContainer: {
     height: 100,
@@ -233,11 +271,10 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   actionButton: {
-    width: '25%',
+    width: '30%',
     height: 30,
     borderRadius: 25,
     borderWidth: 2,
-    borderColor: theme.color.tertiary,
     justifyContent: 'center',
     alignItems: 'center'
   }
@@ -246,13 +283,13 @@ const styles = StyleSheet.create({
 ItemList.propTypes = {
   data: PropTypes.array,
   onItemPress: PropTypes.func,
+  onFollowPress: PropTypes.func,
   onRefresh: PropTypes.func,
   refreshing: PropTypes.bool,
   hideAvatar: PropTypes.bool,
   type: PropTypes.string,
   selected: PropTypes.array,
-  actionLabel: PropTypes.string,
-  selectedLabel: PropTypes.string
+  followSelected: PropTypes.array
 }
 
 export default ItemList
