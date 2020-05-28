@@ -15,7 +15,11 @@ const cleanupMedia = functions.firestore
     // TODO: Add Error Handling
     const eventMedia = await Media.findAllByLinkId({ linkId: event.id })
     eventMedia.forEach(async media => {
-      await Media.deleteFromStore({ id: media.id })
+      await Media.deleteFromStore({
+        id: media.id,
+        linkId: event.id,
+        bucket: 'events'
+      })
     })
   })
 

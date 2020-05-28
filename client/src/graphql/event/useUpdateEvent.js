@@ -9,7 +9,7 @@ import { UpdateEvent } from '@graphql/event/mutations.js'
  *   type: string,
  *   date: Date,
  *   location: LocationInput,
- *   url: string,
+ *   website: string,
  *   description: string,
  *   plusOne: boolean,
  *   isPrivate: boolean
@@ -46,7 +46,7 @@ export default function useUpdateEvent({ onCompleted }) {
                     latitude
                     text
                   }
-                  url
+                  website
                   description
                   plusOne
                   isPrivate

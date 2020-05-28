@@ -13,7 +13,7 @@ export const CreateProvider = ({ children, initialMedia }) => {
     location: null,
     date: TOMORROW_DATETIME,
     description: '',
-    url: '',
+    website: '',
     plusOne: true,
     isPrivate: true,
     media: []

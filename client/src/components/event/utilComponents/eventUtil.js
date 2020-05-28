@@ -35,8 +35,8 @@ export const eventDetails = [
     iconName: 'clock-outline'
   },
   {
-    key: 'url',
-    title: ({ url }) => `${url || 'None'}`,
+    key: 'website',
+    title: ({ website }) => `${website || 'None'}`,
     iconName: 'web'
   },
   {
@@ -75,7 +75,7 @@ export const getEventUpdates = ({
   type,
   date,
   location,
-  url,
+  website,
   description,
   plusOne,
   isPrivate
@@ -89,7 +89,7 @@ export const getEventUpdates = ({
       longitude: location.longitude,
       text: location.text
     },
-    url,
+    website,
     description,
     plusOne,
     isPrivate

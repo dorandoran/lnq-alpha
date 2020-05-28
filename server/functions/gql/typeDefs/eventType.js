@@ -17,7 +17,7 @@ const typeDef = gql`
     type: String
     date: Date
     location: Location
-    url: String
+    website: String
     description: String
     created_at: Date
     media: [Media]
@@ -33,7 +33,7 @@ const typeDef = gql`
     type: String
     date: Date
     location: LocationInput
-    url: String
+    website: String
     description: String
     plusOne: Boolean
     isPrivate: Boolean

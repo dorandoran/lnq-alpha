@@ -26,7 +26,7 @@
         { "fieldPath": "date", "mode": "ASCENDING" },
         { "fieldPath": "location", "mode": "ASCENDING" },
         { "fieldPath": "description", "mode": "ASCENDING" },
-        { "fieldPath": "url", "mode": "ASCENDING" },
+        { "fieldPath": "website", "mode": "ASCENDING" },
         { "fieldPath": "created_at", "mode": "ASCENDING" },
         { "fieldPath": "likes", "mode": "ASCENDING" },
         { "fieldPath": "plusOne", "mode": "ASCENDING" },

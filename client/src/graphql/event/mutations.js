@@ -12,7 +12,7 @@ export const CreateEvent = gql`
     $type: String!
     $date: Date!
     $location: LocationInput!
-    $url: String
+    $website: String
     $description: String!
     $plusOne: Boolean!
     $isPrivate: Boolean!
@@ -25,7 +25,7 @@ export const CreateEvent = gql`
       type: $type
       date: $date
       location: $location
-      url: $url
+      website: $website
       description: $description
       plusOne: $plusOne
       isPrivate: $isPrivate

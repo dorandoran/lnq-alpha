@@ -92,7 +92,7 @@ const CreateDetails = () => {
                   }}
                   key={value}
                   label={label}
-                  autoCapitalize={value === 'url' ? 'none' : 'words'}
+                  autoCapitalize={value === 'website' ? 'none' : 'words'}
                   onChange={({ nativeEvent }) =>
                     updateDetails(value, nativeEvent.text)
                   }
