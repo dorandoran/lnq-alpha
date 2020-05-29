@@ -7,7 +7,7 @@ export const CreateEvent = gql`
   mutation CreateEvent(
     $id: String!
     $ownerId: String!
-    $avatarId: String!
+    $avatar: AvatarInput!
     $name: String!
     $type: String!
     $date: Date!
@@ -16,11 +16,13 @@ export const CreateEvent = gql`
     $description: String!
     $plusOne: Boolean!
     $isPrivate: Boolean!
+    $recipientIds: [String]
+    $followIds: [String]
   ) {
     createEvent(
       id: $id
       ownerId: $ownerId
-      avatarId: $avatarId
+      avatar: $avatar
       name: $name
       type: $type
       date: $date
@@ -29,6 +31,8 @@ export const CreateEvent = gql`
       description: $description
       plusOne: $plusOne
       isPrivate: $isPrivate
+      recipientIds: $recipientIds
+      followIds: $followIds
     ) {
       ...eventFields
     }

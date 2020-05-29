@@ -8,7 +8,7 @@ export default function useCreateEvent() {
   return variables => {
     createEvent({
       variables,
-      update: (cache, { data: { createEvent: eventData } }) => {
+      update: cache => {
         // Only updates if user has checked their events
         try {
           const cachedUser = cache.readFragment({
@@ -27,14 +27,14 @@ export default function useCreateEvent() {
                   location {
                     text
                   }
-                  owner {
-                    id
-                    avatarUrl
-                  }
                 }
               }
             `
           })
+
+          variables.__typename = 'Event'
+          variables.location.__typename = 'Location'
+          variables.avatar.__typename = 'Media'
 
           cache.writeFragment({
             id: `User:${variables.ownerId}`,
@@ -51,15 +51,11 @@ export default function useCreateEvent() {
                   location {
                     text
                   }
-                  owner {
-                    id
-                    avatarUrl
-                  }
                 }
               }
             `,
             data: {
-              events: [...cachedUser.events, eventData],
+              events: [...cachedUser.events, variables],
               __typename: 'User'
             }
           })

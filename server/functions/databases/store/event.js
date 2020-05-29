@@ -1,46 +1,37 @@
 const { firestore } = require('../../services/firebase')
+const Follow = require('../../databases/store/follow.js')
+const Invite = require('../../databases/store/invite')
+
 const admin = require('firebase-admin')
 const timestamp = admin.firestore.Timestamp
+const FieldValue = admin.firestore.FieldValue
 
 const usersRef = firestore().collection('users')
 const eventsRef = firestore().collection('events')
 
-const saveToStore = event => {
+const saveToStore = ({ userId, recipientIds, avatar, followIds, ...event }) => {
   const writeBatch = firestore().batch()
-  const invitesRef = eventsRef.doc(event.id).collection('invites')
-  const recipientIds = event.recipientIds || []
-  const invites = []
-
-  delete event.recipientIds
   event.likes = 0
   event.created_at = timestamp.now()
+  event.avatarId = avatar.id
 
+  // Create Event
   writeBatch.set(eventsRef.doc(event.id), event)
-
-  recipientIds.forEach(recipientId => {
-    const docRef = invitesRef.doc()
-    const userRef = usersRef
-      .doc(recipientId)
-      .collection('invites')
-      .doc(docRef.id)
-
-    const invite = {
-      id: docRef.id,
-      type: 'INVITE',
-      recipientId,
-      senderId: event.id,
-      answer: 'REQUESTED',
-      updated_at: timestamp.now()
-    }
-    writeBatch.create(docRef, invite)
-    writeBatch.create(userRef, invite)
-    invites.push(invite)
+  // Update numEvents
+  writeBatch.update(usersRef.doc(userId), {
+    numEvents: FieldValue.increment(1)
   })
+  // Send Follows
+  Invite.saveAllToDb({ senderId: event.id, recipientIds })
+  Follow.saveAllToDb({ senderId: userId, recipientIds: followIds })
 
+  // Add avatar back to event
+  event.avatar = avatar
+  console.log('event ', event)
   return writeBatch
     .commit()
     .then(() => {
-      return findById(event)
+      return event
     })
     .catch(e => {
       // TODO: Error Handling

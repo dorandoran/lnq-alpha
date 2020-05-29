@@ -6,12 +6,6 @@ const User = require('../../databases/store/user')
 const Event = require('../../databases/store/user')
 
 exports.typeDef = gql`
-  enum SocialLinkType {
-    FOLLOWERS
-    FOLLOWING
-    INVITES
-  }
-
   enum SocialLinkAnswer {
     REQUESTED
     ACCEPTED
@@ -22,7 +16,6 @@ exports.typeDef = gql`
 
   type SocialLink {
     id: String
-    type: SocialLinkType
     recipientId: String
     recipient: User
     senderId: String
@@ -35,20 +28,20 @@ exports.typeDef = gql`
 exports.resolvers = {
   Query: {},
   Mutation: {
-    createInvites: (parent, args, context) => {
+    createInvites: (_, args, context) => {
       args.senderId = context.user.id
       return Invite.saveAllToDb(args)
     },
-    requestFollow: (parent, args, context) => {
+    requestFollow: (_, args, context) => {
       args.senderId = context.user.id
       return Follow.saveAllToDb(args)
     }
   },
   SocialLink: {
-    recipient: (parent, args, context, info) => {
+    recipient: parent => {
       return User.findById({ id: parent.recipientId })
     },
-    sender: (parent, args, context, info) => {
+    sender: parent => {
       if (parent.type === 'INVITES') {
         return Event.findById({ id: parent.senderId })
       }

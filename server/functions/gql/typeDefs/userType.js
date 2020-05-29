@@ -48,33 +48,33 @@ exports.typeDef = gql`
 exports.resolvers = {
   // Global query
   Query: {
-    user: (parent, args, context, info) => {
+    user: (_, args, context) => {
       const id = args.id || context.user.id
       return User.findById({ id })
     }
   },
   // Mutations
   Mutation: {
-    createUser: (parent, args) => {
+    createUser: (_, args) => {
       return User.saveToStore(args)
     },
-    updateUser: (parent, args) => {
+    updateUser: (_, args) => {
       return User.update(args)
     }
   },
   // Field Resolve
   User: {
-    events: (parent, args, context, info) => {
+    events: parent => {
       return Event.findAllByOwnerId({ ownerId: parent.id })
     },
-    invites: (parent, args, context, info) => {
+    invites: parent => {
       return Invite.findAllByUserId({ userId: parent.id })
     },
-    following: (parent, args, context, info) => {
+    following: (_, __, context) => {
       const userId = context.user.id
       return Follow.findAllByUserId({ type: 'FOLLOWING', userId })
     },
-    followers: (parent, args, context, info) => {
+    followers: (_, __, context) => {
       const userId = context.user.id
       return Follow.findAllByUserId({ type: 'FOLLOWERS', userId })
     }

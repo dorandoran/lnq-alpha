@@ -27,6 +27,14 @@ const typeDef = gql`
     invites: [SocialLink]
   }
 
+  input AvatarInput {
+    id: String
+    userId: String
+    linkId: [String]
+    uri: String
+    created_at: Date
+  }
+
   input EventUpdateInput {
     name: String
     avatarId: String
@@ -44,23 +52,24 @@ const typeDef = gql`
 const resolvers = {
   // Global Query
   Query: {
-    event: (parent, args, context, info) => {
+    event: (_, args) => {
       return Event.findById(args)
     },
-    getUserEvents: (parent, args, context, info) => {
+    getUserEvents: (_, args, context) => {
       const ownerId = args.id || context.user.id
       return Event.findAllByOwnerId({ ownerId })
     }
   },
   // Mutations
   Mutation: {
-    createEvent: (parent, args) => {
+    createEvent: (_, args, context) => {
+      args.userId = context.user.id
       return Event.saveToStore(args)
     },
-    updateEvent: (parent, args) => {
+    updateEvent: (_, args) => {
       return Event.update(args)
     },
-    deleteEvent: (parent, args, context) => {
+    deleteEvent: (_, args) => {
       // TODO: Add security - check userId matches
       // context = { email: string, name: string, username: string, id: string... }
       return Event.deleteFromStore(args)
@@ -68,16 +77,16 @@ const resolvers = {
   },
   // Field Resolve
   Event: {
-    owner: (parent, args, context, info) => {
+    owner: parent => {
       return User.findById({ id: parent.ownerId })
     },
-    avatar: (parent, args, context, info) => {
+    avatar: parent => {
       return Media.findById({ id: parent.avatarId })
     },
-    media: ({ id, avatarId }, args, context, info) => {
+    media: ({ id, avatarId }) => {
       return Media.findAllByLinkId({ linkId: id, avatarId: avatarId })
     },
-    invites: (parent, args, context, info) => {
+    invites: parent => {
       return Invite.findAllByEventId({ eventId: parent.id })
     }
   }

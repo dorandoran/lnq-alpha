@@ -57,22 +57,22 @@ const ItemList = ({
                   style={styles.avatar}
                   borderRadius={25}
                   placeholderStyle={styles.placeholder}
-                  PlaceholderContent={
-                    <Loading size='small' backgroundColor='transparent' />
-                  }
+                  PlaceholderContent={<Loading size='small' />}
                 />
               ) : null}
             </View>
           </Fragment>
         }
         leftElement={
-          <Image
-            source={{ uri: avatar.uri }}
-            style={styles.image}
-            borderRadius={10}
-            PlaceholderContent={<Loading size='small' />}
-            placeholderStyle={styles.placeholder}
-          />
+          avatar && (
+            <Image
+              source={{ uri: avatar.uri }}
+              style={styles.image}
+              borderRadius={10}
+              PlaceholderContent={<Loading size='small' />}
+              placeholderStyle={styles.placeholder}
+            />
+          )
         }
         containerStyle={styles.containerStyle}
         onPress={() => onItemPress(item)}
@@ -146,7 +146,9 @@ const ItemList = ({
               style={[
                 styles.actionText,
                 {
-                  color: isFollowSelected
+                  color: isFollowing
+                    ? theme.color.tertiary
+                    : isFollowSelected
                     ? theme.color.background
                     : theme.color.tertiary
                 }
@@ -178,7 +180,7 @@ const ItemList = ({
       <FlatList
         style={{ minHeight: 100 }}
         refreshControl={
-          refreshing && (
+          onRefresh && (
             <RefreshControl
               onRefresh={onRefresh}
               refreshing={refreshing}
@@ -234,7 +236,8 @@ const styles = StyleSheet.create({
     right: 0
   },
   placeholder: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    borderRadius: 10
   },
   title: {
     color: theme.color.tertiary,

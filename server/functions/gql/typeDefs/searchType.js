@@ -21,10 +21,10 @@ const typeDef = gql`
 const resolvers = {
   // Global Query
   Query: {
-    search: (parent, args, context, info) => {
+    search: (_, args) => {
       return Search.base(args)
     },
-    userSearch: (parent, args, context, info) => {
+    userSearch: (_, args, context) => {
       args.userId = context.user.id
       return Search.user(args)
     }
@@ -34,7 +34,7 @@ const resolvers = {
   // Field Resolve
   Search: {},
   Hit: {
-    __resolveType: (obj, context, info) => {
+    __resolveType: obj => {
       if (obj.firstName) return 'UserHit'
       if (obj.ownerId) return 'Event'
       return null

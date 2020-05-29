@@ -23,6 +23,9 @@ export default function useCreateUser({ onCompleted }) {
             website: null,
             new: true,
             categories: null,
+            numEvents: 0,
+            numFollowers: 0,
+            numFollowing: 0,
             __typename: 'User'
           }
 

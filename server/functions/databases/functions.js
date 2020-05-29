@@ -6,6 +6,7 @@ const Media = require('./store/media')
 const FieldValue = admin.firestore.FieldValue
 const timestamp = admin.firestore.Timestamp
 const usersRef = firestore().collection('users')
+const followsRef = firestore().collection('follows')
 
 // Media Cleanup - Deletes Media attached to just-deleted Events
 const cleanupMedia = functions.firestore
@@ -34,7 +35,7 @@ const cleanupUser = functions.firestore
 
 // If a user allows all follows, this function will automatically answer invitations
 const allowFollowers = functions.firestore
-  .document('users/{recipientId}/followers/{senderId}')
+  .document('follows/{followId}')
   .onCreate(change => {
     const follow = change.data()
     const recipientRef = usersRef.doc(follow.recipientId)
@@ -52,26 +53,23 @@ const allowFollowers = functions.firestore
           }
 
           if (recipient.allowFollowers) {
-            // Update recipient
+            // Update counts
             transaction.update(recipientRef, {
               numFollowers: FieldValue.increment(1)
             })
-            transaction.update(
-              recipientRef.collection('followers').doc(follow.senderId),
-              answerUpdate
-            )
-
-            // Update sender
             transaction.update(senderRef, {
               numFollowing: FieldValue.increment(1)
             })
-            transaction.update(
-              senderRef.collection('following').doc(follow.recipientId),
-              answerUpdate
+
+            // Update follow
+            transaction.update(followsRef.doc(follow.id), answerUpdate)
+            return Promise.resolve(
+              `${follow.recipientId} allowed ${follow.senderId}`
             )
           }
+
           return Promise.resolve(
-            `${follow.recipientId} allowed ${follow.senderId}`
+            `${follow.recipientId} does not auto-allow followers`
           )
         })
         .then(result => console.log(result))

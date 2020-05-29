@@ -58,7 +58,7 @@ const Other = gql`
     createEvent(
       id: String!
       ownerId: String!
-      avatarId: String!
+      avatar: AvatarInput!
       name: String!
       type: String!
       date: Date!
@@ -68,6 +68,7 @@ const Other = gql`
       plusOne: Boolean!
       isPrivate: Boolean!
       recipientIds: [String]
+      followIds: [String]
     ): Event
     createMedia(
       id: String!

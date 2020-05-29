@@ -16,6 +16,8 @@ export const CreateProvider = ({ children, initialMedia }) => {
     website: '',
     plusOne: true,
     isPrivate: true,
+    recipientIds: [],
+    followIds: [],
     media: []
   }
 
@@ -28,7 +30,20 @@ export const CreateProvider = ({ children, initialMedia }) => {
 
   // Edit Details/Media Functions
   const updateDetails = (key, input) => {
-    setDetails({ ...details, [key]: input })
+    if (key === 'recipientIds' || key === 'followIds') {
+      const index = details[key].indexOf(input)
+      let newDetail = []
+
+      if (index > -1) {
+        newDetail = details[key].filter((_, idx) => index !== idx)
+      } else {
+        newDetail = [...details[key], input]
+      }
+
+      setDetails({ ...details, [key]: newDetail })
+    } else {
+      setDetails({ ...details, [key]: input })
+    }
   }
 
   const addMedia = item => {

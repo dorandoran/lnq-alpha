@@ -33,8 +33,8 @@ const ActionSaveEvent = ({ onOpen, onComplete, onSuccess }) => {
     let didCancel = false
     if (!didCancel && media) {
       // Clean up event object and send to server
+      details.avatar = media
       details.id = media.linkId
-      details.avatarId = media.id
       delete details.media
       createEvent({ ...details, ownerId })
 

@@ -14,15 +14,15 @@ exports.typeDef = gql`
 
 exports.resolvers = {
   Query: {
-    media: (parent, args, context, info) => {
+    media: (_, args) => {
       return Media.findById(args)
     }
   },
   Mutation: {
-    createMedia: (parent, args) => {
+    createMedia: (_, args) => {
       return Media.saveToStore(args)
     },
-    deleteMedia: (parent, args) => {
+    deleteMedia: (_, args) => {
       return Media.deleteFromStore(args)
     }
   },

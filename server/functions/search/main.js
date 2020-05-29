@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return */
 const SearchIndex = require('../services/algolia')
-const Follow = require('../databases/store/follow')
 
 const base = ({ bucket, query, filters, page }) => {
   const index = SearchIndex[bucket]

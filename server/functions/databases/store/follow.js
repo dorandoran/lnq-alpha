@@ -1,42 +1,35 @@
 const { firestore } = require('../../services/firebase')
 const admin = require('firebase-admin')
 const timestamp = admin.firestore.Timestamp
-const usersRef = firestore().collection('users')
+
+const followsRef = firestore().collection('follows')
 
 const saveAllToDb = ({ senderId, recipientIds }) => {
   const writeBatch = firestore().batch()
-  const socialLinks = []
+  const follows = []
 
   recipientIds.forEach(recipientId => {
-    // Following
-    const followingRef = usersRef
-      .doc(senderId)
-      .collection('following')
-      .doc(recipientId)
+    const followId = `${senderId}-${recipientId}`
+    const followRef = followsRef.doc(followId)
 
-    // Follower
-    const followersRef = usersRef
-      .doc(recipientId)
-      .collection('followers')
-      .doc(senderId)
-
-    // Create new document
-    let socialLink = {
+    // Create new follow
+    const follow = {
+      id: followId,
       senderId,
       recipientId,
       answer: 'REQUESTED',
       updated_at: timestamp.now()
     }
 
-    writeBatch.set(followingRef, socialLink)
-    writeBatch.set(followersRef, socialLink)
-    socialLinks.push(socialLink)
+    // Add to write batch
+    writeBatch.set(followRef, follow)
+    follows.push(follow)
   })
 
   return writeBatch
     .commit()
     .then(() => {
-      return socialLinks
+      return follows
     })
     .catch(e => {
       // TODO: Error Handling
@@ -47,50 +40,25 @@ const saveAllToDb = ({ senderId, recipientIds }) => {
 
 const findAllByUserId = ({ type, userId }) => {
   // type: SocialLinkType
-  const socialLinkRef = usersRef.doc(userId).collection(type.toLowerCase())
-  const isFollowing = type === 'FOLLOWING'
-  let socialLinks = []
+  const searchKey = type === 'FOLLOWING' ? 'senderId' : 'recipientId'
+  let follows = []
 
-  return socialLinkRef
+  return followsRef
+    .where(searchKey, '==', userId)
     .get()
     .then(snap => {
       snap.forEach(doc => {
-        link = doc.data()
-        // Creates a foreign-key id
-        link.id = `${userId}-${isFollowing ? link.recipientId : link.senderId}`
-        link.type = type
-        socialLinks.push(link)
+        follows.push(doc.data())
       })
-      return socialLinks
+      return follows
     })
     .catch(e => {
       console.log(e)
-      return socialLinks
-    })
-}
-
-const findAcceptedByUserId = ({ type, userId }) => {
-  // type: SocialLinkType
-  const socialLinkRef = usersRef.doc(userId).collection(type.toLowerCase())
-  let socialLinks = []
-
-  return socialLinkRef
-    .where('answer', '==', 'ACCEPTED')
-    .get()
-    .then(snap => {
-      snap.forEach(doc => {
-        socialLinks.push(doc.data())
-      })
-      return socialLinks
-    })
-    .catch(e => {
-      console.log(e)
-      return socialLinks
+      return follows
     })
 }
 
 module.exports = {
   saveAllToDb,
-  findAllByUserId,
-  findAcceptedByUserId
+  findAllByUserId
 }

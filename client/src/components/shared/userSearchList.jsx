@@ -27,12 +27,16 @@ const UserSearchList = ({
     skip: following
   })
 
+  // Filter Accepted Follows
   const following =
-    followData?.user?.following.map(link => {
-      if (link.answer === 'ACCEPTED') {
-        return link.recipientId
-      }
-    }) || null
+    followData?.user?.following
+      .map(link => {
+        if (link.answer === 'ACCEPTED') {
+          return link.recipientId
+        }
+        return
+      })
+      .filter(Boolean) || null
 
   const { data, loading } = useQuery(UserSearch, {
     variables: { query, page: 0, following },
