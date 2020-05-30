@@ -21,7 +21,7 @@ export const eventFragment = gql`
     }
     description
     created_at
-    url
+    website
     media {
       id
       uri

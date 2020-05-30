@@ -2,37 +2,34 @@ const { firestore } = require('../../services/firebase')
 const admin = require('firebase-admin')
 const timestamp = admin.firestore.Timestamp
 
-const usersRef = firestore().collection('users')
-const eventsRef = firestore().collection('events')
+const invitesRef = firestore().collection('invites')
 
-const saveAllToDb = ({ recipientIds, eventId }) => {
+const saveAllToDb = ({ senderId, recipientIds }) => {
   const writeBatch = firestore().batch()
-  const invitesRef = eventsRef.doc(invite.eventId).collection('invites')
   const invites = []
 
   recipientIds.forEach(recipientId => {
-    const docRef = invitesRef.doc()
-    const userRef = usersRef
-      .doc(recipientId)
-      .collection('invites')
-      .doc(docRef.id)
+    const inviteId = `${senderId}-${recipientId}`
+    const inviteRef = invitesRef.doc(inviteId)
 
+    // Create new invite
     const invite = {
-      id: docRef.id,
+      id: inviteId,
+      senderId,
       recipientId,
-      eventId,
-      answer: 'invited',
+      answer: 'REQUESTED',
       updated_at: timestamp.now()
     }
-    writeBatch.create(docRef, invite)
-    writeBatch.create(userRef, invite)
+
+    // Add to write batch
+    writeBatch.set(inviteRef, invite)
     invites.push(invite)
   })
 
   return writeBatch
     .commit()
     .then(() => {
-      return invites
+      return documents
     })
     .catch(e => {
       // TODO: Error Handling
@@ -42,10 +39,10 @@ const saveAllToDb = ({ recipientIds, eventId }) => {
 }
 
 const findAllByEventId = async ({ eventId }) => {
-  const invitesRef = await eventsRef.doc(eventId).collection('invites')
   let invites = []
 
   return invitesRef
+    .where('senderId', '==', eventId)
     .get()
     .then(snap => {
       snap.forEach(doc => {
@@ -59,11 +56,11 @@ const findAllByEventId = async ({ eventId }) => {
     })
 }
 
-const findAllByUserId = async ({ userId }) => {
-  const invitesRef = await usersRef.doc(userId).collection('invites')
+const findAllByUserId = ({ userId }) => {
   let invites = []
 
   return invitesRef
+    .where('recipientId', '==', userId)
     .get()
     .then(snap => {
       snap.forEach(doc => {

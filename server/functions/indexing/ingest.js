@@ -27,6 +27,18 @@ const indexAll = async (req, res) => {
     )
     .catch(e => console.log(e))
   await SearchIndex.users.clearObjects()
+  // Search Index User Default Settings
+  await SearchIndex.users.setSettings({
+    attributesForFaceting: ['id'],
+    searchableAttributes: [
+      'username',
+      'firstName',
+      'lastName',
+      'website',
+      'email'
+    ],
+    hitsPerPage: 25
+  })
   await SearchIndex.users.saveObjects(users)
 
   // Index Events
@@ -40,6 +52,10 @@ const indexAll = async (req, res) => {
     )
     .catch(e => console.log(e))
   await SearchIndex.events.clearObjects()
+  // Search Index Event Default Settings
+  await SearchIndex.events.setSettings({
+    hitsPerPage: 25
+  })
   await SearchIndex.events.saveObjects(events)
 
   res.status(200).send('Indexed!')

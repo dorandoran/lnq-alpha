@@ -21,8 +21,8 @@ export const actions = {
 const NewContainer = () => {
   const [index, setIndex] = React.useState(0)
   const user = useUser()
-  const { throwLoading, closeNotification } = useNotification()
   const { dispatch, actions } = useOverlay()
+  const { closeNotification } = useNotification()
   const [updateUser] = useUpdateUser({
     onCompleted: () => {
       closeNotification()
@@ -38,7 +38,6 @@ const NewContainer = () => {
 
   const goNext = () => {
     if (isLast) {
-      throwLoading()
       updateUser({ id: user.id, updates: { new: false } })
     } else {
       setIndex(index + 1)

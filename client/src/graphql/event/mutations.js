@@ -7,28 +7,32 @@ export const CreateEvent = gql`
   mutation CreateEvent(
     $id: String!
     $ownerId: String!
-    $avatarId: String!
+    $avatar: AvatarInput!
     $name: String!
     $type: String!
     $date: Date!
     $location: LocationInput!
-    $url: String
+    $website: String
     $description: String!
     $plusOne: Boolean!
     $isPrivate: Boolean!
+    $recipientIds: [String]
+    $followIds: [String]
   ) {
     createEvent(
       id: $id
       ownerId: $ownerId
-      avatarId: $avatarId
+      avatar: $avatar
       name: $name
       type: $type
       date: $date
       location: $location
-      url: $url
+      website: $website
       description: $description
       plusOne: $plusOne
       isPrivate: $isPrivate
+      recipientIds: $recipientIds
+      followIds: $followIds
     ) {
       ...eventFields
     }

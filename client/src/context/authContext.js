@@ -83,7 +83,6 @@ export const AuthProvider = props => {
 
   // Get the user data from store
   const { data, loading } = useQuery(GetCurrentUser, {
-    variables: { id: authState.userId },
     skip
   })
 

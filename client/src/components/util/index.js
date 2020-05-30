@@ -57,7 +57,7 @@ export const INPUT_TYPES = {
   type: 'Event Type',
   location: 'Event Location',
   date: 'Date and Time',
-  url: 'Website',
+  website: 'Website',
   description: 'Description',
   plusOne: 'Plus One',
   isPrivate: 'Private'

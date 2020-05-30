@@ -14,23 +14,27 @@ const ProfileInfo = () => {
   return (
     <Fragment>
       <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={{ uri: user.avatarUrl }}
-          PlaceholderContent={
-            <Loading size='small' styleProps={styles.loading} />
-          }
-        />
+        {user.avatarUrl ? (
+          <Image
+            style={styles.image}
+            source={{ uri: user.avatarUrl }}
+            PlaceholderContent={
+              <Loading size='small' styleProps={styles.loading} />
+            }
+          />
+        ) : (
+          <View style={styles.image} />
+        )}
       </View>
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={[styles.text, styles.name]}>{name}</Text>
-          <Text style={styles.text}>{`@${
-            user.username || 'No Username!'
-          }`}</Text>
-          <Text style={[styles.text]}>{user.website || '-'}</Text>
+          <Text style={styles.text}>
+            {user.username ? `@${user.username}` : 'No Username'}
+          </Text>
+          <Text style={[styles.text]}>{user.website || 'No Website'}</Text>
           <Text style={[styles.text, styles.description]} numberOfLines={1}>
-            {user.description || 'No description...'}
+            {user.description || 'No Description'}
           </Text>
         </View>
         <View style={styles.iconContainer}>
@@ -72,6 +76,7 @@ const styles = StyleSheet.create({
   image: {
     width: 60,
     height: 60,
+    backgroundColor: theme.color.accent,
     borderRadius: 50,
     borderWidth: 2,
     borderColor: theme.color.tertiary

@@ -13,14 +13,18 @@ export const allInfoUserFragment = gql`
     website
     new
     categories
+    numEvents
+    numFollowers
+    numFollowing
   }
 `
 
 export const userFragment = gql`
   fragment userFields on User {
     id
+    firstName
+    lastName
     username
-    email
     description
     avatarUrl
   }

@@ -43,7 +43,7 @@ export const validateUpdates = updates => {
         /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
       )
     ) {
-      error.add('- Not a valid Website url!')
+      error.add('- Not a valid website url!')
     }
   }
 

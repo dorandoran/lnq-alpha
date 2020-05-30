@@ -57,14 +57,14 @@ const ActionUpdateEventDialog = () => {
           </View>
         )
       case 'name':
-      case 'url':
+      case 'website':
       case 'description':
         return (
           <StyledInput
             containerStyle={styles.marginBottom}
             backgroundColor={theme.color.background}
-            autoCapitalize={cache.key === 'url' ? 'none' : 'sentences'}
-            keyboardType={cache.key === 'url' ? 'email-address' : 'default'}
+            autoCapitalize={cache.key === 'website' ? 'none' : 'sentences'}
+            keyboardType={cache.key === 'website' ? 'email-address' : 'default'}
             onChangeText={text => setAttr(text)}
             multiline={cache.key === 'description' ? true : false}
             value={attr}

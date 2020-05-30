@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { useQuery } from '@apollo/react-hooks'
 // import { GetCurrentUserEvents } from '@graphql/user/queries.js'
 
-import EventList from '@components/shared/eventList'
+import EventList from '@components/shared/itemList'
 import { Loading } from '@common'
 import { theme } from '@util'
 
@@ -24,7 +24,7 @@ const ProfileSavesList = () => {
   // }
 
   // return (
-  //   <EventList data={data.user.events} onEventPress={() => {}} hideAvatar />
+  //   <EventList data={data.user.events} onItemPress={() => {}} hideAvatar />
   // )
 }
 

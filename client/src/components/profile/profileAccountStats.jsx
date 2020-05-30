@@ -1,19 +1,24 @@
 import React from 'react'
+
+import useUser from '@context/userContext'
+
 import { View, Text, StyleSheet } from 'react-native'
 
 const ProfileAccountStats = () => {
+  const user = useUser()
+
   return (
     <View style={styles.accountStats}>
       <View>
-        <Text style={styles.statsTextHead}>20</Text>
+        <Text style={styles.statsTextHead}>{user.numEvents}</Text>
         <Text style={styles.statsText}>Events</Text>
       </View>
       <View>
-        <Text style={styles.statsTextHead}>1,000</Text>
+        <Text style={styles.statsTextHead}>{user.numFollowing}</Text>
         <Text style={styles.statsText}>Following</Text>
       </View>
       <View>
-        <Text style={styles.statsTextHead}>1m</Text>
+        <Text style={styles.statsTextHead}>{user.numFollowers}</Text>
         <Text style={styles.statsText}>Followers</Text>
       </View>
     </View>

@@ -35,6 +35,9 @@ exports.cleanupMedia = Database.cleanupMedia
 // User Cleanup - Deletes Users from authentication if deleted from firestore
 exports.cleanupUser = Database.cleanupUser
 
+// Automatically Allow Followers
+exports.allowFollowers = Database.allowFollowers
+
 /** Indexing */
 
 // Index janky html page
@@ -42,5 +45,5 @@ exports.indexing = functions.https.onRequest(Ingest.indexing)
 // Index Action - Delete all Algolia indices and reindex
 exports.indexAll = functions.https.onRequest(Ingest.indexAll)
 // Update index to match store
-exports.updateUserIndex = Ingest.updateEventIndex
-exports.updateEventIndex = Ingest.updateUserIndex
+exports.updateUserIndex = Ingest.updateUserIndex
+exports.updateEventIndex = Ingest.updateEventIndex
