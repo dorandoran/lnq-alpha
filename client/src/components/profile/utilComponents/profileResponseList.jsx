@@ -2,19 +2,20 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import { useQuery } from '@apollo/react-hooks'
-// import { GetCurrentUserEvents } from '@graphql/user/queries.js'
+import { GetRSVP } from '@graphql/invite/queries.js'
 
-import EventList from '@components/shared/itemList'
 import { Loading } from '@common'
 import { theme } from '@util'
 
 const ProfileResponseList = () => {
-  // const { data, loading } = useQuery(GetCurrentUserEvents, {
-  //   fetchPolicy: 'cache-and-network'
-  // })
+  const { data, loading } = useQuery(GetRSVP, {
+    fetchPolicy: 'cache-and-network'
+  })
   const noResponses = 'No RSVPs to show.'
 
-  // if (loading) return <Loading />
+  if (loading) return <Loading position='top' />
+  console.log(data)
+
   // if (!data?.user.events) {
   return (
     <View style={styles.noResults}>

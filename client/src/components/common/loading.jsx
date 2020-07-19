@@ -4,13 +4,7 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native'
 import { theme } from '@util'
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '@util'
 
-const Loading = ({
-  styleProps,
-  fullScreen,
-  position,
-  isImage = false,
-  size = 'large'
-}) => {
+const Loading = ({ styleProps, fullScreen, position, size = 'large' }) => {
   return (
     <View
       style={[
@@ -47,8 +41,7 @@ Loading.propTypes = {
   styleProps: PropTypes.object,
   size: PropTypes.string,
   fullScreen: PropTypes.bool,
-  position: PropTypes.string,
-  isImage: PropTypes.bool
+  position: PropTypes.string
 }
 
 export default Loading

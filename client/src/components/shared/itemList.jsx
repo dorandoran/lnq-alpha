@@ -175,6 +175,54 @@ const ItemList = ({
     )
   }
 
+  // Invite ListItem
+  const renderInviteListItem = item => {
+    const { name, avatar, location, date, owner } = item
+    return (
+      <ListItem
+        title={
+          <Fragment>
+            <View style={styles.textContainer}>
+              <Text style={styles.title} numberOfLines={2}>
+                {name}
+              </Text>
+              <Text style={styles.text} numberOfLines={1}>
+                {location.text}
+              </Text>
+              <Text style={styles.text} numberOfLines={1}>
+                {formatDateTime({ date })}
+              </Text>
+            </View>
+            <View style={styles.avatarContainer}>
+              {!hideAvatar && owner?.avatarUrl ? (
+                <Image
+                  source={{ uri: owner.avatarUrl }}
+                  style={styles.avatar}
+                  borderRadius={25}
+                  placeholderStyle={styles.placeholder}
+                  PlaceholderContent={<Loading size='small' />}
+                />
+              ) : null}
+            </View>
+          </Fragment>
+        }
+        leftElement={
+          avatar && (
+            <Image
+              source={{ uri: avatar.uri }}
+              style={styles.image}
+              borderRadius={10}
+              PlaceholderContent={<Loading size='small' />}
+              placeholderStyle={styles.placeholder}
+            />
+          )
+        }
+        containerStyle={styles.containerStyle}
+        onPress={() => onItemPress(item)}
+      />
+    )
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
