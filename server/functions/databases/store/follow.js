@@ -15,6 +15,7 @@ const saveAllToDb = ({ senderId, recipientIds }) => {
     // Create new follow
     const follow = {
       id: followId,
+      type: 'FOLLOW',
       senderId,
       recipientId,
       answer: 'REQUESTED',

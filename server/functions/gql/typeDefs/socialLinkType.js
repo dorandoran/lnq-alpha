@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-cloud-functions')
 const Follow = require('../../databases/store/follow')
 const Invite = require('../../databases/store/invite')
 const User = require('../../databases/store/user')
-const Event = require('../../databases/store/user')
+const Event = require('../../databases/store/event')
 
 exports.typeDef = gql`
   enum SocialLinkAnswer {
@@ -14,8 +14,14 @@ exports.typeDef = gql`
     INTERESTED
   }
 
+  enum SocialLinkType {
+    INVITE
+    FOLLOW
+  }
+
   type SocialLink {
     id: String
+    type: SocialLinkType
     recipientId: String
     recipient: User
     senderId: String
@@ -42,7 +48,7 @@ exports.resolvers = {
       return User.findById({ id: parent.recipientId })
     },
     sender: parent => {
-      if (parent.type === 'INVITES') {
+      if (parent.type === 'INVITE') {
         return Event.findById({ id: parent.senderId })
       }
       return User.findById({ id: parent.senderId })

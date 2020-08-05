@@ -27,7 +27,6 @@ const saveToStore = ({ userId, recipientIds, avatar, followIds, ...event }) => {
 
   // Add avatar back to event
   event.avatar = avatar
-  console.log('event ', event)
   return writeBatch
     .commit()
     .then(() => {

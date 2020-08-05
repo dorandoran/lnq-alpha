@@ -15,6 +15,7 @@ const saveAllToDb = ({ senderId, recipientIds }) => {
     // Create new invite
     const invite = {
       id: inviteId,
+      type: 'INVITE',
       senderId,
       recipientId,
       answer: 'REQUESTED',
