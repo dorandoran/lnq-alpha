@@ -17,6 +17,11 @@ const ProfileEventList = () => {
   // eslint-disable-next-line quotes
   const noEvents = "You haven't created any events yet!"
 
+  const handleRefresh = () => {
+    setRefreshing(true)
+    refetch()
+  }
+
   if (loading) return <Loading position='top' />
   if (refreshing) setRefreshing(false)
   if (!data?.user.events || !data.user.events.length) {
@@ -25,11 +30,6 @@ const ProfileEventList = () => {
         <Text style={[styles.text, styles.noResultsText]}>{noEvents}</Text>
       </View>
     )
-  }
-
-  const handleRefresh = () => {
-    setRefreshing(true)
-    refetch()
   }
 
   return (
