@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
 })
 
 const CreateScreen = ({ route }) => {
-  // This is the uri and aspect ratio passed from <tabBarFab />.
   // This information is the initial information used to start an event.
   const initialMedia = route.params.params.media
 

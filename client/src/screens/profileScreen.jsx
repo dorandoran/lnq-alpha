@@ -1,67 +1,51 @@
 /* eslint-disable no-undef */
 import React from 'react'
+import useProfile, { ProfileProvider } from '@context/profileContext'
 
-import EventList from '@components/profile/utilComponents/profileEventList'
-import RSVPList from '@components/profile/utilComponents/profileResponseList'
-import SavesList from '@components/profile/utilComponents/profileSavesList'
-import ProfileTabs from '@components/profile/utilComponents/profileTabs'
-import ProfileMenu from '@components/profile/profileMenu'
-import ProfileAccountStats from '@components/profile/profileAccountStats'
-import ProfileInformation from '@components/profile/profileInformation'
+import ProfileMain from '@components/profile/profileMain'
+import ProfileNotifications from '@components/profile/profileNotifications'
+import Header from '@components/profile/utilComponents/profileHeader'
 
-import { View, StyleSheet, ImageBackground } from 'react-native'
-import { SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
-import { tabs } from '@components/profile/utilComponents/profileUtil'
+import { View, StyleSheet } from 'react-native'
+import { theme } from '@util'
+import { SCREEN } from '@components/profile/utilComponents/profileUtil'
 
-const ProfileScreen = () => {
-  const [tab, setTab] = React.useState(tabs.events)
+const ProfileView = () => {
+  const { profileState } = useProfile()
+  const { screen } = profileState
 
-  const renderTab = () => {
-    switch (tab) {
-      case tabs.events:
-        return <EventList />
-      case tabs.rsvp:
-        return <RSVPList />
-      case tabs.saves:
-        return <SavesList />
+  const renderScreen = () => {
+    switch (screen) {
+      case SCREEN.MAIN:
+        return <ProfileMain />
+      case SCREEN.NOTIFICATIONS:
+        return <ProfileNotifications />
       default:
-        throw new Error('Something went wrong with the ProfileScreen.')
+        return <ProfileMain />
     }
   }
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={require('../../assets/profile-main.png')}
-        style={styles.image}
-      >
-        <ProfileMenu />
-      </ImageBackground>
-      <View style={styles.profileContainer}>
-        <ProfileInformation />
-        <ProfileAccountStats />
-        <ProfileTabs currentTab={tab} setTab={setTab} />
-        {renderTab()}
-      </View>
+      {screen !== SCREEN.MAIN && <Header />}
+      {renderScreen()}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  },
-  image: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT / 6
-  },
-  profileContainer: {
     flex: 1,
-    backgroundColor: theme.color.background,
-    borderTopRightRadius: 25,
-    borderTopLeftRadius: 25,
-    marginTop: -20
+    backgroundColor: theme.color.background
   }
 })
+
+const ProfileScreen = () => {
+  return (
+    <ProfileProvider>
+      <ProfileView />
+    </ProfileProvider>
+  )
+}
 
 export default ProfileScreen

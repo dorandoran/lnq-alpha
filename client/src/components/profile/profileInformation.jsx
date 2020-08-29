@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 
 import useUser from '@context/userContext'
+import useProfile, { actions } from '@context/profileContext'
 
 import { View, StyleSheet, Text } from 'react-native'
 import { Image } from 'react-native-elements'
@@ -10,6 +11,12 @@ import { theme } from '@util'
 const ProfileInfo = () => {
   const user = useUser()
   const name = user.firstName ? `${user.firstName} ${user.lastName}` : user.name
+
+  const { dispatch } = useProfile()
+
+  const handleNotificationsPress = () => {
+    dispatch({ type: actions.navigateNotifications })
+  }
 
   return (
     <Fragment>
@@ -51,6 +58,7 @@ const ProfileInfo = () => {
             color='tertiary'
             borderColor='tertiary'
             size={18}
+            onPress={handleNotificationsPress}
             containerStyle={styles.buttonMargin}
           />
         </View>
@@ -76,7 +84,6 @@ const styles = StyleSheet.create({
   image: {
     width: 60,
     height: 60,
-    backgroundColor: theme.color.accent,
     borderRadius: 50,
     borderWidth: 2,
     borderColor: theme.color.tertiary
@@ -99,6 +106,9 @@ const styles = StyleSheet.create({
   },
   buttonMargin: {
     marginBottom: '15%'
+  },
+  loading: {
+    borderRadius: 50
   }
 })
 
