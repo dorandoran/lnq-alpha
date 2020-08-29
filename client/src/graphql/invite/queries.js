@@ -11,6 +11,10 @@ export const GetRSVP = gql`
         id
         answer
         sender {
+          id
+          avatarUrl
+        }
+        event {
           ... on Event {
             ...searchEventFields
           }

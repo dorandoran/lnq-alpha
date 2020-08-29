@@ -20,14 +20,17 @@ exports.typeDef = gql`
   }
 
   type SocialLink {
-    id: String
-    type: SocialLinkType
-    recipientId: String
+    id: String!
+    type: SocialLinkType!
+    recipientId: String!
     recipient: User
-    senderId: String
-    sender: Hit
-    answer: SocialLinkAnswer
-    updated_at: Date
+    senderId: String!
+    sender: User
+    eventId: String
+    event: Event
+    message: String
+    answer: SocialLinkAnswer!
+    updated_at: Date!
   }
 `
 
@@ -48,10 +51,13 @@ exports.resolvers = {
       return User.findById({ id: parent.recipientId })
     },
     sender: parent => {
-      if (parent.type === 'INVITE') {
-        return Event.findById({ id: parent.senderId })
-      }
       return User.findById({ id: parent.senderId })
+    },
+    event: parent => {
+      if (parent.type === 'INVITE') {
+        return Event.findById({ id: parent.eventId })
+      }
+      return null
     }
   }
 }

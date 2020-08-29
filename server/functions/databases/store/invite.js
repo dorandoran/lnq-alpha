@@ -4,7 +4,7 @@ const timestamp = admin.firestore.Timestamp
 
 const invitesRef = firestore().collection('invites')
 
-const saveAllToDb = ({ senderId, recipientIds }) => {
+const saveAllToDb = ({ senderId, recipientIds, eventId }) => {
   const writeBatch = firestore().batch()
   const invites = []
 
@@ -18,6 +18,7 @@ const saveAllToDb = ({ senderId, recipientIds }) => {
       type: 'INVITE',
       senderId,
       recipientId,
+      eventId,
       answer: 'REQUESTED',
       updated_at: timestamp.now()
     }
@@ -43,7 +44,7 @@ const findAllByEventId = async ({ eventId }) => {
   let invites = []
 
   return invitesRef
-    .where('senderId', '==', eventId)
+    .where('eventId', '==', eventId)
     .get()
     .then(snap => {
       snap.forEach(doc => {

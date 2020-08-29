@@ -21,9 +21,13 @@ const saveToStore = ({ userId, recipientIds, avatar, followIds, ...event }) => {
   writeBatch.update(usersRef.doc(userId), {
     numEvents: FieldValue.increment(1)
   })
-  // Send Follows
-  Invite.saveAllToDb({ senderId: event.id, recipientIds })
-  Follow.saveAllToDb({ senderId: userId, recipientIds: followIds })
+  // Send Invites and Follows
+  if (recipientIds.length) {
+    Invite.saveAllToDb({ senderId: userId, recipientIds, eventId: event.id })
+  }
+  if (followIds.length) {
+    Follow.saveAllToDb({ senderId: userId, recipientIds: followIds })
+  }
 
   // Add avatar back to event
   event.avatar = avatar
@@ -39,8 +43,7 @@ const saveToStore = ({ userId, recipientIds, avatar, followIds, ...event }) => {
     })
 }
 
-const update = updateInput => {
-  const { id, updates } = updateInput
+const update = ({ id, updates }) => {
   return eventsRef
     .doc(id)
     .update(updates)
