@@ -39,11 +39,11 @@ exports.resolvers = {
   Mutation: {
     createInvites: (_, args, context) => {
       args.senderId = context.user.id
-      return Invite.saveAllToDb(args)
+      return Invite.saveAllToStore(args)
     },
     requestFollow: (_, args, context) => {
       args.senderId = context.user.id
-      return Follow.saveAllToDb(args)
+      return Follow.saveAllToStore(args)
     }
   },
   SocialLink: {

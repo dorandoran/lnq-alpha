@@ -4,7 +4,7 @@ const timestamp = admin.firestore.Timestamp
 
 const followsRef = firestore().collection('follows')
 
-const saveAllToDb = ({ senderId, recipientIds }) => {
+const saveAllToStore = ({ senderId, recipientIds }) => {
   const writeBatch = firestore().batch()
   const follows = []
 
@@ -60,6 +60,6 @@ const findAllByUserId = ({ type, userId }) => {
 }
 
 module.exports = {
-  saveAllToDb,
+  saveAllToStore,
   findAllByUserId
 }

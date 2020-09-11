@@ -30,7 +30,7 @@ const ProfileInfo = () => {
             }
           />
         ) : (
-          <View style={styles.image} />
+          <View style={[styles.image, styles.noAvatar]} />
         )}
       </View>
       <View style={styles.container}>
@@ -80,6 +80,9 @@ const styles = StyleSheet.create({
     width: '20%',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  noAvatar: {
+    backgroundColor: theme.color.background
   },
   image: {
     width: 60,
