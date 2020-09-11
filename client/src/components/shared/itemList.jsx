@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import {
@@ -35,48 +35,46 @@ const ItemList = ({
   // Event ListItem
   const renderEventListItem = item => {
     const { name, avatar, location, date, owner } = item
+
     return (
       <ListItem
-        title={
-          <Fragment>
-            <View style={styles.textContainer}>
-              <Text style={styles.title} numberOfLines={2}>
-                {name}
-              </Text>
-              <Text style={styles.text} numberOfLines={1}>
-                {location.text}
-              </Text>
-              <Text style={styles.text} numberOfLines={1}>
-                {formatDateTime({ date })}
-              </Text>
-            </View>
-            <View style={styles.avatarContainer}>
-              {!hideAvatar && owner?.avatarUrl ? (
-                <Image
-                  source={{ uri: owner.avatarUrl }}
-                  style={styles.avatar}
-                  borderRadius={25}
-                  placeholderStyle={styles.placeholder}
-                  PlaceholderContent={<Loading size='small' />}
-                />
-              ) : null}
-            </View>
-          </Fragment>
-        }
-        leftElement={
-          avatar && (
-            <Image
-              source={{ uri: avatar.uri }}
-              style={styles.image}
-              borderRadius={10}
-              PlaceholderContent={<Loading size='small' />}
-              placeholderStyle={styles.placeholder}
-            />
-          )
-        }
-        containerStyle={styles.containerStyle}
         onPress={() => onItemPress(item)}
-      />
+        containerStyle={styles.containerStyle}
+      >
+        {avatar && (
+          <Image
+            source={{ uri: avatar.uri }}
+            style={styles.image}
+            borderRadius={10}
+            PlaceholderContent={<Loading size='small' />}
+            placeholderStyle={styles.placeholder}
+          />
+        )}
+        <ListItem.Content>
+          <View style={styles.textContainer}>
+            <Text style={styles.title} numberOfLines={2}>
+              {name}
+            </Text>
+            <Text style={styles.text} numberOfLines={1}>
+              {location.text}
+            </Text>
+            <Text style={styles.text} numberOfLines={1}>
+              {formatDateTime({ date })}
+            </Text>
+          </View>
+          <View style={styles.avatarContainer}>
+            {!hideAvatar && owner?.avatarUrl ? (
+              <Image
+                source={{ uri: owner.avatarUrl }}
+                style={styles.avatar}
+                borderRadius={25}
+                placeholderStyle={styles.placeholder}
+                PlaceholderContent={<Loading size='small' />}
+              />
+            ) : null}
+          </View>
+        </ListItem.Content>
+      </ListItem>
     )
   }
 
@@ -88,80 +86,7 @@ const ItemList = ({
 
     return (
       <ListItem
-        title={
-          <View style={styles.userTextContainer}>
-            <Text
-              style={[styles.title, { color: theme.color.placeholder }]}
-              numberOfLines={1}
-            >
-              {username ? `@${username}` : 'No Username'}
-            </Text>
-            <Text style={styles.title} numberOfLines={1}>
-              {`${firstName} ${lastName}`}
-            </Text>
-          </View>
-        }
-        leftElement={
-          avatarUrl ? (
-            <Image
-              source={{ uri: avatarUrl }}
-              style={styles.userImage}
-              borderRadius={50}
-              PlaceholderContent={<Loading size='small' />}
-              placeholderStyle={styles.placeholder}
-            />
-          ) : (
-            <View
-              style={[
-                styles.userImage,
-                { backgroundColor: theme.color.background }
-              ]}
-            />
-          )
-        }
-        rightElement={
-          <TouchableOpacity
-            style={[
-              styles.actionButton,
-              {
-                borderColor: isFollowing
-                  ? theme.color.tertiary
-                  : isFollowSelected
-                  ? theme.color.success
-                  : theme.color.tertiary,
-                backgroundColor: isFollowing
-                  ? theme.color.success
-                  : isFollowSelected
-                  ? theme.color.tertiary
-                  : theme.color.background
-              }
-            ]}
-            onPress={
-              onFollowPress
-                ? () => onFollowPress(item)
-                : () => onItemPress(item)
-            }
-          >
-            <Text
-              style={[
-                styles.actionText,
-                {
-                  color: isFollowing
-                    ? theme.color.tertiary
-                    : isFollowSelected
-                    ? theme.color.background
-                    : theme.color.tertiary
-                }
-              ]}
-            >
-              {isFollowing
-                ? 'Following'
-                : isFollowSelected
-                ? 'Pending'
-                : 'Follow'}
-            </Text>
-          </TouchableOpacity>
-        }
+        onPress={() => onItemPress(item)}
         containerStyle={[
           styles.userContainerStyle,
           {
@@ -170,56 +95,74 @@ const ItemList = ({
               : theme.color.background
           }
         ]}
-        onPress={() => onItemPress(item)}
-      />
-    )
-  }
-
-  // Invite ListItem
-  const renderInviteListItem = item => {
-    const { name, avatar, location, date, owner } = item
-    return (
-      <ListItem
-        title={
-          <Fragment>
-            <View style={styles.textContainer}>
-              <Text style={styles.title} numberOfLines={2}>
-                {name}
-              </Text>
-              <Text style={styles.text} numberOfLines={1}>
-                {location.text}
-              </Text>
-              <Text style={styles.text} numberOfLines={1}>
-                {formatDateTime({ date })}
-              </Text>
-            </View>
-            <View style={styles.avatarContainer}>
-              {!hideAvatar && owner?.avatarUrl ? (
-                <Image
-                  source={{ uri: owner.avatarUrl }}
-                  style={styles.avatar}
-                  borderRadius={25}
-                  placeholderStyle={styles.placeholder}
-                  PlaceholderContent={<Loading size='small' />}
-                />
-              ) : null}
-            </View>
-          </Fragment>
-        }
-        leftElement={
-          avatar && (
-            <Image
-              source={{ uri: avatar.uri }}
-              style={styles.image}
-              borderRadius={10}
-              PlaceholderContent={<Loading size='small' />}
-              placeholderStyle={styles.placeholder}
-            />
-          )
-        }
-        containerStyle={styles.containerStyle}
-        onPress={() => onItemPress(item)}
-      />
+      >
+        {avatarUrl ? (
+          <Image
+            source={{ uri: avatarUrl }}
+            style={styles.userImage}
+            borderRadius={50}
+            PlaceholderContent={<Loading size='small' />}
+            placeholderStyle={styles.placeholder}
+          />
+        ) : (
+          <View
+            style={[
+              styles.userImage,
+              { backgroundColor: theme.color.background }
+            ]}
+          />
+        )}
+        <ListItem.Content style={styles.userTextContainer}>
+          <Text
+            style={[styles.title, { color: theme.color.placeholder }]}
+            numberOfLines={1}
+          >
+            {username ? `@${username}` : 'No Username'}
+          </Text>
+          <Text style={styles.title} numberOfLines={1}>
+            {`${firstName} ${lastName}`}
+          </Text>
+        </ListItem.Content>
+        <TouchableOpacity
+          style={[
+            styles.actionButton,
+            {
+              borderColor: isFollowing
+                ? theme.color.tertiary
+                : isFollowSelected
+                ? theme.color.success
+                : theme.color.tertiary,
+              backgroundColor: isFollowing
+                ? theme.color.success
+                : isFollowSelected
+                ? theme.color.tertiary
+                : theme.color.background
+            }
+          ]}
+          onPress={
+            onFollowPress ? () => onFollowPress(item) : () => onItemPress(item)
+          }
+        >
+          <Text
+            style={[
+              styles.actionText,
+              {
+                color: isFollowing
+                  ? theme.color.tertiary
+                  : isFollowSelected
+                  ? theme.color.background
+                  : theme.color.tertiary
+              }
+            ]}
+          >
+            {isFollowing
+              ? 'Following'
+              : isFollowSelected
+              ? 'Pending'
+              : 'Follow'}
+          </Text>
+        </TouchableOpacity>
+      </ListItem>
     )
   }
 

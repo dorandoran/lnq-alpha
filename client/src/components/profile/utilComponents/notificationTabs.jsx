@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { theme } from '@util'
-import { tabButtonList } from '@components/profile/utilComponents/profileUtil'
+import { notificationTabList } from '@components/profile/utilComponents/profileUtil'
 
-const ProfileTabs = ({ currentTab, setTab }) => {
+const NotificationTabs = ({ currentTab, setTab }) => {
   const isSelectedStyles = value => {
     if (currentTab === value) {
       return { backgroundColor: theme.color.secondary }
@@ -14,7 +14,7 @@ const ProfileTabs = ({ currentTab, setTab }) => {
 
   return (
     <View style={styles.container}>
-      {tabButtonList.map(tab => {
+      {notificationTabList.map(tab => {
         return (
           <TouchableOpacity
             key={tab.value}
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: 25
   },
   buttonContainer: {
-    width: '33.33%',
+    width: '50%',
     paddingVertical: 10,
     borderRadius: 25
   },
@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
   }
 })
 
-ProfileTabs.propTypes = {
+NotificationTabs.propTypes = {
   currentTab: PropTypes.string,
   setTab: PropTypes.func
 }
 
-export default ProfileTabs
+export default NotificationTabs

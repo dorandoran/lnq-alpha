@@ -1,5 +1,5 @@
 const { firestore } = require('../../services/firebase')
-const Follow = require('../../databases/store/follow.js')
+const Follow = require('../../databases/store/follow')
 const Invite = require('../../databases/store/invite')
 
 const admin = require('firebase-admin')
@@ -23,10 +23,10 @@ const saveToStore = ({ userId, recipientIds, avatar, followIds, ...event }) => {
   })
   // Send Invites and Follows
   if (recipientIds.length) {
-    Invite.saveAllToDb({ senderId: userId, recipientIds, eventId: event.id })
+    Invite.saveAllToStore({ senderId: userId, recipientIds, eventId: event.id })
   }
   if (followIds.length) {
-    Follow.saveAllToDb({ senderId: userId, recipientIds: followIds })
+    Follow.saveAllToStore({ senderId: userId, recipientIds: followIds })
   }
 
   // Add avatar back to event

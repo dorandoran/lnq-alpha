@@ -2,6 +2,7 @@ const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const { auth, firestore } = require('../services/firebase')
 const Media = require('./store/media')
+const Notification = require('./store/notifications')
 
 const FieldValue = admin.firestore.FieldValue
 const timestamp = admin.firestore.Timestamp
@@ -47,12 +48,18 @@ const allowFollowers = functions.firestore
         .get(recipientRef)
         .then(doc => {
           const recipient = doc.data()
-          const answerUpdate = {
-            answer: 'ACCEPTED',
-            updated_at: timestamp.now()
-          }
 
           if (recipient.allowFollowers) {
+            const answerUpdate = {
+              answer: 'ACCEPTED',
+              updated_at: timestamp.now()
+            }
+            const notification = {
+              userId: follow.recipientId,
+              senderId: follow.senderId,
+              type: Notification.TYPE.FOLLOW
+            }
+
             // Update counts
             transaction.update(recipientRef, {
               numFollowers: FieldValue.increment(1)
@@ -63,6 +70,8 @@ const allowFollowers = functions.firestore
 
             // Update follow
             transaction.update(followsRef.doc(follow.id), answerUpdate)
+
+            Notification.saveToStore(notification)
             return Promise.resolve(
               `${follow.recipientId} allowed ${follow.senderId}`
             )

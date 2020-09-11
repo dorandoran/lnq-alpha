@@ -4,6 +4,11 @@ export const TABS = {
   SAVES: 'saves'
 }
 
+export const NOTIFICATION_TABS = {
+  ALL: 'all',
+  INVITES: 'invites'
+}
+
 export const tabButtonList = [
   {
     label: 'Events',
@@ -16,6 +21,17 @@ export const tabButtonList = [
   {
     label: 'Saves',
     value: TABS.SAVES
+  }
+]
+
+export const notificationTabList = [
+  {
+    label: 'All',
+    value: NOTIFICATION_TABS.ALL
+  },
+  {
+    label: 'Invites',
+    value: NOTIFICATION_TABS.INVITES
   }
 ]
 

@@ -1,10 +1,12 @@
 const { firestore } = require('../../services/firebase')
+const Notification = require('./notifications')
+
 const admin = require('firebase-admin')
 const timestamp = admin.firestore.Timestamp
 
 const invitesRef = firestore().collection('invites')
 
-const saveAllToDb = ({ senderId, recipientIds, eventId }) => {
+const saveAllToStore = ({ senderId, recipientIds, eventId }) => {
   const writeBatch = firestore().batch()
   const invites = []
 
@@ -22,6 +24,14 @@ const saveAllToDb = ({ senderId, recipientIds, eventId }) => {
       answer: 'REQUESTED',
       updated_at: timestamp.now()
     }
+
+    // Create new notification
+    const notification = {
+      userId: recipientId,
+      senderId,
+      type: Notification.TYPE.INVITE
+    }
+    Notification.saveToStore(notification)
 
     // Add to write batch
     writeBatch.set(inviteRef, invite)
@@ -77,7 +87,7 @@ const findAllByUserId = ({ userId }) => {
 }
 
 module.exports = {
-  saveAllToDb,
+  saveAllToStore,
   findAllByEventId,
   findAllByUserId
 }

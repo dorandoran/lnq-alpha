@@ -1,9 +1,17 @@
 import React from 'react'
 
 import { View, StyleSheet } from 'react-native'
+import NotificationTabs from '@components/profile/utilComponents/notificationTabs'
+import { NOTIFICATION_TABS } from '@components/profile/utilComponents/profileUtil'
 
-const ProfileMain = () => {
-  return <View style={styles.container}></View>
+const ProfileNotifications = () => {
+  const [tab, setTab] = React.useState(NOTIFICATION_TABS.ALL)
+
+  return (
+    <View style={styles.container}>
+      <NotificationTabs currentTab={tab} setTab={setTab} />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -12,4 +20,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ProfileMain
+export default ProfileNotifications
