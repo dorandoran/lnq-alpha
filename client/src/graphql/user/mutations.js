@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 import { allInfoUserFragment } from '@graphql/user/fragments'
 
 export const CreateUser = gql`

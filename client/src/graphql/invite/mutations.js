@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 
 export const RequestFollow = gql`
   mutation RequestFollow($recipientIds: [String!]) {

@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 import { UpdateEvent } from '@graphql/event/mutations.js'
 

@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 import { eventFragment } from '@graphql/event/fragments'
 
 export const CreateEvent = gql`
