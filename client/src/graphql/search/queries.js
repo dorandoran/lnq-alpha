@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 import { searchEventFragment } from '@graphql/event/fragments'
 import { userFragment } from '@graphql/user/fragments'
 

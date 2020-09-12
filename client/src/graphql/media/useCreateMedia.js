@@ -1,8 +1,8 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks'
 import { CreateMedia } from '@graphql/media/mutations.js'
 
-export default function useCreateMedia () {
+export default function useCreateMedia() {
   const [createMedia] = useMutation(CreateMedia)
 
   return variables => {

@@ -1,21 +1,40 @@
-import ApolloClient from 'apollo-boost'
-import { auth } from '@services/firebase'
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { HttpLink } from 'apollo-link-http'
+import { onError } from 'apollo-link-error'
+import { setContext } from 'apollo-link-context'
 
+import { auth } from '@services/firebase'
 import config from '@config'
 
-const sendAuthToken = async operation => {
+const httpLink = new HttpLink({
+  uri: config.GRAPHQL_ENDPOINT
+})
+
+const sendAuthToken = setContext(async () => {
   const token = await auth.currentUser.getIdToken(true)
 
-  operation.setContext({
+  return {
     headers: {
       authorization: token ? `Bearer ${token}` : ''
     }
-  })
-}
+  }
+})
+
+const errorHandling = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    )
+  if (networkError) console.log(`[Network error]: ${networkError}`)
+})
+
+const authFlow = sendAuthToken.concat(errorHandling)
+const link = authFlow.concat(httpLink)
 
 export const client = new ApolloClient({
-  uri: config.GRAPHQL_ENDPOINT,
-  request: sendAuthToken
-  // TODO: Custom Graphql Messages
-  // onError: error => console.log(error)
+  link,
+  cache: new InMemoryCache()
 })
