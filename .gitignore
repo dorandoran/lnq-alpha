@@ -1,3 +1,17 @@
 .vscode
 devops/ansible/venv
 gcp-service-account-key.json
+old_server
+client/node_modules
+client/.expo/*
+client/npm-debug.*
+client/*.jks
+client/*.p8
+client/*.p12
+client/*.key
+client/*.mobileprovision
+client/*.orig.*
+client/web-build/
+client/web-report/
+client/.idea/*
+server/node_modules

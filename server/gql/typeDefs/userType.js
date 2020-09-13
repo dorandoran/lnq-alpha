@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server-cloud-functions')
+const { gql } = require('apollo-server-express')
 
-const User = require('../../databases/store/user')
+const User = require('~models/User')
 const Event = require('../../databases/store/event')
 const Invite = require('../../databases/store/invite')
 const Follow = require('../../databases/store/follow')

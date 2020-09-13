@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-cloud-functions')
+const { gql } = require('apollo-server')
 const { merge } = require('lodash')
 
 // GQL Type and Resolver Imports
