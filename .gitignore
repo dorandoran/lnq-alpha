@@ -1,1 +1,3 @@
 .vscode
+devops/ansible/venv
+gcp-service-account-key.json

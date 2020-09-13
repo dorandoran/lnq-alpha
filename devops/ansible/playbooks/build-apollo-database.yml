@@ -1,0 +1,17 @@
+---
+- name: Building Apollo database
+  hosts: localhost
+  gather_facts: no
+  become: no
+  tasks:
+    - name: Building compute engine
+      import_role:
+        name: apollo-database
+# - name: Configuring Apollo database
+#   hosts: apollo_database
+#   gather_facts: no
+#   become: no
+#   tasks:
+#     - name: Updating compute engine
+#       import_role:
+#         name: update-compute-engine

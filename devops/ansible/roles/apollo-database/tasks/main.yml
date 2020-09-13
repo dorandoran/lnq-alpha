@@ -1,0 +1,75 @@
+---
+- name: Creating a disk
+  gcp_compute_disk:
+    name: '{{ disk_name }}'
+    size_gb: 50
+    source_image: '{{ disk_source_image }}'
+    zone: '{{ zone }}'
+    project: '{{ gcp_project }}'
+    state: present
+  register: disk
+
+- name: Creating a network
+  gcp_compute_network:
+    name: '{{ network_name }}'
+    auto_create_subnetworks: no
+    project: '{{ gcp_project }}'
+    state: present
+  register: network
+
+- name: Creating a subnetwork
+  gcp_compute_subnetwork:
+    name: '{{ subnetwork_name }}'
+    region: '{{ region }}'
+    network: '{{ network }}'
+    ip_cidr_range: '{{ subnetwork_cidr_range }}'
+    project: '{{ gcp_project }}'
+    state: present
+  register: subnetwork
+
+- name: Creating an address
+  gcp_compute_address:
+    name: '{{ address_name }}'
+    region: '{{ region }}'
+    project: '{{ gcp_project }}'
+    state: present
+  register: address
+
+- name: Creating a network firewall
+  gcp_compute_firewall:
+    name: '{{ firewall_name }}'
+    source_ranges: '{{ firewall_allowed_cidr_ranges }}'
+    network: '{{ network }}'
+    allowed:
+      - ip_protocol: tcp
+        ports:
+          - '22'
+    project: '{{ gcp_project }}'
+    state: present
+
+- name: Creating an instance
+  gcp_compute_instance:
+    name: '{{ engine_name }}'
+    machine_type: '{{ machine_type }}'
+    disks:
+      - auto_delete: true
+        boot: true
+        source: '{{ disk }}'
+    network_interfaces:
+      - network: '{{ network }}'
+        access_configs:
+          - name: '{{ network_interface_name }}'
+            nat_ip: '{{ address }}'
+            type: 'ONE_TO_ONE_NAT'
+        network_ip: '{{ address_internal_ip }}'
+        subnetwork: '{{ subnetwork }}'
+    zone: '{{ zone }}'
+    project: '{{ gcp_project }}'
+    state: present
+  register: instance
+
+- name: Waiting for SSH to come up
+  wait_for: host={{ address.address }} port=22 delay=10 timeout=60
+
+- name: Adding host to group
+  add_host: hostname={{ address.address }} groupname=apollo_databases
