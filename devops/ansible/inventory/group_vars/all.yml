@@ -1,0 +1,4 @@
+---
+gcp_project: lnq-alpha
+region: us-east4
+zone: '{{ region }}-a'

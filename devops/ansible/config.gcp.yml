@@ -1,0 +1,5 @@
+plugin: gcp_compute
+projects:
+  - lnq-alpha
+auth_kind: serviceaccount
+service_account_file: ./gcp-service-account-key.json

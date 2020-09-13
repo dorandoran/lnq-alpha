@@ -1,0 +1,20 @@
+---
+disk_name: 'apollo-database-disk'
+disk_source_image: 'projects/debian-cloud/global/images/family/debian-10'
+
+network_name: 'lnq-alpha-network'
+network_ipv4_range: '10.0.0.0/16'
+
+subnetwork_name: 'public'
+subnetwork_cidr_range: '10.0.0.0/24'
+
+address_name: 'apollo-database-address'
+address_internal_ip: 10.0.0.2
+
+firewall_name: allow-ssh-private-vpn
+firewall_allowed_cidr_ranges:
+  - '172.93.226.215'
+
+engine_name: 'apollo-database'
+machine_type: 'e2-medium'
+network_interface_name: 'apollo-database-nic'

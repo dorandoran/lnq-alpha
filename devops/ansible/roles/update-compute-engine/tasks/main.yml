@@ -1,0 +1,29 @@
+---
+- name: Check yum for updates
+  yum:
+    list: updates
+    update_cache: yes
+  register: yum_response
+
+- name: Clean up yum list results
+  set_fact:
+    yum_update_list: '{{ yum_response.results | map(attribute="name") | list }}'
+
+- name: Display update count to user
+  debug:
+    msg: 'Found {{ yum_update_list | length }} packages to update.'
+
+- name: Update packages
+  yum:
+    name: '{{ yum_update_list }}'
+    state: latest
+
+- name: Check if reboot is required
+  command: needs-restarting -r
+  register: restart_response
+  failed_when: no
+  changed_when: restart_response.rc == 1
+
+- name: Restart if required
+  when: restart_response.rc == 1
+  reboot: # Default waits 10 min
