@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-cloud-functions')
+const { gql } = require('apollo-server-express')
 
 const Search = require('../../search/main')
 

@@ -1,19 +1,19 @@
-const { ApolloServer, gql } = require('apollo-server-express')
-// const { typeDefs, resolvers } = require('~gql/schema')
+const { ApolloServer } = require('apollo-server-express')
+const { typeDefs, resolvers } = require('./schema')
 
 // const { checkNewUser, getToken, getUser } = require('../auth/utils')
 
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`
+// const typeDefs = gql`
+//   type Query {
+//     hello: String
+//   }
+// `
 
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!'
-  }
-}
+// const resolvers = {
+//   Query: {
+//     hello: () => 'Hello world!'
+//   }
+// }
 // GraphQL Setup
 const apolloServer = new ApolloServer({
   typeDefs,

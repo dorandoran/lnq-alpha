@@ -1,13 +1,8 @@
-const express = require('express')
+import express from 'express'
+import apolloServer from './gql/server'
+import mongoose from 'mongoose'
 
-const mongoose = require('mongoose')
-require('./database/models/User')
-
-const apolloServer = require('./gql/server')
-const keys = require('./env/dev')
-
-// Database setup
-mongoose.connect(keys.mongoUri, {
+mongoose.connect('mongodb://localhost:27017/lnq-alpha', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -15,6 +10,7 @@ mongoose.connect(keys.mongoUri, {
 const app = express()
 const gqlPath = '/gql'
 const port = 3000
+
 apolloServer.applyMiddleware({ app, path: gqlPath })
 
 app.listen({ port }, () => {

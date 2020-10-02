@@ -1,9 +1,9 @@
-const { gql } = require('apollo-server-cloud-functions')
+const { gql } = require('apollo-server-express')
 
-const Follow = require('../../databases/store/follow')
-const Invite = require('../../databases/store/invite')
-const User = require('../../databases/store/user')
-const Event = require('../../databases/store/event')
+const Follow = require('../../databases/controllers/follow')
+const Invite = require('../../databases/controllers/invite')
+const User = require('../../databases/controllers/user')
+const Event = require('../../databases/controllers/event')
 
 exports.typeDef = gql`
   enum SocialLinkAnswer {

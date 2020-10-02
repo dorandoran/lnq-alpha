@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server-cloud-functions')
+const { gql } = require('apollo-server-express')
 
-const Media = require('../../databases/store/media')
+const Media = require('../../databases/models/media')
 
 exports.typeDef = gql`
   type Media {

@@ -1,9 +1,9 @@
-const { gql } = require('apollo-server-cloud-functions')
+const { gql } = require('apollo-server-express')
 
-const User = require('../../databases/store/user')
-const Event = require('../../databases/store/event')
-const Media = require('../../databases/store/media')
-const Invite = require('../../databases/store/invite')
+const User = require('../../databases/controllers/user')
+const Event = require('../../databases/controllers/event')
+const Media = require('../../databases/controllers/media')
+const Invite = require('../../databases/controllers/invite')
 
 // Type Definition
 const typeDef = gql`

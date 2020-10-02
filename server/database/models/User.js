@@ -12,9 +12,6 @@ const userSchema = new Schema({
   avatarUrl: String,
   website: String,
   new: Boolean,
-  numEvents: Number
-  numFollowers: Number,
-  numFollowing: Number,
   categories: [String],
   allowFollowers: Boolean,
   created_at: { type: Date, default: Date.now }

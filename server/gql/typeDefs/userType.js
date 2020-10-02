@@ -1,9 +1,9 @@
 const { gql } = require('apollo-server-express')
 
-const User = require('~models/User')
-const Event = require('../../databases/store/event')
-const Invite = require('../../databases/store/invite')
-const Follow = require('../../databases/store/follow')
+const User = require('../../database/controllers/user')
+const Event = require('../../databases/controllers/event')
+const Invite = require('../../databases/controllers/invite')
+const Follow = require('../../databases/controllers/follow')
 
 // Type Definition
 exports.typeDef = gql`
@@ -56,7 +56,7 @@ exports.resolvers = {
   // Mutations
   Mutation: {
     createUser: (_, args) => {
-      return User.saveToStore(args)
+      return User.saveToDb(args)
     },
     updateUser: (_, args) => {
       return User.update(args)

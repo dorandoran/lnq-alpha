@@ -1,21 +1,25 @@
-const { GraphQLScalarType } = require('graphql')
+import { GraphQLScalarType, Kind, ValueNode } from 'graphql'
 
-exports.resolvers = {
+export const resolvers = {
   Date: new GraphQLScalarType({
     name: 'Date',
     description: 'Custom Scalar of Javascript Date',
     // For Queries, value from the client
-    parseValue(value) {
+    parseValue(value: string) {
       return new Date(value)
     },
     // Value sent to the client
-    serialize(value) {
+    serialize(value: string | Date) {
       if (typeof value === 'string') return value
       return value.getTime()
     },
     // For Mutations, ast value is always in string format
-    parseLiteral(ast) {
-      return new Date(ast.value)
+    parseLiteral(ast: ValueNode) {
+      if (ast.kind === Kind.STRING) {
+        return new Date(ast.value)
+      }
+
+      return null
     }
   })
 }
