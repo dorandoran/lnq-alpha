@@ -1,0 +1,33 @@
+"use strict";
+{
+    "google";
+    {
+        "type";
+        "service_account",
+            "project_id";
+        "lnq-alpha",
+            "private_key_id";
+        "0edaf062065ee9125f2bc14faf6e1daee44652c9",
+            "private_key";
+        "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCcKJ0Aavgp9ju+\nFUNjWOtFoWA6g4qj1KjXatihPOUY4UZaKQ5ugqGT4/pi6bc4YrwxG/cuXAx0HVbg\nS4hmL7X5Aa0mg47KlaHP7QJsldkinTQqNn1KJH3xc88o3kI9zdznXuusuNRFgRuK\nc4Cs3nyrEaLp2uBHok66hHcxxBiwPRvvlQwYcNWZFAtSGr2lJtfXgvCYpWS0R/lS\nxefDSXXu9Y/w5rh3qAVnVR+wMVKYxQsPUMJpS1SJyfDWSWCdHJRfhdF7y901kp54\nP8fG2vszDB9rE2sU2NbE3ex1wvD47whZ0Ddyc5E2SGf0CCe0EdKlJX8hm1VpTHHo\nA9Z/2cXdAgMBAAECggEAAriAbRqarUcm06Z/hefC3Z6J/yr94OHaeTpZgOGp5NeT\n8raGvlfUpITTKXhZ+AexsLIEifsSP879DauzOi3i9UOEC/OR1XzAP3pT0abWDCYs\nsP7sYDzSMZaWHuepxCA7P5AQpMc+8jZlekbjOzUl0JMzlpsjejayjsmyYUcXM7GD\nOdT9qPOSsKc1umPUiBdTwC2Qn8Bj7YjIp/qYY8hDDoNAW0CoqsdoKo1bxNYWlykR\nsUXu4K4EHVkqOrpJUpDAOZDh0YVbW1ePJtR0vnwxpro+WP8wKCQkAuDmjpY3kVFv\nySuM6Kq7cCWVbqBfpfMpozGzMg72MQ+CIbcAgrvSbwKBgQDTh136OKyOaaNw5F1f\now9K8Tr44JXgp4cMi5QLzxNkg1cqkTVlBMtN3SP8CmrVNCGfzcZjbuYWPit13lBE\nz6zXFSZe8KGI5AUeGOLKGYR4+xY8+Fm/pa/5S3Rc594OuldaV3VX8SFQmSSP98JJ\nrL8i+kzRw/EBzogViDgAUmK3hwKBgQC8/S9y5Ck/stgPqc/+VFSkqeZ8E3TjnRds\nefBFxE9wWGFnw67Nk82Yf0Z6e1JCEtgQfXLe7yJwsj2Ijo7J7XsSOp4QEQLlvjJn\nEAv2jaCdI+sIBcsCwugclR70JgcTv2UZYKF6h1fVeRN/J5/lp1UrkgiuURy5nGdZ\nX0fOdu2oewKBgBczPad4F9T22SpEockfhUne82zglQ+y0CkcFfzFlYbssN7GVmji\nAbpkitHWAqmnshho5V16iFngL7wZygwCCx77/t1i3xS4jacja5xm+BSc1W+SfaV7\ncrWRBQ47kCtlXLdX6FLg65p/cXco4XJbNAuOEGbhasmb8WkLK7k9T/55AoGANdMB\n9X3Hxa2A3Y0mgK+x36fHzeSYsM6nwixEYwpS+ZMiQrQ3j7MdpeXxw6Zlug213ZRs\n59NBgskwvziisB3jpEBvjfHaWmY94p5uWcziRn7ZTFKiC+pIwwMxaqV99IDZIU4l\nD0mGmXS/OcKmRnjOx/byY/sT7EUAJjL9t26lpwsCgYAx4BTh/5eyZFKXjHSsmgVa\nJU5j8njn4h45fvFeATk5TX7gJeLBokeynj9oIQneFfCeEg1M1ExL7o/S5yqo+JYm\nohzLlcDotF092W399VZeMdDVxgzhEOLdJf+gRhNdrt2XAFJMkxikPCMftiqJ7GrD\ncgO9vn/yjhO8JEOO4N65Xg==\n-----END PRIVATE KEY-----\n",
+            "client_email";
+        "firebase-adminsdk-owuq5@lnq-alpha.iam.gserviceaccount.com",
+            "client_id";
+        "111456776461103516422",
+            "auth_uri";
+        "https://accounts.google.com/o/oauth2/auth",
+            "token_uri";
+        "https://oauth2.googleapis.com/token",
+            "auth_provider_x509_cert_url";
+        "https://www.googleapis.com/oauth2/v1/certs",
+            "client_x509_cert_url";
+        "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-owuq5%40lnq-alpha.iam.gserviceaccount.com";
+    }
+    "algolia";
+    {
+        "api_key";
+        "UP0MW4PPO8",
+            "admin_key";
+        "fc53afc33d807881d6ac9d623b2fc0f3";
+    }
+}

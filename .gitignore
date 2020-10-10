@@ -15,4 +15,4 @@ client/web-build/
 client/web-report/
 client/.idea/*
 server/node_modules
-ts/node_modules
+server/src/config/credentials.json

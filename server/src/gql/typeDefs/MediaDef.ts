@@ -1,0 +1,43 @@
+import { gql } from 'apollo-server-express'
+import { MediaController } from '../../database/firestore/controllers'
+import { IMediaCreate, IMediaDelete } from '../../database/firestore/interfaces'
+
+export const MediaType = gql`
+  type Media {
+    id: String!
+    ownerId: String!
+    linkIds: [String]
+    uri: String!
+    created_at: Date
+  }
+
+  type StorageResponse {
+    completed: Boolean!
+    error: String
+  }
+
+  input MediaInput {
+    id: String
+    ownerId: String
+    linkIds: [String]
+    uri: String
+    created_at: Date
+  }
+`
+
+export const MediaResolvers = {
+  Query: {
+    media: (obj: void, args: { id: string }) => {
+      return MediaController.findById(args.id)
+    }
+  },
+  Mutation: {
+    createMedia: (parent: void, args: IMediaCreate) => {
+      return MediaController.create(args)
+    },
+    deleteMedia: (parent: void, args: IMediaDelete) => {
+      return MediaController.remove(args)
+    }
+  },
+  Media: {}
+}
