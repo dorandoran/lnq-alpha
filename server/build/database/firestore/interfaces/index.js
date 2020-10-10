@@ -14,6 +14,5 @@ __exportStar(require("./User"), exports);
 __exportStar(require("./Event"), exports);
 __exportStar(require("./Location"), exports);
 __exportStar(require("./Media"), exports);
-__exportStar(require("./ServerResponse"), exports);
 __exportStar(require("./SocialLink"), exports);
 __exportStar(require("./Search"), exports);

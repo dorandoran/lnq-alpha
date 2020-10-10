@@ -16,3 +16,5 @@ client/web-report/
 client/.idea/*
 server/node_modules
 server/src/config/credentials.json
+server/src/config/devTokens.ts
+server/build
