@@ -3,8 +3,8 @@ import {
   deleteMediaFromEvents,
   deleteMediaFromStorage,
   deleteUserFromAuth
-} from './consistency'
-import { indexAll, updateUserIndex, updateEventIndex } from './search'
+} from './actions/consistency'
+import { indexAll, updateUserIndex, updateEventIndex } from './actions/search'
 
 /** Firebase Consistency Functions */
 exports.deleteMediaFromEvents = deleteMediaFromEvents

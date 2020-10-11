@@ -1,4 +1,3 @@
-import { database } from 'firebase-admin'
 import { IUser, IEvent } from '../../database/firestore/interfaces'
 
 export interface IAlgoliaUser extends IUser {

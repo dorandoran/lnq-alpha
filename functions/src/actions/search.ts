@@ -1,9 +1,9 @@
 import * as functions from 'firebase-functions'
-import { firestore } from '../../src/database/firestore/firebase'
+import { firestore } from '../services/firebase'
+import { searchIndex } from '../services/algolia'
 
-import IndexFactory from '../search/indexFactory'
-import { searchIndex } from '../search/algolia'
-import { IAlgoliaUser, IAlgoliaEvent } from '../search/interfaces/SearchModels'
+import IndexFactory from './utils/indexFactory'
+import { IAlgoliaUser, IAlgoliaEvent } from '../interfaces'
 
 export const indexAll = async (
   req: functions.Request,

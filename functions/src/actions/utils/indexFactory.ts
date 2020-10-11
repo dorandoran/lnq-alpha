@@ -2,7 +2,7 @@ import {
   IAlgoliaUser,
   IAlgoliaEvent,
   IUserAdditionalAttr
-} from './interfaces/SearchModels'
+} from '../../interfaces'
 
 interface IIndexFactory {
   user(data: any): IAlgoliaUser

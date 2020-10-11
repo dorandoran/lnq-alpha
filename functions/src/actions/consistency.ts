@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
-import { storage, auth } from '../database/firestore/firebase'
-import { MediaController } from '../database/firestore/controllers'
+import { storage, auth } from '../services/firebase'
+import { findAllMediaByLinkId, removeMedia } from './utils/firebase'
 
 // Firestore Media Cleanup - Deletes Media attached to just-deleted Events
 export const deleteMediaFromEvents = functions.firestore
@@ -8,12 +8,12 @@ export const deleteMediaFromEvents = functions.firestore
   .onDelete(async snap => {
     const event = snap.data()
     // TODO: Add Error Handling
-    const eventMedia = await MediaController.findAllByLinkId({ id: event.id })
+    const eventMedia = await findAllMediaByLinkId({ id: event.id })
 
     if (eventMedia?.length) {
       eventMedia.forEach(async media => {
         try {
-          await MediaController.remove({
+          await removeMedia({
             id: media.id,
             linkId: event.id,
             bucket: 'events',
