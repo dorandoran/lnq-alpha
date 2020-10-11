@@ -16,6 +16,12 @@ export interface IMediaDelete {
   id: string
   linkId: string
   bucket: string
+  force?: boolean
+}
+
+export interface IMediaFindByLinkId {
+  id: string
+  avatarId?: string
 }
 
 export interface IStorageResponse {

@@ -3,6 +3,7 @@ import {
   IMedia,
   IMediaCreate,
   IMediaDelete,
+  IMediaFindByLinkId,
   IStorageResponse
 } from '../interfaces'
 
@@ -37,7 +38,8 @@ export async function create(
 export async function remove({
   id,
   linkId,
-  bucket
+  bucket,
+  force
 }: IMediaDelete): Promise<IStorageResponse> {
   const Link = firestore().collection(bucket).doc(linkId)
 
@@ -48,7 +50,7 @@ export async function remove({
       const doc = await t.get(Link)
       const link = doc.data()
 
-      if (link && link.avatarId !== id) {
+      if ((link && link.avatarId !== id) || force) {
         t.delete(Media.doc(id))
         return ''
       } else {
@@ -95,10 +97,10 @@ export async function findById(
   }
 }
 
-export async function findAllByLinkId(
-  id: string,
-  avatarId: string
-): Promise<FirebaseFirestore.DocumentData[] | null> {
+export async function findAllByLinkId({
+  id,
+  avatarId
+}: IMediaFindByLinkId): Promise<FirebaseFirestore.DocumentData[] | null> {
   let media: FirebaseFirestore.DocumentData[] = []
 
   try {
@@ -108,6 +110,14 @@ export async function findAllByLinkId(
         let item = doc.data()
         item.id = doc.id
         media.push(item)
+      })
+
+      // Put avatar media first
+      media.forEach((item, i) => {
+        if (item.id === avatarId) {
+          media.splice(i, 1)
+          media.unshift(item)
+        }
       })
       return media
     }

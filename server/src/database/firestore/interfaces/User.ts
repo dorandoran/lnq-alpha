@@ -11,7 +11,7 @@ export interface IUser {
   new: boolean
   categories?: string[]
   allowFollowers: boolean
-  created_at?: FirebaseFirestore.Timestamp
+  created_at?: FirebaseFirestore.Timestamp | Date
 }
 
 export interface IUserCreate {

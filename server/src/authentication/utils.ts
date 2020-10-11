@@ -2,7 +2,6 @@ import { auth } from '../database/firestore/firebase'
 import { UserController } from '../database/firestore/controllers'
 import { IncomingHttpHeaders } from 'http'
 import developerMap from '../config/devTokens'
-import { IUser } from '../database/firestore/interfaces'
 
 export function getToken(headers: IncomingHttpHeaders): string {
   const authorization = headers.authorization || ''

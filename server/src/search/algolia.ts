@@ -10,7 +10,7 @@ const client = algoliasearch(
   credentials.algolia.api_key,
   credentials.algolia.admin_key
 )
-const searchIndex = {
+export const searchIndex = {
   [EBuckets.USERS]: client.initIndex('users'),
   [EBuckets.EVENTS]: client.initIndex('events')
 }

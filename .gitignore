@@ -18,3 +18,9 @@ server/node_modules
 server/src/config/credentials.json
 server/src/config/devTokens.ts
 server/build
+server/functions/**/*.js
+server/functions/**/*.js.map
+server/functions/!.eslintrc.js
+server/functions/typings/
+server/functions/node_modules/
+server/src/*.log

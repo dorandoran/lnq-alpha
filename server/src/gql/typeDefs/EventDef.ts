@@ -91,7 +91,7 @@ export const EventResolvers = {
       return MediaController.findById(parent.avatar.id)
     },
     media: ({ id, avatar }: IEvent) => {
-      return MediaController.findAllByLinkId(id, avatar.id)
+      return MediaController.findAllByLinkId({ id, avatarId: avatar.id })
     },
     invites: (parent: IEvent) => {
       return InviteController.findAllByEventId(parent.id)
