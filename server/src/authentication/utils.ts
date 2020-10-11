@@ -1,5 +1,5 @@
 import { auth } from '../database/firestore/firebase'
-import { UserController } from '../database/firestore/controllers'
+import { UserController } from '../database/controllers'
 import { IncomingHttpHeaders } from 'http'
 import developerMap from '../config/devTokens'
 

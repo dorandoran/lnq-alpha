@@ -1,30 +1,28 @@
-import { firestore, timestamp } from '../firebase'
-import { ISocialLink, IInvitesCreate, ESocialLinkAnswer } from '../interfaces'
+import { firestore, timestamp } from '../firestore/firebase'
+import { ISocialLink, IFollowRequest, ESocialLinkAnswer } from '../interfaces'
 
-const Invites = firestore().collection('invites')
+const Follows = firestore().collection('follows')
 
 export async function saveAll({
   senderId,
-  recipientIds,
-  eventId
-}: IInvitesCreate): Promise<ISocialLink[] | null> {
+  recipientIds
+}: IFollowRequest): Promise<ISocialLink[] | null> {
   const batch = firestore().batch()
   let invites: ISocialLink[] = []
 
   recipientIds.forEach(recipientId => {
-    const inviteRef = Invites.doc()
+    const followRef = Follows.doc()
     const invite = {
-      id: inviteRef.id,
+      id: followRef.id,
       senderId,
       recipientId,
-      eventId,
       answer: ESocialLinkAnswer.REQUESTED,
       updated_at: timestamp.now(),
       created_at: timestamp.now()
     }
     // TODO: Add notification
 
-    batch.set(inviteRef, invite)
+    batch.set(followRef, invite)
     invites.push(invite)
   })
 
@@ -37,20 +35,20 @@ export async function saveAll({
   }
 }
 
-export async function findAllByEventId(
+export async function findAllBySenderId(
   id: string
 ): Promise<FirebaseFirestore.DocumentData[] | null> {
-  let invites: FirebaseFirestore.DocumentData[] = []
+  let follows: FirebaseFirestore.DocumentData[] = []
 
   try {
-    const snapshot = await Invites.where('eventId', '==', id).get()
+    const snapshot = await Follows.where('senderId', '==', id).get()
     if (snapshot) {
       snapshot.forEach(doc => {
-        let invite = doc.data()
-        invite.id = doc.id
-        invites.push(invite)
+        let follow = doc.data()
+        follow.id = doc.id
+        follows.push(follow)
       })
-      return invites
+      return follows
     }
     return null
   } catch (e) {
@@ -62,17 +60,17 @@ export async function findAllByEventId(
 export async function findAllByRecipientId(
   id: string
 ): Promise<FirebaseFirestore.DocumentData[] | null> {
-  let invites: FirebaseFirestore.DocumentData[] = []
+  let follows: FirebaseFirestore.DocumentData[] = []
 
   try {
-    const snapshot = await Invites.where('recipientId', '==', id).get()
+    const snapshot = await Follows.where('recipientId', '==', id).get()
     if (snapshot) {
       snapshot.forEach(doc => {
-        let invite = doc.data()
-        invite.id = doc.id
-        invites.push(invite)
+        let follow = doc.data()
+        follow.id = doc.id
+        follows.push(follow)
       })
-      return invites
+      return follows
     }
     return null
   } catch (e) {

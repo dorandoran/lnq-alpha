@@ -1,10 +1,6 @@
 import algoliasearch, { SearchIndex } from 'algoliasearch'
 import credentials from '../config/credentials.json'
-import {
-  ISearchBase,
-  ISearchUser,
-  EBuckets
-} from '../database/firestore/interfaces'
+import { ISearchBase, ISearchUser, EBuckets } from '../database/interfaces'
 
 const client = algoliasearch(
   credentials.algolia.api_key,

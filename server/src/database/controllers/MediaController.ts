@@ -1,4 +1,4 @@
-import { firestore, storage, timestamp } from '../firebase'
+import { firestore, storage, timestamp } from '../firestore/firebase'
 import {
   IMedia,
   IMediaCreate,

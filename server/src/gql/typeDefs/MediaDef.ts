@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express'
-import { MediaController } from '../../database/firestore/controllers'
-import { IMediaCreate, IMediaDelete } from '../../database/firestore/interfaces'
+import { MediaController } from '../../database/controllers'
+import { IMediaCreate, IMediaDelete } from '../../database/interfaces'
 
 export const MediaType = gql`
   type Media {

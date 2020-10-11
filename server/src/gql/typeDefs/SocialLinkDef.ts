@@ -4,13 +4,13 @@ import {
   UserController,
   EventController,
   FollowController
-} from '../../database/firestore/controllers'
+} from '../../database/controllers'
 import {
   ISocialLink,
   IUser,
   IInvitesCreate,
   IFollowRequest
-} from '../../database/firestore/interfaces'
+} from '../../database/interfaces'
 
 export const SocialLinkType = gql`
   enum SocialLinkAnswer {

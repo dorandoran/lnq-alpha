@@ -1,4 +1,4 @@
-import { IUser, IMedia, IAvatarInput, ILocation } from '../interfaces'
+import { IUser, IMedia, IAvatarInput, ILocation } from '.'
 
 export interface ISearchBase {
   bucket: EBuckets

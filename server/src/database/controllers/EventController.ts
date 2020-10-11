@@ -1,6 +1,6 @@
-import { firestore, timestamp } from '../firebase'
+import { firestore, timestamp } from '../firestore/firebase'
 import { IEvent, IEventCreate, IEventUpdate } from '../interfaces'
-import { InviteController, FollowController } from '../../firestore/controllers'
+import { InviteController, FollowController } from '.'
 
 const Events = firestore().collection('events')
 const Users = firestore().collection('users')

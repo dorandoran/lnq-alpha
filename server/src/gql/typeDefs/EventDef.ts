@@ -4,13 +4,9 @@ import {
   UserController,
   MediaController,
   InviteController
-} from '../../database/firestore/controllers'
-import {
-  IEvent,
-  IEventCreate,
-  IEventUpdate
-} from '../../database/firestore/interfaces'
-import { IUser } from '../../database/firestore/interfaces/User'
+} from '../../database/controllers'
+import { IEvent, IEventCreate, IEventUpdate } from '../../database/interfaces'
+import { IUser } from '../../database/interfaces/User'
 
 export const EventType = gql`
   type Event {

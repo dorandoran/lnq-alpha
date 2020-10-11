@@ -5,12 +5,8 @@ import {
   EventController,
   InviteController,
   FollowController
-} from '../../database/firestore/controllers'
-import {
-  IUser,
-  IUserCreate,
-  IUserUpdate
-} from '../../database/firestore/interfaces'
+} from '../../database/controllers'
+import { IUser, IUserCreate, IUserUpdate } from '../../database/interfaces'
 
 export const UserType = gql`
   type User {

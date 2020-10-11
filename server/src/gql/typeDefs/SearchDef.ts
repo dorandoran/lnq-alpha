@@ -6,7 +6,7 @@ import {
   IUser,
   IUserHit,
   IEventHit
-} from '../../database/firestore/interfaces'
+} from '../../database/interfaces'
 
 export const SearchType = gql`
   type Search {

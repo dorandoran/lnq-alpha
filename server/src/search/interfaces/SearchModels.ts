@@ -1,4 +1,4 @@
-import { IUser, IEvent } from '../../database/firestore/interfaces'
+import { IUser, IEvent } from '../../database/interfaces'
 
 export interface IAlgoliaUser extends IUser {
   objectID: string

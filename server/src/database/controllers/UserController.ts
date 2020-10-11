@@ -1,4 +1,4 @@
-import { firestore, timestamp } from '../firebase'
+import { firestore, timestamp } from '../firestore/firebase'
 import { IUser, IUserCreate, IUserUpdate } from '../interfaces'
 
 const Users = firestore().collection('users')

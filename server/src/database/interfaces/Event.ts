@@ -1,4 +1,4 @@
-import { ILocation } from '../interfaces'
+import { ILocation } from '.'
 
 export interface IEvent {
   id: string
