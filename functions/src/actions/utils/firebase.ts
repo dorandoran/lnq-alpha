@@ -91,7 +91,10 @@ export async function createNotification({
   senderId,
   type
 }: INotificationCreate): Promise<INotification | null> {
+  const notificationRef = Users.doc(ownerId).collection('notifications')
+  const id = notificationRef.doc().id
   const newNotification = {
+    id,
     senderId,
     type,
     viewed: false,
@@ -99,7 +102,7 @@ export async function createNotification({
   }
 
   try {
-    await Users.doc(ownerId).collection('notifications').add(newNotification)
+    await notificationRef.doc(id).set(newNotification)
     return newNotification
   } catch (e) {
     console.log(e)

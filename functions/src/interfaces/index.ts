@@ -97,6 +97,7 @@ export interface INotificationCreate {
 }
 
 export interface INotification {
+  id: string
   senderId: string
   type: ENotificationType
   viewed: boolean

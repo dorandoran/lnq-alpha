@@ -8,6 +8,10 @@ import { MediaResolvers, MediaType } from './typeDefs/MediaDef'
 import { LocationResolvers, LocationType } from './typeDefs/LocationDef'
 import { SocialLinkResolvers, SocialLinkType } from './typeDefs/SocialLinkDef'
 import { SearchResolvers, SearchType } from './typeDefs/SearchDef'
+import {
+  NotificationResolvers,
+  NotificationType
+} from './typeDefs/NotificationDef'
 
 const OtherType = gql`
   scalar Date
@@ -52,6 +56,10 @@ const OtherType = gql`
     deleteEvent(id: String!): Boolean
     deleteMedia(id: String!, linkId: String!, bucket: String!): StorageResponse
   }
+
+  type Subscription {
+    notificationAdded: Notification
+  }
 `
 
 export const typeDefs = [
@@ -61,7 +69,8 @@ export const typeDefs = [
   MediaType,
   LocationType,
   SocialLinkType,
-  SearchType
+  SearchType,
+  NotificationType
 ]
 export const resolvers = merge(
   DateResolvers,
@@ -70,5 +79,6 @@ export const resolvers = merge(
   MediaResolvers,
   LocationResolvers,
   SocialLinkResolvers,
-  SearchResolvers
+  SearchResolvers,
+  NotificationResolvers
 )
