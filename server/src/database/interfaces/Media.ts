@@ -6,6 +6,13 @@ export interface IMedia {
   created_at: FirebaseFirestore.Timestamp
 }
 
+export interface IAvatar {
+  id: string
+  uri: string
+}
+
+export interface IAvatarInput extends IAvatar {}
+
 export interface IMediaCreate {
   ownerId: string
   linkId?: string

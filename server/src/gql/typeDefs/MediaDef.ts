@@ -11,6 +11,16 @@ export const MediaType = gql`
     created_at: Date
   }
 
+  type Avatar {
+    id: String!
+    uri: String!
+  }
+
+  input AvatarInput {
+    id: String
+    uri: String
+  }
+
   type StorageResponse {
     completed: Boolean!
     error: String

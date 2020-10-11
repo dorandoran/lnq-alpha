@@ -1,15 +1,19 @@
-import { firestore, storage } from '../../services/firebase'
+import { firestore, storage, timestamp } from '../../services/firebase'
 import {
   IMediaFindByLinkId,
   IMediaDelete,
-  IStorageResponse
+  IStorageResponse,
+  INotificationCreate,
+  INotification
 } from '../../interfaces'
+
+const Media = firestore().collection('media')
+const Users = firestore().collection('users')
 
 export async function findAllMediaByLinkId({
   id,
   avatarId
 }: IMediaFindByLinkId): Promise<FirebaseFirestore.DocumentData[] | null> {
-  const Media = firestore().collection('media')
   let media: FirebaseFirestore.DocumentData[] = []
 
   try {
@@ -43,7 +47,6 @@ export async function removeMedia({
   bucket,
   force
 }: IMediaDelete): Promise<IStorageResponse> {
-  const Media = firestore().collection('media')
   const Link = firestore().collection(bucket).doc(linkId)
 
   try {
@@ -80,5 +83,26 @@ export async function removeMedia({
       completed: false,
       error: 'Problem deleting from storage.'
     }
+  }
+}
+
+export async function createNotification({
+  ownerId,
+  senderId,
+  type
+}: INotificationCreate): Promise<INotification | null> {
+  const newNotification = {
+    senderId,
+    type,
+    viewed: false,
+    created_at: timestamp.now()
+  }
+
+  try {
+    await Users.doc(ownerId).collection('notifications').add(newNotification)
+    return newNotification
+  } catch (e) {
+    console.log(e)
+    return null
   }
 }

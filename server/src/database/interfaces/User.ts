@@ -1,3 +1,6 @@
+import { IAvatar } from './Media'
+import { IAvatarInput } from '.'
+
 export interface IUser {
   id: string
   username?: string
@@ -6,7 +9,7 @@ export interface IUser {
   email: string
   dob?: Date
   description?: string
-  avatarUrl?: string
+  avatar?: IAvatar
   website?: string
   new: boolean
   categories?: string[]
@@ -29,7 +32,7 @@ export interface IUserUpdate {
     lastName?: string
     dob?: Date
     description?: string
-    avatarUrl?: string
+    avatar?: IAvatarInput
     website?: string
     new?: Boolean
     categories?: string[]

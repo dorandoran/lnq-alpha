@@ -1,5 +1,11 @@
 import { firestore, timestamp } from '../firestore/firebase'
-import { ISocialLink, IInvitesCreate, ESocialLinkAnswer } from '../interfaces'
+import { NotificationController } from '../controllers'
+import {
+  ISocialLink,
+  IInvitesCreate,
+  ESocialLinkAnswer,
+  ENotificationType
+} from '../interfaces'
 
 const Invites = firestore().collection('invites')
 
@@ -11,7 +17,7 @@ export async function saveAll({
   const batch = firestore().batch()
   let invites: ISocialLink[] = []
 
-  recipientIds.forEach(recipientId => {
+  recipientIds.forEach(async recipientId => {
     const inviteRef = Invites.doc()
     const invite = {
       id: inviteRef.id,
@@ -22,7 +28,18 @@ export async function saveAll({
       updated_at: timestamp.now(),
       created_at: timestamp.now()
     }
-    // TODO: Add notification
+    // Add notification
+    const notification = {
+      ownerId: recipientId,
+      senderId,
+      type: ENotificationType.INVITE
+    }
+
+    try {
+      await NotificationController.create(notification)
+    } catch (e) {
+      console.log(e)
+    }
 
     batch.set(inviteRef, invite)
     invites.push(invite)

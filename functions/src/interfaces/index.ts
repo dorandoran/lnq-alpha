@@ -49,6 +49,15 @@ export interface IEvent {
   isPrivate: boolean
 }
 
+export interface IFollow extends FirebaseFirestore.DocumentData {
+  id: string
+  answer: string
+  recipientId: string
+  senderId: string
+  updated_at: FirebaseFirestore.Timestamp
+  created_at: FirebaseFirestore.Timestamp
+}
+
 export interface ILocation {
   latitude: number
   longitude: number
@@ -81,7 +90,28 @@ export interface IUserAdditionalAttr {
   dob?: Date
 }
 
+export interface INotificationCreate {
+  ownerId: string
+  senderId: string
+  type: ENotificationType
+}
+
+export interface INotification {
+  senderId: string
+  type: ENotificationType
+  viewed: boolean
+  created_at: FirebaseFirestore.Timestamp
+}
+
 export enum EBuckets {
   USERS = 'users',
   EVENTS = 'events'
+}
+
+export enum ENotificationType {
+  INVITE = 'INVITE',
+  COHOST = 'COHOST',
+  FOLLOW = 'FOLLOW',
+  RSVP = 'RSVP',
+  COMMENT = 'COMMENT'
 }

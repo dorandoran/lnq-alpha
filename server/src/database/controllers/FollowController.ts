@@ -8,11 +8,12 @@ export async function saveAll({
   recipientIds
 }: IFollowRequest): Promise<ISocialLink[] | null> {
   const batch = firestore().batch()
-  let invites: ISocialLink[] = []
+  let follows: ISocialLink[] = []
 
   recipientIds.forEach(recipientId => {
+    if (recipientId === senderId) return null
     const followRef = Follows.doc()
-    const invite = {
+    const follow = {
       id: followRef.id,
       senderId,
       recipientId,
@@ -20,15 +21,14 @@ export async function saveAll({
       updated_at: timestamp.now(),
       created_at: timestamp.now()
     }
-    // TODO: Add notification
 
-    batch.set(followRef, invite)
-    invites.push(invite)
+    batch.set(followRef, follow)
+    follows.push(follow)
   })
 
   try {
     await batch.commit()
-    return invites
+    return follows
   } catch (e) {
     console.log(e)
     return null

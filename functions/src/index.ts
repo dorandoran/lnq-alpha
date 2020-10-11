@@ -5,6 +5,7 @@ import {
   deleteUserFromAuth
 } from './actions/consistency'
 import { indexAll, updateUserIndex, updateEventIndex } from './actions/search'
+import { automaticallyAllowFollowers } from './actions/automatedTasks'
 
 /** Firebase Consistency Functions */
 exports.deleteMediaFromEvents = deleteMediaFromEvents
@@ -15,3 +16,6 @@ exports.deleteUserFromAuth = deleteUserFromAuth
 exports.indexAll = functions.https.onRequest(indexAll)
 exports.updateUserIndex = updateUserIndex
 exports.updateEventIndex = updateEventIndex
+
+/** Automated User Tasks */
+exports.allowFollowers = automaticallyAllowFollowers

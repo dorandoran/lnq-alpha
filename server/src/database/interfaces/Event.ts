@@ -1,4 +1,4 @@
-import { ILocation } from '.'
+import { ILocation, IAvatarInput } from '.'
 
 export interface IEvent {
   id: string
@@ -49,9 +49,4 @@ export interface IEventUpdate {
     plusOne?: boolean
     isPrivate?: boolean
   }
-}
-
-export interface IAvatarInput {
-  id: string
-  uri: string
 }

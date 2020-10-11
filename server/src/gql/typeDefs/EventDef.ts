@@ -30,25 +30,16 @@ export const EventType = gql`
     invites: [SocialLink]
   }
 
-  type Avatar {
-    id: String
-    uri: String
-  }
-
   input EventUpdateInput {
     name: String
     type: String
     date: Date
+    avatar: AvatarInput
     location: LocationInput
     website: String
     description: String
     plusOne: Boolean
     isPrivate: Boolean
-  }
-
-  input AvatarInput {
-    id: String
-    uri: String
   }
 `
 

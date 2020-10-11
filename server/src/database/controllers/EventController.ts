@@ -26,7 +26,7 @@ export async function create(
   })
 
   // Send Invites and Follows (Separate atomic actions)
-  const { id, recipientIds, ownerId, followIds } = eventAttributes
+  const { id, ownerId, followIds = [], recipientIds = [] } = eventAttributes
   if (recipientIds.length) {
     InviteController.saveAll({ senderId: ownerId, recipientIds, eventId: id })
   }

@@ -17,7 +17,7 @@ export const UserType = gql`
     dob: Date
     email: String!
     description: String
-    avatarUrl: String
+    avatar: Avatar
     website: String
     new: Boolean
     numEvents: Int
@@ -38,7 +38,7 @@ export const UserType = gql`
     lastName: String
     dob: Date
     description: String
-    avatarUrl: String
+    avatar: AvatarInput
     website: String
     new: Boolean
     categories: [String]
