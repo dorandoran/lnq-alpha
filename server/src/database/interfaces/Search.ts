@@ -14,6 +14,11 @@ export interface ISearchUser {
   following: string[]
 }
 
+export interface ISearchHome {
+  userId: string
+  page: number
+}
+
 export interface IUserHit {
   id: string
   username: string

@@ -1,6 +1,11 @@
 import algoliasearch, { SearchIndex } from 'algoliasearch'
 import credentials from '../config/credentials.json'
-import { ISearchBase, ISearchUser, EBuckets } from '../database/interfaces'
+import {
+  ISearchBase,
+  ISearchUser,
+  ISearchHome,
+  EBuckets
+} from '../database/interfaces'
 
 const client = algoliasearch(
   credentials.algolia.api_key,
@@ -13,6 +18,7 @@ export const searchIndex = {
 
 interface ISearch {
   base(searchAttributes: ISearchBase): Promise<any | null>
+  home(searchAttributes: ISearchHome): Promise<any | null>
   user(searchAttributes: ISearchUser): Promise<any | null>
 }
 
@@ -27,6 +33,14 @@ export const SearchController: ISearch = {
       console.log(e)
       return null
     }
+  },
+
+  home: async ({ userId, page }) => {
+    const index: SearchIndex = searchIndex.events
+
+    let facetFilters = [`id:-${userId}`, 'isPrivate:false']
+    const response = await index.search('', { facetFilters, page })
+    return response.hits
   },
 
   user: async ({ userId, query, page, following = [] }) => {

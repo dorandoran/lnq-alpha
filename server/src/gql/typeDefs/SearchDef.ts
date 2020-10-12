@@ -3,6 +3,7 @@ import { SearchController } from '../../search/algolia'
 import {
   ISearchBase,
   ISearchUser,
+  ISearchHome,
   IUser,
   IUserHit,
   IEventHit
@@ -49,6 +50,9 @@ export const SearchResolvers = {
   Query: {
     search: (obj: void, args: ISearchBase) => {
       return SearchController.base(args)
+    },
+    homeSearch: (obj: void, args: ISearchHome) => {
+      return SearchController.home(args)
     },
     userSearch: (obj: void, args: ISearchUser, context: { user: IUser }) => {
       args.userId = context.user.id

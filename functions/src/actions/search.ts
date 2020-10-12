@@ -54,6 +54,7 @@ export const indexAll = async (
     await searchIndex.events.clearObjects()
     // Search Index Event Default Settings
     await searchIndex.events.setSettings({
+      attributesForFaceting: ['ownerId', 'isPrivate'],
       hitsPerPage: 25
     })
     await searchIndex.events.saveObjects(events)
