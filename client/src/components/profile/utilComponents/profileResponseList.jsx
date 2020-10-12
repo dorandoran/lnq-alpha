@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 import { GetRSVP } from '@graphql/invite/queries.js'
 
 import EventList from '@components/shared/itemList'
@@ -34,7 +34,7 @@ const ProfileResponseList = () => {
     )
   }
 
-  return <EventList data={rsvps} onItemPress={() => {}} hideAvatar />
+  return <EventList data={rsvps} onItemPress={() => { }} hideAvatar />
 }
 
 const styles = StyleSheet.create({

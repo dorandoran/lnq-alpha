@@ -1,8 +1,8 @@
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 import { DeleteEvent } from '@graphql/event/mutations.js'
 import { GetUserEvents } from '@graphql/event/queries'
 
-export default function useDeleteEvent ({ onCompleted }) {
+export default function useDeleteEvent({ onCompleted }) {
   const [deleteEvent, { loading }] = useMutation(DeleteEvent, { onCompleted })
 
   return [

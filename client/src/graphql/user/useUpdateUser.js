@@ -1,5 +1,5 @@
-import gql from 'graphql-tag'
-import { useMutation } from '@apollo/react-hooks'
+import { gql } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { UpdateUser } from '@graphql/user/mutations.js'
 
 /**
@@ -44,7 +44,10 @@ export default function useUpdateUser({ onCompleted }) {
                 lastName
                 dob
                 description
-                avatarUrl
+                avatar {
+                  id
+                  uri
+                }
                 website
                 new
                 categories

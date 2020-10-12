@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import useUser from '@context/userContext'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 import { GetEvent } from '@graphql/event/queries.js'
 
 import EventHeader from '@components/event/eventHeader'

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import { gql } from '@apollo/client'
 import { searchEventFragment } from '@graphql/event/fragments'
 import { userFragment } from '@graphql/user/fragments'
 

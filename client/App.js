@@ -1,8 +1,8 @@
 import React from 'react'
-import { YellowBox } from 'react-native'
+import { LogBox } from 'react-native'
 
 import { client } from '@services/apollo'
-import { ApolloProvider } from '@apollo/react-hooks'
+import { ApolloProvider } from '@apollo/client'
 
 import useUser from '@context/userContext'
 import AppProviders from '@components/main/appProviders'
@@ -20,7 +20,7 @@ const AppContainer = () => {
 
 const App = () => {
   // TODO Find a more graceful way to handle this
-  YellowBox.ignoreWarnings(['Setting a timer'])
+  LogBox.ignoreLogs(['Setting a timer'])
 
   return (
     <ApolloProvider client={client}>

@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 import useSearch from '@context/searchContext'
 import { Search } from '@graphql/search/queries'
 import { buildSearchVars } from '@components/search/utilComponents/searchUtil'

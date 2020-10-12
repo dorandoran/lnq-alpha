@@ -4,7 +4,7 @@ import * as Facebook from 'expo-facebook'
 import { f, auth } from '@services/firebase'
 import config from '@config'
 
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 import { GetCurrentUser } from '@graphql/user/queries'
 import useCreateUser from '@graphql/user/useCreateUser'
 import useNotification from '@hooks/useNotification'

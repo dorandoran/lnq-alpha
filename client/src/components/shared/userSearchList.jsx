@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { useDebounce } from '@hooks/useDebounce'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 import { UserSearch } from '@graphql/search/queries'
 import { GetFollowing } from '@graphql/follow/queries'
 

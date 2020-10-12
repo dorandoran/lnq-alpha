@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 import { RequestFollow } from '@graphql/follow/mutations.js'
 
 export default function useRequestFollow({ onCompleted }) {
@@ -7,7 +7,7 @@ export default function useRequestFollow({ onCompleted }) {
   return variables => {
     requestFollow({
       variables,
-      update: () => {}
+      update: () => { }
     })
   }
 }

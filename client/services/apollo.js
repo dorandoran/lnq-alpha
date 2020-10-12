@@ -1,8 +1,7 @@
-import { ApolloClient } from 'apollo-client'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import { HttpLink } from 'apollo-link-http'
-import { onError } from 'apollo-link-error'
-import { setContext } from 'apollo-link-context'
+import { ApolloClient, HttpLink } from '@apollo/client'
+import { InMemoryCache } from '@apollo/client/cache'
+import { onError } from '@apollo/client/link/error'
+import { setContext } from '@apollo/client/link/context'
 
 import { auth } from '@services/firebase'
 import config from '@config'

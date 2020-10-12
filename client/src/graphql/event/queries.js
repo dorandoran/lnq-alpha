@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import { gql } from '@apollo/client'
 import { eventFragment } from '@graphql/event/fragments'
 
 export const GetEvent = gql`

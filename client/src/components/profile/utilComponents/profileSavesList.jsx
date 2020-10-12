@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 // import { GetCurrentUserEvents } from '@graphql/user/queries.js'
 
 import EventList from '@components/shared/itemList'

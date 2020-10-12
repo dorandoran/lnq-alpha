@@ -1,5 +1,5 @@
-import gql from 'graphql-tag'
-import { useMutation } from '@apollo/react-hooks'
+import { gql } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { CreateEvent } from '@graphql/event/mutations'
 
 export default function useCreateEvent() {
@@ -60,7 +60,7 @@ export default function useCreateEvent() {
             }
           })
           // eslint-disable-next-line no-empty
-        } catch {}
+        } catch { }
       }
     })
   }

@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 import { CreateUser } from '@graphql/user/mutations.js'
 import { GetCurrentUser } from '@graphql/user/queries.js'
 
@@ -8,7 +8,6 @@ export default function useCreateUser({ onCompleted }) {
   return [
     variables =>
       createUser({
-        // variables: { id: string, email: string, password: string, firstName: string, lastName: string}
         variables,
         update: cache => {
           const newUser = {
@@ -17,7 +16,10 @@ export default function useCreateUser({ onCompleted }) {
             lastName: variables.lastName,
             username: null,
             email: variables.email,
-            avatarUrl: null,
+            avatar: {
+              id: null,
+              uri: null
+            },
             description: null,
             dob: null,
             website: null,

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import { gql } from '@apollo/client'
 
 export const allInfoUserFragment = gql`
   fragment allInfoUserFields on User {
@@ -7,7 +7,10 @@ export const allInfoUserFragment = gql`
     firstName
     lastName
     email
-    avatarUrl
+    avatar {
+      id
+      uri
+    }
     description
     dob
     website
@@ -26,6 +29,9 @@ export const userFragment = gql`
     lastName
     username
     description
-    avatarUrl
+    avatar {
+      id
+      uri
+    }
   }
 `

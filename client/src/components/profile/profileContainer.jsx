@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 import { GetEvent } from '@graphql/event/queries.js'
 
 import { theme } from '@util'
@@ -40,7 +40,7 @@ const UserContainer = ({ id, isDialogOpen }) => {
         style={styles.image}
       >
         <Header>
-          <TouchableOpacity onPress={() => {}} style={styles.iconContainer}>
+          <TouchableOpacity onPress={() => { }} style={styles.iconContainer}>
             <Icon
               type='ionicon'
               name='ios-arrow-back'
