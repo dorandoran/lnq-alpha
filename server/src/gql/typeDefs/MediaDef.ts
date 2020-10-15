@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express'
 import { MediaController } from '../../database/controllers'
-import { IMediaCreate, IMediaDelete } from '../../database/interfaces'
+import { IMediaCreate, IMediaRemove } from '../../database/interfaces'
 
 export const MediaType = gql`
   type Media {
@@ -45,7 +45,7 @@ export const MediaResolvers = {
     createMedia: (parent: void, args: IMediaCreate) => {
       return MediaController.create(args)
     },
-    deleteMedia: (parent: void, args: IMediaDelete) => {
+    deleteMedia: (parent: void, args: IMediaRemove) => {
       return MediaController.remove(args)
     }
   },

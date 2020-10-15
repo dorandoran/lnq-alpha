@@ -10,7 +10,10 @@ import { UpdateUser } from '@graphql/user/mutations.js'
  *  username: string
  *  dob: Date
  *  description: string
- *  avatarUrl: string
+ *  avatar: {
+ *    id: string
+ *    uri: string
+ *  }
  *  website: string
  *  new: boolean
  *  categories: string[]

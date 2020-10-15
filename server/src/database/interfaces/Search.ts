@@ -24,7 +24,10 @@ export interface IUserHit {
   username: string
   firstName: string
   lastName: string
-  avatarUrl: string
+  avatar?: {
+    id: string
+    uri: string
+  }
   description: string
   isFollowing: boolean
 }

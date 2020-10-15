@@ -8,7 +8,7 @@ const useStorage = ({ uri, bucketName, linkId, skip, onSuccess, onStart }) => {
   const [media, setMedia] = useState(null)
   const [loading, setLoading] = useState(false)
   const createMedia = useCreateMedia()
-  const { id: userId } = useUser()
+  const { id: ownerId } = useUser()
   let newMediaLinkId = linkId
 
   const mediaRef = firestore.collection(BUCKET.MEDIA).doc()
@@ -43,7 +43,7 @@ const useStorage = ({ uri, bucketName, linkId, skip, onSuccess, onStart }) => {
       })
 
       // Send blob to storage
-      const newMedia = { id: mediaRef.id, userId, linkId: newMediaLinkId }
+      const newMedia = { id: mediaRef.id, ownerId, linkId: newMediaLinkId }
       const uploadTask = mediaStorage.put(mediaBlob)
 
       // Check progress

@@ -41,6 +41,11 @@ export const SearchController: ISearch = {
     let facetFilters = [`id:-${userId}`, 'isPrivate:false']
     const response = await index.search('', { facetFilters, page })
     return response.hits
+
+    // Proximity
+    // Following (Their events, events they're going to, top 3 categories)
+    // Sponsored/paid events
+    // Type of user
   },
 
   user: async ({ userId, query, page, following = [] }) => {

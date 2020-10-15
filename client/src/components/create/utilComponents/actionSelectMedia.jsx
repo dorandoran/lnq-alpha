@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { ReactNativeFile } from 'apollo-upload-client'
 import * as ImagePicker from 'expo-image-picker'
 import PropTypes from 'prop-types'
 
@@ -51,7 +52,7 @@ const ActionSelectMedia = ({
       quality: 0.6 // Setting to 1 freezes when sending media to firebase storage
     }
 
-    async function launchMediaAsync () {
+    async function launchMediaAsync() {
       let result
       await getCameraRollPermissions()
       if (!didCancel && type === CAMERA_SELECTION) {
@@ -66,12 +67,19 @@ const ActionSelectMedia = ({
       setIsSelected(false)
 
       if (!result.cancelled) {
-        const media = {
-          uri: result.uri,
-          aspectRatio: result.height / result.width
-        }
-        if (onComplete) onComplete(media)
-        else navigateToDetails(media)
+        const uri = result.uri
+        const filename = uri.split('/').pop()
+        const regexMatch = /\.(\w+)$/.exec(filename)
+        const type = regexMatch ? `image/${regexMatch[1]}` : 'image'
+
+        const file = new ReactNativeFile({
+          uri,
+          name: filename,
+          type
+        })
+
+        if (onComplete) onComplete({ uri, file })
+        else navigateToDetails({ uri, file })
       }
 
       if (closeIconContainer) closeIconContainer()
@@ -96,13 +104,13 @@ const ActionSelectMedia = ({
       {isSelected ? (
         <ActivityIndicator size='small' color={theme.color.tertiary} />
       ) : (
-        <Icon
-          type='material-community'
-          name={type === CAMERA_SELECTION ? 'camera' : 'library-plus'}
-          color={color}
-          size={20}
-        />
-      )}
+          <Icon
+            type='material-community'
+            name={type === CAMERA_SELECTION ? 'camera' : 'library-plus'}
+            color={color}
+            size={20}
+          />
+        )}
     </TouchableOpacity>
   )
 }

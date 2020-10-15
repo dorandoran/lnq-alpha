@@ -37,13 +37,13 @@ const NewBottomButtonBar = ({
 
   return (
     <View style={styles.footerContainer}>
-      {!showFinish ? (
+      {onSkipPress && !showFinish ? (
         <TouchableOpacity onPress={onSkipPress}>
           <Text style={[styles.text, styles.skip]}>Skip</Text>
         </TouchableOpacity>
       ) : (
-        <View />
-      )}
+          <View />
+        )}
 
       {renderActionButton()}
     </View>

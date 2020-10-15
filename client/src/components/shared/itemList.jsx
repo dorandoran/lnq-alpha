@@ -63,9 +63,9 @@ const ItemList = ({
             </Text>
           </View>
           <View style={styles.avatarContainer}>
-            {!hideAvatar && owner?.avatarUrl ? (
+            {!hideAvatar && owner?.avatar ? (
               <Image
-                source={{ uri: owner.avatarUrl }}
+                source={{ uri: owner.avatar.id }}
                 style={styles.avatar}
                 borderRadius={25}
                 placeholderStyle={styles.placeholder}
@@ -80,7 +80,7 @@ const ItemList = ({
 
   // User ListItem
   const renderUserListItem = item => {
-    const { firstName, lastName, username, avatarUrl, isFollowing, id } = item
+    const { firstName, lastName, username, avatar, isFollowing, id } = item
     const isFollowSelected = followSelected?.includes(id) || false
     const isSelected = selected?.includes(id) || false
 
@@ -96,22 +96,22 @@ const ItemList = ({
           }
         ]}
       >
-        {avatarUrl ? (
+        {avatar ? (
           <Image
-            source={{ uri: avatarUrl }}
+            source={{ uri: avatar.uri }}
             style={styles.userImage}
             borderRadius={50}
             PlaceholderContent={<Loading size='small' />}
             placeholderStyle={styles.placeholder}
           />
         ) : (
-          <View
-            style={[
-              styles.userImage,
-              { backgroundColor: theme.color.background }
-            ]}
-          />
-        )}
+            <View
+              style={[
+                styles.userImage,
+                { backgroundColor: theme.color.background }
+              ]}
+            />
+          )}
         <ListItem.Content style={styles.userTextContainer}>
           <Text
             style={[styles.title, { color: theme.color.placeholder }]}
@@ -130,13 +130,13 @@ const ItemList = ({
               borderColor: isFollowing
                 ? theme.color.tertiary
                 : isFollowSelected
-                ? theme.color.success
-                : theme.color.tertiary,
+                  ? theme.color.success
+                  : theme.color.tertiary,
               backgroundColor: isFollowing
                 ? theme.color.success
                 : isFollowSelected
-                ? theme.color.tertiary
-                : theme.color.background
+                  ? theme.color.tertiary
+                  : theme.color.background
             }
           ]}
           onPress={
@@ -150,16 +150,16 @@ const ItemList = ({
                 color: isFollowing
                   ? theme.color.tertiary
                   : isFollowSelected
-                  ? theme.color.background
-                  : theme.color.tertiary
+                    ? theme.color.background
+                    : theme.color.tertiary
               }
             ]}
           >
             {isFollowing
               ? 'Following'
               : isFollowSelected
-              ? 'Pending'
-              : 'Follow'}
+                ? 'Pending'
+                : 'Follow'}
           </Text>
         </TouchableOpacity>
       </ListItem>

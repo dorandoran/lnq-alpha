@@ -1,5 +1,4 @@
-import { IAvatar } from './Media'
-import { IAvatarInput } from '.'
+import { IAvatar, IAvatarInput, IFile } from '.'
 
 export interface IUser {
   id: string
@@ -38,4 +37,9 @@ export interface IUserUpdate {
     categories?: string[]
     allowFollowers?: Boolean
   }
+}
+
+export interface IUserUpdateAvatar {
+  id: string
+  image: Promise<IFile>
 }

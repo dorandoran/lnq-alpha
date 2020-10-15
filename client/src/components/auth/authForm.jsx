@@ -15,8 +15,8 @@ const AuthForm = ({ onFocus, inputState, setInput, screen }) => {
     screen === 'Login'
       ? LoginInputMap
       : screen === 'Signup'
-      ? SignupInputMap
-      : OAuthSignupInputMap
+        ? SignupInputMap
+        : OAuthSignupInputMap
 
   const updateInput = (value, text) => {
     setInput({ ...inputState, [value]: text })

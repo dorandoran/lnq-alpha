@@ -1,23 +1,21 @@
 import React, { useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-import useStorage from '@hooks/useStorage'
 import useNotification from '@hooks/useNotification'
-import useUpdateUser from '@graphql/user/useUpdateUser'
+import useUpdateUserAvatar from '@graphql/user/useUpdateUserAvatar'
 
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
 import BottomBar from '@components/new/utilComponents/newBottomButtonBar'
 
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { Icon, Image } from 'react-native-elements'
-import { theme, CAMERA_SELECTION, BUCKET } from '@util'
+import { theme, CAMERA_SELECTION } from '@util'
 
-const NewAvatar = ({ userId, goNext }) => {
+const NewAvatar = ({ goNext }) => {
   const [avatarPressed, setAvatarPressed] = useState(false)
-  const [nextPressed, setNextPress] = useState(false)
-  const [uri, setUri] = useState(null)
+  const [avatar, setAvatar] = useState(null)
   const { throwLoading, closeNotification } = useNotification()
-  const [updateUser] = useUpdateUser({
+  const [updateUserAvatar, loading] = useUpdateUserAvatar({
     onCompleted: () => {
       closeNotification()
       goNext()
@@ -31,34 +29,18 @@ const NewAvatar = ({ userId, goNext }) => {
     ? theme.color.accent
     : theme.color.background
 
-  const { media, loading } = useStorage({
-    uri,
-    bucketName: BUCKET.USER,
-    linkId: userId,
-    skip: !nextPressed || !uri,
-    onStart: () => throwLoading()
-  })
-
   React.useEffect(() => {
-    let didCancel = false
+    if (loading) throwLoading()
+  }, [loading])
 
-    if (!didCancel && media) {
-      const updates = { avatarUrl: media.uri }
-      !didCancel && updateUser({ id: userId, updates })
-    }
-    return () => {
-      didCancel = true
-    }
-  }, [media])
-
-  const handleImageSelected = ({ uri }) => {
-    setUri(uri)
+  const handleImageSelected = image => {
+    setAvatar(image)
     setAvatarPressed(false)
   }
 
   const handleNext = () => {
-    if (uri) {
-      setNextPress(true)
+    if (avatar) {
+      updateUserAvatar({ image: avatar.file })
     }
   }
 
@@ -69,16 +51,16 @@ const NewAvatar = ({ userId, goNext }) => {
           onPress={() => setAvatarPressed(!avatarPressed)}
           disabled={loading}
         >
-          {uri ? (
-            <Image source={{ uri }} style={styles.image} borderRadius={100} />
+          {avatar ? (
+            <Image source={{ uri: avatar.uri }} style={styles.image} borderRadius={100} />
           ) : (
-            <Icon
-              type='ionicon'
-              name='ios-contact'
-              color={theme.color.tertiary}
-              size={200}
-            />
-          )}
+              <Icon
+                type='ionicon'
+                name='ios-contact'
+                color={theme.color.tertiary}
+                size={200}
+              />
+            )}
         </TouchableOpacity>
 
         <View style={styles.actionContainer}>
@@ -98,7 +80,7 @@ const NewAvatar = ({ userId, goNext }) => {
         </View>
       </View>
       <BottomBar
-        disabled={!uri}
+        disabled={!avatar}
         onActionPress={handleNext}
         onSkipPress={goNext}
       />

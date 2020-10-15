@@ -1,12 +1,13 @@
-import { ApolloClient, HttpLink } from '@apollo/client'
+import { ApolloClient } from '@apollo/client'
 import { InMemoryCache } from '@apollo/client/cache'
 import { onError } from '@apollo/client/link/error'
 import { setContext } from '@apollo/client/link/context'
+import { createUploadLink } from 'apollo-upload-client'
 
 import { auth } from '@services/firebase'
 import config from '@config'
 
-const httpLink = new HttpLink({
+const uploadLink = new createUploadLink({
   uri: config.GRAPHQL_ENDPOINT
 })
 
@@ -31,7 +32,7 @@ const errorHandling = onError(({ graphQLErrors, networkError }) => {
 })
 
 const authFlow = sendAuthToken.concat(errorHandling)
-const link = authFlow.concat(httpLink)
+const link = authFlow.concat(uploadLink)
 
 export const client = new ApolloClient({
   link,

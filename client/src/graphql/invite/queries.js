@@ -12,7 +12,9 @@ export const GetRSVP = gql`
         answer
         sender {
           id
-          avatarUrl
+          avatar {
+            uri
+          }
         }
         event {
           ... on Event {

@@ -1,7 +1,8 @@
 import { firestore, storage, timestamp } from '../../services/firebase'
 import {
   IMediaFindByLinkId,
-  IMediaDelete,
+  IMediaRemove,
+  IMediaRemoveFromStorage,
   IStorageResponse,
   INotificationCreate,
   INotification
@@ -46,7 +47,7 @@ export async function removeMedia({
   linkId,
   bucket,
   force
-}: IMediaDelete): Promise<IStorageResponse> {
+}: IMediaRemove): Promise<IStorageResponse> {
   const Link = firestore().collection(bucket).doc(linkId)
 
   try {
@@ -71,19 +72,7 @@ export async function removeMedia({
     }
   }
 
-  try {
-    await storage().file(`${bucket}/${id}`).delete()
-    return {
-      completed: true,
-      error: ''
-    }
-  } catch (e) {
-    console.log(e)
-    return {
-      completed: false,
-      error: 'Problem deleting from storage.'
-    }
-  }
+  return removeMediaFromStorage({ id, bucket })
 }
 
 export async function createNotification({
@@ -107,5 +96,24 @@ export async function createNotification({
   } catch (e) {
     console.log(e)
     return null
+  }
+}
+
+export async function removeMediaFromStorage({
+  id,
+  bucket
+}: IMediaRemoveFromStorage): Promise<IStorageResponse> {
+  try {
+    await storage().file(`${bucket}/${id}`).delete()
+    return {
+      completed: true,
+      error: ''
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      completed: false,
+      error: 'Problem deleting from storage.'
+    }
   }
 }

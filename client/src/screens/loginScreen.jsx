@@ -29,7 +29,7 @@ const LoginScreen = () => {
 
   useEffect(() => {
     let unsubscribe
-    async function attemptLogin () {
+    async function attemptLogin() {
       unsubscribe = await tryLocalSignIn()
     }
 
@@ -39,10 +39,6 @@ const LoginScreen = () => {
     }
   }, [])
 
-  // Programmatically scroll to inputs
-  const scrollToInput = node => {
-    this.loginScroll.props.scrollToFocusedInput(node)
-  }
 
   return (
     <ImageBackground
@@ -53,7 +49,6 @@ const LoginScreen = () => {
       <KeyboardAwareScrollView
         enableOnAndroid
         contentContainerStyle={styles.awareContainer}
-        innerRef={ref => (this.loginScroll = ref)}
       >
         <KeyboardDismiss>
           <View style={styles.container}>
@@ -61,7 +56,6 @@ const LoginScreen = () => {
               <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
             </Spacer>
             <LoginForm
-              onFocus={scrollToInput}
               inputState={loginInput}
               setInput={setLoginInput}
               screen='Login'

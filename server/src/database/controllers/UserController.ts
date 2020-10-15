@@ -1,7 +1,17 @@
+import admin from 'firebase-admin'
 import { firestore, timestamp } from '../firestore/firebase'
-import { IUser, IUserCreate, IUserUpdate } from '../interfaces'
+import { MediaController } from '.'
+import {
+  IUser,
+  IAvatar,
+  IUserCreate,
+  IUserUpdate,
+  IUserUpdateAvatar,
+  EBuckets
+} from '../interfaces'
 
 const Users = firestore().collection('users')
+const Media = firestore().collection('media')
 
 export async function create(
   userAttributes: IUserCreate
@@ -35,6 +45,82 @@ export async function update(
     const update = await Users.doc(id).update(updates)
     if (update) return findById(id)
     return null
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+}
+
+export async function updateAvatar({
+  id,
+  image
+}: IUserUpdateAvatar): Promise<IAvatar | null> {
+  // Google cloud resources
+  const newAvatarRef = Media.doc()
+  const userRef = Users.doc(id)
+  const storageAvatar = admin
+    .storage()
+    .bucket()
+    .file(`${EBuckets.USERS}/${newAvatarRef.id}`)
+
+  const { createReadStream, mimetype } = await image
+  const readStream = createReadStream(newAvatarRef.id)
+  let uri = ''
+
+  // Upload image to google storage
+  try {
+    const response = await new Promise((resolve, reject) => {
+      readStream.pipe(
+        storageAvatar
+          .createWriteStream({ contentType: mimetype })
+          .on('error', () => reject(false))
+          .on('finish', async () => {
+            // get presigned url
+            const uriResponse = await storageAvatar.getSignedUrl({
+              action: 'read',
+              expires: '01-01-2400'
+            })
+            uri = uriResponse[0]
+            resolve(true)
+          })
+      )
+    })
+    if (!response) return null
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+
+  // Transaction user update and media create
+  const avatar = {
+    id: newAvatarRef.id,
+    uri
+  }
+  const newMedia = {
+    ...avatar,
+    ownerId: id,
+    created_at: timestamp.now(),
+    linkIds: [id]
+  }
+
+  try {
+    await firestore().runTransaction(async t => {
+      // Delete old avatar from storage
+      await MediaController.removeMediaFromStorage({
+        id: avatar.id,
+        bucket: EBuckets.USERS
+      })
+      const doc = await t.get(userRef)
+      const user = doc.data()
+
+      if (user && user.avatar) {
+        t.delete(Media.doc(avatar.id))
+      }
+
+      t.update(Users.doc(id), { avatar })
+      t.set(newAvatarRef, newMedia)
+    })
+    return avatar
   } catch (e) {
     console.log(e)
     return null

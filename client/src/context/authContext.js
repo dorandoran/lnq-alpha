@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react'
+import React, { createContext, useContext, useReducer, useEffect } from 'react'
 import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
 import { f, auth } from '@services/firebase'
@@ -86,16 +86,19 @@ export const AuthProvider = props => {
     skip
   })
 
+  // Google/Facebook first time sign up
+  useEffect(() => {
+    if (authState.userId && !data?.user) {
+      navigate('Signup', {
+        oauth: true,
+        user: getOAuthUserInfo(authState.user)
+      })
+    }
+  }, [loading])
+
+
   if (loading || createLoading) {
     return <Loading fullScreen />
-  }
-
-  // Google/Facebook first time sign up
-  if (authState.userId && !data?.user) {
-    navigate('Signup', {
-      oauth: true,
-      user: getOAuthUserInfo(authState.user)
-    })
   }
 
   // Auth Actions

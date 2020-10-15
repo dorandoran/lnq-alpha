@@ -3,11 +3,16 @@ export interface IMediaFindByLinkId {
   avatarId?: string
 }
 
-export interface IMediaDelete {
+export interface IMediaRemove {
   id: string
   linkId: string
-  bucket: string
+  bucket: EBuckets
   force?: boolean
+}
+
+export interface IMediaRemoveFromStorage {
+  id: string
+  bucket: EBuckets
 }
 
 export interface IStorageResponse {
@@ -23,7 +28,10 @@ export interface IUser {
   email: string
   dob?: Date
   description?: string
-  avatarUrl?: string
+  avatar?: {
+    id: string
+    uri: string
+  }
   website?: string
   new: boolean
   categories?: string[]

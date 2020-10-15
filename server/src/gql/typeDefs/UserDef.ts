@@ -6,7 +6,12 @@ import {
   InviteController,
   FollowController
 } from '../../database/controllers'
-import { IUser, IUserCreate, IUserUpdate } from '../../database/interfaces'
+import {
+  IUser,
+  IUserCreate,
+  IUserUpdate,
+  IUserUpdateAvatar
+} from '../../database/interfaces'
 
 export const UserType = gql`
   type User {
@@ -63,6 +68,14 @@ export const UserResolvers = {
     },
     updateUser: (parent: void, args: IUserUpdate) => {
       return UserController.update(args)
+    },
+    updateUserAvatar: (
+      parent: void,
+      args: IUserUpdateAvatar,
+      context: { user: IUser }
+    ) => {
+      const id = args.id || context?.user.id
+      return UserController.updateAvatar({ ...args, id })
     }
   },
   User: {

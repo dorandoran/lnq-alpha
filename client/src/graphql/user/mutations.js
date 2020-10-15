@@ -30,3 +30,12 @@ export const UpdateUser = gql`
     }
   }
 `
+
+export const UpdateUserAvatar = gql`
+  mutation UpdateUserAvatar($id: String, $image: Upload!) {
+    updateUserAvatar(id: $id, image: $image) {
+      id
+      uri
+    }
+  }
+`

@@ -21,17 +21,17 @@ const ProfileInfo = () => {
   return (
     <Fragment>
       <View style={styles.imageContainer}>
-        {user.avatarUrl ? (
+        {user.avatar ? (
           <Image
             style={styles.image}
-            source={{ uri: user.avatarUrl }}
+            source={{ uri: user.avatar.uri }}
             PlaceholderContent={
               <Loading size='small' styleProps={styles.loading} />
             }
           />
         ) : (
-          <View style={[styles.image, styles.noAvatar]} />
-        )}
+            <View style={[styles.image, styles.noAvatar]} />
+          )}
       </View>
       <View style={styles.container}>
         <View style={styles.textContainer}>

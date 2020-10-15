@@ -2,25 +2,58 @@ import { firestore, storage, timestamp } from '../firestore/firebase'
 import {
   IMedia,
   IMediaCreate,
-  IMediaDelete,
+  IMediaRemove,
+  IMediaRemoveFromStorage,
   IMediaFindByLinkId,
-  IStorageResponse
+  IStorageResponse,
+  EBuckets
 } from '../interfaces'
 
 const Media = firestore().collection('media')
 const Events = firestore().collection('events')
 
-export async function create(
-  mediaAttributes: IMediaCreate
-): Promise<IMedia | null> {
+export async function create({
+  ownerId,
+  linkId,
+  bucket,
+  image
+}: IMediaCreate): Promise<IMedia | null> {
+  const { createReadStream } = await image
   const id = Media.doc().id
+  const readStream = createReadStream(id)
+  const storageMedia = storage().file(id)
+  let uri = ''
+
+  try {
+    const response = await new Promise((resolve, reject) => {
+      readStream.pipe(
+        storageMedia
+          .createWriteStream()
+          .on('error', () => reject(false))
+          .on('finish', async () => {
+            const uriResponse = await storageMedia.getSignedUrl({
+              action: 'read',
+              expires: '01-01-2400'
+            })
+
+            uri = uriResponse[0]
+            resolve(true)
+          })
+      )
+    })
+
+    if (!response) return null
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+
   const newMedia = {
-    ...mediaAttributes,
     id,
+    uri,
+    ownerId,
     created_at: timestamp.now(),
-    linkIds: mediaAttributes.linkId
-      ? [mediaAttributes.linkId]
-      : [Events.doc().id] // Case when creating event avatar
+    linkIds: linkId ? [linkId] : [Events.doc().id] // Case when creating event avatar
   }
 
   try {
@@ -40,7 +73,7 @@ export async function remove({
   linkId,
   bucket,
   force
-}: IMediaDelete): Promise<IStorageResponse> {
+}: IMediaRemove): Promise<IStorageResponse> {
   const Link = firestore().collection(bucket).doc(linkId)
 
   try {
@@ -65,19 +98,7 @@ export async function remove({
     }
   }
 
-  try {
-    await storage().file(`${bucket}/${id}`).delete()
-    return {
-      completed: true,
-      error: ''
-    }
-  } catch (e) {
-    console.log(e)
-    return {
-      completed: false,
-      error: 'Problem deleting from storage.'
-    }
-  }
+  return removeMediaFromStorage({ id, bucket })
 }
 
 export async function findById(
@@ -125,5 +146,24 @@ export async function findAllByLinkId({
   } catch (e) {
     console.log(e)
     return null
+  }
+}
+
+export async function removeMediaFromStorage({
+  id,
+  bucket
+}: IMediaRemoveFromStorage): Promise<IStorageResponse> {
+  try {
+    await storage().file(`${bucket}/${id}`).delete()
+    return {
+      completed: true,
+      error: ''
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      completed: false,
+      error: 'Problem deleting from storage.'
+    }
   }
 }

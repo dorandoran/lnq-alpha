@@ -33,7 +33,10 @@ export const UserSearch = gql`
       firstName
       lastName
       username
-      avatarUrl
+      avatar {
+        id
+        uri
+      }
       isFollowing
     }
   }

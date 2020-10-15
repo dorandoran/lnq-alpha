@@ -47,7 +47,9 @@ export const searchEventFragment = gql`
     }
     owner {
       id
-      avatarUrl
+      avatar {
+        uri
+      }
     }
   }
 `
