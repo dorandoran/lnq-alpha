@@ -10,24 +10,18 @@ import DetailModal from '@components/create/createModal'
 import { theme } from '@util'
 import { inputMap } from '@components/create/utilComponents/createUtil'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import ReactNative, { View, StyleSheet, Keyboard } from 'react-native'
+import { View, StyleSheet, Keyboard } from 'react-native'
 import { StyledTouchable, StyledSwitch, StyledInput } from '@common'
 
 const CreateDetails = () => {
   const [modalValue, setModalValue] = useState(null)
   const { updateDetails, details } = useCreate()
 
-  // Programmatically scroll to inputs
-  const scrollToInput = node => {
-    this.createScroll.props.scrollToFocusedInput(node)
-  }
-
   return (
     <Fragment>
       <KeyboardAwareScrollView
         enableOnAndroid
         contentContainerStyle={styles.awareContainer}
-        innerRef={ref => (this.createScroll = ref)}
       >
         <View style={styles.view}>
           <ImageList />
@@ -87,9 +81,6 @@ const CreateDetails = () => {
               // Input components
               return (
                 <StyledInput
-                  onFocus={event => {
-                    scrollToInput(ReactNative.findNodeHandle(event.target))
-                  }}
                   key={value}
                   label={label}
                   autoCapitalize={value === 'website' ? 'none' : 'words'}

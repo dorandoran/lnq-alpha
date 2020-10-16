@@ -10,6 +10,7 @@ import {
   IUser,
   IUserCreate,
   IUserUpdate,
+  INewUserUpdate,
   IUserUpdateAvatar
 } from '../../database/interfaces'
 
@@ -35,6 +36,11 @@ export const UserType = gql`
     following: [SocialLink]
     allowFollowers: Boolean
     created_at: Date
+  }
+
+  type UpdateNewUserResponse {
+    response: String
+    user: User
   }
 
   input UserUpdateInput {
@@ -68,6 +74,14 @@ export const UserResolvers = {
     },
     updateUser: (parent: void, args: IUserUpdate) => {
       return UserController.update(args)
+    },
+    updateNewUser: (
+      parent: void,
+      args: INewUserUpdate,
+      context: { user: IUser }
+    ) => {
+      args.id = args.id || context?.user.id
+      return UserController.updateNewUser(args)
     },
     updateUserAvatar: (
       parent: void,

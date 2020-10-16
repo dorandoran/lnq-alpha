@@ -35,7 +35,7 @@ export const componentMap = {
   }
 }
 
-const NewComponentMap = ({ userId, goNext, index, onFocus }) => {
+const NewComponentMap = ({ userId, goNext, index }) => {
   const map = [
     {
       index: 0,
@@ -57,7 +57,6 @@ const NewComponentMap = ({ userId, goNext, index, onFocus }) => {
             key={componentMap[this.index]}
             userId={userId}
             goNext={goNext}
-            onFocus={onFocus}
           />
         )
       }

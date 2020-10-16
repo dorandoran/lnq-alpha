@@ -39,7 +39,19 @@ export interface IUserUpdate {
   }
 }
 
+export interface INewUserUpdate {
+  id: string
+  username: string
+  dob: Date
+  website: string
+}
+
 export interface IUserUpdateAvatar {
   id: string
   image: Promise<IFile>
+}
+
+export interface INewUserUpdateResponse {
+  response: string
+  user: FirebaseFirestore.DocumentData | null
 }

@@ -52,12 +52,13 @@ export const SearchController: ISearch = {
     const index: SearchIndex = searchIndex.users
 
     // Create Filter increasing score by following
-    let filters = `NOT id:${userId}`
+    let facetFilters = `id:-${userId}`
+    let filters = ''
     if (following.length) {
-      filters += ` OR (id:${following.join('<score=3> OR id:')}<score=3>)`
+      filters += ` (id:${following.join('<score=3> OR id:')}<score=3>)`
     }
 
-    const response = await index.search(query, { filters, page })
+    const response = await index.search(query, { filters, page, facetFilters })
     return response.hits.map((hit: any) => {
       return {
         ...hit,

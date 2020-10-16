@@ -31,11 +31,6 @@ const SignupScreen = ({ route }) => {
     }
   }, [route.params])
 
-  // Programmatically scroll to inputs
-  const scrollToInput = node => {
-    this.signupScroll.props.scrollToFocusedInput(node)
-  }
-
   return (
     <ImageBackground
       // eslint-disable-next-line no-undef
@@ -45,7 +40,6 @@ const SignupScreen = ({ route }) => {
       <KeyboardAwareScrollView
         enableOnAndroid
         contentContainerStyle={styles.awareContainer}
-        innerRef={ref => (this.signupScroll = ref)}
       >
         <KeyboardDismiss>
           <View style={styles.container}>
@@ -53,12 +47,11 @@ const SignupScreen = ({ route }) => {
               {isOAuthForm ? (
                 <Text style={styles.oauth}>Almost done....</Text>
               ) : (
-                <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
-              )}
+                  <Text style={styles.logoPlaceholderStyle}>LNQ</Text>
+                )}
             </Spacer>
 
             <SignupForm
-              onFocus={scrollToInput}
               inputState={signupInput}
               setInput={setSignupInput}
               screen={screen}

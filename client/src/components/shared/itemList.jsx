@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     backgroundColor: 'transparent',
-    borderRadius: 10
+    borderRadius: 50
   },
   title: {
     color: theme.color.tertiary,

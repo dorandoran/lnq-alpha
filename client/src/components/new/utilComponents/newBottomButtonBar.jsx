@@ -18,9 +18,6 @@ const NewBottomButtonBar = ({
   onActionPress
 }) => {
   const renderActionButton = () => {
-    if (disabled) {
-      return <View />
-    }
     if (loading) {
       return (
         <View style={styles.loading}>
@@ -29,8 +26,8 @@ const NewBottomButtonBar = ({
       )
     }
     return (
-      <TouchableOpacity onPress={onActionPress}>
-        <Text style={styles.text}>{showFinish ? 'Finish' : 'Next'}</Text>
+      <TouchableOpacity disabled={disabled} onPress={onActionPress}>
+        <Text style={disabled ? [styles.text, styles.skip] : styles.text}>{showFinish ? 'Finish' : 'Next'}</Text>
       </TouchableOpacity>
     )
   }

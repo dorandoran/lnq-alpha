@@ -64,7 +64,7 @@ const NewCategories = ({ userId, goNext }) => {
           onDragEnd={handleDrag}
         />
       </View>
-      <BottomBar onActionPress={handleNext} onSkipPress={goNext} />
+      <BottomBar onActionPress={handleNext} />
     </Fragment>
   )
 }

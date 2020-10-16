@@ -6,6 +6,8 @@ import {
   IAvatar,
   IUserCreate,
   IUserUpdate,
+  INewUserUpdate,
+  INewUserUpdateResponse,
   IUserUpdateAvatar,
   EBuckets
 } from '../interfaces'
@@ -48,6 +50,49 @@ export async function update(
   } catch (e) {
     console.log(e)
     return null
+  }
+}
+
+export async function updateNewUser({
+  id,
+  username,
+  dob,
+  website
+}: INewUserUpdate): Promise<INewUserUpdateResponse> {
+  const response = ''
+  // Check username
+  try {
+    const snapshot = await Users.where('username', '==', username).get()
+    if (!snapshot.empty) {
+      return {
+        response: 'That username is taken!',
+        user: null
+      }
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      response: e,
+      user: null
+    }
+  }
+
+  // Update user
+  try {
+    const user = await update({ id, updates: { username, dob, website } })
+    if (user) {
+      return { response, user }
+    }
+  } catch (e) {
+    return {
+      response: e,
+      user: null
+    }
+  }
+
+  return {
+    response: 'Oops! Please wait a few minutes and try again.',
+    user: null
   }
 }
 
@@ -105,16 +150,16 @@ export async function updateAvatar({
 
   try {
     await firestore().runTransaction(async t => {
-      // Delete old avatar from storage
-      await MediaController.removeMediaFromStorage({
-        id: avatar.id,
-        bucket: EBuckets.USERS
-      })
       const doc = await t.get(userRef)
       const user = doc.data()
 
       if (user && user.avatar) {
-        t.delete(Media.doc(avatar.id))
+        t.delete(Media.doc(user.avatar.id))
+        // Delete old avatar from storage
+        await MediaController.removeMediaFromStorage({
+          id: user.avatar.id,
+          bucket: EBuckets.USERS
+        })
       }
 
       t.update(Users.doc(id), { avatar })

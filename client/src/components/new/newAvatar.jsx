@@ -82,7 +82,6 @@ const NewAvatar = ({ goNext }) => {
       <BottomBar
         disabled={!avatar}
         onActionPress={handleNext}
-        onSkipPress={goNext}
       />
     </Fragment>
   )
@@ -100,9 +99,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   image: {
+    borderRadius: 100,
     height: 200,
     width: 200,
-    marginBottom: '10%'
+    marginBottom: '10%',
   }
 })
 

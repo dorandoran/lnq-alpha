@@ -36,11 +36,11 @@ const UserSearchList = ({
         }
         return
       })
-      .filter(Boolean) || null
+      .filter(Boolean) || []
 
   const { data, loading } = useQuery(UserSearch, {
     variables: { query, page: 0, following },
-    skip: !following
+    skip: !followData && !following
   })
 
   useDebounce(() => setQuery(value), 1000, value)

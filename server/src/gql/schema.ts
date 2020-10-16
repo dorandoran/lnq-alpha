@@ -54,6 +54,12 @@ const OtherType = gql`
     requestFollow(recipientIds: [String!]): [SocialLink]
     updateUser(id: String!, updates: UserUpdateInput!): User
     updateUserAvatar(id: String, image: Upload!): Avatar
+    updateNewUser(
+      id: String
+      username: String!
+      dob: Date
+      website: String
+    ): UpdateNewUserResponse
     updateEvent(id: String!, updates: EventUpdateInput!): Event
     deleteEvent(id: String!): Boolean
     deleteMedia(id: String!, linkId: String!, bucket: String!): StorageResponse

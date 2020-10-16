@@ -1,3 +1,4 @@
+import admin from 'firebase-admin'
 import { firestore, storage, timestamp } from '../firestore/firebase'
 import {
   IMedia,
@@ -154,7 +155,7 @@ export async function removeMediaFromStorage({
   bucket
 }: IMediaRemoveFromStorage): Promise<IStorageResponse> {
   try {
-    await storage().file(`${bucket}/${id}`).delete()
+    await admin.storage().bucket().file(`${bucket}/${id}`).delete()
     return {
       completed: true,
       error: ''

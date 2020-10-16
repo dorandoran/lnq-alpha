@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import isEqual from 'lodash/isEqual'
 
-import useUpdateUser from '@graphql/user/useUpdateUser'
+import useUpdateNewUser from '@graphql/user/useUpdateNewUser'
 import useNotification from '@hooks/useNotification'
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -30,14 +30,19 @@ const initialState = {
 }
 const initialPickerState = { visible: false, placeholder: true }
 
-const NewUserInformation = ({ onFocus, userId, goNext }) => {
+const NewUserInformation = ({ userId, goNext }) => {
   const [input, setInput] = React.useState(initialState)
   const [datePicker, setDatePicker] = React.useState(initialPickerState)
   const { throwError, throwLoading, closeNotification } = useNotification()
-  const [updateUser] = useUpdateUser({
-    onCompleted: () => {
-      closeNotification()
-      goNext()
+  const [updateNewUser] = useUpdateNewUser({
+    onCompleted: data => {
+      const error = data.updateNewUser.response
+      if (error.length) {
+        throwError(error)
+      } else {
+        closeNotification()
+        goNext()
+      }
     }
   })
 
@@ -61,7 +66,7 @@ const NewUserInformation = ({ onFocus, userId, goNext }) => {
       throwError(errors.join('\n'))
     } else {
       throwLoading()
-      updateUser({ id: userId, updates: input })
+      updateNewUser({ id: userId, ...input })
     }
   }
 
@@ -69,13 +74,12 @@ const NewUserInformation = ({ onFocus, userId, goNext }) => {
     <Fragment>
       <KeyboardAwareScrollView
         enableOnAndroid
-        innerRef={ref => (this.newScroll = ref)}
         contentContainerStyle={{ flex: 1 }}
       >
         <View style={styles.container}>
           {inputMap.map(({ label, value, ...rest }) => {
             if (value === 'dob') {
-              const placeholder = ''
+              const placeholder = formatDateTime({ type: 'date', date: initialState.dob }) || ''
 
               return (
                 <StyledTouchable
@@ -108,7 +112,6 @@ const NewUserInformation = ({ onFocus, userId, goNext }) => {
                 onChange={({ nativeEvent }) =>
                   updateInput(value, nativeEvent.text)
                 }
-                onFocus={event => onFocus(event.target)}
                 {...rest}
               />
             )
@@ -118,7 +121,6 @@ const NewUserInformation = ({ onFocus, userId, goNext }) => {
       <BottomBar
         disabled={isEqual(initialState, input)}
         onActionPress={handleNext}
-        onSkipPress={goNext}
       />
       <DatePicker
         date={input.dob}
@@ -141,7 +143,6 @@ const styles = StyleSheet.create({
 })
 
 NewUserInformation.propTypes = {
-  onFocus: PropTypes.func,
   userId: PropTypes.string,
   nextPressed: PropTypes.bool,
   goNext: PropTypes.func,

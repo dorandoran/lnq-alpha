@@ -118,6 +118,7 @@ const ActionSelectMedia = ({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.color.secondary,
+    overlayColor: theme.color.secondary,
     aspectRatio: 1,
     borderRadius: 50,
     padding: 10,

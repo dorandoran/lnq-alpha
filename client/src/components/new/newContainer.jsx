@@ -31,11 +31,6 @@ const NewContainer = () => {
   })
   const isLast = index + 1 === size(componentMap)
 
-  // Programmatically scroll to inputs
-  const scrollToInput = node => {
-    this.newScroll.props.scrollToFocusedInput(node)
-  }
-
   const goNext = () => {
     if (isLast) {
       updateUser({ id: user.id, updates: { new: false } })
@@ -56,7 +51,6 @@ const NewContainer = () => {
         userId={user.id}
         goNext={goNext}
         index={index}
-        onFocus={scrollToInput}
         finishNew={finishNew}
       />
     </View>

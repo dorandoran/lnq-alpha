@@ -39,3 +39,17 @@ export const UpdateUserAvatar = gql`
     }
   }
 `
+
+export const UpdateNewUser = gql`
+  mutation UpdateNewUser($id: String, $username: String!, $dob: Date, $website: String) {
+    updateNewUser(id: $id, username: $username, dob: $dob, website: $website) {
+      response
+      user {
+        id
+        username
+        dob
+        website
+      }
+    }
+  }
+`

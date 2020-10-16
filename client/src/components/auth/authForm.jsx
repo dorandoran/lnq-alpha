@@ -10,7 +10,7 @@ import {
   OAuthSignupInputMap
 } from '@components/auth/utilComponents/authUtil'
 
-const AuthForm = ({ onFocus, inputState, setInput, screen }) => {
+const AuthForm = ({ inputState, setInput, screen }) => {
   let inputs =
     screen === 'Login'
       ? LoginInputMap
@@ -30,7 +30,6 @@ const AuthForm = ({ onFocus, inputState, setInput, screen }) => {
         return (
           <StyledInput
             key={value}
-            onFocus={event => onFocus(event.target)}
             value={inputState[value]}
             onChange={({ nativeEvent }) => updateInput(value, nativeEvent.text)}
             placeholder={label}
@@ -58,7 +57,6 @@ const styles = StyleSheet.create({
 })
 
 AuthForm.propTypes = {
-  onFocus: PropTypes.func,
   inputState: PropTypes.object,
   setInput: PropTypes.func,
   screen: PropTypes.string

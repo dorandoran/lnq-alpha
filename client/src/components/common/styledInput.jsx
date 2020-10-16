@@ -6,7 +6,6 @@ import { StyleSheet } from 'react-native'
 import { Input } from 'react-native-elements'
 
 const StyledInput = ({
-  onFocus,
   containerStyle,
   label,
   autoCapitalize,
@@ -30,7 +29,6 @@ const StyledInput = ({
     <Input
       label={label || ''}
       value={value}
-      onFocus={onFocus}
       onChange={onChange}
       onChangeText={onChangeText}
       containerStyle={containerStyle}
@@ -69,7 +67,6 @@ const styles = StyleSheet.create({
 StyledInput.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
-  onFocus: PropTypes.func,
   onChange: PropTypes.func,
   onChangeText: PropTypes.func,
   containerStyle: PropTypes.object,
