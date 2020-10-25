@@ -1,6 +1,8 @@
+import admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
-import { storage, auth } from '../services/firebase'
+import { auth } from '../services/firebase'
 import { findAllMediaByLinkId, removeMedia } from './utils/firebase'
+import { EBuckets } from '../interfaces'
 
 // Firestore Media Cleanup - Deletes Media attached to just-deleted Events
 export const deleteMediaFromEvents = functions.firestore
@@ -16,7 +18,7 @@ export const deleteMediaFromEvents = functions.firestore
           await removeMedia({
             id: media.id,
             linkId: event.id,
-            bucket: 'events',
+            bucket: EBuckets.EVENTS,
             force: true
           })
         } catch (e) {
@@ -42,8 +44,8 @@ export const deleteMediaFromStorage = functions.firestore
     const media = snap.data()
 
     try {
-      await storage().file(`events/${media.id}`).delete()
-      await storage().file(`users/${media.id}`).delete()
+      await admin.storage().bucket().file(`events/${media.id}`).delete()
+      await admin.storage().bucket().file(`users/${media.id}`).delete()
     } catch (e) {
       console.log(e)
     }

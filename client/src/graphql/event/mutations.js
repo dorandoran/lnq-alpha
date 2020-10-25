@@ -5,9 +5,7 @@ export const CreateEvent = gql`
   ${eventFragment}
 
   mutation CreateEvent(
-    $id: String!
-    $ownerId: String!
-    $avatar: AvatarInput!
+    $image: Upload!
     $name: String!
     $type: String!
     $date: Date!
@@ -20,9 +18,7 @@ export const CreateEvent = gql`
     $followIds: [String]
   ) {
     createEvent(
-      id: $id
-      ownerId: $ownerId
-      avatar: $avatar
+      image: $image
       name: $name
       type: $type
       date: $date

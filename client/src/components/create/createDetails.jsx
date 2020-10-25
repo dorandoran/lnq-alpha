@@ -119,7 +119,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   awareContainer: {
-    backgroundColor: theme.color.background
+    backgroundColor: theme.color.background,
+    paddingBottom: '2%'
   },
   switchContainer: {
     flexDirection: 'row',

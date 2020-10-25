@@ -18,6 +18,7 @@ const LocationAutoComplete = ({ handleSelect }) => {
       renderDescription={row => row.description}
       onPress={(_, details = null) => {
         const location = {
+          id: details?.place_id,
           latitude: details?.geometry?.location.lat,
           longitude: details?.geometry?.location.lng,
           text: details?.formatted_address
@@ -28,14 +29,15 @@ const LocationAutoComplete = ({ handleSelect }) => {
       query={{
         key: config.GOOGLE.PLACES_API_KEY,
         language: 'en',
-        types: 'address'
+        types: 'address',
+        components: 'country:us'
       }}
       styles={{ ...styles }}
       currentLocation={true}
       currentLocationLabel='Current location'
       nearbyPlacesAPI='GooglePlacesSearch'
       GooglePlacesDetailsQuery={{ fields: ['formatted_address', 'geometry'] }}
-      debounce={0}
+      debounce={500}
     />
   )
 }

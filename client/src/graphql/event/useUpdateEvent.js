@@ -29,6 +29,9 @@ export default function useUpdateEvent({ onCompleted }) {
             fragment: gql`
               fragment eventUpdate on Event {
                 id
+                location {
+                  id
+                }
               }
             `
           })
@@ -42,6 +45,7 @@ export default function useUpdateEvent({ onCompleted }) {
                   type
                   date
                   location {
+                    id
                     longitude
                     latitude
                     text

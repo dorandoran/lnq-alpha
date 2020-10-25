@@ -34,7 +34,9 @@ const errorHandling = onError(({ graphQLErrors, networkError }) => {
 const authFlow = sendAuthToken.concat(errorHandling)
 const link = authFlow.concat(uploadLink)
 
+const cache = new InMemoryCache({})
+
 export const client = new ApolloClient({
   link,
-  cache: new InMemoryCache()
+  cache
 })

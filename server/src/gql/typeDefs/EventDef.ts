@@ -53,13 +53,18 @@ export const EventResolvers = {
       args: { id?: string },
       context: { user: IUser } | null
     ) => {
-      const id = args.id || context?.user.id
+      const id = args?.id || context?.user.id
       return EventController.findAllByOwnerId(id)
     }
   },
 
   Mutation: {
-    createEvent: (parent: void, args: IEventCreate) => {
+    createEvent: (
+      parent: void,
+      args: IEventCreate,
+      context: { user: IUser }
+    ) => {
+      args.ownerId = context.user.id
       return EventController.create(args)
     },
     updateEvent: (parent: void, args: IEventUpdate) => {

@@ -22,8 +22,8 @@ const OtherType = gql`
     event(id: String!): Event
     media(id: String!): Media
     getUserEvents(id: String): [Event]
-    search(bucket: String!, query: String, filters: String, page: Int): [Hit]
     homeSearch(userId: String, page: Int): [EventHit]
+    eventSearch(query: String, filters: String, page: Int): [Hit]
     userSearch(query: String, page: Int, following: [String]): [UserHit]
   }
 
@@ -35,9 +35,7 @@ const OtherType = gql`
       email: String!
     ): User
     createEvent(
-      id: String!
-      ownerId: String!
-      avatar: AvatarInput!
+      image: Upload!
       name: String!
       type: String!
       date: Date!

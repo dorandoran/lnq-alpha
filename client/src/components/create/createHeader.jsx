@@ -2,7 +2,7 @@ import React from 'react'
 
 import useCreate from '@context/createContext'
 import useNotification from '@hooks/useNotification'
-import ActionSaveEvent from '@components/create/utilComponents/actionSaveEvent'
+import useCreateEvent from '@graphql/event/useCreateEvent'
 
 import { View, Keyboard, Text, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
@@ -11,18 +11,32 @@ import { theme, navigate } from '@util'
 import { SCREEN } from '@components/create/utilComponents/createUtil'
 
 const CreateHeader = () => {
+  const [saved, setSaved] = React.useState(false)
   const { details, resetDetails, screen, setScreen } = useCreate()
   const { throwSuccess, throwLoading } = useNotification()
+  const [createEvent, loading] = useCreateEvent({
+    onCompleted: () => setSaved(true)
+  })
   const isInvite = screen === SCREEN.INVITES
 
-  const handleSuccess = () => {
-    throwSuccess('Event successfully created!')
-  }
+  React.useEffect(() => {
+    if (saved) {
+      throwSuccess('Event successfully created!')
+      resetDetails()
+      navigate('Profile')
+    }
 
-  const closeScreen = () => {
+    return () => setSaved(false)
+  }, [saved])
+
+  React.useEffect(() => {
+    if (loading) throwLoading()
+  }, [loading])
+
+  const handleCreatePress = () => {
+    const { media, ...event } = details
     Keyboard.dismiss()
-    resetDetails()
-    navigate('Home')
+    createEvent({ ...event, image: media[0].file })
   }
 
   const navigateToInvite = () => {
@@ -33,6 +47,12 @@ const CreateHeader = () => {
   const goBack = () => {
     Keyboard.dismiss()
     setScreen(SCREEN.DETAILS)
+  }
+
+  const closeScreen = () => {
+    Keyboard.dismiss()
+    resetDetails()
+    navigate('Home')
   }
 
   // Checks if keys that have strings are filled
@@ -62,10 +82,12 @@ const CreateHeader = () => {
       />
       {isInvite ? <Text style={styles.header}>Invite</Text> : <View />}
       {isInvite ? (
-        <ActionSaveEvent
-          onOpen={throwLoading}
-          onComplete={closeScreen}
-          onSuccess={handleSuccess}
+        <HeaderButton
+          type='ionicon'
+          name='md-share'
+          color={theme.color.tertiary}
+          backgroundColor={theme.color.shadow}
+          onPress={handleCreatePress}
         />
       ) : checkDisabled() ? (
         <Icon
@@ -74,14 +96,14 @@ const CreateHeader = () => {
           color={theme.color.secondary}
         />
       ) : (
-        <HeaderButton
-          type='material'
-          name='person-add'
-          color='tertiary'
-          backgroundColor='shadow'
-          onPress={navigateToInvite}
-        />
-      )}
+            <HeaderButton
+              type='material'
+              name='person-add'
+              color='tertiary'
+              backgroundColor='shadow'
+              onPress={navigateToInvite}
+            />
+          )}
     </Header>
   )
 }

@@ -3,14 +3,12 @@ import PropTypes from 'prop-types'
 
 export const actions = {
   updateQuery: 'updateQuery',
-  updateCategories: 'updateCategories',
-  updateBucket: 'updateBucket'
+  updateCategories: 'updateCategories'
 }
 
 const initialState = {
   query: '',
   categories: [],
-  bucket: 'events',
   page: 0
 }
 
@@ -37,11 +35,6 @@ function reducer(state, action) {
         categories
       }
     }
-    case actions.updateBucket:
-      return {
-        ...state,
-        bucket: action.payload
-      }
     default:
       // TODO: Error handling
       throw new Error()

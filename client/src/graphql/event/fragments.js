@@ -15,9 +15,10 @@ export const eventFragment = gql`
     type
     date
     location {
+      id
+      text
       latitude
       longitude
-      text
     }
     description
     created_at
@@ -25,8 +26,37 @@ export const eventFragment = gql`
     media {
       id
       uri
-      userId
+      ownerId
     }
+    likes
+    plusOne
+    isPrivate
+  }
+`
+
+export const userEventFragment = gql`
+  fragment userEventFields on Event {
+    id
+    owner {
+      id
+      username
+    }
+    avatar {
+      id
+      uri
+    }
+    name
+    type
+    date
+    location {
+      id
+      text
+      latitude
+      longitude
+    }
+    description
+    created_at
+    website
     likes
     plusOne
     isPrivate
@@ -43,6 +73,7 @@ export const searchEventFragment = gql`
       uri
     }
     location {
+      id
       text
     }
     owner {

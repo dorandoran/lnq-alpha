@@ -1,7 +1,6 @@
 import { IUser, IMedia, IAvatarInput, ILocation } from '.'
 
-export interface ISearchBase {
-  bucket: EBuckets
+export interface ISearchEvent {
   query: string
   filters: string
   page: number

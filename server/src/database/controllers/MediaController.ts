@@ -1,5 +1,5 @@
 import admin from 'firebase-admin'
-import { firestore, storage, timestamp } from '../firestore/firebase'
+import { firestore, timestamp } from '../firestore/firebase'
 import {
   IMedia,
   IMediaCreate,
@@ -22,7 +22,7 @@ export async function create({
   const { createReadStream } = await image
   const id = Media.doc().id
   const readStream = createReadStream(id)
-  const storageMedia = storage().file(id)
+  const storageMedia = admin.storage().bucket().file(id)
   let uri = ''
 
   try {

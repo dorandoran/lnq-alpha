@@ -20,6 +20,10 @@ export interface IFollowRequest {
   recipientIds: string[]
 }
 
+export interface IInvitesAddToBatch extends IInvitesCreate {
+  batch: FirebaseFirestore.WriteBatch
+}
+
 export enum ESocialLinkAnswer {
   REQUESTED = 'REQUESTED',
   ACCEPTED = 'ACCEPTED',

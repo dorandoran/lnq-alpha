@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { eventFragment } from '@graphql/event/fragments'
+import { eventFragment, userEventFragment } from '@graphql/event/fragments'
 
 export const GetEvent = gql`
   ${eventFragment}
@@ -12,11 +12,11 @@ export const GetEvent = gql`
 `
 
 export const GetUserEvents = gql`
-  ${eventFragment}
+  ${userEventFragment}
 
   query GetUserEvents($id: String) {
     getUserEvents(id: $id) {
-      ...eventFields
+      ...userEventFields
     }
   }
 `

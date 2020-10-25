@@ -1,34 +1,93 @@
+import admin from 'firebase-admin'
 import { firestore, timestamp } from '../firestore/firebase'
-import { IEvent, IEventCreate, IEventUpdate } from '../interfaces'
+import { EBuckets, IEvent, IEventCreate, IEventUpdate } from '../interfaces'
 import { InviteController, FollowController } from '.'
 
 const Events = firestore().collection('events')
 const Users = firestore().collection('users')
+const Media = firestore().collection('media')
 
-export async function create(
-  eventAttributes: IEventCreate
-): Promise<IEvent | null> {
+export async function create({
+  ownerId,
+  image,
+  followIds = [],
+  recipientIds = [],
+  ...eventRest
+}: IEventCreate): Promise<IEvent | null> {
+  const newAvatarRef = Media.doc()
+  const eventRef = Events.doc()
+  const storageAvatar = admin
+    .storage()
+    .bucket()
+    .file(`${EBuckets.EVENTS}/${newAvatarRef.id}`)
   const batch = firestore().batch()
   const eventTimestamp = timestamp.now()
+
+  const { createReadStream, mimetype } = await image
+  const readStream = createReadStream(newAvatarRef.id)
+  let uri = ''
+
+  try {
+    const response = await new Promise((resolve, reject) => {
+      readStream.pipe(
+        storageAvatar
+          .createWriteStream({ contentType: mimetype })
+          .on('error', () => reject(false))
+          .on('finish', async () => {
+            // get presigned url
+            const uriResponse = await storageAvatar.getSignedUrl({
+              action: 'read',
+              expires: '01-01-2400'
+            })
+            uri = uriResponse[0]
+            resolve(true)
+          })
+      )
+    })
+    if (!response) return null
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+
+  const newAvatar = {
+    id: newAvatarRef.id,
+    linkIds: [eventRef.id],
+    created_at: timestamp.now(),
+    uri,
+    ownerId
+  }
   const newEvent = {
-    ...eventAttributes,
+    ...eventRest,
+    ownerId,
+    id: eventRef.id,
     numLikes: 0,
     likes: [],
     updated_at: eventTimestamp,
-    created_at: eventTimestamp
+    created_at: eventTimestamp,
+    avatar: {
+      id: newAvatar.id,
+      uri: newAvatar.uri
+    }
   }
 
+  // Create Media
+  batch.set(newAvatarRef, newAvatar)
   // Create Event
-  batch.set(Events.doc(newEvent.id), newEvent)
+  batch.set(eventRef, newEvent)
   // Update User numEvents
-  batch.update(Users.doc(eventAttributes.ownerId), {
+  batch.update(Users.doc(ownerId), {
     numEvents: firestore.FieldValue.increment(1)
   })
 
   // Send Invites and Follows (Separate atomic actions)
-  const { id, ownerId, followIds = [], recipientIds = [] } = eventAttributes
   if (recipientIds.length) {
-    InviteController.saveAll({ senderId: ownerId, recipientIds, eventId: id })
+    InviteController.addToBatch({
+      senderId: ownerId,
+      recipientIds,
+      eventId: eventRef.id,
+      batch
+    })
   }
   if (followIds.length) {
     FollowController.saveAll({ senderId: ownerId, recipientIds: followIds })
@@ -91,7 +150,6 @@ export async function findAllByOwnerId(
   id?: string
 ): Promise<FirebaseFirestore.DocumentData[] | null> {
   let events: FirebaseFirestore.DocumentData[] = []
-
   try {
     const snapshot = await Events.where('ownerId', '==', id).get()
     if (snapshot) {

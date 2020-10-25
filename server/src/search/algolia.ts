@@ -1,7 +1,7 @@
 import algoliasearch, { SearchIndex } from 'algoliasearch'
 import credentials from '../config/credentials.json'
 import {
-  ISearchBase,
+  ISearchEvent,
   ISearchUser,
   ISearchHome,
   EBuckets
@@ -17,14 +17,14 @@ export const searchIndex = {
 }
 
 interface ISearch {
-  base(searchAttributes: ISearchBase): Promise<any | null>
+  event(searchAttributes: ISearchEvent): Promise<any | null>
   home(searchAttributes: ISearchHome): Promise<any | null>
   user(searchAttributes: ISearchUser): Promise<any | null>
 }
 
 export const SearchController: ISearch = {
-  base: async ({ bucket, query, filters, page }) => {
-    const index: SearchIndex = searchIndex[bucket]
+  event: async ({ query, filters, page }) => {
+    const index: SearchIndex = searchIndex.events
 
     try {
       const response = await index.search(query, { filters, page })
@@ -59,6 +59,7 @@ export const SearchController: ISearch = {
     }
 
     const response = await index.search(query, { filters, page, facetFilters })
+    console.log('search ', response)
     return response.hits.map((hit: any) => {
       return {
         ...hit,

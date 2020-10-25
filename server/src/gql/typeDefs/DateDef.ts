@@ -1,4 +1,6 @@
+import admin from 'firebase-admin'
 import { GraphQLScalarType, Kind, ValueNode } from 'graphql'
+const timestamp = admin.firestore.Timestamp
 
 export const DateResolvers = {
   Date: new GraphQLScalarType({
@@ -6,7 +8,8 @@ export const DateResolvers = {
     description: 'Custom Scalar of Javascript Date',
     // For Queries, value from the client
     parseValue(value: string) {
-      return new Date(value)
+      const date = new Date(value)
+      return timestamp.fromDate(date)
     },
     // Value sent to the client
     serialize(value: string | FirebaseFirestore.Timestamp) {
@@ -16,9 +19,9 @@ export const DateResolvers = {
     // For Mutations, ast value is always in string format
     parseLiteral(ast: ValueNode) {
       if (ast.kind === Kind.STRING) {
-        return new Date(ast.value)
+        const date = new Date(ast.value)
+        timestamp.fromDate(date)
       }
-
       return null
     }
   })

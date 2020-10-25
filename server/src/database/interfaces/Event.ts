@@ -1,4 +1,4 @@
-import { ILocation, IAvatarInput } from '.'
+import { ILocation, IAvatarInput, IFile } from '.'
 
 export interface IEvent {
   id: string
@@ -19,10 +19,8 @@ export interface IEvent {
 }
 
 export interface IEventCreate {
-  id: string
   ownerId: string
-  userId: string
-  avatar: IAvatarInput
+  image: Promise<IFile>
   name: string
   type: string
   date: Date

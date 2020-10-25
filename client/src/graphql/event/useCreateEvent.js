@@ -2,17 +2,17 @@ import { gql } from '@apollo/client'
 import { useMutation } from '@apollo/client'
 import { CreateEvent } from '@graphql/event/mutations'
 
-export default function useCreateEvent() {
-  const [createEvent] = useMutation(CreateEvent)
+export default function useCreateEvent({ onCompleted }) {
+  const [createEvent, { loading }] = useMutation(CreateEvent, { onCompleted })
 
-  return variables => {
+  return [variables => {
     createEvent({
       variables,
-      update: cache => {
+      update: (cache, { data: { createEvent: eventData } }) => {
         // Only updates if user has checked their events
         try {
           const cachedUser = cache.readFragment({
-            id: `User:${variables.ownerId}`,
+            id: `User:${eventData.ownerId}`,
             fragment: gql`
               fragment userBeforeNewEvent on User {
                 id
@@ -26,15 +26,18 @@ export default function useCreateEvent() {
                   }
                   location {
                     text
+                    latitude
+                    longitude
                   }
                 }
               }
             `
           })
 
+          variables.ownerId = eventData.ownerId
           variables.__typename = 'Event'
-          variables.location.__typename = 'Location'
-          variables.avatar.__typename = 'Media'
+          // variables.location.__typename = 'Location'
+          variables.avatar.__typename = 'Avatar'
 
           cache.writeFragment({
             id: `User:${variables.ownerId}`,
@@ -50,6 +53,8 @@ export default function useCreateEvent() {
                   }
                   location {
                     text
+                    latitude
+                    longitude
                   }
                 }
               }
@@ -63,5 +68,7 @@ export default function useCreateEvent() {
         } catch { }
       }
     })
-  }
+  },
+    loading
+  ]
 }

@@ -3,6 +3,7 @@ import { NotificationController } from '../controllers'
 import {
   ISocialLink,
   IInvitesCreate,
+  IInvitesAddToBatch,
   ESocialLinkAnswer,
   ENotificationType
 } from '../interfaces'
@@ -96,4 +97,26 @@ export async function findAllByRecipientId(
     console.log(e)
     return null
   }
+}
+
+export function addToBatch({
+  senderId,
+  recipientIds,
+  eventId,
+  batch
+}: IInvitesAddToBatch): void {
+  recipientIds.forEach(recipientId => {
+    const inviteRef = Invites.doc()
+    const invite = {
+      id: inviteRef.id,
+      senderId,
+      recipientId,
+      eventId,
+      answer: ESocialLinkAnswer.REQUESTED,
+      updated_at: timestamp.now(),
+      created_at: timestamp.now()
+    }
+    // TODO: Notification cloud function
+    batch.set(inviteRef, invite)
+  })
 }

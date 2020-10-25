@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-express'
 import { SearchController } from '../../search/algolia'
 import {
-  ISearchBase,
+  ISearchEvent,
   ISearchUser,
   ISearchHome,
   IUser,
@@ -48,8 +48,8 @@ export const SearchType = gql`
 export const SearchResolvers = {
   // Global Query
   Query: {
-    search: (obj: void, args: ISearchBase) => {
-      return SearchController.base(args)
+    eventSearch: (obj: void, args: ISearchEvent) => {
+      return SearchController.event(args)
     },
     homeSearch: (obj: void, args: ISearchHome) => {
       return SearchController.home(args)
