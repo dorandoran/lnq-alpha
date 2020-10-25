@@ -14,7 +14,8 @@ const IndexFactory: IIndexFactory = {
     const additionalAttr: IUserAdditionalAttr = {
       objectID: data.id, // Algolia search id key
       created_at_timestamp: data.created_at.seconds, // Turn firebase Timestamp to seconds
-      created_at: data.created_at.toDate() // Turn firebase Timestamp to Date
+      created_at: data.created_at.toDate(), // Turn firebase Timestamp to Date
+      _tags: [data.id]
     }
 
     if (data.dob) {
@@ -32,6 +33,10 @@ const IndexFactory: IIndexFactory = {
       created_at: data.created_at.toDate(),
       date_timestamp: data.date.seconds,
       date: data.date.toDate(),
+      _geoloc: {
+        lat: data.location.latitude,
+        lng: data.location.longitude
+      },
       _tags: [data.type] // Algolia reserved word for category searching
     }
 

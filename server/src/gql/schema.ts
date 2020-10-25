@@ -22,7 +22,7 @@ const OtherType = gql`
     event(id: String!): Event
     media(id: String!): Media
     getUserEvents(id: String): [Event]
-    homeSearch(userId: String, page: Int): [EventHit]
+    homeSearch(page: Int): [EventHit]
     eventSearch(query: String, filters: String, page: Int): [EventHit]
     userSearch(query: String, page: Int, following: [String]): [UserHit]
   }

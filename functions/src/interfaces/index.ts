@@ -96,6 +96,7 @@ export interface IUserAdditionalAttr {
   created_at: Date
   dob_timestamp?: number
   dob?: Date
+  _tags: string[]
 }
 
 export interface INotificationCreate {

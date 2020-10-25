@@ -1,13 +1,13 @@
 import { useQuery } from '@apollo/client'
 import useSearch from '@context/searchContext'
-import { Search } from '@graphql/search/queries'
+import { EventSearch } from '@graphql/search/queries'
 import { buildSearchVars } from '@components/search/utilComponents/searchUtil'
 
 const useSearchQuery = () => {
   const { searchState } = useSearch()
   const variables = buildSearchVars(searchState)
 
-  const { data, loading, refetch } = useQuery(Search, { variables })
+  const { data, loading, refetch } = useQuery(EventSearch, { variables })
 
   return { variables, data, loading, refetch }
 }

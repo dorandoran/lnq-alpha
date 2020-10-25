@@ -1,5 +1,6 @@
 import { gql } from 'apollo-server-express'
 import { SearchController } from '../../search/algolia'
+import { UserController } from '../../database/controllers'
 import {
   ISearchEvent,
   ISearchUser,
@@ -42,17 +43,19 @@ export const SearchType = gql`
     numLikes: Int
     plusOne: Boolean
     isPrivate: Boolean
+    tier: Int
   }
 `
 
 export const SearchResolvers = {
   // Global Query
   Query: {
+    homeSearch: (obj: void, args: ISearchHome, context: { user: IUser }) => {
+      args.userId = context.user.id
+      return SearchController.home(args)
+    },
     eventSearch: (obj: void, args: ISearchEvent) => {
       return SearchController.event(args)
-    },
-    homeSearch: (obj: void, args: ISearchHome) => {
-      return SearchController.home(args)
     },
     userSearch: (obj: void, args: ISearchUser, context: { user: IUser }) => {
       args.userId = context.user.id
@@ -63,6 +66,11 @@ export const SearchResolvers = {
   Mutation: {},
   // Field Resolve
   Search: {},
+  EventHit: {
+    owner: (parent: IEventHit) => {
+      return UserController.findById(parent.ownerId)
+    }
+  },
   Hit: {
     __resolveType: (obj: IUserHit & IEventHit) => {
       if (obj.firstName) return 'UserHit'

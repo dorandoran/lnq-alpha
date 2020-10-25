@@ -23,11 +23,17 @@ interface ISearch {
 }
 
 export const SearchController: ISearch = {
-  event: async ({ query, filters, page }) => {
+  event: async ({ query, page, filters = '' }) => {
     const index: SearchIndex = searchIndex.events
 
+    let allFilters = 'isPrivate=0'
+    if (filters) {
+      allFilters += ` AND ${filters}`
+    }
+
     try {
-      const response = await index.search(query, { filters, page })
+      const response = await index.search(query, { filters: allFilters, page })
+      // console.log('events ', response)
       return response.hits
     } catch (e) {
       console.log(e)
@@ -38,10 +44,15 @@ export const SearchController: ISearch = {
   home: async ({ userId, page }) => {
     const index: SearchIndex = searchIndex.events
 
-    let facetFilters = [`id:-${userId}`, 'isPrivate:false']
-    const response = await index.search('', { facetFilters, page })
-    return response.hits
+    let filters = 'isPrivate=0'
 
+    try {
+      const response = await index.search('', { filters, page })
+      return response.hits
+    } catch (e) {
+      console.log(e)
+      return null
+    }
     // Proximity
     // Following (Their events, events they're going to, top 3 categories)
     // Sponsored/paid events
@@ -52,14 +63,12 @@ export const SearchController: ISearch = {
     const index: SearchIndex = searchIndex.users
 
     // Create Filter increasing score by following
-    let facetFilters = `id:-${userId}`
-    let filters = ''
+    let filters = 'NOT id:${userId}'
     if (following.length) {
-      filters += ` (id:${following.join('<score=3> OR id:')}<score=3>)`
+      filters += ` OR (id:${following.join('<score=3> OR id:')}<score=3>)`
     }
 
-    const response = await index.search(query, { filters, page, facetFilters })
-    console.log('search ', response)
+    const response = await index.search(query, { filters, page })
     return response.hits.map((hit: any) => {
       return {
         ...hit,

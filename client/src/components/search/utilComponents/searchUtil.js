@@ -10,10 +10,10 @@ export const buildSearchVars = ({ query, bucket, page, categories }) => {
   const variables = {
     query,
     bucket,
-    filters: 'isPrivate=0'
+    filters: ''
   }
   if (categories.length && categories !== 'near' && categories !== 'suggest') {
-    variables.filters += ` AND ${categories.join(' OR ')}`
+    variables.filters += `${categories.join(' OR ')}`
   }
   return variables
 }

@@ -17,8 +17,8 @@ const ProfileEventList = ({ skip }) => {
     fetchPolicy: 'cache-and-network',
     skip
   })
-  // eslint-disable-next-line quotes
-  const noEvents = "You haven't created any events yet!"
+
+  const noEvents = 'You haven\'t created any events yet!'
 
   const handleRefresh = () => {
     setRefreshing(true)
