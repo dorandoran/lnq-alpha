@@ -27,7 +27,7 @@ const SearchEventList = ({ text }) => {
   if (loading) return <Loading position='top' />
   if (refreshing) setRefreshing(false)
 
-  if (!data?.search?.length) {
+  if (!data?.eventSearch?.length) {
     return (
       <View style={styles.noResults}>
         <Text style={[styles.text, styles.noResultsText]}>
@@ -51,7 +51,7 @@ const SearchEventList = ({ text }) => {
 
   return (
     <EventList
-      data={[...data.search]}
+      data={[...data.eventSearch]}
       onItemPress={handleEventPress}
       onRefresh={handleRefresh}
       refreshing={refreshing}

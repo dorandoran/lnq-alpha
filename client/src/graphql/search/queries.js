@@ -1,13 +1,24 @@
 import { gql } from '@apollo/client'
-import { searchEventFragment } from '@graphql/event/fragments'
 
 export const Search = gql`
-  ${searchEventFragment}
-
   query Search($query: String, $filters: String, $page: Int) {
     eventSearch(query: $query, filters: $filters, page: $page) {
-      ... on Event {
-        ...searchEventFields
+      id
+      name
+      avatar {
+        id
+        uri
+      }
+      owner {
+        id
+        avatar {
+          id
+          uri
+        }
+      }
+      location {
+        id
+        text
       }
     }
   }

@@ -65,7 +65,7 @@ const ItemList = ({
           <View style={styles.avatarContainer}>
             {!hideAvatar && owner?.avatar ? (
               <Image
-                source={{ uri: owner.avatar.id }}
+                source={{ uri: owner.avatar.uri }}
                 style={styles.avatar}
                 borderRadius={25}
                 placeholderStyle={styles.placeholder}
