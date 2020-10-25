@@ -4,6 +4,7 @@ import {
   ISearchEvent,
   ISearchUser,
   ISearchHome,
+  ISearchLocate,
   EBuckets
 } from '../database/interfaces'
 
@@ -20,6 +21,7 @@ interface ISearch {
   event(searchAttributes: ISearchEvent): Promise<any | null>
   home(searchAttributes: ISearchHome): Promise<any | null>
   user(searchAttributes: ISearchUser): Promise<any | null>
+  locate(searchAttributes: ISearchLocate): Promise<any | null>
 }
 
 export const SearchController: ISearch = {
@@ -63,7 +65,7 @@ export const SearchController: ISearch = {
     const index: SearchIndex = searchIndex.users
 
     // Create Filter increasing score by following
-    let filters = 'NOT id:${userId}'
+    let filters = `(NOT id:${userId})`
     if (following.length) {
       filters += ` OR (id:${following.join('<score=3> OR id:')}<score=3>)`
     }
@@ -75,5 +77,19 @@ export const SearchController: ISearch = {
         isFollowing: following.includes(hit.id)
       }
     })
+  },
+
+  locate: async ({ userId, page }) => {
+    const index: SearchIndex = searchIndex.events
+
+    let filters = `isPrivate=0 AND NOT id:${userId}`
+
+    try {
+      const response = await index.search('', { filters, page })
+      return response.hits
+    } catch (e) {
+      console.log(e)
+      return null
+    }
   }
 }

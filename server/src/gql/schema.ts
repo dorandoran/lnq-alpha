@@ -25,6 +25,7 @@ const OtherType = gql`
     homeSearch(page: Int): [EventHit]
     eventSearch(query: String, filters: String, page: Int): [EventHit]
     userSearch(query: String, page: Int, following: [String]): [UserHit]
+    locateSearch(page: Int): [EventHit]
   }
 
   type Mutation {

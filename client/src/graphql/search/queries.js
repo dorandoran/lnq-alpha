@@ -64,3 +64,31 @@ export const UserSearch = gql`
     }
   }
 `
+
+
+export const LocateSearch = gql`
+  query LocateSearch($page: Int) {
+    locateSearch(page: $page) {
+      id
+      name
+      avatar {
+        id
+        uri
+      }
+      owner {
+        id
+        username
+        avatar {
+          id
+          uri
+        }
+      }
+      location {
+        id
+        latitude
+        longitude
+      }
+      date
+    }
+  }
+`

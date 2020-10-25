@@ -5,6 +5,7 @@ import {
   ISearchEvent,
   ISearchUser,
   ISearchHome,
+  ISearchLocate,
   IUser,
   IUserHit,
   IEventHit
@@ -60,6 +61,14 @@ export const SearchResolvers = {
     userSearch: (obj: void, args: ISearchUser, context: { user: IUser }) => {
       args.userId = context.user.id
       return SearchController.user(args)
+    },
+    locateSearch: (
+      obj: void,
+      args: ISearchLocate,
+      context: { user: IUser }
+    ) => {
+      args.userId = context.user.id
+      return SearchController.locate(args)
     }
   },
   // Mutations

@@ -18,6 +18,11 @@ export interface ISearchHome {
   page: number
 }
 
+export interface ISearchLocate {
+  userId: string
+  page: number
+}
+
 export interface IUserHit {
   id: string
   username: string
