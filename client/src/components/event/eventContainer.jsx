@@ -9,20 +9,29 @@ import EventHeader from '@components/event/eventHeader'
 import EventFooter from '@components/event/eventFooter'
 import EventDetails from '@components/event/eventDetails'
 import EventMediaSwiper from '@components/event/eventMediaSwiper'
+import Modal from 'react-native-modal'
+import EventMenuModal from '@components/event/utilComponents/actionEventMenuDialog'
+import AddMediaModal from '@components/event/utilComponents/actionAddMediaDialog'
 
 import { theme } from '@util'
 import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
-import { StyleSheet, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView, View } from 'react-native'
 import { Loading } from '@common'
 
 const initialState = {
-  topBtn: false,
+  modal: '',
+  menu: false,
   bottomBtn: false,
   media: { index: 0 },
   edit: null
 }
 
-const EventContainer = ({ id, isDialogOpen }) => {
+const MODAL = {
+  MENU: 'eventMenu',
+  ADD_MEDIA: 'addMedia'
+}
+
+const EventContainer = ({ id }) => {
   const user = useUser()
   const [state, setState] = useState(initialState)
   const editEnabled = !!state.edit
@@ -34,10 +43,12 @@ const EventContainer = ({ id, isDialogOpen }) => {
   })
 
   useEffect(() => {
-    if (data?.event && !isDialogOpen) {
+    if (data?.event && updateMedia) {
       updateMedia(state.media.index)
     }
-  }, [data?.event, isDialogOpen])
+
+    return () => setState(initialState)
+  }, [data?.event])
 
   if (loading) {
     return <Loading />
@@ -45,53 +56,84 @@ const EventContainer = ({ id, isDialogOpen }) => {
 
   if (!data) return null
   const { event } = data
-  const canEdit = event.owner.id === user.id
-  const canEditMedia = (state.media.userId || event.owner.id) === user.id
+  const permissions = {
+    edit: event.owner.id === user.id,
+    editMedia: (state.media.userId || event.owner.id) === user.id
+  }
 
   const updateMedia = index => {
     const media = event.media[index]
-    const isAvatar = event.avatarId === media?.id
-    setState({ ...state, media: { ...media, index, isAvatar } })
-  }
-
-  const toggleTopBtn = () => {
-    setState({ ...state, bottomBtn: false, topBtn: !state.topBtn })
+    const isAvatar = event.avatar.id === media?.id
+    setState({ ...state, media: { ...media, index, isAvatar, permissions } })
   }
 
   const toggleBottomBtn = () => {
-    setState({ ...state, topBtn: false, bottomBtn: !state.bottomBtn })
+    setState({ ...state, menu: false, bottomBtn: !state.bottomBtn })
   }
 
   const setEdit = edit => {
-    setState({ ...state, topBtn: false, bottomBtn: false, edit })
+    setState({ ...state, menu: false, bottomBtn: false, edit })
+  }
+
+  const modalActions = {
+    openAddMedia: () => {
+      setState({ ...state, modal: MODAL.ADD_MEDIA })
+    },
+    openMenu: () => {
+      setState({ ...state, modal: MODAL.MENU })
+    },
+    cancelModal: () => {
+      setState({ ...state, modal: '' })
+    }
+  }
+
+  const renderModal = () => {
+    switch (state.modal) {
+      case MODAL.MENU: {
+        return (
+          <EventMenuModal
+            event={event}
+            currentMedia={state.media}
+            modalActions={modalActions}
+          />
+        )
+      }
+      case MODAL.ADD_MEDIA: {
+        return <AddMediaModal event={event} modalActions={modalActions} />
+      }
+      default:
+        return <View />
+    }
   }
 
   return (
-    <ScrollView
-      style={styles.container}
-      snapToInterval={adjustedScreenHeight}
-      decelerationRate='fast'
-      scrollEnabled={!editEnabled}
-    >
-      <EventMediaSwiper media={event.media} updateMedia={updateMedia} />
-      <EventHeader
-        state={state}
-        toggleOpen={toggleTopBtn}
-        canEdit={canEdit}
-        canEditMedia={canEditMedia}
-      />
-      <EventFooter
-        open={state.bottomBtn}
-        toggleOpen={toggleBottomBtn}
-        canEdit={canEdit}
-      />
-      <EventDetails
-        event={event}
-        edit={state.edit}
-        setEdit={setEdit}
-        canEdit={canEdit}
-      />
-    </ScrollView>
+    <React.Fragment>
+      <ScrollView
+        style={styles.container}
+        snapToInterval={adjustedScreenHeight}
+        decelerationRate='fast'
+        scrollEnabled={!editEnabled}
+      >
+        <EventMediaSwiper media={event.media} updateMedia={updateMedia} />
+        <EventHeader
+          state={state}
+          handleOpenMenu={modalActions.openMenu}
+          canEditMedia={permissions.editMedia}
+        />
+        <EventFooter
+          open={state.bottomBtn}
+          toggleOpen={toggleBottomBtn}
+          canEdit={permissions.edit}
+        />
+        <EventDetails
+          event={event}
+          edit={state.edit}
+          setEdit={setEdit}
+          canEdit={permissions.edit}
+        />
+      </ScrollView>
+      <Modal isVisible={!!state.modal}>{renderModal()}</Modal>
+    </React.Fragment>
   )
 }
 
@@ -103,8 +145,7 @@ const styles = StyleSheet.create({
 })
 
 EventContainer.propTypes = {
-  id: PropTypes.string,
-  isDialogOpen: PropTypes.bool
+  id: PropTypes.string
 }
 
 export default EventContainer

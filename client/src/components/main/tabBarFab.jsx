@@ -13,6 +13,10 @@ const TabBarFab = () => {
   const dispatch = useContext(Route.Dispatch)
   const { fabButton } = tabBar
 
+  React.useState(() => {
+    return () => setFabPosition(null)
+  }, [fabButton])
+
   const navigateToDetails = media => {
     // Passes media to <CreateDetails />
     navigate('Create', {

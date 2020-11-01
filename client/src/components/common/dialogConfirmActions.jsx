@@ -5,7 +5,11 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { theme } from '@util'
 
-const DialogConfirmActions = ({ handleClose, handleConfirm }) => {
+const DialogConfirmActions = ({
+  handleClose,
+  handleConfirm,
+  disableConfirm
+}) => {
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity style={styles.iconContainer} onPress={handleClose}>
@@ -16,7 +20,11 @@ const DialogConfirmActions = ({ handleClose, handleConfirm }) => {
           reverse
         />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.iconContainer} onPress={handleConfirm}>
+      <TouchableOpacity
+        disabled={disableConfirm}
+        style={styles.iconContainer}
+        onPress={handleConfirm}
+      >
         <Icon
           type='ionicon'
           name='md-checkmark'
@@ -35,14 +43,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   iconContainer: {
-    paddingHorizontal: '8%',
-    paddingVertical: '3%'
+    marginTop: '1%',
+    marginBottom: '5%',
+    marginHorizontal: '8%'
   }
 })
 
 DialogConfirmActions.propTypes = {
   handleClose: PropTypes.func,
-  handleConfirm: PropTypes.func
+  handleConfirm: PropTypes.func,
+  disableConfirm: PropTypes.bool
 }
 
 export default DialogConfirmActions

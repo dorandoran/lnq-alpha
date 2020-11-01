@@ -2,17 +2,13 @@ import { gql } from '@apollo/client'
 
 export const CreateMedia = gql`
   mutation CreateMedia(
-    $id: String!
-    $uri: String!
     $linkId: String!
-    $userId: String!
+    $type: String!
+    $image: Upload!
   ) {
-    createMedia(id: $id, uri: $uri, linkId: $linkId, userId: $userId) {
+    createMedia(linkId: $linkId, type: $type, image: $image) {
       id
       uri
-      linkId
-      userId
-      created_at
     }
   }
 `

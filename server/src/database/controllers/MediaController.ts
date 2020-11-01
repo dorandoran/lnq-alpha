@@ -16,22 +16,27 @@ const Events = firestore().collection('events')
 export async function create({
   ownerId,
   linkId,
-  bucket,
+  type,
   image
 }: IMediaCreate): Promise<IMedia | null> {
-  const { createReadStream } = await image
-  const id = Media.doc().id
-  const readStream = createReadStream(id)
-  const storageMedia = admin.storage().bucket().file(id)
+  const newMediaRef = Media.doc()
+  const storageMedia = admin
+    .storage()
+    .bucket()
+    .file(`${type}/${newMediaRef.id}`)
+
+  const { createReadStream, mimetype } = await image
+  const readStream = createReadStream(newMediaRef.id)
   let uri = ''
 
   try {
     const response = await new Promise((resolve, reject) => {
       readStream.pipe(
         storageMedia
-          .createWriteStream()
+          .createWriteStream({ contentType: mimetype })
           .on('error', () => reject(false))
           .on('finish', async () => {
+            // get presigned url
             const uriResponse = await storageMedia.getSignedUrl({
               action: 'read',
               expires: '01-01-2400'
@@ -50,15 +55,15 @@ export async function create({
   }
 
   const newMedia = {
-    id,
+    id: newMediaRef.id,
     uri,
     ownerId,
     created_at: timestamp.now(),
-    linkIds: linkId ? [linkId] : [Events.doc().id] // Case when creating event avatar
+    linkIds: [linkId]
   }
 
   try {
-    const media = await Media.doc(id).set(newMedia)
+    const media = await newMediaRef.set(newMedia)
     if (media) {
       return newMedia
     }

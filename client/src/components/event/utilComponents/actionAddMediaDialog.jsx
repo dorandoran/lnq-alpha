@@ -1,75 +1,50 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-import useOverlay from '@context/overlayContext'
-import useStorage from '@hooks/useStorage'
 import useNotification from '@hooks/useNotification'
-
+import useCreateMedia from '@graphql/media/useCreateMedia'
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
 
 import { theme, CAMERA_SELECTION, BUCKET } from '@util'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import { Image } from 'react-native-elements'
 import { DialogConfirmActions, Loading } from '@common'
 
-const initialState = {
-  selected: null,
-  confirmed: null
-}
-
-const ActionAddMediaDialog = () => {
-  const [uri, setUri] = useState(initialState)
+const AddMediaModal = ({ event, modalActions }) => {
+  const [media, setMedia] = React.useState(null)
   const { throwSuccess } = useNotification()
-  const {
-    modal: { data },
-    dispatch,
-    actions
-  } = useOverlay()
-
-  const { media, loading } = useStorage({
-    uri: uri.confirmed,
-    bucketName: BUCKET.EVENT,
-    linkId: data.id,
-    skip: !uri.confirmed,
-    onSuccess: () => throwSuccess('Media successfully added.')
+  const [addMedia, loading] = useCreateMedia({
+    onCompleted: () => {
+      modalActions.cancelModal()
+      throwSuccess('Media successfully added.')
+    }
   })
 
-  const handleClose = payload => {
-    const action = { type: actions.dialog.close }
-    if (payload) action.payload = payload
-    dispatch(action)
-  }
-
-  useEffect(() => {
-    let didCancel = false
-
-    if (!didCancel && media) {
-      setUri(initialState)
-      handleClose({ media })
-    }
-    return () => {
-      didCancel = true
-    }
-  }, [media])
-
-  if (loading) return <Loading />
+  if (loading) return <Loading backgroundColor='transparent' />
 
   const handleConfirm = () => {
-    if (uri) {
-      setUri({ ...uri, confirmed: uri.selected })
+    if (media.file) {
+      addMedia({
+        linkId: event.id,
+        type: BUCKET.USER,
+        image: media.file
+      })
     }
   }
 
-  const handleImageSelected = ({ uri }) => {
-    setUri({ selected: uri })
+  const handleImageSelected = image => {
+    setMedia(image)
   }
 
   return (
-    <Fragment>
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Select Media to Add</Text>
+      </View>
       <View style={styles.padding}>
-        {uri.selected ? (
+        {media ? (
           <Image
-            source={{ uri: uri.selected }}
+            source={{ uri: media.uri }}
             style={styles.image}
             borderRadius={25}
           />
@@ -90,18 +65,31 @@ const ActionAddMediaDialog = () => {
         )}
       </View>
       <DialogConfirmActions
-        handleClose={handleClose}
+        disableConfirm={!media}
+        handleClose={modalActions.cancelModal}
         handleConfirm={handleConfirm}
       />
-    </Fragment>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    width: '90%',
+    backgroundColor: theme.color.accent,
+    borderRadius: 25,
+    paddingHorizontal: '3%'
+  },
+  titleContainer: {
+    paddingBottom: '5%',
+    paddingTop: '10%'
+  },
   actionContainer: {
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: theme.color.background,
+    borderColor: theme.color.tertiary,
     borderRadius: 25
   },
   padding: {
@@ -112,11 +100,17 @@ const styles = StyleSheet.create({
     height: 200,
     justifyContent: 'space-evenly',
     alignItems: 'center'
+  },
+  title: {
+    fontWeight: 'bold',
+    color: theme.color.tertiary,
+    fontSize: 18
   }
 })
 
-ActionAddMediaDialog.propTypes = {
-  onComplete: PropTypes.func
+AddMediaModal.propTypes = {
+  event: PropTypes.object,
+  modalActions: PropTypes.object
 }
 
-export default ActionAddMediaDialog
+export default AddMediaModal

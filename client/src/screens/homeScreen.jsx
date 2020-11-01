@@ -20,9 +20,9 @@ const HomeScreen = () => {
     const events = data.homeSearch
     events.forEach((event, i) => {
       if (i % 2) {
-        leftColumn.push(Tile({ ...event, column: 'left' }))
+        rightColumn.push(Tile({ ...event, column: 'left' }))
       } else {
-        rightColumn.push(Tile({ ...event, column: 'right' }))
+        leftColumn.push(Tile({ ...event, column: 'right' }))
       }
     })
   }

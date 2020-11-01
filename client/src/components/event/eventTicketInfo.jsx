@@ -76,36 +76,46 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
               key={key}
               containerStyle={styles.listItem}
               onPress={() => handlePress(key, additionalKeys)}
-              titleStyle={[
-                styles.text,
-                hideUntilEdit.includes(key) ? styles.name : null
-              ]}
-              title={title(event)}
-              leftIcon={
-                iconName && (
-                  <HeaderButton
-                    type='material-community'
-                    name={iconName}
-                    color='tertiary'
-                    backgroundColor={edit ? 'secondary' : 'accent'}
-                    onPress={() => handlePress(key, additionalKeys)}
-                  />
-                )
-              }
-              rightTitleStyle={styles.text}
-              rightTitle={rightTitle && rightTitle(event)}
-              rightIcon={
-                rightIconName && (
-                  <HeaderButton
-                    type={rightIconType || 'material-community'}
-                    name={rightIconName(event)}
-                    color='tertiary'
-                    backgroundColor={edit ? 'secondary' : 'accent'}
-                    onPress={() => handlePress(key, additionalKeys)}
-                  />
-                )
-              }
-            />
+            >
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                {
+                  iconName && (
+                    <HeaderButton
+                      type='material-community'
+                      name={iconName}
+                      color='tertiary'
+                      backgroundColor={edit ? 'secondary' : 'accent'}
+                      onPress={() => handlePress(key, additionalKeys)}
+                    />
+                  )
+                }
+                <ListItem.Title
+                  style={[
+                    styles.text,
+                    { paddingLeft: '2%' },
+                    hideUntilEdit.includes(key) ? styles.name : null
+                  ]}
+                >
+                  {title(event)}
+                </ListItem.Title>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                {rightTitle && <ListItem.Title style={[styles.text, { paddingRight: '2%' }]} containerStyle={{ padding: '5%' }}>
+                  {rightTitle(event)}
+                </ListItem.Title>}
+                {
+                  rightIconName && (
+                    <HeaderButton
+                      type={rightIconType || 'material-community'}
+                      name={rightIconName(event)}
+                      color='tertiary'
+                      backgroundColor={edit ? 'secondary' : 'accent'}
+                      onPress={() => handlePress(key, additionalKeys)}
+                    />
+                  )
+                }
+              </View>
+            </ListItem>
           )
         }
       )}
@@ -116,16 +126,16 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
           <Text style={styles.similarEventText}>Similar Events</Text>
           <ListItem
             containerStyle={styles.listItem}
-            titleStyle={styles.text}
-            title='No similar events found...'
-            leftIcon={
-              <Icon
-                type='material-community'
-                name='emoticon-cry-outline'
-                color={theme.color.tertiary}
-              />
-            }
-          />
+          >
+            <ListItem.Title style={styles.text}>
+              {'No similar events found...'}
+            </ListItem.Title>
+            <Icon
+              type='material-community'
+              name='emoticon-cry-outline'
+              color={theme.color.tertiary}
+            />
+          </ListItem>
         </View>
       )}
     </ScrollView>
@@ -141,7 +151,9 @@ const styles = StyleSheet.create({
     marginVertical: '5%'
   },
   listItem: {
-    backgroundColor: theme.color.background
+    backgroundColor: theme.color.background,
+    justifyContent: 'space-between',
+    width: '100%'
   },
   marginLeft: {
     marginLeft: '5%'

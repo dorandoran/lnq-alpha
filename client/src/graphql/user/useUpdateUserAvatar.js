@@ -3,7 +3,9 @@ import { useMutation } from '@apollo/client'
 import { UpdateUserAvatar } from '@graphql/user/mutations.js'
 
 export default function useUpdateUserAvatar({ onCompleted }) {
-  const [updateAvatar, { loading }] = useMutation(UpdateUserAvatar, { onCompleted })
+  const [updateAvatar, { loading }] = useMutation(UpdateUserAvatar, {
+    onCompleted
+  })
 
   return [
     variables => {

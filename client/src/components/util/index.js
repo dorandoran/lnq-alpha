@@ -18,7 +18,7 @@ export const GALLERY_SELECTION = 'gallery'
 export const BUCKET = {
   EVENT: 'events',
   MEDIA: 'media',
-  USER: 'user',
+  USER: 'users',
   NEW: 'new'
 }
 

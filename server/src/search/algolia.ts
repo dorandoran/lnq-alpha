@@ -35,7 +35,6 @@ export const SearchController: ISearch = {
 
     try {
       const response = await index.search(query, { filters: allFilters, page })
-      // console.log('events ', response)
       return response.hits
     } catch (e) {
       console.log(e)

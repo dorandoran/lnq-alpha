@@ -2,10 +2,12 @@ import { gql } from '@apollo/client'
 import { useMutation } from '@apollo/client'
 import { CreateMedia } from '@graphql/media/mutations.js'
 
-export default function useCreateMedia() {
-  const [createMedia] = useMutation(CreateMedia)
+export default function useCreateMedia({ onCompleted }) {
+  const [createMedia, { loading }] = useMutation(CreateMedia, {
+    onCompleted
+  })
 
-  return variables => {
+  return [variables => {
     createMedia({
       variables,
       update: (cache, { data: { createMedia: mediaData } }) => {
@@ -43,5 +45,7 @@ export default function useCreateMedia() {
         }
       }
     })
-  }
+  },
+    loading
+  ]
 }

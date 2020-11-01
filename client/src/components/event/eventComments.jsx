@@ -9,16 +9,14 @@ const EventComments = () => {
     <View style={styles.container}>
       <ListItem
         containerStyle={styles.listItem}
-        titleStyle={styles.text}
-        title='No Comments...'
-        leftIcon={
-          <Icon
-            type='material-community'
-            name='emoticon-cry-outline'
-            color={theme.color.tertiary}
-          />
-        }
-      />
+      >
+        <Icon
+          type='material-community'
+          name='emoticon-cry-outline'
+          color={theme.color.tertiary}
+        />
+        <ListItem.Title style={styles.text}>{'No Comments...'}</ListItem.Title>
+      </ListItem>
     </View>
   )
 }

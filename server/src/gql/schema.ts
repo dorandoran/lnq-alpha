@@ -48,7 +48,7 @@ const OtherType = gql`
       recipientIds: [String]
       followIds: [String]
     ): Event
-    createMedia(ownerId: String!, linkId: String, image: Upload!): Media
+    createMedia(linkId: String!, type: String!, image: Upload!): Media
     createInvites(recipientIds: [String!], eventId: String!): [SocialLink]
     requestFollow(recipientIds: [String!]): [SocialLink]
     updateUser(id: String!, updates: UserUpdateInput!): User
