@@ -20,12 +20,6 @@ const EventMenuModal = ({ event, currentMedia, modalActions }) => {
           canEdit: true,
           onPress: () => {},
           disabled: isFeatureImage
-        },
-        {
-          key: 'addMedia',
-          value: 'Add Media',
-          canEdit: true,
-          onPress: modalActions.openAddMedia
         }
       ]
     },

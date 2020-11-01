@@ -10,8 +10,8 @@ import EventFooter from '@components/event/eventFooter'
 import EventDetails from '@components/event/eventDetails'
 import EventMediaSwiper from '@components/event/eventMediaSwiper'
 import Modal from 'react-native-modal'
-import EventMenuModal from '@components/event/utilComponents/actionEventMenuDialog'
-import AddMediaModal from '@components/event/utilComponents/actionAddMediaDialog'
+import EventMenuModal from '@components/event/utilComponents/eventMenuModal'
+import AddMediaModal from '@components/event/utilComponents/addMediaModal'
 
 import { theme } from '@util'
 import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
@@ -20,8 +20,6 @@ import { Loading } from '@common'
 
 const initialState = {
   modal: '',
-  menu: false,
-  bottomBtn: false,
   media: { index: 0 },
   edit: null
 }
@@ -67,23 +65,19 @@ const EventContainer = ({ id }) => {
     setState({ ...state, media: { ...media, index, isAvatar, permissions } })
   }
 
-  const toggleBottomBtn = () => {
-    setState({ ...state, menu: false, bottomBtn: !state.bottomBtn })
-  }
-
   const setEdit = edit => {
     setState({ ...state, menu: false, bottomBtn: false, edit })
   }
 
   const modalActions = {
-    openAddMedia: () => {
-      setState({ ...state, modal: MODAL.ADD_MEDIA })
-    },
     openMenu: () => {
       setState({ ...state, modal: MODAL.MENU })
     },
     cancelModal: () => {
       setState({ ...state, modal: '' })
+    },
+    openAddMedia: () => {
+      setState({ ...state, modal: MODAL.ADD_MEDIA })
     }
   }
 
@@ -115,16 +109,8 @@ const EventContainer = ({ id }) => {
         scrollEnabled={!editEnabled}
       >
         <EventMediaSwiper media={event.media} updateMedia={updateMedia} />
-        <EventHeader
-          state={state}
-          handleOpenMenu={modalActions.openMenu}
-          canEditMedia={permissions.editMedia}
-        />
-        <EventFooter
-          open={state.bottomBtn}
-          toggleOpen={toggleBottomBtn}
-          canEdit={permissions.edit}
-        />
+        <EventHeader state={state} handleOpenMenu={modalActions.openMenu} />
+        <EventFooter modalActions={modalActions} />
         <EventDetails
           event={event}
           edit={state.edit}
