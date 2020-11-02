@@ -1,12 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import useModalNotification from '@hooks/useModalNotification'
 
 import { View, StyleSheet, SectionList, Text } from 'react-native'
 import { Divider, ListItem } from 'react-native-elements'
 import { theme } from '@util'
 
 const EventMenuModal = ({ event, currentMedia, modalActions }) => {
+  const { throwWarning } = useModalNotification()
   const isFeatureImage = event.avatar.id === currentMedia.id
+
+  const handlePress = ({ disabled, action, errorMsg }) => {
+    if (disabled) {
+      throwWarning(errorMsg)
+    } else {
+      action()
+    }
+  }
 
   const menuButtonList = [
     {
@@ -14,11 +24,26 @@ const EventMenuModal = ({ event, currentMedia, modalActions }) => {
       data: [
         {
           key: 'featured',
-          value: isFeatureImage
-            ? 'Currently Featured Image'
-            : 'Change Featured Image',
+          value: 'Set As Featured Image',
           canEdit: true,
-          onPress: () => {},
+          onPress: () =>
+            handlePress({
+              disabled: isFeatureImage,
+              action: modalActions.changedFeatured,
+              errorMsg: 'This image is already the featured image!'
+            }),
+          disabled: isFeatureImage
+        },
+        {
+          key: 'deleteMedia',
+          value: 'Delete Media',
+          canEdit: true,
+          onPress: () =>
+            handlePress({
+              disabled: isFeatureImage,
+              action: modalActions.deleteMedia,
+              errorMsg: 'Cannot delete the featured image!'
+            }),
           disabled: isFeatureImage
         }
       ]
@@ -80,7 +105,6 @@ const EventMenuModal = ({ event, currentMedia, modalActions }) => {
     if (!item.canEdit || item.canEdit) {
       return (
         <ListItem
-          disabled={item.disabled}
           containerStyle={[styles.containerStyle, itemExtraStyles]}
           onPress={item.onPress}
         >

@@ -9,14 +9,14 @@ import EventHeader from '@components/event/eventHeader'
 import EventFooter from '@components/event/eventFooter'
 import EventDetails from '@components/event/eventDetails'
 import EventMediaSwiper from '@components/event/eventMediaSwiper'
-import Modal from 'react-native-modal'
 import EventMenuModal from '@components/event/utilComponents/eventMenuModal'
 import AddMediaModal from '@components/event/utilComponents/addMediaModal'
+import EventModalContainer from '@components/event/utilComponents/eventModalContainer'
 
-import { theme } from '@util'
-import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
 import { StyleSheet, ScrollView, View } from 'react-native'
 import { Loading } from '@common'
+import { theme } from '@util'
+import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
 
 const initialState = {
   modal: '',
@@ -78,7 +78,8 @@ const EventContainer = ({ id }) => {
     },
     openAddMedia: () => {
       setState({ ...state, modal: MODAL.ADD_MEDIA })
-    }
+    },
+    changeFeatured: () => {}
   }
 
   const renderModal = () => {
@@ -118,7 +119,9 @@ const EventContainer = ({ id }) => {
           canEdit={permissions.edit}
         />
       </ScrollView>
-      <Modal isVisible={!!state.modal}>{renderModal()}</Modal>
+      <EventModalContainer isVisible={!!state.modal}>
+        {renderModal()}
+      </EventModalContainer>
     </React.Fragment>
   )
 }
