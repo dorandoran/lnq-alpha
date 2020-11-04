@@ -77,10 +77,10 @@ export async function create({
 export async function remove({
   id,
   linkId,
-  bucket,
+  type,
   force
 }: IMediaRemove): Promise<IStorageResponse> {
-  const Link = firestore().collection(bucket).doc(linkId)
+  const Link = firestore().collection(type).doc(linkId)
 
   try {
     // Firestore transaction
@@ -104,7 +104,7 @@ export async function remove({
     }
   }
 
-  return removeMediaFromStorage({ id, bucket })
+  return removeMediaFromStorage({ id, bucket: type })
 }
 
 export async function findById(

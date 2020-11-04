@@ -36,8 +36,8 @@ export const CreateEvent = gql`
 `
 
 export const ChangeAvatar = gql`
-  mutation ChangeAvatar($id: String!, $mediaId: String!) {
-    updateEvent(id: $id, updates: { avatarId: $mediaId }) {
+  mutation ChangeAvatar($id: String!, $avatar: AvatarInput!) {
+    updateEvent(id: $id, updates: { avatar: $avatar }) {
       id
       avatar {
         id

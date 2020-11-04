@@ -26,7 +26,7 @@ export interface IMediaCreate {
 export interface IMediaRemove {
   id: string
   linkId: string
-  bucket: EBuckets
+  type: EBuckets
   force?: boolean
 }
 

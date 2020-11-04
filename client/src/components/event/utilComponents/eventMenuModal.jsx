@@ -6,9 +6,9 @@ import { View, StyleSheet, SectionList, Text } from 'react-native'
 import { Divider, ListItem } from 'react-native-elements'
 import { theme } from '@util'
 
-const EventMenuModal = ({ event, currentMedia, modalActions }) => {
+const EventMenuModal = ({ event, media, modalActions }) => {
   const { throwWarning } = useModalNotification()
-  const isFeatureImage = event.avatar.id === currentMedia.id
+  const isFeatureImage = event.avatar.id === media.id
 
   const handlePress = ({ disabled, action, errorMsg }) => {
     if (disabled) {
@@ -29,7 +29,7 @@ const EventMenuModal = ({ event, currentMedia, modalActions }) => {
           onPress: () =>
             handlePress({
               disabled: isFeatureImage,
-              action: modalActions.changedFeatured,
+              action: modalActions.changeFeatured,
               errorMsg: 'This image is already the featured image!'
             }),
           disabled: isFeatureImage
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
 
 EventMenuModal.propTypes = {
   event: PropTypes.object,
-  currentMedia: PropTypes.object,
+  media: PropTypes.object,
   modalActions: PropTypes.object
 }
 

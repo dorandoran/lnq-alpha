@@ -61,7 +61,7 @@ const OtherType = gql`
     ): UpdateNewUserResponse
     updateEvent(id: String!, updates: EventUpdateInput!): Event
     deleteEvent(id: String!): Boolean
-    deleteMedia(id: String!, linkId: String!, bucket: String!): StorageResponse
+    deleteMedia(id: String!, linkId: String!, type: String!): StorageResponse
   }
 
   type Subscription {

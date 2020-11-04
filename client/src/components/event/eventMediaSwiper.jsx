@@ -11,6 +11,8 @@ import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil
 import { Loading } from '@common'
 
 const EventMediaSwiper = ({ media, updateMedia }) => {
+  React.useEffect(() => {}, [media])
+
   const renderItem = ({ item }) => {
     return (
       <Image
