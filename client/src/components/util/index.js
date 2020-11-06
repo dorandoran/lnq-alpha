@@ -52,7 +52,7 @@ export const EVENT_TYPES = {
   other: 'Other'
 }
 
-export const INPUT_TYPES = {
+export const EVENT_FIELD_TITLES = {
   name: 'Event Name',
   type: 'Event Type',
   location: 'Event Location',

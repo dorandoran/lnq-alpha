@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import useOverlay from '@context/overlayContext'
-
 import { theme } from '@util'
 import {
   ScrollView,
@@ -13,29 +11,22 @@ import {
 } from 'react-native'
 import { Icon, ListItem, Button } from 'react-native-elements'
 import { HeaderButton } from '@common'
-
 import { eventDetails } from '@components/event/utilComponents/eventUtil'
 
-const EventTicketInfo = ({ event, edit, updateKey }) => {
-  const { dispatch, actions } = useOverlay()
-
-  const handlePress = (key, additionalKeys) => {
-    if (edit) {
-      dispatch({
-        type: actions.dialog.events.update,
-        payload: { key, additionalKeys, event, updateKey }
-      })
+const EventTicketInfo = ({ event, updates, editEnabled, modalActions }) => {
+  const handlePress = (field, additionalFields) => {
+    if (editEnabled) {
+      modalActions.updateEvent({ field, additionalFields })
     }
   }
 
-  const handleDeleteEvent = () => {
-    dispatch({ type: actions.dialog.events.delete })
-  }
+  const handleDeleteEvent = () => {}
 
   if (!event) return null
+  const eventWithUpdates = { ...event, ...updates }
 
   return (
-    <ScrollView style={styles.container} nestedScrollEnabled={!edit}>
+    <ScrollView style={styles.container} nestedScrollEnabled={!editEnabled}>
       {eventDetails.map(
         ({
           key,
@@ -48,7 +39,7 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
         }) => {
           const hideUntilEdit = ['name', 'delete']
           // In edit mode, event name moves into the component
-          if (!edit && hideUntilEdit.includes(key)) return null
+          if (!editEnabled && hideUntilEdit.includes(key)) return null
 
           // Delete Button in edit mode
           if (key === 'delete') {
@@ -78,17 +69,15 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
               onPress={() => handlePress(key, additionalKeys)}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                {
-                  iconName && (
-                    <HeaderButton
-                      type='material-community'
-                      name={iconName}
-                      color='tertiary'
-                      backgroundColor={edit ? 'secondary' : 'accent'}
-                      onPress={() => handlePress(key, additionalKeys)}
-                    />
-                  )
-                }
+                {iconName && (
+                  <HeaderButton
+                    type='material-community'
+                    name={iconName}
+                    color='tertiary'
+                    backgroundColor={editEnabled ? 'secondary' : 'accent'}
+                    onPress={() => handlePress(key, additionalKeys)}
+                  />
+                )}
                 <ListItem.Title
                   style={[
                     styles.text,
@@ -96,37 +85,38 @@ const EventTicketInfo = ({ event, edit, updateKey }) => {
                     hideUntilEdit.includes(key) ? styles.name : null
                   ]}
                 >
-                  {title(event)}
+                  {title(eventWithUpdates)}
                 </ListItem.Title>
               </View>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                {rightTitle && <ListItem.Title style={[styles.text, { paddingRight: '2%' }]} containerStyle={{ padding: '5%' }}>
-                  {rightTitle(event)}
-                </ListItem.Title>}
-                {
-                  rightIconName && (
-                    <HeaderButton
-                      type={rightIconType || 'material-community'}
-                      name={rightIconName(event)}
-                      color='tertiary'
-                      backgroundColor={edit ? 'secondary' : 'accent'}
-                      onPress={() => handlePress(key, additionalKeys)}
-                    />
-                  )
-                }
+                {rightTitle && (
+                  <ListItem.Title
+                    style={[styles.text, { paddingRight: '2%' }]}
+                    containerStyle={{ padding: '5%' }}
+                  >
+                    {rightTitle(eventWithUpdates)}
+                  </ListItem.Title>
+                )}
+                {rightIconName && (
+                  <HeaderButton
+                    type={rightIconType || 'material-community'}
+                    name={rightIconName(eventWithUpdates)}
+                    color='tertiary'
+                    backgroundColor={editEnabled ? 'secondary' : 'accent'}
+                    onPress={() => handlePress(key, additionalKeys)}
+                  />
+                )}
               </View>
             </ListItem>
           )
         }
       )}
 
-      {!edit && (
+      {!editEnabled && (
         <View style={styles.buttonContainer}>
           <Button title='Tickets' buttonStyle={styles.button} />
           <Text style={styles.similarEventText}>Similar Events</Text>
-          <ListItem
-            containerStyle={styles.listItem}
-          >
+          <ListItem containerStyle={styles.listItem}>
             <ListItem.Title style={styles.text}>
               {'No similar events found...'}
             </ListItem.Title>
@@ -194,8 +184,9 @@ const styles = StyleSheet.create({
 
 EventTicketInfo.propTypes = {
   event: PropTypes.object,
-  edit: PropTypes.bool,
-  updateKey: PropTypes.func
+  updates: PropTypes.object,
+  editEnabled: PropTypes.bool,
+  modalActions: PropTypes.object
 }
 
 export default EventTicketInfo

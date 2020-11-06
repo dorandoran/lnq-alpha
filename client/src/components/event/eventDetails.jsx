@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import isEqual from 'lodash/isEqual'
+import isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
 
 import useNotification from '@hooks/useNotification'
@@ -12,43 +12,38 @@ import { View, Text, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { HeaderButton } from '@common'
 import { theme } from '@util'
-import {
-  adjustedScreenHeight,
-  getEventUpdates
-} from '@components/event/utilComponents/eventUtil'
+import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
 
-const EventDetails = ({ event, edit, setEdit, canEdit }) => {
+const EventDetails = ({
+  event,
+  edit,
+  modalActions,
+  editActions,
+  permissions
+}) => {
   const [isComments, setIsComments] = useState(false)
   // TODO: Throw Info
   const { throwLoading, throwSuccess } = useNotification()
   const [updateEvent] = useUpdateEvent({
     onCompleted: () => {
       throwSuccess('Event updated and edit mode disabled')
-      setEdit(null)
+      editActions.disableEdit()
     }
   })
 
-  const handleEdit = () => {
-    if (edit) {
-      setEdit(null)
-      throwSuccess('Edit mode disabled with no changes made')
-    } else {
-      setEdit(event)
-      throwSuccess('Edit mode enabled')
-    }
+  const handleEnableEdit = () => {
+    editActions.enableEdit()
+    throwSuccess('Edit mode enabled. Select a field to edit')
   }
 
-  const updateKey = ({ key, value }) => {
-    if (['isPrivate', 'type', 'plusOne'].includes(key)) {
-      setEdit({ ...edit, ...value })
-    } else {
-      setEdit({ ...edit, [key]: value })
-    }
+  const handleDisableEdit = () => {
+    throwSuccess('Edit mode disabled with no changes made')
+    editActions.disableEdit()
   }
 
   const handleConfirmEdit = () => {
     throwLoading()
-    updateEvent({ id: event.id, updates: getEventUpdates(edit) })
+    updateEvent({ id: event.id, updates: edit.updates })
   }
 
   return (
@@ -73,21 +68,21 @@ const EventDetails = ({ event, edit, setEdit, canEdit }) => {
               name='ios-text'
               color={isComments ? theme.color.secondary : theme.color.accent}
               reverse
-              disabled={!!edit}
+              disabled={edit.enabled}
               onPress={() => setIsComments(true)}
             />
           </View>
         </View>
         <View style={styles.sideContainer}>
-          {canEdit &&
-            (edit ? (
+          {permissions.canEditEvent &&
+            (edit.enabled ? (
               <View>
                 <HeaderButton
                   type='ionicon'
                   name='md-close'
                   backgroundColor='error'
                   color='tertiary'
-                  onPress={handleEdit}
+                  onPress={handleDisableEdit}
                   containerStyle={styles.editButton}
                 />
                 <HeaderButton
@@ -97,7 +92,7 @@ const EventDetails = ({ event, edit, setEdit, canEdit }) => {
                   color='tertiary'
                   onPress={handleConfirmEdit}
                   containerStyle={styles.editButton}
-                  disabled={isEqual(event, edit)}
+                  disabled={isEmpty(edit.updates)}
                 />
               </View>
             ) : (
@@ -106,7 +101,7 @@ const EventDetails = ({ event, edit, setEdit, canEdit }) => {
                 name='pencil-outline'
                 backgroundColor='accent'
                 color='tertiary'
-                onPress={handleEdit}
+                onPress={handleEnableEdit}
                 containerStyle={styles.editButton}
               />
             ))}
@@ -116,9 +111,10 @@ const EventDetails = ({ event, edit, setEdit, canEdit }) => {
         <EventComments />
       ) : (
         <EventTicketInfo
-          event={edit || event}
-          edit={!!edit}
-          updateKey={updateKey}
+          event={event}
+          updates={edit.updates}
+          editEnabled={edit.enabled}
+          modalActions={modalActions}
         />
       )}
     </View>
@@ -168,8 +164,9 @@ const styles = StyleSheet.create({
 EventDetails.propTypes = {
   event: PropTypes.object,
   edit: PropTypes.object,
-  setEdit: PropTypes.func,
-  canEdit: PropTypes.bool
+  modalActions: PropTypes.object,
+  editActions: PropTypes.object,
+  permissions: PropTypes.object
 }
 
 export default EventDetails

@@ -7,15 +7,12 @@ import { StyleSheet } from 'react-native'
 import { HeaderButton } from '@common'
 import { theme, SCREEN_HEIGHT } from '@util'
 
-const EventHeader = ({ handleOpenMenu, state }) => {
+const EventHeader = ({ handleOpenMenu }) => {
   const { dispatch, actions } = useOverlay()
-  const { media } = state
 
   const closeModal = () => {
     dispatch({ type: actions.modal.close })
   }
-
-  if (!media) return null
 
   return (
     <React.Fragment>
@@ -68,8 +65,7 @@ const styles = StyleSheet.create({
 })
 
 EventHeader.propTypes = {
-  handleOpenMenu: PropTypes.func,
-  state: PropTypes.object
+  handleOpenMenu: PropTypes.func
 }
 
 export default EventHeader

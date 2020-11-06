@@ -1,5 +1,5 @@
 import Constants from 'expo-constants'
-import { formatDateTime, SCREEN_HEIGHT, EVENT_TYPES, INPUT_TYPES } from '@util'
+import { formatDateTime, SCREEN_HEIGHT, EVENT_TYPES } from '@util'
 
 export const adjustedScreenHeight = SCREEN_HEIGHT - Constants.statusBarHeight
 
@@ -50,48 +50,3 @@ export const eventDetails = [
     iconName: 'delete'
   }
 ]
-
-export const getInitialState = ({ event, key, additionalKeys }) => {
-  let initialState = event[key]
-  if (additionalKeys) {
-    initialState = { [key]: initialState }
-    additionalKeys.forEach(key => (initialState[key] = event[key]))
-  }
-  return initialState
-}
-
-export const getTitle = ({ key, additionalKeys }) => {
-  let title = INPUT_TYPES[key]
-  if (additionalKeys) {
-    title = [title, ...additionalKeys.map(value => INPUT_TYPES[value])].join(
-      ' - '
-    )
-  }
-  return title
-}
-
-export const getEventUpdates = ({
-  name,
-  type,
-  date,
-  location,
-  website,
-  description,
-  plusOne,
-  isPrivate
-}) => {
-  return {
-    name,
-    type,
-    date,
-    location: {
-      latitude: location.latitude,
-      longitude: location.longitude,
-      text: location.text
-    },
-    website,
-    description,
-    plusOne,
-    isPrivate
-  }
-}

@@ -12,6 +12,7 @@ import EventMenuModal from '@components/event/utilComponents/eventMenuModal'
 import AddMediaModal from '@components/event/utilComponents/addMediaModal'
 import ChangeFeaturedModal from '@components/event/utilComponents/changeFeatureModal'
 import DeleteMediaModal from '@components/event/utilComponents/deleteMediaModal'
+import UpdateEventModal from '@components/event/utilComponents/updateEventModal'
 import EventModalContainer from '@components/event/utilComponents/eventModalContainer'
 
 import Carousel from 'react-native-snap-carousel'
@@ -23,22 +24,27 @@ import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil
 
 const initialState = {
   modal: '',
-  edit: null
+  edit: {
+    enabled: false,
+    field: null,
+    additionalFields: null,
+    updates: {}
+  }
 }
 
 const MODAL = {
   MENU: 'eventMenu',
   ADD_MEDIA: 'addMedia',
   CHANGE_FEATURED: 'changeFeatured',
-  DELETE_MEDIA: 'deleteMedia'
+  DELETE_MEDIA: 'deleteMedia',
+  EDIT_EVENT: 'editEvent'
 }
 
 const EventContainer = ({ id }) => {
   const [state, setState] = React.useState(initialState)
   const carousel = React.useRef(null)
   const user = useUser()
-  const editEnabled = !!state.edit
-
+  const editEnabled = state.edit.enabled
   const { data, loading } = useQuery(GetEvent, {
     variables: { id },
     fetchPolicy: 'cache-and-network',
@@ -53,13 +59,23 @@ const EventContainer = ({ id }) => {
 
   if (!data) return null
   const { event } = data
-
   const permissions = {
-    edit: event.owner.id === user.id
+    canEditEvent: event.owner.id === user.id
   }
 
-  const setEdit = edit => {
-    setState({ ...state, menu: false, bottomBtn: false, edit })
+  const editActions = {
+    enableEdit: () => {
+      setState({ ...state, edit: { ...state.edit, enabled: true } })
+    },
+    disableEdit: () => {
+      setState(initialState)
+    },
+    addUpdate: update => {
+      setState({
+        modal: '',
+        edit: { ...state.edit, updates: { ...state.edit.updates, ...update } }
+      })
+    }
   }
 
   const modalActions = {
@@ -77,13 +93,18 @@ const EventContainer = ({ id }) => {
     },
     deleteMedia: () => {
       setState({ ...state, modal: MODAL.DELETE_MEDIA })
+    },
+    updateEvent: ({ field, additionalFields }) => {
+      setState({
+        edit: { ...state.edit, field, additionalFields },
+        modal: MODAL.EDIT_EVENT
+      })
     }
   }
 
   const renderModal = () => {
     if (state.modal) {
       const media = event.media[carousel.current.currentIndex]
-
       switch (state.modal) {
         case MODAL.MENU: {
           return (
@@ -110,6 +131,16 @@ const EventContainer = ({ id }) => {
               event={event}
               media={media}
               modalActions={modalActions}
+            />
+          )
+        case MODAL.EDIT_EVENT:
+          return (
+            <UpdateEventModal
+              modalActions={modalActions}
+              editActions={editActions}
+              event={event}
+              field={state.edit.field}
+              additionalFields={state.edit.additionalFields}
             />
           )
         default:
@@ -147,13 +178,14 @@ const EventContainer = ({ id }) => {
           inactiveSlideScale={1}
           loop
         />
-        <EventHeader state={state} handleOpenMenu={modalActions.openMenu} />
+        <EventHeader handleOpenMenu={modalActions.openMenu} />
         <EventFooter modalActions={modalActions} />
         <EventDetails
           event={event}
           edit={state.edit}
-          setEdit={setEdit}
-          canEdit={permissions.edit}
+          editActions={editActions}
+          modalActions={modalActions}
+          permissions={permissions}
         />
       </ScrollView>
       <EventModalContainer isVisible={!!state.modal}>
