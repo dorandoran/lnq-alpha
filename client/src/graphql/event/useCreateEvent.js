@@ -36,7 +36,6 @@ export default function useCreateEvent({ onCompleted }) {
 
           variables.ownerId = eventData.ownerId
           variables.__typename = 'Event'
-          // variables.location.__typename = 'Location'
           variables.avatar.__typename = 'Avatar'
 
           cache.writeFragment({

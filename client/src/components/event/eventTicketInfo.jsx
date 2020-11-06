@@ -20,7 +20,9 @@ const EventTicketInfo = ({ event, updates, editEnabled, modalActions }) => {
     }
   }
 
-  const handleDeleteEvent = () => {}
+  const handleDeleteEvent = () => {
+    modalActions.deleteEvent()
+  }
 
   if (!event) return null
   const eventWithUpdates = { ...event, ...updates }

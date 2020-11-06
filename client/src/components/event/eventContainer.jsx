@@ -13,6 +13,7 @@ import AddMediaModal from '@components/event/utilComponents/addMediaModal'
 import ChangeFeaturedModal from '@components/event/utilComponents/changeFeatureModal'
 import DeleteMediaModal from '@components/event/utilComponents/deleteMediaModal'
 import UpdateEventModal from '@components/event/utilComponents/updateEventModal'
+import DeleteEventModal from '@components/event/utilComponents/deleteEventModal'
 import EventModalContainer from '@components/event/utilComponents/eventModalContainer'
 
 import Carousel from 'react-native-snap-carousel'
@@ -37,7 +38,8 @@ const MODAL = {
   ADD_MEDIA: 'addMedia',
   CHANGE_FEATURED: 'changeFeatured',
   DELETE_MEDIA: 'deleteMedia',
-  EDIT_EVENT: 'editEvent'
+  EDIT_EVENT: 'editEvent',
+  DELETE_EVENT: 'deleteEvent'
 }
 
 const EventContainer = ({ id }) => {
@@ -51,7 +53,10 @@ const EventContainer = ({ id }) => {
     skip: !id
   })
 
-  React.useEffect(() => {}, [data?.event])
+  // Catch event cache changes
+  React.useEffect(() => {
+    return () => setState(initialState)
+  }, [data?.event])
 
   if (loading) {
     return <Loading />
@@ -60,7 +65,8 @@ const EventContainer = ({ id }) => {
   if (!data) return null
   const { event } = data
   const permissions = {
-    canEditEvent: event.owner.id === user.id
+    canEditEvent: event.owner.id === user.id,
+    canDeleteEvent: event.owner.id === user.id
   }
 
   const editActions = {
@@ -99,6 +105,9 @@ const EventContainer = ({ id }) => {
         edit: { ...state.edit, field, additionalFields },
         modal: MODAL.EDIT_EVENT
       })
+    },
+    deleteEvent: () => {
+      setState({ ...state, modal: MODAL.DELETE_EVENT })
     }
   }
 
@@ -141,6 +150,14 @@ const EventContainer = ({ id }) => {
               event={event}
               field={state.edit.field}
               additionalFields={state.edit.additionalFields}
+            />
+          )
+        case MODAL.DELETE_EVENT:
+          return (
+            <DeleteEventModal
+              event={event}
+              modalActions={modalActions}
+              permissions={permissions}
             />
           )
         default:

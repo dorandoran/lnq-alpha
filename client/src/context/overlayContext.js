@@ -43,13 +43,6 @@ const actions = {
     close: 'closeDialog',
     auth: {
       reset: 'resetPassword'
-    },
-    events: {
-      addMedia: 'addMedia',
-      deleteMedia: 'deleteMedia',
-      changeAvatar: 'changeAvatar',
-      update: 'updateEvent',
-      delete: 'deleteEvent'
     }
   }
 }
@@ -73,44 +66,6 @@ const reducer = (state, action) => {
     // Auth
     case dialog.auth.reset:
       return { ...state, dialog: { id: actions.dialog.auth.reset } }
-    // Events
-    case dialog.events.addMedia:
-      return {
-        ...state,
-        dialog: { id: actions.dialog.events.addMedia }
-      }
-    case dialog.events.deleteMedia:
-      return {
-        ...state,
-        dialog: {
-          id: actions.dialog.events.deleteMedia,
-          cache: action.payload
-        }
-      }
-    case dialog.events.changeAvatar:
-      return {
-        ...state,
-        dialog: {
-          id: actions.dialog.events.changeAvatar,
-          cache: action.payload
-        }
-      }
-    case dialog.events.update:
-      return {
-        ...state,
-        dialog: {
-          id: actions.dialog.events.update,
-          cache: action.payload
-        }
-      }
-    case dialog.events.delete:
-      return {
-        ...state,
-        dialog: {
-          id: actions.dialog.events.delete,
-          cache: action.payload
-        }
-      }
     case dialog.updateCache:
       return {
         ...state,

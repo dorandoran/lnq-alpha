@@ -1,8 +1,9 @@
-import { useMutation } from '@apollo/client'
+import { useMutation, gql } from '@apollo/client'
 import { DeleteEvent } from '@graphql/event/mutations.js'
-import { GetUserEvents } from '@graphql/event/queries'
+import useUser from '@context/userContext'
 
 export default function useDeleteEvent({ onCompleted }) {
+  const { id } = useUser()
   const [deleteEvent, { loading }] = useMutation(DeleteEvent, { onCompleted })
 
   return [
@@ -11,14 +12,38 @@ export default function useDeleteEvent({ onCompleted }) {
         // variables: { id: string }
         variables,
         update: cache => {
-          // Save for when getting user events is used
-          // const data = cache.readQuery({ query: GetUserEvents })
-          // const newData = {
-          //   getUserEvents: data.getUserEvents.filter(
-          //     event => event.id !== variables.id
-          //   )
-          // }
-          // cache.writeQuery({ query: GetUserEvents, data: newData })
+          // Only updates if user has checked their events
+          try {
+            const cachedUser = cache.readFragment({
+              id: `User:${id}`,
+              fragment: gql`
+                fragment deleteEventUser on User {
+                  id
+                  events {
+                    id
+                  }
+                }
+              `
+            })
+
+            cache.writeFragment({
+              id: `User:${id}`,
+              fragment: gql`
+                fragment deletedEvent on User {
+                  id
+                  events {
+                    id
+                  }
+                }
+              `,
+              data: {
+                events: cachedUser.events.filter(
+                  item => item.id !== variables.id
+                )
+              }
+            })
+            // eslint-disable-next-line no-empty
+          } catch {}
         }
       })
     },
