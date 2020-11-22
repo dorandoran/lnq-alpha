@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import useUser from '@context/userContext'
 import { useQuery } from '@apollo/client'
-import { GetEvent } from '@graphql/event/queries.js'
+import { GetEvent } from '@graphql/event/queries'
 
 import EventHeader from '@components/event/eventHeader'
 import EventFooter from '@components/event/eventFooter'
@@ -182,7 +182,10 @@ const EventContainer = ({ id }) => {
         style={styles.container}
         snapToInterval={adjustedScreenHeight}
         decelerationRate='fast'
+        nestedScrollEnabled={true}
         scrollEnabled={!editEnabled}
+        // disableScrollViewPanResponder={true}
+        showsVerticalScrollIndicator={false}
       >
         <Carousel
           ref={carousel}

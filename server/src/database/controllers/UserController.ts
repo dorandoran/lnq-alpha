@@ -176,7 +176,6 @@ export async function findById(
   id?: string
 ): Promise<FirebaseFirestore.DocumentData | null> {
   if (!id) return null
-
   try {
     const doc = await Users.doc(id).get()
     if (doc.exists) {

@@ -1,7 +1,6 @@
 import { gql } from 'apollo-server-express'
 import { MediaController } from '../../database/controllers'
-import { IMediaCreate, IMediaRemove } from '../../database/interfaces'
-import { IUser } from '../../database/interfaces'
+import { IMediaCreate, IMediaRemove, IUser } from '../../database/interfaces'
 
 export const MediaType = gql`
   type Media {

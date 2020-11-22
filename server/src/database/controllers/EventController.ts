@@ -1,6 +1,13 @@
 import admin from 'firebase-admin'
 import { firestore, timestamp } from '../firestore/firebase'
-import { EBuckets, IEvent, IEventCreate, IEventUpdate } from '../interfaces'
+import {
+  EBuckets,
+  IEvent,
+  IEventCreate,
+  IEventUpdate,
+  IAddComment,
+  IComment
+} from '../interfaces'
 import { InviteController, FollowController } from '.'
 
 const Events = firestore().collection('events')
@@ -159,6 +166,56 @@ export async function findAllByOwnerId(
         events.push(event)
       })
       return events
+    }
+    return null
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+}
+
+export async function addComment({
+  eventId,
+  ownerId,
+  comment
+}: IAddComment): Promise<IComment | null> {
+  const commentRef = Events.doc(eventId).collection('comments').doc()
+  const commentTimestamp = timestamp.now()
+  const newComment = {
+    id: commentRef.id,
+    ownerId,
+    linkId: eventId,
+    text: comment,
+    created_at: commentTimestamp,
+    updated_at: commentTimestamp
+  }
+
+  try {
+    const response = await commentRef.set(newComment)
+    if (response) return newComment
+    return null
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+}
+
+export async function getAllComments(
+  id: string
+): Promise<FirebaseFirestore.DocumentData[] | null> {
+  let comments: FirebaseFirestore.DocumentData[] = []
+  try {
+    const snapshot = await Events.doc(id)
+      .collection('comments')
+      .orderBy('created_at', 'desc')
+      .get()
+
+    if (snapshot) {
+      snapshot.forEach(doc => {
+        const comment = doc.data()
+        comments.push(comment)
+      })
+      return comments
     }
     return null
   } catch (e) {

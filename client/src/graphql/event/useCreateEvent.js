@@ -1,5 +1,4 @@
-import { gql } from '@apollo/client'
-import { useMutation } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import { CreateEvent } from '@graphql/event/mutations'
 
 export default function useCreateEvent({ onCompleted }) {

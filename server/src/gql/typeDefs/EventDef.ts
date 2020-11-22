@@ -28,6 +28,7 @@ export const EventType = gql`
     plusOne: Boolean
     isPrivate: Boolean
     invites: [SocialLink]
+    comments: [Message]
   }
 
   input EventUpdateInput {
@@ -87,6 +88,9 @@ export const EventResolvers = {
     },
     invites: (parent: IEvent) => {
       return InviteController.findAllByEventId(parent.id)
+    },
+    comments: (parent: IEvent) => {
+      return EventController.getAllComments(parent.id)
     }
   }
 }

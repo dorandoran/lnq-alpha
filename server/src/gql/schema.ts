@@ -12,6 +12,7 @@ import {
   NotificationResolvers,
   NotificationType
 } from './typeDefs/NotificationDef'
+import { MessageResolvers, MessageType } from './typeDefs/MessageDef'
 
 const OtherType = gql`
   scalar Date
@@ -50,6 +51,7 @@ const OtherType = gql`
     ): Event
     createMedia(linkId: String!, type: String!, image: Upload!): Media
     createInvites(recipientIds: [String!], eventId: String!): [SocialLink]
+    addComment(eventId: String!, comment: String!): Message
     requestFollow(recipientIds: [String!]): [SocialLink]
     updateUser(id: String!, updates: UserUpdateInput!): User
     updateUserAvatar(id: String, image: Upload!): Avatar
@@ -77,7 +79,8 @@ export const typeDefs = [
   LocationType,
   SocialLinkType,
   SearchType,
-  NotificationType
+  NotificationType,
+  MessageType
 ]
 export const resolvers = merge(
   DateResolvers,
@@ -87,5 +90,6 @@ export const resolvers = merge(
   LocationResolvers,
   SocialLinkResolvers,
   SearchResolvers,
-  NotificationResolvers
+  NotificationResolvers,
+  MessageResolvers
 )

@@ -6,7 +6,7 @@ import useNotification from '@hooks/useNotification'
 import useUpdateEvent from '@graphql/event/useUpdateEvent'
 
 import EventTicketInfo from '@components/event/eventTicketInfo'
-import EventComments from '@components/event/eventComments'
+import EventCommentContainer from '@components/event/eventCommentContainer'
 
 import { View, Text, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-elements'
@@ -75,6 +75,7 @@ const EventDetails = ({
         </View>
         <View style={styles.sideContainer}>
           {permissions.canEditEvent &&
+            !isComments &&
             (edit.enabled ? (
               <View>
                 <HeaderButton
@@ -108,7 +109,7 @@ const EventDetails = ({
         </View>
       </View>
       {isComments ? (
-        <EventComments />
+        <EventCommentContainer event={event} />
       ) : (
         <EventTicketInfo
           event={event}
