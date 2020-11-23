@@ -1,20 +1,10 @@
 import React from 'react'
-
-import useAuth from '@context/authContext'
-import { useRouteDispatch } from '@hooks/useRoute'
+import PropTypes from 'prop-types'
 
 import { View, StyleSheet } from 'react-native'
 import { HeaderButton } from '@common'
 
-const ProfileMenu = () => {
-  const { dispatch, actions } = useRouteDispatch()
-  const { logout } = useAuth()
-
-  const handleLogout = () => {
-    dispatch({ type: actions.updateRoute, payload: 'Home' })
-    logout()
-  }
-
+const ProfileMenu = ({ handlePress }) => {
   return (
     <View style={styles.container}>
       <HeaderButton
@@ -22,11 +12,15 @@ const ProfileMenu = () => {
         name='menu'
         color='tertiary'
         backgroundColor='shadow'
-        onPress={handleLogout}
+        onPress={handlePress}
         containerStyle={[styles.iconContainer, styles.actionButton]}
       />
     </View>
   )
+}
+
+ProfileMenu.propTypes = {
+  handlePress: PropTypes.func
 }
 
 const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
-const initialState = {
+export const initialState = {
   message: null,
   type: null,
   open: false,
@@ -9,7 +9,7 @@ const initialState = {
   hideIndicator: false
 }
 
-function reducer(state, action) {
+export function reducer(state, action) {
   switch (action.type) {
     case 'success':
       return {

@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import ModalNotificationContext, {
-  ModalNotificationProvider
-} from '@context/eventModalNotificationContext'
+
+import ProfileModalNotificationContext, {
+  ProfileModalNotificationProvider
+} from '@context/profileModalNotificationContext'
 import { useDebounce } from '@hooks/useDebounce'
 
 import Modal from 'react-native-modal'
@@ -28,8 +29,8 @@ const typeMap = {
   }
 }
 
-const EventModalContainer = ({ children, ...rest }) => {
-  const { state, dispatch } = useContext(ModalNotificationContext)
+const ProfileModalContainer = ({ children, ...rest }) => {
+  const { state, dispatch } = React.useContext(ProfileModalNotificationContext)
   const { message, type, open } = state
   const typeStyles = typeMap[type]
 
@@ -71,13 +72,13 @@ const EventModalContainer = ({ children, ...rest }) => {
 
 const ContainerWrapper = props => {
   return (
-    <ModalNotificationProvider>
-      <EventModalContainer {...props} />
-    </ModalNotificationProvider>
+    <ProfileModalNotificationProvider>
+      <ProfileModalContainer {...props} />
+    </ProfileModalNotificationProvider>
   )
 }
 
-EventModalContainer.propTypes = {
+ProfileModalContainer.propTypes = {
   children: PropTypes.node,
   isVisible: PropTypes.bool
 }

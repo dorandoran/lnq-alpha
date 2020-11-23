@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { useRouteState } from '@hooks/useRoute'
 
 import EventList from '@components/profile/utilComponents/profileEventList'
@@ -10,13 +9,25 @@ import ProfileMenu from '@components/profile/profileMenu'
 import ProfileAccountStats from '@components/profile/profileAccountStats'
 import ProfileInformation from '@components/profile/profileInformation'
 
+import ProfileModalContainer from '@components/profile/utilComponents/profileModalContainer'
+import ProfileMenuModal from '@components/profile/utilComponents/profileMenuModal'
+import LogoutModal from '@components/profile/utilComponents/logoutModal'
+
 import { View, StyleSheet, ImageBackground } from 'react-native'
 import { SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
 import { TABS } from '@components/profile/utilComponents/profileUtil'
 
+const MODAL = {
+  MENU: 'profileMenu',
+  PICTURE: 'updatePicture',
+  INFO: 'updateInformation',
+  LOGOUT: 'logout'
+}
+
 const ProfileMain = () => {
   const { name } = useRouteState()
   const [tab, setTab] = React.useState(TABS.EVENTS)
+  const [modal, setModal] = React.useState('')
   const [skip, setSkip] = React.useState(true)
 
   React.useEffect(() => {
@@ -29,6 +40,14 @@ const ProfileMain = () => {
       setSkip(true)
     }
   }, [name])
+
+  const modalActions = {
+    openMenu: () => setModal(MODAL.MENU),
+    updatePicture: () => setModal(MODAL.PICTURE),
+    updateInformation: () => setModal(MODAL.INFO),
+    logout: () => setModal(MODAL.LOGOUT),
+    closeMenu: () => setModal('')
+  }
 
   const renderTab = () => {
     switch (tab) {
@@ -43,21 +62,39 @@ const ProfileMain = () => {
     }
   }
 
+  const renderModal = () => {
+    switch (modal) {
+      case MODAL.MENU:
+        return <ProfileMenuModal modalActions={modalActions} />
+      case MODAL.LOGOUT:
+        return <LogoutModal modalActions={modalActions} />
+      case MODAL.PICTURE:
+      case MODAL.INFO:
+      default:
+        return <View />
+    }
+  }
+
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require('../../../assets/profile-main.png')}
-        style={styles.image}
-      >
-        <ProfileMenu />
-      </ImageBackground>
-      <View style={styles.profileContainer}>
-        <ProfileInformation />
-        <ProfileAccountStats />
-        <ProfileTabs currentTab={tab} setTab={setTab} />
-        {renderTab()}
+    <React.Fragment>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require('../../../assets/profile-main.png')}
+          style={styles.image}
+        >
+          <ProfileMenu handlePress={modalActions.openMenu} />
+        </ImageBackground>
+        <View style={styles.profileContainer}>
+          <ProfileInformation />
+          <ProfileAccountStats />
+          <ProfileTabs currentTab={tab} setTab={setTab} />
+          {renderTab()}
+        </View>
       </View>
-    </View>
+      <ProfileModalContainer isVisible={!!modal}>
+        {renderModal()}
+      </ProfileModalContainer>
+    </React.Fragment>
   )
 }
 

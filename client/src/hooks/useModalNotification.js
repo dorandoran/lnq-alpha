@@ -1,5 +1,5 @@
 import { useContext, useCallback } from 'react'
-import ModalNotificationContext from '@context/modalNotificationContext'
+import ModalNotificationContext from '@context/eventModalNotificationContext'
 
 const useNotification = () => {
   const { dispatch } = useContext(ModalNotificationContext)
