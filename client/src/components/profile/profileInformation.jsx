@@ -18,6 +18,10 @@ const ProfileInfo = () => {
     dispatch({ type: actions.navigateNotifications })
   }
 
+  const handleInboxPress = () => {
+    dispatch({ type: actions.navigateInbox })
+  }
+
   return (
     <Fragment>
       <View style={styles.imageContainer}>
@@ -30,8 +34,8 @@ const ProfileInfo = () => {
             }
           />
         ) : (
-            <View style={[styles.image, styles.noAvatar]} />
-          )}
+          <View style={[styles.image, styles.noAvatar]} />
+        )}
       </View>
       <View style={styles.container}>
         <View style={styles.textContainer}>
@@ -51,6 +55,7 @@ const ProfileInfo = () => {
             color='tertiary'
             borderColor='tertiary'
             size={18}
+            onPress={handleInboxPress}
           />
           <HeaderButton
             name='bell'

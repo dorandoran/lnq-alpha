@@ -4,6 +4,7 @@ import useProfile, { ProfileProvider } from '@context/profileContext'
 
 import ProfileMain from '@components/profile/profileMain'
 import ProfileNotifications from '@components/profile/profileNotifications'
+import ProfileInbox from '@components/profile/profileInbox'
 import Header from '@components/profile/utilComponents/profileHeader'
 
 import { View, StyleSheet } from 'react-native'
@@ -20,6 +21,10 @@ const ProfileView = () => {
         return <ProfileMain />
       case SCREEN.NOTIFICATIONS:
         return <ProfileNotifications />
+      case SCREEN.INBOX:
+        return <ProfileInbox />
+      case SCREEN.MESSAGE:
+        return <ProfileInbox />
       default:
         return <ProfileMain />
     }

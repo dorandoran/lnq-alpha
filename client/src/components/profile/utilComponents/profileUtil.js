@@ -38,5 +38,6 @@ export const notificationTabList = [
 export const SCREEN = {
   MAIN: 'Profile Main',
   NOTIFICATIONS: 'Profile Notifications',
-  INBOX: 'Profile Inbox'
+  INBOX: 'Profile Inbox',
+  MESSAGE: 'Profile Message'
 }

@@ -6,25 +6,40 @@ import { SCREEN } from '@components/profile/utilComponents/profileUtil'
 // Reducer
 export const actions = {
   navigateMain: 'navigateMain',
-  navigateNotifications: 'navigateNotifications'
+  navigateNotifications: 'navigateNotifications',
+  navigateInbox: 'navigateInbox',
+  navigateNewMessage: 'navigateNewMessage'
 }
 
 const initialState = {
-  screen: SCREEN.MAIN
+  screen: SCREEN.MAIN,
+  title: ''
 }
 
 function reducer(state, action) {
   switch (action.type) {
     case actions.navigateMain: {
       return {
-        ...state,
-        screen: SCREEN.MAIN
+        screen: SCREEN.MAIN,
+        title: ''
       }
     }
     case actions.navigateNotifications: {
       return {
-        ...state,
-        screen: SCREEN.NOTIFICATIONS
+        screen: SCREEN.NOTIFICATIONS,
+        title: 'Notifications'
+      }
+    }
+    case actions.navigateInbox: {
+      return {
+        screen: SCREEN.INBOX,
+        title: 'Inbox'
+      }
+    }
+    case actions.navigateNewMessage: {
+      return {
+        screen: SCREEN.MESSAGE,
+        title: 'Message'
       }
     }
     default:
