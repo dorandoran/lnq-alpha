@@ -51,6 +51,11 @@ const OtherType = gql`
     ): Event
     createMedia(linkId: String!, type: String!, image: Upload!): Media
     createInvites(recipientIds: [String!], eventId: String!): [SocialLink]
+    createMessage(
+      conversationId: String
+      recipientIds: [String!]
+      text: String!
+    ): Message
     addComment(eventId: String!, comment: String!): Message
     requestFollow(recipientIds: [String!]): [SocialLink]
     updateUser(id: String!, updates: UserUpdateInput!): User

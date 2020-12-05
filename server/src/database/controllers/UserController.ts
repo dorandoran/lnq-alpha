@@ -4,11 +4,13 @@ import { MediaController } from '.'
 import {
   IUser,
   IAvatar,
+  IMessage,
   IUserCreate,
   IUserUpdate,
   INewUserUpdate,
   INewUserUpdateResponse,
   IUserUpdateAvatar,
+  ICreateMessage,
   EBuckets
 } from '../interfaces'
 
@@ -182,6 +184,87 @@ export async function findById(
       const user = doc.data()
       if (user) return user
       return null
+    }
+    return null
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+}
+
+export async function findByLinkIds(
+  linkIds: string[]
+): Promise<FirebaseFirestore.DocumentData[] | null> {
+  let users: FirebaseFirestore.DocumentData[] = []
+
+  try {
+    const snapshot = await Users.where('id', 'in', linkIds).get()
+    if (snapshot) {
+      snapshot.forEach(doc => {
+        const user = doc.data()
+        users.push(user)
+      })
+      return users
+    }
+    return null
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+}
+
+export async function createMessage({
+  conversationId,
+  senderId,
+  recipientIds,
+  text
+}: ICreateMessage): Promise<IMessage | null> {
+  const batch = firestore().batch()
+  const SenderMessages = Users.doc(senderId).collection('messages')
+
+  const senderMessageRef = conversationId
+    ? SenderMessages.doc(conversationId)
+    : SenderMessages.doc()
+  const newMessage = {
+    id: senderMessageRef.id,
+    viewed: false,
+    created_at: timestamp.now(),
+    text,
+    ownerId: senderId,
+    linkIds: [senderId, ...recipientIds]
+  }
+
+  // Add sender to batch
+  batch.set(senderMessageRef, newMessage)
+  // Add recipients to batch
+  recipientIds.forEach(recipientId => {
+    const recipientMessageRef = Users.doc(recipientId)
+      .collection('messages')
+      .doc(senderMessageRef.id)
+    batch.set(recipientMessageRef, newMessage)
+  })
+
+  try {
+    await batch.commit()
+    return newMessage
+  } catch (e) {
+    console.log(e)
+    return null
+  }
+}
+
+export async function getInboxById(
+  id: string
+): Promise<FirebaseFirestore.DocumentData | null> {
+  let inbox: FirebaseFirestore.DocumentData[] = []
+  try {
+    const snapshot = await Users.doc(id).collection('messages').get()
+    if (snapshot) {
+      snapshot.forEach(doc => {
+        let message = doc.data()
+        inbox.push(message)
+      })
+      return inbox
     }
     return null
   } catch (e) {

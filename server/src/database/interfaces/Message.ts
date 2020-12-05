@@ -1,14 +1,23 @@
-export interface IComment {
+export interface IMessage {
   id: string
   ownerId: string
-  linkId: string
   text: string
   created_at: FirebaseFirestore.Timestamp
-  updated_at: FirebaseFirestore.Timestamp
+  linkIds: string[]
+  viewed?: boolean
 }
+
+export interface IComment extends IMessage {}
 
 export interface IAddComment {
   eventId: string
   ownerId: string
   comment: string
+}
+
+export interface ICreateMessage {
+  conversationId: string
+  senderId: string
+  recipientIds: string[]
+  text: string
 }

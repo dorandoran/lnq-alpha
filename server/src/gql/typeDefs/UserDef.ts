@@ -35,6 +35,7 @@ export const UserType = gql`
     followers: [SocialLink]
     following: [SocialLink]
     allowFollowers: Boolean
+    inbox: [Message]
     created_at: Date
   }
 
@@ -106,6 +107,10 @@ export const UserResolvers = {
     followers: (parent: void, args: void, context: { user: IUser }) => {
       const id = context.user.id
       return FollowController.findAllByRecipientId(id)
+    },
+    inbox: (parent: void, args: void, context: { user: IUser }) => {
+      const id = context.user.id
+      return UserController.getInboxById(id)
     }
   }
 }

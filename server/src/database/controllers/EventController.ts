@@ -157,6 +157,7 @@ export async function findAllByOwnerId(
   id?: string
 ): Promise<FirebaseFirestore.DocumentData[] | null> {
   let events: FirebaseFirestore.DocumentData[] = []
+
   try {
     const snapshot = await Events.where('ownerId', '==', id).get()
     if (snapshot) {
@@ -184,7 +185,7 @@ export async function addComment({
   const newComment = {
     id: commentRef.id,
     ownerId,
-    linkId: eventId,
+    linkIds: [eventId],
     text: comment,
     created_at: commentTimestamp,
     updated_at: commentTimestamp

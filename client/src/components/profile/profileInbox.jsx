@@ -1,11 +1,18 @@
 import React from 'react'
 
-import { View, StyleSheet } from 'react-native'
-import { SearchBar } from 'react-native-elements'
+import { useQuery } from '@apollo/client'
+import { GetUserInbox } from '@graphql/message/queries'
+
+import { View, StyleSheet, Text } from 'react-native'
+import { SearchBar, Icon } from 'react-native-elements'
+import { Loading } from '@common'
 import { theme } from '@util'
 
 const ProfileInbox = () => {
   const [text, setText] = React.useState('')
+  const { data, loading } = useQuery(GetUserInbox)
+
+  if (loading) return <Loading />
 
   return (
     <View style={styles.container}>
@@ -16,6 +23,20 @@ const ProfileInbox = () => {
         containerStyle={styles.containerStyle}
         inputContainerStyle={styles.inputContainer}
       />
+      {!data?.user.inbox.length ? (
+        <View style={styles.noConversations}>
+          <Icon
+            type='material-community'
+            name='emoticon-cry-outline'
+            color={theme.color.tertiary}
+          />
+          <Text style={[styles.text, styles.noConversationText]}>
+            {'No Conversations to Show...'}
+          </Text>
+        </View>
+      ) : (
+        <View />
+      )}
     </View>
   )
 }
@@ -33,6 +54,20 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingLeft: '3%',
     borderBottomWidth: 0
+  },
+  listItem: {
+    backgroundColor: theme.color.background
+  },
+  text: {
+    color: theme.color.tertiary,
+    fontSize: 18
+  },
+  noConversations: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  noConversationText: {
+    marginLeft: '3%'
   }
 })
 

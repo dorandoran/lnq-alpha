@@ -20,3 +20,15 @@ export const GetEventComments = gql`
     }
   }
 `
+
+export const GetUserInbox = gql`
+  query GetUserInbox {
+    user {
+      id
+      inbox {
+        id
+        linkIds
+      }
+    }
+  }
+`
