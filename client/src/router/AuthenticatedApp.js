@@ -1,9 +1,12 @@
 import React from 'react'
 import { navigationRef } from '@util'
 import { useRouteDispatch } from '@hooks/useRoute'
+import { ProfileProvider } from '@context/profileContext'
 import { TouchableWithoutFeedback, View } from 'react-native'
 
 // Navigators
+import { enableScreens } from 'react-native-screens'
+import { createNativeStackNavigator } from 'react-native-screens/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
@@ -13,11 +16,42 @@ import SearchScreen from '@screens/searchScreen'
 import LocateScreen from '@screens/locateScreen'
 import ProfileScreen from '@screens/profileScreen'
 import CreateScreen from '@screens/createScreen'
+import NotificationScreen from '@screens/notificationScreen'
+import InboxScreen from '@screens/inboxScreen'
 
 import AppModal from '@components/overlay/appModal'
 import TabBar from '@components/main/tabBar'
 
+enableScreens()
 const Tab = createBottomTabNavigator()
+const Stack = createNativeStackNavigator()
+
+const ProfileStack = () => {
+  return (
+    <ProfileProvider>
+      <Stack.Navigator
+        initialRouteName='Profile'
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen
+          name='Profile'
+          component={ProfileScreen}
+          options={{ tabBarVisible: false }}
+        />
+        <Stack.Screen
+          name='Notifications'
+          component={NotificationScreen}
+          options={{ tabBarVisible: false }}
+        />
+        <Stack.Screen
+          name='Inbox'
+          component={InboxScreen}
+          options={{ tabBarVisible: false }}
+        />
+      </Stack.Navigator>
+    </ProfileProvider>
+  )
+}
 
 const AuthenticatedApp = () => {
   const { dispatch, actions } = useRouteDispatch()
@@ -67,7 +101,7 @@ const AuthenticatedApp = () => {
             />
             <Tab.Screen
               name='Profile'
-              component={ProfileScreen}
+              component={ProfileStack}
               options={{ tabBarVisible: false }}
             />
             <Tab.Screen

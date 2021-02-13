@@ -75,6 +75,9 @@ export const resetNavigate = options => {
 export const navigate = (routeName, params) => {
   navigationRef.current?.navigate(routeName, params)
 }
+export const goBack = () => {
+  navigationRef.current?.goBack()
+}
 
 // Device Specific Utils
 export const hasNotch = () => {

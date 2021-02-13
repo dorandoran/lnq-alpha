@@ -5,8 +5,8 @@ export const TABS = {
 }
 
 export const NOTIFICATION_TABS = {
-  ALL: 'all',
-  INVITES: 'invites'
+  ALL: 'All',
+  INVITES: 'Invites'
 }
 
 export const tabButtonList = [
@@ -24,16 +24,9 @@ export const tabButtonList = [
   }
 ]
 
-export const notificationTabList = [
-  {
-    label: 'All',
-    value: NOTIFICATION_TABS.ALL
-  },
-  {
-    label: 'Invites',
-    value: NOTIFICATION_TABS.INVITES
-  }
-]
+export const notificationTabList = Object.keys(NOTIFICATION_TABS).map(item => {
+  return NOTIFICATION_TABS[item]
+})
 
 export const SCREEN = {
   MAIN: 'Profile Main',

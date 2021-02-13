@@ -17,6 +17,18 @@ const TabBarFab = () => {
     return () => setFabPosition(null)
   }, [fabButton])
 
+  // Carousel callback ref
+  // function useCarousel() {
+  //   const [carousel, setCarousel] = React.useState(null)
+  //   const ref = React.useCallback(node => {
+  //     if (node !== null) {
+  //       setCarousel(node)
+  //     }
+  //   }, [])
+
+  //   return [carousel, ref]
+  // }
+
   const navigateToDetails = media => {
     // Passes media to <CreateDetails />
     navigate('Create', {

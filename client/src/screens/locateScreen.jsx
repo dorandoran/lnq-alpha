@@ -3,40 +3,57 @@ import PropTypes from 'prop-types'
 
 import { useQuery } from '@apollo/client'
 import { LocateSearch } from '@graphql/search/queries'
+import useOverlay from '@context/overlayContext'
 
 import MapView, { Marker, Callout } from 'react-native-maps'
 import { View, StyleSheet, Text } from 'react-native'
 import { Image } from 'react-native-elements'
 
-import { theme, formatDateTime, SCREEN_WIDTH, SCREEN_HEIGHT } from '@util'
+import {
+  theme,
+  formatDateTime,
+  SCREEN_WIDTH,
+  SCREEN_HEIGHT,
+  BUCKET
+} from '@util'
 
 const LocateScreen = () => {
+  const { dispatch, actions } = useOverlay()
   const { data } = useQuery(LocateSearch)
 
   if (!data || !data.locateSearch.length) {
-    return (
-      <MapView
-        style={styles.mapContainer}
-      />
-    )
+    return <MapView style={styles.mapContainer} />
+  }
+
+  const handleCalloutPress = data => {
+    dispatch({
+      type: actions.modal.open,
+      payload: { data, type: BUCKET.EVENT }
+    })
   }
 
   return (
     <View style={styles.container}>
       <MapView
         style={styles.mapContainer}
-        initialRegion={{ latitude: 38.8029849, longitude: -77.2961287, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
+        initialRegion={{
+          latitude: 38.8029849,
+          longitude: -77.2961287,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421
+        }}
       >
         {data.locateSearch.map(event => {
           return (
-            <Marker
-              key={event.id}
-              coordinate={event.location}
-            >
+            <Marker key={event.id} coordinate={event.location}>
               <View style={{ width: '100%' }}>
-                <Image source={{ uri: event.owner.avatar.uri }} style={styles.avatar} borderRadius={25} />
+                <Image
+                  source={{ uri: event.owner.avatar.uri }}
+                  style={styles.avatar}
+                  borderRadius={25}
+                />
               </View>
-              <Callout >
+              <Callout onPress={() => handleCalloutPress(event)}>
                 <View style={styles.calloutContainer}>
                   <Text>{event.name}</Text>
                   <Text>{formatDateTime(event.date)}</Text>
@@ -69,7 +86,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.color.tertiary,
     borderRadius: 50
-  },
+  }
 })
 
 LocateScreen.propTypes = {

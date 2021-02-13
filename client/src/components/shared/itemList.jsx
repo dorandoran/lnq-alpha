@@ -105,13 +105,13 @@ const ItemList = ({
             placeholderStyle={styles.placeholder}
           />
         ) : (
-            <View
-              style={[
-                styles.userImage,
-                { backgroundColor: theme.color.background }
-              ]}
-            />
-          )}
+          <View
+            style={[
+              styles.userImage,
+              { backgroundColor: theme.color.background }
+            ]}
+          />
+        )}
         <ListItem.Content style={styles.userTextContainer}>
           <Text
             style={[styles.title, { color: theme.color.placeholder }]}
@@ -130,13 +130,13 @@ const ItemList = ({
               borderColor: isFollowing
                 ? theme.color.tertiary
                 : isFollowSelected
-                  ? theme.color.success
-                  : theme.color.tertiary,
+                ? theme.color.success
+                : theme.color.tertiary,
               backgroundColor: isFollowing
                 ? theme.color.success
                 : isFollowSelected
-                  ? theme.color.tertiary
-                  : theme.color.background
+                ? theme.color.tertiary
+                : theme.color.background
             }
           ]}
           onPress={
@@ -150,16 +150,16 @@ const ItemList = ({
                 color: isFollowing
                   ? theme.color.tertiary
                   : isFollowSelected
-                    ? theme.color.background
-                    : theme.color.tertiary
+                  ? theme.color.background
+                  : theme.color.tertiary
               }
             ]}
           >
             {isFollowing
               ? 'Following'
               : isFollowSelected
-                ? 'Pending'
-                : 'Follow'}
+              ? 'Pending'
+              : 'Follow'}
           </Text>
         </TouchableOpacity>
       </ListItem>

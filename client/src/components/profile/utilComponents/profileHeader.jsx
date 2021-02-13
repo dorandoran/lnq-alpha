@@ -35,7 +35,7 @@ const ProfileHeader = () => {
         onPress={handleBackPress}
         size={30}
       />
-      {<Text style={styles.header}>{profileState.title}</Text>}
+      <Text style={styles.header}>{profileState.title}</Text>
       {isInbox && (
         <HeaderButton
           type='feather'

@@ -1,30 +1,23 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import useProfile, { ProfileProvider } from '@context/profileContext'
+import useProfile from '@context/profileContext'
 
 import ProfileMain from '@components/profile/profileMain'
-import ProfileNotifications from '@components/profile/profileNotifications'
-import ProfileInbox from '@components/profile/profileInbox'
 import Header from '@components/profile/utilComponents/profileHeader'
 
 import { View, StyleSheet } from 'react-native'
 import { theme } from '@util'
 import { SCREEN } from '@components/profile/utilComponents/profileUtil'
 
-const ProfileView = () => {
+const ProfileScreen = () => {
   const { profileState } = useProfile()
   const { screen } = profileState
 
+  // TODO: Fix this
   const renderScreen = () => {
     switch (screen) {
       case SCREEN.MAIN:
         return <ProfileMain />
-      case SCREEN.NOTIFICATIONS:
-        return <ProfileNotifications />
-      case SCREEN.INBOX:
-        return <ProfileInbox />
-      case SCREEN.MESSAGE:
-        return <ProfileInbox />
       default:
         return <ProfileMain />
     }
@@ -32,7 +25,7 @@ const ProfileView = () => {
 
   return (
     <View style={styles.container}>
-      {screen !== SCREEN.MAIN && <Header />}
+      {![SCREEN.MAIN].includes(screen) && <Header />}
       {renderScreen()}
     </View>
   )
@@ -44,13 +37,5 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.background
   }
 })
-
-const ProfileScreen = () => {
-  return (
-    <ProfileProvider>
-      <ProfileView />
-    </ProfileProvider>
-  )
-}
 
 export default ProfileScreen

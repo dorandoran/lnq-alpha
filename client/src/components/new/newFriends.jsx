@@ -24,14 +24,14 @@ const NewFriends = ({ goNext }) => {
 
   const handleItemPress = item => {
     const index = selected.indexOf(item.id)
-    let categories = []
+    let users = []
 
     if (index > -1) {
-      categories = selected.filter((_, idx) => index !== idx)
+      users = selected.filter((_, idx) => index !== idx)
     } else {
-      categories = [...selected, item.id]
+      users = [...selected, item.id]
     }
-    setSelected(categories)
+    setSelected(users)
   }
 
   return (

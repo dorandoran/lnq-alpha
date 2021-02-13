@@ -19,7 +19,7 @@ const initialState = {
 }
 
 // Screens to disable tab bar
-const disableTabBar = ['Create']
+const disableTabBar = ['Create', 'Notifications', 'Inbox']
 
 // Context
 const State = createContext()

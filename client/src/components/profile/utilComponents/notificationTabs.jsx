@@ -17,11 +17,11 @@ const NotificationTabs = ({ currentTab, setTab }) => {
       {notificationTabList.map(tab => {
         return (
           <TouchableOpacity
-            key={tab.value}
-            style={[styles.buttonContainer, isSelectedStyles(tab.value)]}
-            onPress={() => setTab(tab.value)}
+            key={tab}
+            style={[styles.buttonContainer, isSelectedStyles(tab)]}
+            onPress={() => setTab(tab)}
           >
-            <Text style={styles.text}>{tab.label}</Text>
+            <Text style={styles.text}>{tab}</Text>
           </TouchableOpacity>
         )
       })}

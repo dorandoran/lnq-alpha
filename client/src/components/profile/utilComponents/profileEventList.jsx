@@ -4,21 +4,23 @@ import { StyleSheet, Text, View } from 'react-native'
 
 import { useQuery } from '@apollo/client'
 import { GetCurrentUserEvents } from '@graphql/user/queries'
+import useOverlay from '@context/overlayContext'
 
 import EventList from '@components/shared/itemList'
 
 import { Loading } from '@common'
-import { theme } from '@util'
+import { theme, BUCKET } from '@util'
 
 const ProfileEventList = ({ skip }) => {
   const [refreshing, setRefreshing] = React.useState(false)
+  const { dispatch, actions } = useOverlay()
 
   const { data, loading, refetch } = useQuery(GetCurrentUserEvents, {
     fetchPolicy: 'cache-and-network',
     skip
   })
 
-  const noEvents = 'You haven\'t created any events yet!'
+  const noEvents = "You haven't created any events yet!"
 
   const handleRefresh = () => {
     setRefreshing(true)
@@ -35,10 +37,17 @@ const ProfileEventList = ({ skip }) => {
     )
   }
 
+  const handleItemPress = item => {
+    dispatch({
+      type: actions.modal.open,
+      payload: { data: item, type: BUCKET.EVENT }
+    })
+  }
+
   return (
     <EventList
       data={data.user.events}
-      onItemPress={() => { }}
+      onItemPress={handleItemPress}
       hideAvatar
       onRefresh={handleRefresh}
       refreshing={refreshing}

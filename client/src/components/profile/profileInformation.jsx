@@ -1,25 +1,22 @@
 import React, { Fragment } from 'react'
 
 import useUser from '@context/userContext'
-import useProfile, { actions } from '@context/profileContext'
 
 import { View, StyleSheet, Text } from 'react-native'
 import { Image } from 'react-native-elements'
 import { HeaderButton, Loading } from '@common'
-import { theme } from '@util'
+import { theme, navigate } from '@util'
 
 const ProfileInfo = () => {
   const user = useUser()
   const name = user.firstName ? `${user.firstName} ${user.lastName}` : user.name
 
-  const { dispatch } = useProfile()
-
   const handleNotificationsPress = () => {
-    dispatch({ type: actions.navigateNotifications })
+    navigate('Notifications')
   }
 
   const handleInboxPress = () => {
-    dispatch({ type: actions.navigateInbox })
+    navigate('Inbox')
   }
 
   return (

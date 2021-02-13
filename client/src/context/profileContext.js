@@ -8,38 +8,51 @@ export const actions = {
   navigateMain: 'navigateMain',
   navigateNotifications: 'navigateNotifications',
   navigateInbox: 'navigateInbox',
-  navigateNewMessage: 'navigateNewMessage'
+  navigateNewMessage: 'navigateNewMessage',
+  addMessageRecipients: 'addMessageRecipients'
 }
 
 const initialState = {
   screen: SCREEN.MAIN,
-  title: ''
+  title: '',
+  messageRecipients: []
 }
 
 function reducer(state, action) {
   switch (action.type) {
     case actions.navigateMain: {
       return {
+        ...state,
         screen: SCREEN.MAIN,
         title: ''
       }
     }
     case actions.navigateNotifications: {
       return {
+        ...state,
         screen: SCREEN.NOTIFICATIONS,
         title: 'Notifications'
       }
     }
     case actions.navigateInbox: {
       return {
+        ...state,
         screen: SCREEN.INBOX,
         title: 'Inbox'
       }
     }
     case actions.navigateNewMessage: {
       return {
+        ...state,
         screen: SCREEN.MESSAGE,
         title: 'Message'
+      }
+    }
+    case actions.addMessageRecipients: {
+      return {
+        ...state,
+        title: action.payload.map(i => `@${i.username}`).join(', '),
+        messageRecipients: [...state.messageRecipients, ...action.payload]
       }
     }
     default:
