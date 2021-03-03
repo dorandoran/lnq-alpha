@@ -12,7 +12,7 @@ export const deleteMediaFromEvents = functions.firestore
     // TODO: Add Error Handling
     const eventMedia = await findAllMediaByLinkId({ id: event.id })
 
-    if (eventMedia?.length) {
+    if (eventMedia && eventMedia.length) {
       eventMedia.forEach(async media => {
         try {
           await removeMedia({

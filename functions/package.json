@@ -13,15 +13,24 @@
   },
   "main": "build/index.js",
   "dependencies": {
-    "@firebase/firestore-types": "^1.13.0",
+    "@firebase/firestore-types": "^1.14.0",
     "@types/algoliasearch": "^3.34.11",
-    "algoliasearch": "^4.5.1",
-    "firebase-admin": "^8.13.0",
-    "firebase-functions": "^3.11.0"
+    "@types/ngeohash": "^0.6.2",
+    "algoliasearch": "^4.8.5",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "firebase-admin": "^9.5.0",
+    "firebase-functions": "^3.13.2",
+    "lodash": "^4.17.21",
+    "ngeohash": "^0.6.3",
+    "node-geocoder": "^3.27.0",
+    "parse-address": "^1.1.2"
   },
   "devDependencies": {
-    "typescript": "^3.8.0",
-    "firebase-functions-test": "^0.2.0"
+    "@types/cors": "^2.8.10",
+    "@types/node-geocoder": "^3.24.1",
+    "firebase-functions-test": "^0.2.0",
+    "typescript": "^4.2.2"
   },
   "private": true
 }

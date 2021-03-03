@@ -4,8 +4,9 @@ import {
   deleteMediaFromStorage,
   deleteUserFromAuth
 } from './actions/consistency'
-import { indexAll, updateUserIndex, updateEventIndex } from './actions/search'
+import { indexAll, updateUserIndex, updateEventIndex } from './actions/algolia'
 import { automaticallyAllowFollowers } from './actions/automatedTasks'
+import { search } from './actions/search'
 
 /** Firebase Consistency Functions */
 exports.deleteMediaFromEvents = deleteMediaFromEvents
@@ -19,3 +20,6 @@ exports.updateEventIndex = updateEventIndex
 
 /** Automated User Tasks */
 exports.allowFollowers = automaticallyAllowFollowers
+
+/** Search Functions */
+exports.search = functions.https.onRequest(search)

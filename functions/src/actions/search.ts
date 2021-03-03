@@ -1,102 +1,73 @@
 import * as functions from 'firebase-functions'
-import { firestore } from '../services/firebase'
-import { searchIndex } from '../services/algolia'
+import cors from 'cors'
 
-import IndexFactory from './utils/indexFactory'
-import { IAlgoliaUser, IAlgoliaEvent } from '../interfaces'
+import { QueryBuilder } from './utils/queryBuilder'
+import { hasOnlyDigits, isUsState, isCity } from './utils/validators'
+import { ESearchTypes, ESearchParameters } from '../interfaces'
 
-export const indexAll = async (
+// Global Variables
+const corsHandler = cors({ origin: true })
+
+export const search = async (
   req: functions.Request,
   res: functions.Response
 ) => {
-  const Users = firestore().collection('users')
-  const Events = firestore().collection('events')
+  // CORs
+  corsHandler(req, res, () => {})
 
-  const users: IAlgoliaUser[] = []
-  const events: IAlgoliaEvent[] = []
+  let status = 400
+  let response = {
+    error: 'An error occurred!',
+    status,
+    tm: {},
+    eb: {},
+    tw: {}
+  }
+  const { text } = req.query
 
-  /** Index Users */
-  try {
-    // Get current user list
-    const usersSnap = await Users.get()
-    usersSnap.forEach(doc => {
-      users.push(IndexFactory.user(doc.data()))
+  if (text && typeof text === 'string') {
+    const query = new QueryBuilder()
+
+    // Split text by space
+    // Iterate through elements in text and determine what they are
+    const textArr = text.split(' ')
+    textArr.forEach((e: any, i) => {
+      // Check if state
+      if (isUsState(e)) {
+        query.add(ESearchParameters.STATE, e)
+        // Check for zip
+      } else if (hasOnlyDigits(e)) {
+        query.add(ESearchParameters.ZIP, e)
+        // Check for city
+      } else if (isCity(e, i, textArr)) {
+        query.add(ESearchParameters.CITY, e)
+      } else {
+        query.add(ESearchParameters.KEYWORD, e)
+      }
     })
+    // Ensure proper error handling
 
-    // Clear current Index
-    await searchIndex.users.clearObjects()
-    // Search Index User Default Settings
-    await searchIndex.users.setSettings({
-      attributesForFaceting: ['id'],
-      searchableAttributes: [
-        'username',
-        'firstName',
-        'lastName',
-        'website',
-        'email'
-      ],
-      hitsPerPage: 25
-    })
-    await searchIndex.users.saveObjects(users)
-  } catch (e) {
-    console.log(e)
+    // Search Ticket Master
+    const ticketMasterResponse = await query.searchOne(
+      ESearchTypes.TICKET_MASTER
+    )
+
+    // Search Eventbrite
+    const eventbriteResponse = await query.searchOne(ESearchTypes.EVENTBRITE)
+
+    // Search Twitch
+    const twitchResponse = await query.searchOne(ESearchTypes.TWITCH)
+
+    // Sending a default success code
+    status = 200
+    response = {
+      status,
+      error: '',
+      tm: ticketMasterResponse,
+      eb: eventbriteResponse,
+      tw: twitchResponse
+    }
   }
 
-  /** Index Events */
-  try {
-    // Get current event list
-    const eventsSnap = await Events.get()
-    eventsSnap.forEach(doc => {
-      events.push(IndexFactory.event(doc.data()))
-    })
-
-    // Clear current index
-    await searchIndex.events.clearObjects()
-    // Search Index Event Default Settings
-    await searchIndex.events.setSettings({
-      attributesForFaceting: ['ownerId', 'isPrivate'],
-      hitsPerPage: 25
-    })
-    await searchIndex.events.saveObjects(events)
-  } catch (e) {
-    console.log(e)
-  }
-
-  res.status(200).send('Indexing Finished!')
+  res.status(status).send(response)
 }
-
-export const updateUserIndex = functions.firestore
-  .document('users/{userId}')
-  .onWrite(async change => {
-    let user = change.after.exists ? change.after.data() : null
-
-    // User deleted
-    if (!user) {
-      user = change.before.data()
-
-      if (user) await searchIndex.users.deleteObject(user.id)
-      // User created or modified
-    } else {
-      user = IndexFactory.user(user)
-      await searchIndex.users.saveObject(user)
-    }
-  })
-
-export const updateEventIndex = functions.firestore
-  .document('events/{eventId}')
-  .onWrite(async change => {
-    let event = change.after.exists ? change.after.data() : null
-
-    // Event deleted
-    if (!event) {
-      event = change.before.data()
-
-      if (event) await searchIndex.events.deleteObject(event.id)
-      // Event created or modified
-    } else {
-      // TODO: Decide what data to update
-      // i.e: Index should not update every "like"
-      event = IndexFactory.event(event)
-      await searchIndex.events.saveObject(event)
-    }
-  })

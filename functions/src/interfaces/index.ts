@@ -113,9 +113,25 @@ export interface INotification {
   created_at: FirebaseFirestore.Timestamp
 }
 
+export interface IGeneralRequestParams {
+  keyword?: string
+  city?: string
+  state?: string
+  zip?: string
+  date?: string
+  startDate?: string
+  endDate?: string
+}
+
 export enum EBuckets {
   USERS = 'users',
   EVENTS = 'events'
+}
+
+export enum ESearchTypes {
+  TICKET_MASTER = 'ticketmaster',
+  EVENTBRITE = 'eventbrite',
+  TWITCH = 'twitch'
 }
 
 export enum ENotificationType {
@@ -124,4 +140,11 @@ export enum ENotificationType {
   FOLLOW = 'FOLLOW',
   RSVP = 'RSVP',
   COMMENT = 'COMMENT'
+}
+
+export enum ESearchParameters {
+  STATE = 'state',
+  ZIP = 'zip',
+  CITY = 'city',
+  KEYWORD = 'keyword'
 }
