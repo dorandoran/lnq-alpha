@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  web:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./web
+    volumes:
+      - ./web:/web
+    ports:
+      - 3000:3000

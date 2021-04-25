@@ -1,0 +1,2046 @@
+{
+  "products": {
+    "happyLintAttractionId": null,
+    "happyLintVenueId": null,
+    "attractionId": null,
+    "venueId": null,
+    "page": {
+      "__typename": "Page_Event",
+      "totalElements": 3309,
+      "size": 10,
+      "totalPages": 331,
+      "number": 0
+    },
+    "__typename": "PaginationResponse_Event",
+    "items": [
+      {
+        "id": "1A4ZAqEGkeXVVUj",
+        "__typename": "Event",
+        "name": "Dance Gavin Dance   Afterburner Tour",
+        "eventUrlLink": "https://concerts.livenation.com/dance-gavin-dance-afterburner-tour-silver-spring-maryland-09-29-2021/event/15005767BED34D9C",
+        "seoName": "dance-gavin-dance-afterburner-tour-silver-spring-maryland-09-29-2021",
+        "genreName": "Rock",
+        "segmentName": "Music",
+        "tmId": "15005767BED34D9C",
+        "url": "https://concerts.livenation.com/dance-gavin-dance-afterburner-tour-silver-spring-maryland-09-29-2021/event/15005767BED34D9C",
+        "ticketExchangeUrl": null,
+        "imagesFiltered": [
+          {
+            "id": null,
+            "url": "https://s1.ticketm.net/dam/a/1b6/bf037bc5-71c2-435b-a8cf-ae3b07cb31b6_1201711_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+            "__typename": "Image"
+          }
+        ],
+        "datesFormatted": {
+          "dateTitle": "Sep 29",
+          "dateSubTitle": "Wed 6:30pm",
+          "venueDateTime": "2021-09-29T18:30:00-04:00",
+          "venueDateTimeFormatted": "Wed 9/29 @ 6pm",
+          "__typename": "Dates"
+        },
+        "dates": {
+          "spanMultipleDays": false,
+          "start": {
+            "dateTBA": false,
+            "timeTBA": false,
+            "localDate": "2021-09-29",
+            "dateTime": "2021-09-29T22:30:00Z",
+            "noSpecificTime": false,
+            "__typename": "StartDates"
+          },
+          "end": null,
+          "status": {
+            "code": "rescheduled",
+            "__typename": "EventStatus"
+          },
+          "__typename": "EventDates"
+        },
+        "sales": {
+          "public": {
+            "startDateTime": "2019-11-15T15:00:00Z",
+            "startTBD": false,
+            "endDateTime": "2021-09-29T22:30:00Z",
+            "__typename": "PublicSaleDates"
+          },
+          "presales": null,
+          "__typename": "EventSalesDates"
+        },
+        "products": [
+          {
+            "id": "1A4ZAqEGkdFXAdv",
+            "name": "Fillmore Silver Spring - Vertigo Lounge",
+            "type": "Upsell",
+            "url": "https://concerts.livenation.com/fillmore-silver-spring-vertigo-lounge-silver-spring-maryland-09-29-2021/event/15005767C8F850C1",
+            "__typename": "Product"
+          },
+          {
+            "id": "1A4ZAqEGkdaOgd9",
+            "name": "Fillmore Silver Spring - Coat Check",
+            "type": "Upsell",
+            "url": "https://concerts.livenation.com/fillmore-silver-spring-coat-check-silver-spring-maryland-09-29-2021/event/15005767C98350D7",
+            "__typename": "Product"
+          },
+          {
+            "id": "1A4ZAqEGkdkY4ZG",
+            "name": "Fillmore Silver Spring - Fast Lane Pass",
+            "type": "Upsell",
+            "url": "https://concerts.livenation.com/fillmore-silver-spring-fast-lane-pass-silver-spring-maryland-09-29-2021/event/15005767C6C1500C",
+            "__typename": "Product"
+          }
+        ],
+        "venues": [
+          {
+            "id": "KovZpaKfwe",
+            "name": "The Fillmore Silver Spring",
+            "seoLink": "/the-fillmore-silver-spring-tickets-silver-spring/venue/336573",
+            "postalCode": "20910",
+            "address": {
+              "line1": "8656 Colesville Road",
+              "__typename": "Address"
+            },
+            "city": {
+              "name": "Silver Spring",
+              "__typename": "City"
+            },
+            "state": {
+              "stateCode": "MD",
+              "name": "Maryland",
+              "__typename": "State"
+            },
+            "country": {
+              "countryCode": "US",
+              "name": "United States Of America",
+              "__typename": "Country"
+            },
+            "location": {
+              "latitude": "38.99734055",
+              "longitude": "-77.02739209",
+              "__typename": "Location"
+            },
+            "__typename": "Venue"
+          }
+        ],
+        "attractions": [
+          {
+            "id": "K8vZ917GLFf",
+            "name": "Dance Gavin Dance",
+            "seoUrl": "/dance-gavin-dance-tickets/artist/1131209",
+            "url": "https://www.ticketmaster.com/dance-gavin-dance-tickets/artist/1131209",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMRV",
+            "name": "Animals As Leaders",
+            "seoUrl": "/animals-as-leaders-tickets/artist/1483107",
+            "url": "https://www.ticketmaster.com/animals-as-leaders-tickets/artist/1483107",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ91789kV",
+            "name": "ISSUES",
+            "seoUrl": "/issues-tickets/artist/1776273",
+            "url": "https://www.ticketmaster.com/issues-tickets/artist/1776273",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ9174mif",
+            "name": "Eidola",
+            "seoUrl": "/eidola-tickets/artist/2326778",
+            "url": "https://www.ticketmaster.com/eidola-tickets/artist/2326778",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ91790P7",
+            "name": "Wolf & Bear",
+            "seoUrl": "/wolf-bear-tickets/artist/2562934",
+            "url": "https://www.ticketmaster.com/wolf-bear-tickets/artist/2562934",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          }
+        ],
+        "priceRanges": [
+          {
+            "currency": "USD",
+            "min": 29.5,
+            "__typename": "PriceRange"
+          }
+        ],
+        "classification": {
+          "segment": {
+            "id": "KZFzniwnSyZfZ7v7nJ",
+            "name": "Music",
+            "__typename": "Segment"
+          },
+          "subType": {
+            "id": "KZFzBErXgnZfZ7v7lJ",
+            "name": "Undefined",
+            "__typename": "Level"
+          },
+          "__typename": "Classification"
+        },
+        "ticketing": {
+          "healthCheck": null,
+          "__typename": "Ticketing"
+        }
+      },
+      {
+        "id": "1A4ZAqdGkdJU0oT",
+        "__typename": "Event",
+        "name": "Dead Can Dance",
+        "eventUrlLink": "https://www.ticketmaster.com/dead-can-dance-washington-district-of-columbia-04-24-2021/event/15005743E6DA447F",
+        "seoName": "dead-can-dance-washington-district-of-columbia-04-24-2021",
+        "genreName": "Rock",
+        "segmentName": "Music",
+        "tmId": "15005743E6DA447F",
+        "url": "https://www.ticketmaster.com/dead-can-dance-washington-district-of-columbia-04-24-2021/event/15005743E6DA447F",
+        "ticketExchangeUrl": null,
+        "imagesFiltered": [
+          {
+            "id": null,
+            "url": "https://s1.ticketm.net/dam/a/25e/808732fe-dd4c-489d-8ae6-d5a50a65725e_1173411_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+            "__typename": "Image"
+          }
+        ],
+        "datesFormatted": {
+          "dateTitle": "Apr 24",
+          "dateSubTitle": "Sat 8:00pm",
+          "venueDateTime": "2021-04-24T20:00:00-04:00",
+          "venueDateTimeFormatted": "Sat 4/24 @ 8pm",
+          "__typename": "Dates"
+        },
+        "dates": {
+          "spanMultipleDays": false,
+          "start": {
+            "dateTBA": false,
+            "timeTBA": false,
+            "localDate": "2021-04-24",
+            "dateTime": "2021-04-25T00:00:00Z",
+            "noSpecificTime": false,
+            "__typename": "StartDates"
+          },
+          "end": null,
+          "status": {
+            "code": "rescheduled",
+            "__typename": "EventStatus"
+          },
+          "__typename": "EventDates"
+        },
+        "sales": {
+          "public": {
+            "startDateTime": "2019-10-11T14:00:00Z",
+            "startTBD": false,
+            "endDateTime": "2021-04-25T02:00:00Z",
+            "__typename": "PublicSaleDates"
+          },
+          "presales": [
+            {
+              "endDateTime": "2019-10-11T02:00:00Z",
+              "name": "IMP Presale",
+              "startDateTime": "2019-10-10T14:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            }
+          ],
+          "__typename": "EventSalesDates"
+        },
+        "products": null,
+        "venues": [
+          {
+            "id": "KovZ917A3Y7",
+            "name": "The Anthem",
+            "seoLink": "/the-anthem-tickets-washington/venue/172624",
+            "postalCode": "20024",
+            "address": {
+              "line1": "901 Wharf St SW",
+              "__typename": "Address"
+            },
+            "city": {
+              "name": "Washington",
+              "__typename": "City"
+            },
+            "state": {
+              "stateCode": "DC",
+              "name": "District of Columbia",
+              "__typename": "State"
+            },
+            "country": {
+              "countryCode": "US",
+              "name": "United States Of America",
+              "__typename": "Country"
+            },
+            "location": {
+              "latitude": "38.880099",
+              "longitude": "-77.026165",
+              "__typename": "Location"
+            },
+            "__typename": "Venue"
+          }
+        ],
+        "attractions": [
+          {
+            "id": "K8vZ9171pof",
+            "name": "Dead Can Dance",
+            "seoUrl": "/dead-can-dance-tickets/artist/734884",
+            "url": "https://www.ticketmaster.com/dead-can-dance-tickets/artist/734884",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917CZHV",
+            "name": "Agnes Obel",
+            "seoUrl": "/agnes-obel-tickets/artist/1554150",
+            "url": "https://www.ticketmaster.com/agnes-obel-tickets/artist/1554150",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          }
+        ],
+        "priceRanges": [
+          {
+            "currency": "USD",
+            "min": 55,
+            "__typename": "PriceRange"
+          }
+        ],
+        "classification": {
+          "segment": {
+            "id": "KZFzniwnSyZfZ7v7nJ",
+            "name": "Music",
+            "__typename": "Segment"
+          },
+          "subType": {
+            "id": "KZFzBErXgnZfZ7v7lJ",
+            "name": "Undefined",
+            "__typename": "Level"
+          },
+          "__typename": "Classification"
+        },
+        "ticketing": {
+          "healthCheck": null,
+          "__typename": "Ticketing"
+        }
+      },
+      {
+        "id": "vv1AeZAqEGkdeWzbf",
+        "__typename": "Event",
+        "name": "Dance Gavin Dance - Afterburner Tour",
+        "eventUrlLink": "https://www.ticketmaster.com/dance-gavin-dance-afterburner-tour-philadelphia-pennsylvania-10-01-2021/event/02005767C2F78614",
+        "seoName": "dance-gavin-dance-afterburner-tour-philadelphia-pennsylvania-10-01-2021",
+        "genreName": "Rock",
+        "segmentName": "Music",
+        "tmId": "02005767C2F78614",
+        "url": "https://www.ticketmaster.com/dance-gavin-dance-afterburner-tour-philadelphia-pennsylvania-10-01-2021/event/02005767C2F78614",
+        "ticketExchangeUrl": null,
+        "imagesFiltered": [
+          {
+            "id": null,
+            "url": "https://s1.ticketm.net/dam/a/1b6/bf037bc5-71c2-435b-a8cf-ae3b07cb31b6_1201711_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+            "__typename": "Image"
+          }
+        ],
+        "datesFormatted": {
+          "dateTitle": "Oct 1",
+          "dateSubTitle": "Fri 7:00pm",
+          "venueDateTime": "2021-10-01T19:00:00-04:00",
+          "venueDateTimeFormatted": "Fri 10/1 @ 7pm",
+          "__typename": "Dates"
+        },
+        "dates": {
+          "spanMultipleDays": false,
+          "start": {
+            "dateTBA": false,
+            "timeTBA": false,
+            "localDate": "2021-10-01",
+            "dateTime": "2021-10-01T23:00:00Z",
+            "noSpecificTime": false,
+            "__typename": "StartDates"
+          },
+          "end": null,
+          "status": {
+            "code": "rescheduled",
+            "__typename": "EventStatus"
+          },
+          "__typename": "EventDates"
+        },
+        "sales": {
+          "public": {
+            "startDateTime": "2019-11-15T15:00:00Z",
+            "startTBD": false,
+            "endDateTime": "2021-10-01T23:00:00Z",
+            "__typename": "PublicSaleDates"
+          },
+          "presales": null,
+          "__typename": "EventSalesDates"
+        },
+        "products": null,
+        "venues": [
+          {
+            "id": "KovZpa2y8e",
+            "name": "Franklin Music Hall",
+            "seoLink": "/franklin-music-hall-tickets-philadelphia/venue/16428",
+            "postalCode": "19123",
+            "address": {
+              "line1": "421 North 7th Street,",
+              "__typename": "Address"
+            },
+            "city": {
+              "name": "Philadelphia",
+              "__typename": "City"
+            },
+            "state": {
+              "stateCode": "PA",
+              "name": "Pennsylvania",
+              "__typename": "State"
+            },
+            "country": {
+              "countryCode": "US",
+              "name": "United States Of America",
+              "__typename": "Country"
+            },
+            "location": {
+              "latitude": "39.9588683",
+              "longitude": "-75.1502117",
+              "__typename": "Location"
+            },
+            "__typename": "Venue"
+          }
+        ],
+        "attractions": [
+          {
+            "id": "K8vZ917GLFf",
+            "name": "Dance Gavin Dance",
+            "seoUrl": "/dance-gavin-dance-tickets/artist/1131209",
+            "url": "https://www.ticketmaster.com/dance-gavin-dance-tickets/artist/1131209",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMRV",
+            "name": "Animals As Leaders",
+            "seoUrl": "/animals-as-leaders-tickets/artist/1483107",
+            "url": "https://www.ticketmaster.com/animals-as-leaders-tickets/artist/1483107",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ9174mif",
+            "name": "Eidola",
+            "seoUrl": "/eidola-tickets/artist/2326778",
+            "url": "https://www.ticketmaster.com/eidola-tickets/artist/2326778",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMG0",
+            "name": "Veil of Maya",
+            "seoUrl": "/veil-of-maya-tickets/artist/1394407",
+            "url": "https://www.ticketmaster.com/veil-of-maya-tickets/artist/1394407",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ91790P7",
+            "name": "Wolf & Bear",
+            "seoUrl": "/wolf-bear-tickets/artist/2562934",
+            "url": "https://www.ticketmaster.com/wolf-bear-tickets/artist/2562934",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          }
+        ],
+        "priceRanges": [
+          {
+            "currency": "USD",
+            "min": 29.5,
+            "__typename": "PriceRange"
+          }
+        ],
+        "classification": {
+          "segment": {
+            "id": "KZFzniwnSyZfZ7v7nJ",
+            "name": "Music",
+            "__typename": "Segment"
+          },
+          "subType": {
+            "id": "KZFzBErXgnZfZ7v7lJ",
+            "name": "Undefined",
+            "__typename": "Level"
+          },
+          "__typename": "Classification"
+        },
+        "ticketing": {
+          "healthCheck": null,
+          "__typename": "Ticketing"
+        }
+      },
+      {
+        "id": "vv1AOvbrFGA5qole",
+        "__typename": "Event",
+        "name": "Dance Gavin Dance - Afterburner Tour",
+        "eventUrlLink": "https://www.ticketmaster.com/dance-gavin-dance-afterburner-tour-philadelphia-pennsylvania-04-02-2021/event/020058788B751AC2",
+        "seoName": "dance-gavin-dance-afterburner-tour-philadelphia-pennsylvania-04-02-2021",
+        "genreName": "Rock",
+        "segmentName": "Music",
+        "tmId": "020058788B751AC2",
+        "url": "https://www.ticketmaster.com/dance-gavin-dance-afterburner-tour-philadelphia-pennsylvania-04-02-2021/event/020058788B751AC2",
+        "ticketExchangeUrl": null,
+        "imagesFiltered": [
+          {
+            "id": null,
+            "url": "https://s1.ticketm.net/dam/a/1b6/bf037bc5-71c2-435b-a8cf-ae3b07cb31b6_1201711_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+            "__typename": "Image"
+          }
+        ],
+        "datesFormatted": {
+          "dateTitle": "Apr 2",
+          "dateSubTitle": "Fri 7:00pm",
+          "venueDateTime": "2021-04-02T19:00:00-04:00",
+          "venueDateTimeFormatted": "Fri 4/2 @ 7pm",
+          "__typename": "Dates"
+        },
+        "dates": {
+          "spanMultipleDays": false,
+          "start": {
+            "dateTBA": false,
+            "timeTBA": false,
+            "localDate": "2021-04-02",
+            "dateTime": "2021-04-02T23:00:00Z",
+            "noSpecificTime": false,
+            "__typename": "StartDates"
+          },
+          "end": null,
+          "status": {
+            "code": "rescheduled",
+            "__typename": "EventStatus"
+          },
+          "__typename": "EventDates"
+        },
+        "sales": {
+          "public": {
+            "startDateTime": "2020-03-24T17:00:00Z",
+            "startTBD": false,
+            "endDateTime": "2021-04-02T23:00:00Z",
+            "__typename": "PublicSaleDates"
+          },
+          "presales": [
+            {
+              "endDateTime": "2021-03-29T02:00:00Z",
+              "name": "VIP Packages Onsale",
+              "startDateTime": "2020-03-26T21:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            }
+          ],
+          "__typename": "EventSalesDates"
+        },
+        "products": null,
+        "venues": [
+          {
+            "id": "KovZpa2y8e",
+            "name": "Franklin Music Hall",
+            "seoLink": "/franklin-music-hall-tickets-philadelphia/venue/16428",
+            "postalCode": "19123",
+            "address": {
+              "line1": "421 North 7th Street,",
+              "__typename": "Address"
+            },
+            "city": {
+              "name": "Philadelphia",
+              "__typename": "City"
+            },
+            "state": {
+              "stateCode": "PA",
+              "name": "Pennsylvania",
+              "__typename": "State"
+            },
+            "country": {
+              "countryCode": "US",
+              "name": "United States Of America",
+              "__typename": "Country"
+            },
+            "location": {
+              "latitude": "39.9588683",
+              "longitude": "-75.1502117",
+              "__typename": "Location"
+            },
+            "__typename": "Venue"
+          }
+        ],
+        "attractions": [
+          {
+            "id": "K8vZ917GLFf",
+            "name": "Dance Gavin Dance",
+            "seoUrl": "/dance-gavin-dance-tickets/artist/1131209",
+            "url": "https://www.ticketmaster.com/dance-gavin-dance-tickets/artist/1131209",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMRV",
+            "name": "Animals As Leaders",
+            "seoUrl": "/animals-as-leaders-tickets/artist/1483107",
+            "url": "https://www.ticketmaster.com/animals-as-leaders-tickets/artist/1483107",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ9174mif",
+            "name": "Eidola",
+            "seoUrl": "/eidola-tickets/artist/2326778",
+            "url": "https://www.ticketmaster.com/eidola-tickets/artist/2326778",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMG0",
+            "name": "Veil of Maya",
+            "seoUrl": "/veil-of-maya-tickets/artist/1394407",
+            "url": "https://www.ticketmaster.com/veil-of-maya-tickets/artist/1394407",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ91790P7",
+            "name": "Wolf & Bear",
+            "seoUrl": "/wolf-bear-tickets/artist/2562934",
+            "url": "https://www.ticketmaster.com/wolf-bear-tickets/artist/2562934",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          }
+        ],
+        "priceRanges": [
+          {
+            "currency": "USD",
+            "min": 29.5,
+            "__typename": "PriceRange"
+          }
+        ],
+        "classification": {
+          "segment": {
+            "id": "KZFzniwnSyZfZ7v7nJ",
+            "name": "Music",
+            "__typename": "Segment"
+          },
+          "subType": {
+            "id": "KZFzBErXgnZfZ7v7lJ",
+            "name": "Undefined",
+            "__typename": "Level"
+          },
+          "__typename": "Classification"
+        },
+        "ticketing": {
+          "healthCheck": null,
+          "__typename": "Ticketing"
+        }
+      },
+      {
+        "id": "vv1AeZAqdGkeTrV08",
+        "__typename": "Event",
+        "name": "Dead Can Dance",
+        "eventUrlLink": "https://concerts.livenation.com/dead-can-dance-philadelphia-pennsylvania-04-23-2021/event/02005743BF7B4910",
+        "seoName": "dead-can-dance-philadelphia-pennsylvania-04-23-2021",
+        "genreName": "Rock",
+        "segmentName": "Music",
+        "tmId": "02005743BF7B4910",
+        "url": "https://concerts.livenation.com/dead-can-dance-philadelphia-pennsylvania-04-23-2021/event/02005743BF7B4910",
+        "ticketExchangeUrl": null,
+        "imagesFiltered": [
+          {
+            "id": null,
+            "url": "https://s1.ticketm.net/dam/a/25e/808732fe-dd4c-489d-8ae6-d5a50a65725e_1173411_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+            "__typename": "Image"
+          }
+        ],
+        "datesFormatted": {
+          "dateTitle": "Apr 23",
+          "dateSubTitle": "Fri 8:00pm",
+          "venueDateTime": "2021-04-23T20:00:00-04:00",
+          "venueDateTimeFormatted": "Fri 4/23 @ 8pm",
+          "__typename": "Dates"
+        },
+        "dates": {
+          "spanMultipleDays": false,
+          "start": {
+            "dateTBA": false,
+            "timeTBA": false,
+            "localDate": "2021-04-23",
+            "dateTime": "2021-04-24T00:00:00Z",
+            "noSpecificTime": false,
+            "__typename": "StartDates"
+          },
+          "end": null,
+          "status": {
+            "code": "rescheduled",
+            "__typename": "EventStatus"
+          },
+          "__typename": "EventDates"
+        },
+        "sales": {
+          "public": {
+            "startDateTime": "2019-10-11T14:00:00Z",
+            "startTBD": false,
+            "endDateTime": "2021-04-24T00:00:00Z",
+            "__typename": "PublicSaleDates"
+          },
+          "presales": [
+            {
+              "endDateTime": "2019-10-11T02:00:00Z",
+              "name": "Live Nation Mobile App Presale",
+              "startDateTime": "2019-10-09T14:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-10-11T02:00:00Z",
+              "name": "Radio Presale",
+              "startDateTime": "2019-10-09T14:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-10-11T02:00:00Z",
+              "name": "Live Nation Presale",
+              "startDateTime": "2019-10-09T14:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-10-11T02:00:00Z",
+              "name": "Venue Presale",
+              "startDateTime": "2019-10-09T14:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2020-04-17T18:00:00Z",
+              "name": "Official Platinum",
+              "startDateTime": "2019-10-09T14:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            }
+          ],
+          "__typename": "EventSalesDates"
+        },
+        "products": [
+          {
+            "id": "vv1AeZAq6GkeUCkVN",
+            "name": "Fast Lane Access - Dead Can Dance",
+            "type": "Special Entry",
+            "url": "https://concerts.livenation.com/fast-lane-access-dead-can-dance-philadelphia-pennsylvania-04-23-2021/event/02005747B6386D23",
+            "__typename": "Product"
+          },
+          {
+            "id": "vv1AeZAq6GkegEJSl",
+            "name": "Grand Salle Access: Dead Can Dance",
+            "type": "Club Access",
+            "url": "https://concerts.livenation.com/grand-salle-access-dead-can-dance-philadelphia-pennsylvania-04-23-2021/event/02005747B59E6CEB",
+            "__typename": "Product"
+          },
+          {
+            "id": "vv1AeZAq7GkesEinA",
+            "name": "Coat Check - Dead Can Dance",
+            "type": "Merchandise Voucher",
+            "url": "https://concerts.livenation.com/coat-check-dead-can-dance-philadelphia-pennsylvania-04-23-2021/event/02005744B19ECA85",
+            "__typename": "Product"
+          },
+          {
+            "id": "vv1AeZAqdGkeB37ad",
+            "name": "VIP Parking Pass: Dead Can Dance",
+            "type": "Parking",
+            "url": "https://concerts.livenation.com/vip-parking-pass-dead-can-dance-philadelphia-pennsylvania-04-23-2021/event/02005743BA484243",
+            "__typename": "Product"
+          },
+          {
+            "id": "vv1AeZAqdGkeyUVA0",
+            "name": "The Met Preferred Parking Pass: Dead Can Dance",
+            "type": "Parking",
+            "url": "https://concerts.livenation.com/the-met-preferred-parking-pass-dead-philadelphia-pennsylvania-04-23-2021/event/02005743B9DB4164",
+            "__typename": "Product"
+          }
+        ],
+        "venues": [
+          {
+            "id": "KovZ917Ahxb",
+            "name": "The Met Philadelphia",
+            "seoLink": "/the-met-philadelphia-tickets-philadelphia/venue/17098",
+            "postalCode": "19130",
+            "address": {
+              "line1": "858 N Broad St",
+              "__typename": "Address"
+            },
+            "city": {
+              "name": "Philadelphia",
+              "__typename": "City"
+            },
+            "state": {
+              "stateCode": "PA",
+              "name": "Pennsylvania",
+              "__typename": "State"
+            },
+            "country": {
+              "countryCode": "US",
+              "name": "United States Of America",
+              "__typename": "Country"
+            },
+            "location": {
+              "latitude": "39.969938",
+              "longitude": "-75.160278",
+              "__typename": "Location"
+            },
+            "__typename": "Venue"
+          }
+        ],
+        "attractions": [
+          {
+            "id": "K8vZ9171pof",
+            "name": "Dead Can Dance",
+            "seoUrl": "/dead-can-dance-tickets/artist/734884",
+            "url": "https://www.ticketmaster.com/dead-can-dance-tickets/artist/734884",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917CZHV",
+            "name": "Agnes Obel",
+            "seoUrl": "/agnes-obel-tickets/artist/1554150",
+            "url": "https://www.ticketmaster.com/agnes-obel-tickets/artist/1554150",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          }
+        ],
+        "priceRanges": [
+          {
+            "currency": "USD",
+            "min": 49.95,
+            "__typename": "PriceRange"
+          }
+        ],
+        "classification": {
+          "segment": {
+            "id": "KZFzniwnSyZfZ7v7nJ",
+            "name": "Music",
+            "__typename": "Segment"
+          },
+          "subType": {
+            "id": "KZFzBErXgnZfZ7v7lJ",
+            "name": "Undefined",
+            "__typename": "Level"
+          },
+          "__typename": "Classification"
+        },
+        "ticketing": {
+          "healthCheck": null,
+          "__typename": "Ticketing"
+        }
+      },
+      {
+        "id": "1AvbZ4UGkmbt4G8",
+        "__typename": "Event",
+        "name": "Dance Gavin Dance - Afterburner Tour",
+        "eventUrlLink": "https://www.ticketmaster.com/dance-gavin-dance-afterburner-tour-pittsburgh-pennsylvania-09-24-2021/event/1600576B98A55310",
+        "seoName": "dance-gavin-dance-afterburner-tour-pittsburgh-pennsylvania-09-24-2021",
+        "genreName": "Rock",
+        "segmentName": "Music",
+        "tmId": "1600576B98A55310",
+        "url": "https://www.ticketmaster.com/dance-gavin-dance-afterburner-tour-pittsburgh-pennsylvania-09-24-2021/event/1600576B98A55310",
+        "ticketExchangeUrl": null,
+        "imagesFiltered": [
+          {
+            "id": null,
+            "url": "https://s1.ticketm.net/dam/a/1b6/bf037bc5-71c2-435b-a8cf-ae3b07cb31b6_1201711_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+            "__typename": "Image"
+          }
+        ],
+        "datesFormatted": {
+          "dateTitle": "Sep 24",
+          "dateSubTitle": "Fri 6:00pm",
+          "venueDateTime": "2021-09-24T18:00:00-04:00",
+          "venueDateTimeFormatted": "Fri 9/24 @ 6pm",
+          "__typename": "Dates"
+        },
+        "dates": {
+          "spanMultipleDays": false,
+          "start": {
+            "dateTBA": false,
+            "timeTBA": false,
+            "localDate": "2021-09-24",
+            "dateTime": "2021-09-24T22:00:00Z",
+            "noSpecificTime": false,
+            "__typename": "StartDates"
+          },
+          "end": null,
+          "status": {
+            "code": "rescheduled",
+            "__typename": "EventStatus"
+          },
+          "__typename": "EventDates"
+        },
+        "sales": {
+          "public": {
+            "startDateTime": null,
+            "startTBD": false,
+            "endDateTime": null,
+            "__typename": "PublicSaleDates"
+          },
+          "presales": [
+            {
+              "endDateTime": "2019-11-15T03:00:00Z",
+              "name": "AEG Presale",
+              "startDateTime": "2019-11-14T15:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-11-15T03:00:00Z",
+              "name": "Opus One Presale",
+              "startDateTime": "2019-11-14T15:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-11-15T03:00:00Z",
+              "name": "VIP Packages Presale",
+              "startDateTime": "2019-11-12T17:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2021-09-19T19:00:00Z",
+              "name": "VIP Packages Onsale",
+              "startDateTime": "2019-11-15T15:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-11-15T03:00:00Z",
+              "name": "Ticketmaster Presale",
+              "startDateTime": "2019-11-14T15:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            }
+          ],
+          "__typename": "EventSalesDates"
+        },
+        "products": [
+          {
+            "id": "G5vbZpJK8Lvzx",
+            "name": "PARKWHIZ STAGE AE",
+            "type": "Upsell",
+            "url": "https://www.ticketmaster.com/parkwhiz-stage-ae-pittsburgh-pennsylvania-09-24-2021/event/16005A64D07C1E22",
+            "__typename": "Product"
+          }
+        ],
+        "venues": [
+          {
+            "id": "KovZpZAEk6nA",
+            "name": "STAGE AE",
+            "seoLink": "/stage-ae-tickets-pittsburgh/venue/180952",
+            "postalCode": "15212",
+            "address": {
+              "line1": "400 North Shore Drive",
+              "__typename": "Address"
+            },
+            "city": {
+              "name": "Pittsburgh",
+              "__typename": "City"
+            },
+            "state": {
+              "stateCode": "PA",
+              "name": "Pennsylvania",
+              "__typename": "State"
+            },
+            "country": {
+              "countryCode": "US",
+              "name": "United States Of America",
+              "__typename": "Country"
+            },
+            "location": {
+              "latitude": "40.445954",
+              "longitude": "-80.0111627",
+              "__typename": "Location"
+            },
+            "__typename": "Venue"
+          }
+        ],
+        "attractions": [
+          {
+            "id": "K8vZ917GLFf",
+            "name": "Dance Gavin Dance",
+            "seoUrl": "/dance-gavin-dance-tickets/artist/1131209",
+            "url": "https://www.ticketmaster.com/dance-gavin-dance-tickets/artist/1131209",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMRV",
+            "name": "Animals As Leaders",
+            "seoUrl": "/animals-as-leaders-tickets/artist/1483107",
+            "url": "https://www.ticketmaster.com/animals-as-leaders-tickets/artist/1483107",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMG0",
+            "name": "Veil of Maya",
+            "seoUrl": "/veil-of-maya-tickets/artist/1394407",
+            "url": "https://www.ticketmaster.com/veil-of-maya-tickets/artist/1394407",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ9174mif",
+            "name": "Eidola",
+            "seoUrl": "/eidola-tickets/artist/2326778",
+            "url": "https://www.ticketmaster.com/eidola-tickets/artist/2326778",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ91790P7",
+            "name": "Wolf & Bear",
+            "seoUrl": "/wolf-bear-tickets/artist/2562934",
+            "url": "https://www.ticketmaster.com/wolf-bear-tickets/artist/2562934",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          }
+        ],
+        "priceRanges": [
+          {
+            "currency": "USD",
+            "min": 29.5,
+            "__typename": "PriceRange"
+          }
+        ],
+        "classification": {
+          "segment": {
+            "id": "KZFzniwnSyZfZ7v7nJ",
+            "name": "Music",
+            "__typename": "Segment"
+          },
+          "subType": {
+            "id": "KZFzBErXgnZfZ7v7lJ",
+            "name": "Undefined",
+            "__typename": "Level"
+          },
+          "__typename": "Classification"
+        },
+        "ticketing": {
+          "healthCheck": null,
+          "__typename": "Ticketing"
+        }
+      },
+      {
+        "id": "k7vGF4UNdy9NT",
+        "__typename": "Event",
+        "name": "Dance Gavin Dance - Afterburner Tour",
+        "eventUrlLink": "https://www.ticketmaster.com/dance-gavin-dance-afterburner-tour-new-york-new-york-10-03-2021/event/00005768C3E578FF",
+        "seoName": "dance-gavin-dance-afterburner-tour-new-york-new-york-10-03-2021",
+        "genreName": "Rock",
+        "segmentName": "Music",
+        "tmId": "00005768C3E578FF",
+        "url": "https://www.ticketmaster.com/dance-gavin-dance-afterburner-tour-new-york-new-york-10-03-2021/event/00005768C3E578FF",
+        "ticketExchangeUrl": null,
+        "imagesFiltered": [
+          {
+            "id": null,
+            "url": "https://s1.ticketm.net/dam/a/1b6/bf037bc5-71c2-435b-a8cf-ae3b07cb31b6_1201711_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+            "__typename": "Image"
+          }
+        ],
+        "datesFormatted": {
+          "dateTitle": "Oct 3",
+          "dateSubTitle": "Sun 6:30pm",
+          "venueDateTime": "2021-10-03T18:30:00-04:00",
+          "venueDateTimeFormatted": "Sun 10/3 @ 6pm",
+          "__typename": "Dates"
+        },
+        "dates": {
+          "spanMultipleDays": false,
+          "start": {
+            "dateTBA": false,
+            "timeTBA": false,
+            "localDate": "2021-10-03",
+            "dateTime": "2021-10-03T22:30:00Z",
+            "noSpecificTime": false,
+            "__typename": "StartDates"
+          },
+          "end": null,
+          "status": {
+            "code": "rescheduled",
+            "__typename": "EventStatus"
+          },
+          "__typename": "EventDates"
+        },
+        "sales": {
+          "public": {
+            "startDateTime": "2019-11-15T15:00:00Z",
+            "startTBD": false,
+            "endDateTime": "2021-10-03T22:30:00Z",
+            "__typename": "PublicSaleDates"
+          },
+          "presales": null,
+          "__typename": "EventSalesDates"
+        },
+        "products": [
+          {
+            "id": "k7vGFp0Sa--7a",
+            "name": "PARKWHIZ MANHATTAN CENTER HAMMERSTEIN BALLROOM",
+            "type": "Upsell",
+            "url": "https://www.ticketmaster.com/parkwhiz-manhattan-center-hammerstein-ballroom-new-york-new-york-10-03-2021/event/00005A4CC9861109",
+            "__typename": "Product"
+          }
+        ],
+        "venues": [
+          {
+            "id": "KovZpZAEAE6A",
+            "name": "Manhattan Center Hammerstein Ballroom",
+            "seoLink": "/manhattan-center-hammerstein-ballroom-tickets-new-york/venue/280",
+            "postalCode": "10001",
+            "address": {
+              "line1": "311 West 34th Street",
+              "__typename": "Address"
+            },
+            "city": {
+              "name": "New York",
+              "__typename": "City"
+            },
+            "state": {
+              "stateCode": "NY",
+              "name": "New York",
+              "__typename": "State"
+            },
+            "country": {
+              "countryCode": "US",
+              "name": "United States Of America",
+              "__typename": "Country"
+            },
+            "location": {
+              "latitude": "40.752664",
+              "longitude": "-73.994309",
+              "__typename": "Location"
+            },
+            "__typename": "Venue"
+          }
+        ],
+        "attractions": [
+          {
+            "id": "K8vZ917GLFf",
+            "name": "Dance Gavin Dance",
+            "seoUrl": "/dance-gavin-dance-tickets/artist/1131209",
+            "url": "https://www.ticketmaster.com/dance-gavin-dance-tickets/artist/1131209",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMRV",
+            "name": "Animals As Leaders",
+            "seoUrl": "/animals-as-leaders-tickets/artist/1483107",
+            "url": "https://www.ticketmaster.com/animals-as-leaders-tickets/artist/1483107",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMG0",
+            "name": "Veil of Maya",
+            "seoUrl": "/veil-of-maya-tickets/artist/1394407",
+            "url": "https://www.ticketmaster.com/veil-of-maya-tickets/artist/1394407",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ9174mif",
+            "name": "Eidola",
+            "seoUrl": "/eidola-tickets/artist/2326778",
+            "url": "https://www.ticketmaster.com/eidola-tickets/artist/2326778",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ91790P7",
+            "name": "Wolf & Bear",
+            "seoUrl": "/wolf-bear-tickets/artist/2562934",
+            "url": "https://www.ticketmaster.com/wolf-bear-tickets/artist/2562934",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          }
+        ],
+        "priceRanges": [
+          {
+            "currency": "USD",
+            "min": 34.5,
+            "__typename": "PriceRange"
+          }
+        ],
+        "classification": {
+          "segment": {
+            "id": "KZFzniwnSyZfZ7v7nJ",
+            "name": "Music",
+            "__typename": "Segment"
+          },
+          "subType": {
+            "id": "KZFzBErXgnZfZ7v7lJ",
+            "name": "Undefined",
+            "__typename": "Level"
+          },
+          "__typename": "Classification"
+        },
+        "ticketing": {
+          "healthCheck": null,
+          "__typename": "Ticketing"
+        }
+      },
+      {
+        "id": "G5dYZ4V3S5oN7",
+        "__typename": "Event",
+        "name": "Dead Can Dance",
+        "eventUrlLink": "https://www.ticketmaster.com/dead-can-dance-new-york-new-york-04-20-2021/event/3C005744B32D18C4",
+        "seoName": "dead-can-dance-new-york-new-york-04-20-2021",
+        "genreName": "Rock",
+        "segmentName": "Music",
+        "tmId": "3C005744B32D18C4",
+        "url": "https://www.ticketmaster.com/dead-can-dance-new-york-new-york-04-20-2021/event/3C005744B32D18C4",
+        "ticketExchangeUrl": null,
+        "imagesFiltered": [
+          {
+            "id": null,
+            "url": "https://s1.ticketm.net/dam/a/25e/808732fe-dd4c-489d-8ae6-d5a50a65725e_1173411_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+            "__typename": "Image"
+          }
+        ],
+        "datesFormatted": {
+          "dateTitle": "Apr 20",
+          "dateSubTitle": "Tue 7:30pm",
+          "venueDateTime": "2021-04-20T19:30:00-04:00",
+          "venueDateTimeFormatted": "Tue 4/20 @ 7pm",
+          "__typename": "Dates"
+        },
+        "dates": {
+          "spanMultipleDays": false,
+          "start": {
+            "dateTBA": false,
+            "timeTBA": false,
+            "localDate": "2021-04-20",
+            "dateTime": "2021-04-20T23:30:00Z",
+            "noSpecificTime": false,
+            "__typename": "StartDates"
+          },
+          "end": null,
+          "status": {
+            "code": "rescheduled",
+            "__typename": "EventStatus"
+          },
+          "__typename": "EventDates"
+        },
+        "sales": {
+          "public": {
+            "startDateTime": "2019-10-11T13:00:00Z",
+            "startTBD": false,
+            "endDateTime": "2021-04-20T23:30:00Z",
+            "__typename": "PublicSaleDates"
+          },
+          "presales": [
+            {
+              "endDateTime": "2019-10-11T01:00:00Z",
+              "name": "American Express® Card Member Presale",
+              "startDateTime": "2019-10-09T13:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-10-11T01:00:00Z",
+              "name": "Official Platinum Presale",
+              "startDateTime": "2019-10-09T13:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-10-11T01:00:00Z",
+              "name": "Chase Cardmember Preferred Seating",
+              "startDateTime": "2019-10-09T13:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-10-11T01:00:00Z",
+              "name": "Local Presales",
+              "startDateTime": "2019-10-09T13:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            }
+          ],
+          "__typename": "EventSalesDates"
+        },
+        "products": [
+          {
+            "id": "G5dYZpxD_1OIE",
+            "name": "PARKWHIZ RADIO CITY MUSIC HALL",
+            "type": "Upsell",
+            "url": "https://www.ticketmaster.com/parkwhiz-radio-city-music-hall-new-york-new-york-04-20-2021/event/3C005A2ED92A0A27",
+            "__typename": "Product"
+          }
+        ],
+        "venues": [
+          {
+            "id": "KovZpZAE7vdA",
+            "name": "Radio City Music Hall",
+            "seoLink": "/radio-city-music-hall-tickets-new-york/venue/491523",
+            "postalCode": "10020",
+            "address": {
+              "line1": "1260 6th Avenue",
+              "__typename": "Address"
+            },
+            "city": {
+              "name": "New York",
+              "__typename": "City"
+            },
+            "state": {
+              "stateCode": "NY",
+              "name": "New York",
+              "__typename": "State"
+            },
+            "country": {
+              "countryCode": "US",
+              "name": "United States Of America",
+              "__typename": "Country"
+            },
+            "location": {
+              "latitude": "40.7599136",
+              "longitude": "-73.9803981",
+              "__typename": "Location"
+            },
+            "__typename": "Venue"
+          }
+        ],
+        "attractions": [
+          {
+            "id": "K8vZ9171pof",
+            "name": "Dead Can Dance",
+            "seoUrl": "/dead-can-dance-tickets/artist/734884",
+            "url": "https://www.ticketmaster.com/dead-can-dance-tickets/artist/734884",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917CZHV",
+            "name": "Agnes Obel",
+            "seoUrl": "/agnes-obel-tickets/artist/1554150",
+            "url": "https://www.ticketmaster.com/agnes-obel-tickets/artist/1554150",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          }
+        ],
+        "priceRanges": [
+          {
+            "currency": "USD",
+            "min": 59,
+            "__typename": "PriceRange"
+          }
+        ],
+        "classification": {
+          "segment": {
+            "id": "KZFzniwnSyZfZ7v7nJ",
+            "name": "Music",
+            "__typename": "Segment"
+          },
+          "subType": {
+            "id": "KZFzBErXgnZfZ7v7lJ",
+            "name": "Undefined",
+            "__typename": "Level"
+          },
+          "__typename": "Classification"
+        },
+        "ticketing": {
+          "healthCheck": null,
+          "__typename": "Ticketing"
+        }
+      },
+      {
+        "id": "vvG1fZpuM9uNEp",
+        "__typename": "Event",
+        "name": "Dance Gavin Dance - Afterburner Tour",
+        "eventUrlLink": "https://www.ticketmaster.com/dance-gavin-dance-afterburner-tour-columbus-ohio-09-22-2021/event/050058DDD73639D6",
+        "seoName": "dance-gavin-dance-afterburner-tour-columbus-ohio-09-22-2021",
+        "genreName": "Rock",
+        "segmentName": "Music",
+        "tmId": "050058DDD73639D6",
+        "url": "https://www.ticketmaster.com/dance-gavin-dance-afterburner-tour-columbus-ohio-09-22-2021/event/050058DDD73639D6",
+        "ticketExchangeUrl": null,
+        "imagesFiltered": [
+          {
+            "id": null,
+            "url": "https://s1.ticketm.net/dam/a/1b6/bf037bc5-71c2-435b-a8cf-ae3b07cb31b6_1201711_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+            "__typename": "Image"
+          }
+        ],
+        "datesFormatted": {
+          "dateTitle": "Sep 22",
+          "dateSubTitle": "Wed 6:00pm",
+          "venueDateTime": "2021-09-22T18:00:00-04:00",
+          "venueDateTimeFormatted": "Wed 9/22 @ 6pm",
+          "__typename": "Dates"
+        },
+        "dates": {
+          "spanMultipleDays": false,
+          "start": {
+            "dateTBA": false,
+            "timeTBA": false,
+            "localDate": "2021-09-22",
+            "dateTime": "2021-09-22T22:00:00Z",
+            "noSpecificTime": false,
+            "__typename": "StartDates"
+          },
+          "end": null,
+          "status": {
+            "code": "rescheduled",
+            "__typename": "EventStatus"
+          },
+          "__typename": "EventDates"
+        },
+        "sales": {
+          "public": {
+            "startDateTime": "2020-06-29T21:00:00Z",
+            "startTBD": false,
+            "endDateTime": "2021-09-22T23:00:00Z",
+            "__typename": "PublicSaleDates"
+          },
+          "presales": [
+            {
+              "endDateTime": "2021-09-17T19:00:00Z",
+              "name": "VIP Packages Onsale",
+              "startDateTime": "2020-07-02T14:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2021-04-07T23:00:00Z",
+              "name": "Official Platinum",
+              "startDateTime": "2020-06-29T21:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            }
+          ],
+          "__typename": "EventSalesDates"
+        },
+        "products": [
+          {
+            "id": "vvG1fZpJCJYsjj",
+            "name": "PARKWHIZ EXPRESS LIVE!",
+            "type": "Upsell",
+            "url": "https://www.ticketmaster.com/parkwhiz-express-live-columbus-ohio-09-22-2021/event/05005A63A6C3171C",
+            "__typename": "Product"
+          }
+        ],
+        "venues": [
+          {
+            "id": "KovZpZAEAtIA",
+            "name": "EXPRESS LIVE!",
+            "seoLink": "/express-live-tickets-columbus/venue/41554",
+            "postalCode": "43215",
+            "address": {
+              "line1": "405 Neil Avenue",
+              "__typename": "Address"
+            },
+            "city": {
+              "name": "Columbus",
+              "__typename": "City"
+            },
+            "state": {
+              "stateCode": "OH",
+              "name": "Ohio",
+              "__typename": "State"
+            },
+            "country": {
+              "countryCode": "US",
+              "name": "United States Of America",
+              "__typename": "Country"
+            },
+            "location": {
+              "latitude": "39.96974489",
+              "longitude": "-83.01006759",
+              "__typename": "Location"
+            },
+            "__typename": "Venue"
+          }
+        ],
+        "attractions": [
+          {
+            "id": "K8vZ917GLFf",
+            "name": "Dance Gavin Dance",
+            "seoUrl": "/dance-gavin-dance-tickets/artist/1131209",
+            "url": "https://www.ticketmaster.com/dance-gavin-dance-tickets/artist/1131209",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMRV",
+            "name": "Animals As Leaders",
+            "seoUrl": "/animals-as-leaders-tickets/artist/1483107",
+            "url": "https://www.ticketmaster.com/animals-as-leaders-tickets/artist/1483107",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMG0",
+            "name": "Veil of Maya",
+            "seoUrl": "/veil-of-maya-tickets/artist/1394407",
+            "url": "https://www.ticketmaster.com/veil-of-maya-tickets/artist/1394407",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ9174mif",
+            "name": "Eidola",
+            "seoUrl": "/eidola-tickets/artist/2326778",
+            "url": "https://www.ticketmaster.com/eidola-tickets/artist/2326778",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ91790P7",
+            "name": "Wolf & Bear",
+            "seoUrl": "/wolf-bear-tickets/artist/2562934",
+            "url": "https://www.ticketmaster.com/wolf-bear-tickets/artist/2562934",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          }
+        ],
+        "priceRanges": [
+          {
+            "currency": "USD",
+            "min": 29.5,
+            "__typename": "PriceRange"
+          }
+        ],
+        "classification": {
+          "segment": {
+            "id": "KZFzniwnSyZfZ7v7nJ",
+            "name": "Music",
+            "__typename": "Segment"
+          },
+          "subType": {
+            "id": "KZFzBErXgnZfZ7v7lJ",
+            "name": "Undefined",
+            "__typename": "Level"
+          },
+          "__typename": "Classification"
+        },
+        "ticketing": {
+          "healthCheck": null,
+          "__typename": "Ticketing"
+        }
+      },
+      {
+        "id": "1A8ZAqEGkdrYVWz",
+        "__typename": "Event",
+        "name": "Dance Gavin Dance - Afterburner Tour",
+        "eventUrlLink": "https://www.ticketmaster.ca/dance-gavin-dance-afterburner-tour-toronto-ontario-09-23-2021/event/10005767DEC34F78",
+        "seoName": "dance-gavin-dance-afterburner-tour-toronto-ontario-09-23-2021",
+        "genreName": "Rock",
+        "segmentName": "Music",
+        "tmId": "10005767DEC34F78",
+        "url": "https://www.ticketmaster.ca/dance-gavin-dance-afterburner-tour-toronto-ontario-09-23-2021/event/10005767DEC34F78",
+        "ticketExchangeUrl": null,
+        "imagesFiltered": [
+          {
+            "id": null,
+            "url": "https://s1.ticketm.net/dam/a/1b6/bf037bc5-71c2-435b-a8cf-ae3b07cb31b6_1201711_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+            "__typename": "Image"
+          }
+        ],
+        "datesFormatted": {
+          "dateTitle": "Sep 23",
+          "dateSubTitle": "Thu 5:30pm",
+          "venueDateTime": "2021-09-23T17:30:00-04:00",
+          "venueDateTimeFormatted": "Thu 9/23 @ 5pm",
+          "__typename": "Dates"
+        },
+        "dates": {
+          "spanMultipleDays": false,
+          "start": {
+            "dateTBA": false,
+            "timeTBA": false,
+            "localDate": "2021-09-23",
+            "dateTime": "2021-09-23T21:30:00Z",
+            "noSpecificTime": false,
+            "__typename": "StartDates"
+          },
+          "end": null,
+          "status": {
+            "code": "rescheduled",
+            "__typename": "EventStatus"
+          },
+          "__typename": "EventDates"
+        },
+        "sales": {
+          "public": {
+            "startDateTime": "2019-11-15T15:00:00Z",
+            "startTBD": false,
+            "endDateTime": "2021-09-24T00:30:00Z",
+            "__typename": "PublicSaleDates"
+          },
+          "presales": [
+            {
+              "endDateTime": "2019-11-15T03:00:00Z",
+              "name": "Live Nation Presale",
+              "startDateTime": "2019-11-13T15:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-11-15T03:00:00Z",
+              "name": "Live Nation Mobile App Presale",
+              "startDateTime": "2019-11-13T15:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-11-15T03:00:00Z",
+              "name": "Front Of The Line by American Express",
+              "startDateTime": "2019-11-13T17:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-11-15T03:00:00Z",
+              "name": "Facebook Presale",
+              "startDateTime": "2019-11-13T15:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-11-15T03:00:00Z",
+              "name": "Ticketmaster Presale",
+              "startDateTime": "2019-11-13T15:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2021-09-23T22:30:00Z",
+              "name": "Official Platinum",
+              "startDateTime": "2019-11-13T15:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-11-15T03:00:00Z",
+              "name": "VIP Packages Presale",
+              "startDateTime": "2019-11-12T17:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2021-09-19T02:00:00Z",
+              "name": "VIP Packages Onsale",
+              "startDateTime": "2019-11-15T15:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2019-11-15T03:00:00Z",
+              "name": "Ticketmaster Presale",
+              "startDateTime": "2019-11-14T15:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            },
+            {
+              "endDateTime": "2020-01-27T03:00:00Z",
+              "name": "Holiday Hangover 2020",
+              "startDateTime": "2020-01-17T15:00:00Z",
+              "visible": true,
+              "__typename": "Presale"
+            }
+          ],
+          "__typename": "EventSalesDates"
+        },
+        "products": null,
+        "venues": [
+          {
+            "id": "KovZpZAdIFaA",
+            "name": "REBEL",
+            "seoLink": "/rebel-tickets-toronto/venue/131074",
+            "postalCode": "M5A 1A4",
+            "address": {
+              "line1": "11 Polson St.",
+              "__typename": "Address"
+            },
+            "city": {
+              "name": "Toronto",
+              "__typename": "City"
+            },
+            "state": {
+              "stateCode": "ON",
+              "name": "Ontario",
+              "__typename": "State"
+            },
+            "country": {
+              "countryCode": "CA",
+              "name": "Canada",
+              "__typename": "Country"
+            },
+            "location": {
+              "latitude": "43.6415548",
+              "longitude": "-79.3540246",
+              "__typename": "Location"
+            },
+            "__typename": "Venue"
+          }
+        ],
+        "attractions": [
+          {
+            "id": "K8vZ917GLFf",
+            "name": "Dance Gavin Dance",
+            "seoUrl": "/artist/1131209",
+            "url": "https://www.ticketmaster.ca/artist/1131209",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMRV",
+            "name": "Animals As Leaders",
+            "seoUrl": "/artist/1483107",
+            "url": "https://www.ticketmaster.ca/artist/1483107",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ917GMG0",
+            "name": "Veil of Maya",
+            "seoUrl": "/artist/1394407",
+            "url": "https://www.ticketmaster.ca/artist/1394407",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ9174mif",
+            "name": "Eidola",
+            "seoUrl": "/artist/2326778",
+            "url": "https://www.ticketmaster.ca/artist/2326778",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          },
+          {
+            "id": "K8vZ91790P7",
+            "name": "Wolf & Bear",
+            "seoUrl": "/artist/2562934",
+            "url": "https://www.ticketmaster.ca/artist/2562934",
+            "classification": {
+              "segment": {
+                "id": "KZFzniwnSyZfZ7v7nJ",
+                "name": "Music",
+                "__typename": "Segment"
+              },
+              "__typename": "Classification"
+            },
+            "__typename": "Attraction"
+          }
+        ],
+        "priceRanges": [
+          {
+            "currency": "CAD",
+            "min": 39.5,
+            "__typename": "PriceRange"
+          }
+        ],
+        "classification": {
+          "segment": {
+            "id": "KZFzniwnSyZfZ7v7nJ",
+            "name": "Music",
+            "__typename": "Segment"
+          },
+          "subType": {
+            "id": "KZFzBErXgnZfZ7v7lJ",
+            "name": "Undefined",
+            "__typename": "Level"
+          },
+          "__typename": "Classification"
+        },
+        "ticketing": {
+          "healthCheck": null,
+          "__typename": "Ticketing"
+        }
+      }
+    ]
+  }
+}

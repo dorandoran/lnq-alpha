@@ -1,0 +1,76 @@
+.SearchBar-input-container {
+  display: flex;
+  align-items: center;
+  background-color: #2a2a2a;
+  border-radius: 50px;
+  border-width: 0.2em;
+  border-color: transparent;
+  border-style: solid;
+}
+
+.SearchBar-input-container:focus-within {
+  border-radius: 50px;
+  border-color: #c1c1c1;
+}
+
+.SearchBar-input {
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: medium;
+  padding: 0.5em;
+  margin: 0.5em;
+  background-color: transparent;
+  border-color: transparent;
+  color: #c1c1c1;
+}
+
+.SearchBar-input:focus {
+  outline: none;
+}
+
+.SearchBar-search-icon {
+  margin-left: 1em;
+  color: #c1c1c1;
+}
+
+.SearchBar-filter-button {
+  margin-right: 1em;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.SearchBar-filter-button:active {
+  border-color: #c1c1c1;
+}
+
+.SearchBar-filter-icon {
+  color: #c1c1c1;
+}
+
+.SearchBar-categories-container {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.SearchBar-categories-scroll {
+  overflow: hidden;
+}
+
+.SearchBar-categories-arrow-button {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.SearchBar-categories-button {
+  background-color: transparent;
+  border-color: transparent;
+  color: #c1c1c1;
+  padding: 1em;
+  border-radius: 50px;
+  margin: 0.2em;
+}
+
+.SearchBar-categories-icon {
+  color: #c1c1c1;
+}

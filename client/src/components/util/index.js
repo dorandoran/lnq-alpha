@@ -38,7 +38,7 @@ export const EVENT_TYPES = {
     food: 'Food and Drink',
     game: 'Gaming',
     sport: 'Sports & Fitness',
-    beauty: 'Healthy & Beauty',
+    beauty: 'Health & Beauty',
     tech: 'Tech and Science',
     culture: 'Culture and Community',
     entertainment: 'Media and Entertainment',

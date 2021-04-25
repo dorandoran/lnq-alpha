@@ -1,0 +1,1544 @@
+[
+  {
+    "data": {
+      "searchFor": {
+        "channels": {
+          "cursor": "MTA=",
+          "items": [
+            {
+              "broadcastSettings": {
+                "id": "233300375",
+                "title": "Duo Arena w/ Ron | !sub !discord | NRG Clix",
+                "__typename": "BroadcastSettings"
+              },
+              "displayName": "Clix",
+              "followers": {
+                "totalCount": 3760817,
+                "__typename": "FollowerConnection"
+              },
+              "id": "233300375",
+              "lastBroadcast": {
+                "id": "40799247261",
+                "startedAt": "2021-02-28T17:51:17.533847Z",
+                "__typename": "Broadcast"
+              },
+              "login": "clix",
+              "profileImageURL": "https://static-cdn.jtvnw.net/jtv_user_pictures/c829484a-c662-40de-a243-00ec253cabbb-profile_image-150x150.png",
+              "description": "Hi, my name is Cody (Clix),  I am a pro fortnite player who loves to stream and interact with fans. I stream whenever I can, and It would mean the world to me if you guys hit the follow button!",
+              "channel": {
+                "id": "233300375",
+                "schedule": {
+                  "id": "schedule-233300375",
+                  "nextSegment": null,
+                  "__typename": "Schedule"
+                },
+                "__typename": "Channel"
+              },
+              "self": null,
+              "latestVideo": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "931986845",
+                      "lengthSeconds": 14335,
+                      "title": "WAGERS INTO VIEWING PARTY ",
+                      "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_100x56.png",
+                      "__typename": "Video",
+                      "__typename": "Video"
+                    },
+                    "__typename": "VideoEdge"
+                  }
+                ],
+                "__typename": "VideoConnection"
+              },
+              "topClip": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "1063307395",
+                      "title": "High Kill Arena Solos | ! sub ! discord | NRG Clix",
+                      "durationSeconds": 26,
+                      "thumbnailURL": "https://clips-media-assets2.twitch.tv/40713624797-offset-13606-preview-260x147.jpg",
+                      "slug": "SoftTenderOpossumCclamChamp-PWiWDXfgcJVZTk-P",
+                      "__typename": "Clip",
+                      "__typename": "Clip"
+                    },
+                    "__typename": "ClipEdge"
+                  }
+                ],
+                "__typename": "ClipConnection"
+              },
+              "roles": { "isPartner": true, "__typename": "UserRoles" },
+              "stream": {
+                "game": {
+                  "id": "33214",
+                  "name": "Fortnite",
+                  "displayName": "Fortnite",
+                  "__typename": "Game"
+                },
+                "id": "40799247261",
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_clix-214x120.jpg",
+                "tags": [
+                  {
+                    "id": "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+                    "isLanguageTag": true,
+                    "localizedName": "English",
+                    "tagName": "auto___lang_en",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  }
+                ],
+                "type": "live",
+                "viewersCount": 34054,
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User",
+              "__typename": "User"
+            },
+            {
+              "broadcastSettings": {
+                "id": "82524912",
+                "title": "Fortnite chilling",
+                "__typename": "BroadcastSettings"
+              },
+              "displayName": "Bugha",
+              "followers": {
+                "totalCount": 4079241,
+                "__typename": "FollowerConnection"
+              },
+              "id": "82524912",
+              "lastBroadcast": {
+                "id": "40802390173",
+                "startedAt": "2021-02-28T21:01:08.918608Z",
+                "__typename": "Broadcast"
+              },
+              "login": "bugha",
+              "profileImageURL": "https://static-cdn.jtvnw.net/jtv_user_pictures/f7d41bcc-5e5c-48b1-a2fd-a963c45b66a1-profile_image-150x150.jpeg",
+              "description": "Bugha burst onto the scene in early 2019 and cemented his status as one of today's top Esports superstars by winning numerous gaming awards including the Fortnite World Cup Championship, 2x PC Gamer of the Year Award Winner, Esports PC Rookie of the year, and multiple online tournaments. ",
+              "channel": {
+                "id": "82524912",
+                "schedule": null,
+                "__typename": "Channel"
+              },
+              "self": null,
+              "latestVideo": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "932236480",
+                      "lengthSeconds": 2944,
+                      "title": "valorant until I get bored",
+                      "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_100x56.png",
+                      "__typename": "Video",
+                      "__typename": "Video"
+                    },
+                    "__typename": "VideoEdge"
+                  }
+                ],
+                "__typename": "VideoConnection"
+              },
+              "topClip": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "1062824250",
+                      "title": "Bugha zabija kozaka",
+                      "durationSeconds": 26,
+                      "thumbnailURL": "https://clips-media-assets2.twitch.tv/40711381053-offset-2078-preview-260x147.jpg",
+                      "slug": "NaiveDeafBurritoTebowing-JgddJTRdChAvnUMR",
+                      "__typename": "Clip",
+                      "__typename": "Clip"
+                    },
+                    "__typename": "ClipEdge"
+                  }
+                ],
+                "__typename": "ClipConnection"
+              },
+              "roles": { "isPartner": true, "__typename": "UserRoles" },
+              "stream": {
+                "game": {
+                  "id": "33214",
+                  "name": "Fortnite",
+                  "displayName": "Fortnite",
+                  "__typename": "Game"
+                },
+                "id": "40802390173",
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_bugha-214x120.jpg",
+                "tags": [
+                  {
+                    "id": "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+                    "isLanguageTag": true,
+                    "localizedName": "English",
+                    "tagName": "auto___lang_en",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  }
+                ],
+                "type": "live",
+                "viewersCount": 6740,
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User",
+              "__typename": "User"
+            },
+            {
+              "broadcastSettings": {
+                "id": "270186408",
+                "title": "Finals FNCS Week 3 w/ Rustyk \u0026 Xown | Code: K1NGOD #ad | !redes !video !sorteo",
+                "__typename": "BroadcastSettings"
+              },
+              "displayName": "k1ng",
+              "followers": {
+                "totalCount": 1349179,
+                "__typename": "FollowerConnection"
+              },
+              "id": "270186408",
+              "lastBroadcast": {
+                "id": "40800537565",
+                "startedAt": "2021-02-28T19:07:13.486786Z",
+                "__typename": "Broadcast"
+              },
+              "login": "k1ng",
+              "profileImageURL": "https://static-cdn.jtvnw.net/jtv_user_pictures/64bd49ff-ea15-44f9-adb5-53d35ff9c6d3-profile_image-150x150.png",
+              "description": null,
+              "channel": {
+                "id": "270186408",
+                "schedule": null,
+                "__typename": "Channel"
+              },
+              "self": null,
+              "latestVideo": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "932087678",
+                      "lengthSeconds": 9780,
+                      "title": "Finals FNCS Week 3 w/ Rustyk \u0026 Xown | Code: K1NGOD #ad | !redes !video !sorteo",
+                      "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_100x56.png",
+                      "__typename": "Video",
+                      "__typename": "Video"
+                    },
+                    "__typename": "VideoEdge"
+                  }
+                ],
+                "__typename": "VideoConnection"
+              },
+              "topClip": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "1068296221",
+                      "title": "Sens 25/02",
+                      "durationSeconds": 6,
+                      "thumbnailURL": "https://clips-media-assets2.twitch.tv/AT-cm%7C1068296221-preview-260x147.jpg",
+                      "slug": "SnappyHonorableCheddarDeIlluminati-EY3VHM5EBmuTich8",
+                      "__typename": "Clip",
+                      "__typename": "Clip"
+                    },
+                    "__typename": "ClipEdge"
+                  }
+                ],
+                "__typename": "ClipConnection"
+              },
+              "roles": { "isPartner": true, "__typename": "UserRoles" },
+              "stream": {
+                "game": {
+                  "id": "33214",
+                  "name": "Fortnite",
+                  "displayName": "Fortnite",
+                  "__typename": "Game"
+                },
+                "id": "40800537565",
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_k1ng-214x120.jpg",
+                "tags": [
+                  {
+                    "id": "d4bb9c58-2141-4881-bcdc-3fe0505457d1",
+                    "isLanguageTag": true,
+                    "localizedName": "Spanish",
+                    "tagName": "auto___lang_es",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  }
+                ],
+                "type": "live",
+                "viewersCount": 18344,
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User",
+              "__typename": "User"
+            },
+            {
+              "broadcastSettings": {
+                "id": "246450563",
+                "title": "Warming up for FNCS finals ",
+                "__typename": "BroadcastSettings"
+              },
+              "displayName": "StableRonaldo_",
+              "followers": {
+                "totalCount": 1721251,
+                "__typename": "FollowerConnection"
+              },
+              "id": "246450563",
+              "lastBroadcast": {
+                "id": "40802635453",
+                "startedAt": "2021-02-28T21:23:46.93574Z",
+                "__typename": "Broadcast"
+              },
+              "login": "stableronaldo_",
+              "profileImageURL": "https://static-cdn.jtvnw.net/jtv_user_pictures/ccdbd374-71d9-494e-8c91-0720a2bd82f9-profile_image-150x150.png",
+              "description": "I am professional loud man ",
+              "channel": {
+                "id": "246450563",
+                "schedule": null,
+                "__typename": "Channel"
+              },
+              "self": null,
+              "latestVideo": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "932263611",
+                      "lengthSeconds": 1586,
+                      "title": "Warming up for FNCS finals ",
+                      "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_100x56.png",
+                      "__typename": "Video",
+                      "__typename": "Video"
+                    },
+                    "__typename": "VideoEdge"
+                  }
+                ],
+                "__typename": "VideoConnection"
+              },
+              "topClip": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "1064159890",
+                      "title": "LMFAOOOO",
+                      "durationSeconds": 7,
+                      "thumbnailURL": "https://clips-media-assets2.twitch.tv/AT-cm%7C1064159890-preview-260x147.jpg",
+                      "slug": "PunchyDullBananaBCouch-Jq8NzeYpMSOO8v9Z",
+                      "__typename": "Clip",
+                      "__typename": "Clip"
+                    },
+                    "__typename": "ClipEdge"
+                  }
+                ],
+                "__typename": "ClipConnection"
+              },
+              "roles": { "isPartner": true, "__typename": "UserRoles" },
+              "stream": {
+                "game": {
+                  "id": "33214",
+                  "name": "Fortnite",
+                  "displayName": "Fortnite",
+                  "__typename": "Game"
+                },
+                "id": "40802635453",
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_stableronaldo_-214x120.jpg",
+                "tags": [
+                  {
+                    "id": "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+                    "isLanguageTag": true,
+                    "localizedName": "English",
+                    "tagName": "auto___lang_en",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  }
+                ],
+                "type": "live",
+                "viewersCount": 11487,
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User",
+              "__typename": "User"
+            },
+            {
+              "broadcastSettings": {
+                "id": "39298218",
+                "title": "FLORIDA MAN PLAYS VIDEO GAMES",
+                "__typename": "BroadcastSettings"
+              },
+              "displayName": "dakotaz",
+              "followers": {
+                "totalCount": 4736818,
+                "__typename": "FollowerConnection"
+              },
+              "id": "39298218",
+              "lastBroadcast": {
+                "id": "40797202989",
+                "startedAt": "2021-02-28T15:28:12.873953Z",
+                "__typename": "Broadcast"
+              },
+              "login": "dakotaz",
+              "profileImageURL": "https://static-cdn.jtvnw.net/jtv_user_pictures/97369beb-a4c7-4632-80b5-0b648d386f55-profile_image-150x150.png",
+              "description": "good times to be had here",
+              "channel": {
+                "id": "39298218",
+                "schedule": {
+                  "id": "schedule-39298218",
+                  "nextSegment": null,
+                  "__typename": "Schedule"
+                },
+                "__typename": "Channel"
+              },
+              "self": null,
+              "latestVideo": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "931834888",
+                      "lengthSeconds": 22920,
+                      "title": "FLORIDA MAN PLAYS VIDEO GAMES",
+                      "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_100x56.png",
+                      "__typename": "Video",
+                      "__typename": "Video"
+                    },
+                    "__typename": "VideoEdge"
+                  }
+                ],
+                "__typename": "VideoConnection"
+              },
+              "topClip": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "1062569787",
+                      "title": "venting ",
+                      "durationSeconds": 20,
+                      "thumbnailURL": "https://clips-media-assets2.twitch.tv/AT-cm%7C1062569787-preview-260x147.jpg",
+                      "slug": "BlithePopularAnteaterFeelsBadMan-UJ9Ig9-68Wkb_i_L",
+                      "__typename": "Clip",
+                      "__typename": "Clip"
+                    },
+                    "__typename": "ClipEdge"
+                  }
+                ],
+                "__typename": "ClipConnection"
+              },
+              "roles": { "isPartner": true, "__typename": "UserRoles" },
+              "stream": {
+                "game": {
+                  "id": "33214",
+                  "name": "Fortnite",
+                  "displayName": "Fortnite",
+                  "__typename": "Game"
+                },
+                "id": "40797202989",
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_dakotaz-214x120.jpg",
+                "tags": [
+                  {
+                    "id": "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+                    "isLanguageTag": true,
+                    "localizedName": "English",
+                    "tagName": "auto___lang_en",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  },
+                  {
+                    "id": "64d9afa6-139a-48d5-ab4e-51d0a92b22de",
+                    "isLanguageTag": false,
+                    "localizedName": "Auditory ASMR",
+                    "tagName": "Auditory ASMR",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  }
+                ],
+                "type": "live",
+                "viewersCount": 2962,
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User",
+              "__typename": "User"
+            },
+            {
+              "broadcastSettings": {
+                "id": "156961894",
+                "title": "AO VIVO: WEEK 3 FINALS W/ RETAKE E OPAI! I !EXITLAG I !LOJA I CODE: BLACKOUTZ #AD",
+                "__typename": "BroadcastSettings"
+              },
+              "displayName": "blxckoutz",
+              "followers": {
+                "totalCount": 964139,
+                "__typename": "FollowerConnection"
+              },
+              "id": "156961894",
+              "lastBroadcast": {
+                "id": "40800304349",
+                "startedAt": "2021-02-28T18:55:26.718304Z",
+                "__typename": "Broadcast"
+              },
+              "login": "blxckoutz",
+              "profileImageURL": "https://static-cdn.jtvnw.net/jtv_user_pictures/5fd6d8c8-61c6-40ce-b8c0-b34e4b4cabea-profile_image-150x150.png",
+              "description": "Pro Fortnite Player for Cloud9! ",
+              "channel": {
+                "id": "156961894",
+                "schedule": null,
+                "__typename": "Channel"
+              },
+              "self": null,
+              "latestVideo": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "932068746",
+                      "lengthSeconds": 10486,
+                      "title": "AO VIVO: WEEK 3 FINALS W/ RETAKE E OPAI! I !EXITLAG I !LOJA I CODE: BLACKOUTZ #AD",
+                      "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_100x56.png",
+                      "__typename": "Video",
+                      "__typename": "Video"
+                    },
+                    "__typename": "VideoEdge"
+                  }
+                ],
+                "__typename": "VideoConnection"
+              },
+              "topClip": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "1065647632",
+                      "title": "clb retake",
+                      "durationSeconds": 29,
+                      "thumbnailURL": "https://clips-media-assets2.twitch.tv/40739513709-offset-7504-preview-260x147.jpg",
+                      "slug": "CrypticSparklyPhoneWTRuck-h3NyvTZieTx8sNb7",
+                      "__typename": "Clip",
+                      "__typename": "Clip"
+                    },
+                    "__typename": "ClipEdge"
+                  }
+                ],
+                "__typename": "ClipConnection"
+              },
+              "roles": { "isPartner": true, "__typename": "UserRoles" },
+              "stream": {
+                "game": {
+                  "id": "33214",
+                  "name": "Fortnite",
+                  "displayName": "Fortnite",
+                  "__typename": "Game"
+                },
+                "id": "40800304349",
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_blxckoutz-214x120.jpg",
+                "tags": [
+                  {
+                    "id": "39ee8140-901a-4762-bfca-8260dea1310f",
+                    "isLanguageTag": true,
+                    "localizedName": "Portuguese",
+                    "tagName": "auto___lang_pt",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  },
+                  {
+                    "id": "fd8f5e68-42d3-4544-a273-5fc92dabc568",
+                    "isLanguageTag": false,
+                    "localizedName": "Mode: Battle Royale",
+                    "tagName": "Mode: Battle Royale",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  },
+                  {
+                    "id": "ff56eeeb-99ed-4a60-93fc-0b3f05d8661e",
+                    "isLanguageTag": false,
+                    "localizedName": "Multiplayer",
+                    "tagName": "Multiplayer",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  },
+                  {
+                    "id": "e90b5f6e-4c6e-4003-885b-4d0d5adeb580",
+                    "isLanguageTag": false,
+                    "localizedName": "Family Friendly",
+                    "tagName": "Family Friendly",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  },
+                  {
+                    "id": "62bc5436-6f91-446d-9651-da008da4e4bb",
+                    "isLanguageTag": false,
+                    "localizedName": "Coaching",
+                    "tagName": "Coaching",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  },
+                  {
+                    "id": "6433db3e-37a7-4590-915a-7c0949a4ac69",
+                    "isLanguageTag": false,
+                    "localizedName": "Leveling",
+                    "tagName": "Leveling",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  }
+                ],
+                "type": "live",
+                "viewersCount": 11873,
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User",
+              "__typename": "User"
+            },
+            {
+              "broadcastSettings": {
+                "id": "154526718",
+                "title": "!New | DROPS ENABLED !Drops !Claim | Trio Arena w/ Zyfa \u0026 Bugha VIEWING PARTY NAE FNCS (FINALS) (Game 1/6)  (15hr stream) | TSM EmadGG | ",
+                "__typename": "BroadcastSettings"
+              },
+              "displayName": "EmadGG",
+              "followers": {
+                "totalCount": 1204415,
+                "__typename": "FollowerConnection"
+              },
+              "id": "154526718",
+              "lastBroadcast": {
+                "id": "40795613021",
+                "startedAt": "2021-02-28T13:14:24.093684Z",
+                "__typename": "Broadcast"
+              },
+              "login": "emadgg",
+              "profileImageURL": "https://static-cdn.jtvnw.net/jtv_user_pictures/b8dfcbb1-70df-4bc4-b045-001ef06e79f5-profile_image-150x150.jpg",
+              "description": "My names Emad. Creator of GGs Only",
+              "channel": {
+                "id": "154526718",
+                "schedule": null,
+                "__typename": "Channel"
+              },
+              "self": null,
+              "latestVideo": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "931721605",
+                      "lengthSeconds": 30949,
+                      "title": "!New | DROPS ENABLED !Drops !Claim | Arena then EU FNCS (FINALS) Viewing Party (15hr stream) | TSM EmadGG | !Dance !insta",
+                      "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_100x56.png",
+                      "__typename": "Video",
+                      "__typename": "Video"
+                    },
+                    "__typename": "VideoEdge"
+                  }
+                ],
+                "__typename": "VideoConnection"
+              },
+              "topClip": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "1065078485",
+                      "title": "ok",
+                      "durationSeconds": 11,
+                      "thumbnailURL": "https://clips-media-assets2.twitch.tv/AT-cm%7C1065078485-preview-260x147.jpg",
+                      "slug": "BoringScrumptiousEndiveTooSpicy-RTujoFeHWiSpkT3_",
+                      "__typename": "Clip",
+                      "__typename": "Clip"
+                    },
+                    "__typename": "ClipEdge"
+                  }
+                ],
+                "__typename": "ClipConnection"
+              },
+              "roles": { "isPartner": true, "__typename": "UserRoles" },
+              "stream": {
+                "game": {
+                  "id": "33214",
+                  "name": "Fortnite",
+                  "displayName": "Fortnite",
+                  "__typename": "Game"
+                },
+                "id": "40795613021",
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_emadgg-214x120.jpg",
+                "tags": [
+                  {
+                    "id": "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+                    "isLanguageTag": true,
+                    "localizedName": "English",
+                    "tagName": "auto___lang_en",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  }
+                ],
+                "type": "live",
+                "viewersCount": 8510,
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User",
+              "__typename": "User"
+            },
+            {
+              "broadcastSettings": {
+                "id": "245226810",
+                "title": "CHILL VIBES \u0026 VIEWING PARTY FNCS FINALS WEEK 3 || !clasificados",
+                "__typename": "BroadcastSettings"
+              },
+              "displayName": "Jelty",
+              "followers": {
+                "totalCount": 1255127,
+                "__typename": "FollowerConnection"
+              },
+              "id": "245226810",
+              "lastBroadcast": {
+                "id": "41875111038",
+                "startedAt": "2021-02-28T21:35:08.039365Z",
+                "__typename": "Broadcast"
+              },
+              "login": "jelty",
+              "profileImageURL": "https://static-cdn.jtvnw.net/jtv_user_pictures/50127da1-6e66-4dcc-8360-0ad4ee899233-profile_image-150x150.png",
+              "description": "Soy Jelty.Jugador Mexicano, juego desde la temporada 1 en PS4 y después me cambié a PC y me hice bueno, hago streams casi todos los días por las tardes (hora mexico)",
+              "channel": {
+                "id": "245226810",
+                "schedule": null,
+                "__typename": "Channel"
+              },
+              "self": null,
+              "latestVideo": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "932276598",
+                      "lengthSeconds": 905,
+                      "title": " 😥😞NO ESTOY TEMBLANDO 😥😞!clasificados",
+                      "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_100x56.png",
+                      "__typename": "Video",
+                      "__typename": "Video"
+                    },
+                    "__typename": "VideoEdge"
+                  }
+                ],
+                "__typename": "VideoConnection"
+              },
+              "topClip": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "1061978207",
+                      "title": "AY",
+                      "durationSeconds": 10,
+                      "thumbnailURL": "https://clips-media-assets2.twitch.tv/AT-cm%7C1061978207-preview-260x147.jpg",
+                      "slug": "CovertNimbleFishPastaThat-Bz7x1kvssghvjckL",
+                      "__typename": "Clip",
+                      "__typename": "Clip"
+                    },
+                    "__typename": "ClipEdge"
+                  }
+                ],
+                "__typename": "ClipConnection"
+              },
+              "roles": { "isPartner": true, "__typename": "UserRoles" },
+              "stream": {
+                "game": {
+                  "id": "33214",
+                  "name": "Fortnite",
+                  "displayName": "Fortnite",
+                  "__typename": "Game"
+                },
+                "id": "41875111038",
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_jelty-214x120.jpg",
+                "tags": [
+                  {
+                    "id": "d4bb9c58-2141-4881-bcdc-3fe0505457d1",
+                    "isLanguageTag": true,
+                    "localizedName": "Spanish",
+                    "tagName": "auto___lang_es",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  },
+                  {
+                    "id": "c2839af5-f1d2-46c4-8edc-1d0bfbd85070",
+                    "isLanguageTag": false,
+                    "localizedName": "Hype Train",
+                    "tagName": "auto___hypetrain_hypetrain",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  }
+                ],
+                "type": "live",
+                "viewersCount": 7761,
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User",
+              "__typename": "User"
+            },
+            {
+              "broadcastSettings": {
+                "id": "198506129",
+                "title": "[Finale] FNCS Week 3 : Magl / BlastR / EMXXRR | Cast Yoshi",
+                "__typename": "BroadcastSettings"
+              },
+              "displayName": "SolaryFortnite",
+              "followers": {
+                "totalCount": 1641901,
+                "__typename": "FollowerConnection"
+              },
+              "id": "198506129",
+              "lastBroadcast": {
+                "id": "41236414588",
+                "startedAt": "2021-02-27T09:16:01.944603Z",
+                "__typename": "Broadcast"
+              },
+              "login": "solaryfortnite",
+              "profileImageURL": "https://static-cdn.jtvnw.net/jtv_user_pictures/41bcfffb-29d4-433e-a13e-6fdf40bebc89-profile_image-150x150.png",
+              "description": "Esport organization \u0026 WebTV on Fortnite, League of Legends \u0026 HearthStone 🇫🇷 powered by LogitechGFrance PredatorFrance \u0026 Objectif Code #SLYWIN 📧 contact@solary.fr",
+              "channel": {
+                "id": "198506129",
+                "schedule": {
+                  "id": "schedule-198506129",
+                  "nextSegment": null,
+                  "__typename": "Schedule"
+                },
+                "__typename": "Channel"
+              },
+              "self": null,
+              "latestVideo": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "930239764",
+                      "lengthSeconds": 131652,
+                      "title": "FNCS Week 3 : Magl BlastR EMXXRR Hunter | Cast Yoshi",
+                      "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_100x56.png",
+                      "__typename": "Video",
+                      "__typename": "Video"
+                    },
+                    "__typename": "VideoEdge"
+                  }
+                ],
+                "__typename": "VideoConnection"
+              },
+              "topClip": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "1065812401",
+                      "title": "TWIKS CASSE TOUT",
+                      "durationSeconds": 26,
+                      "thumbnailURL": "https://clips-media-assets2.twitch.tv/41206505164-offset-50392-preview-260x147.jpg",
+                      "slug": "RealLachrymoseCoyoteWow-iNQf5aNwhdbd4Or8",
+                      "__typename": "Clip",
+                      "__typename": "Clip"
+                    },
+                    "__typename": "ClipEdge"
+                  }
+                ],
+                "__typename": "ClipConnection"
+              },
+              "roles": { "isPartner": true, "__typename": "UserRoles" },
+              "stream": {
+                "game": {
+                  "id": "33214",
+                  "name": "Fortnite",
+                  "displayName": "Fortnite",
+                  "__typename": "Game"
+                },
+                "id": "41236414588",
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_solaryfortnite-214x120.jpg",
+                "tags": [
+                  {
+                    "id": "6f655045-9989-4ef7-8f85-1edcec42d648",
+                    "isLanguageTag": true,
+                    "localizedName": "French",
+                    "tagName": "auto___lang_fr",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  }
+                ],
+                "type": "live",
+                "viewersCount": 2823,
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User",
+              "__typename": "User"
+            },
+            {
+              "broadcastSettings": {
+                "id": "185619753",
+                "title": "waiting for my gambling money to come in",
+                "__typename": "BroadcastSettings"
+              },
+              "displayName": "ops1x",
+              "followers": {
+                "totalCount": 795822,
+                "__typename": "FollowerConnection"
+              },
+              "id": "185619753",
+              "lastBroadcast": {
+                "id": "40797733245",
+                "startedAt": "2021-02-28T16:08:11.18445Z",
+                "__typename": "Broadcast"
+              },
+              "login": "ops1x",
+              "profileImageURL": "https://static-cdn.jtvnw.net/jtv_user_pictures/8de42681-7315-4955-905c-eef1810944f6-profile_image-150x150.png",
+              "description": "6'2 pro fortnite player for @TSM ",
+              "channel": {
+                "id": "185619753",
+                "schedule": {
+                  "id": "schedule-185619753",
+                  "nextSegment": null,
+                  "__typename": "Schedule"
+                },
+                "__typename": "Channel"
+              },
+              "self": null,
+              "latestVideo": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "929194087",
+                      "lengthSeconds": 15696,
+                      "title": "EU FNCS VIEWPARTY AT 1PM EST",
+                      "previewThumbnailURL": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/d991bcc4e7ad406f5c5e_ops1x_40766633101_1614358986//thumb/thumb0-100x56.jpg",
+                      "__typename": "Video",
+                      "__typename": "Video"
+                    },
+                    "__typename": "VideoEdge"
+                  }
+                ],
+                "__typename": "VideoConnection"
+              },
+              "topClip": {
+                "edges": [
+                  {
+                    "node": {
+                      "id": "1067021163",
+                      "title": "Pixel is a goat",
+                      "durationSeconds": 22,
+                      "thumbnailURL": "https://clips-media-assets2.twitch.tv/AT-cm%7C1067021163-preview-260x147.jpg",
+                      "slug": "TangibleEvilRingTTours-u6gcEI51zqu5VY_q",
+                      "__typename": "Clip",
+                      "__typename": "Clip"
+                    },
+                    "__typename": "ClipEdge"
+                  }
+                ],
+                "__typename": "ClipConnection"
+              },
+              "roles": { "isPartner": true, "__typename": "UserRoles" },
+              "stream": {
+                "game": {
+                  "id": "33214",
+                  "name": "Fortnite",
+                  "displayName": "Fortnite",
+                  "__typename": "Game"
+                },
+                "id": "40797733245",
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_ops1x-214x120.jpg",
+                "tags": [
+                  {
+                    "id": "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+                    "isLanguageTag": true,
+                    "localizedName": "English",
+                    "tagName": "auto___lang_en",
+                    "__typename": "Tag",
+                    "__typename": "Tag"
+                  }
+                ],
+                "type": "live",
+                "viewersCount": 3230,
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User",
+              "__typename": "User"
+            }
+          ],
+          "score": 1,
+          "totalMatches": 19993,
+          "__typename": "SearchForResultUsers",
+          "__typename": "SearchForResultUsers"
+        },
+        "games": {
+          "cursor": "",
+          "items": [
+            {
+              "id": "33214",
+              "name": "Fortnite",
+              "displayName": "Fortnite",
+              "boxArtURL": "https://static-cdn.jtvnw.net/ttv-boxart/Fortnite-90x120.jpg",
+              "tags": [
+                {
+                  "id": "523fe736-fa95-44c7-b22f-13008ca2172c",
+                  "isLanguageTag": false,
+                  "localizedName": "Shooter",
+                  "tagName": "Shooter",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                },
+                {
+                  "id": "4d1eaa36-f750-4862-b7e9-d0a13970d535",
+                  "isLanguageTag": false,
+                  "localizedName": "Action",
+                  "tagName": "Action",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                },
+                {
+                  "id": "ae7d0652-8b2e-476b-8b51-a076550b234f",
+                  "isLanguageTag": false,
+                  "localizedName": "Survival",
+                  "tagName": "Survival",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                },
+                {
+                  "id": "a682f560-5186-4871-b97a-8d8e3f4308e9",
+                  "isLanguageTag": false,
+                  "localizedName": "Open World",
+                  "tagName": "Open World",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                }
+              ],
+              "viewersCount": 215435,
+              "__typename": "Game",
+              "__typename": "Game"
+            },
+            {
+              "id": "1780299574",
+              "name": "Fortnite - Deluxe Founder's Pack",
+              "displayName": "Fortnite - Deluxe Founder's Pack",
+              "boxArtURL": "https://static-cdn.jtvnw.net/ttv-boxart/Fortnite%20-%20Deluxe%20Founder%27s%20Pack-90x120.jpg",
+              "tags": [],
+              "viewersCount": 6,
+              "__typename": "Game",
+              "__typename": "Game"
+            },
+            {
+              "id": "538164972",
+              "name": "Fortnite: The Last Laugh Bundle",
+              "displayName": "Fortnite: The Last Laugh Bundle",
+              "boxArtURL": "https://static-cdn.jtvnw.net/ttv-boxart/./Fortnite:%20The%20Last%20Laugh%20Bundle-90x120.jpg",
+              "tags": [
+                {
+                  "id": "523fe736-fa95-44c7-b22f-13008ca2172c",
+                  "isLanguageTag": false,
+                  "localizedName": "Shooter",
+                  "tagName": "Shooter",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                }
+              ],
+              "viewersCount": 2,
+              "__typename": "Game",
+              "__typename": "Game"
+            }
+          ],
+          "score": 3,
+          "totalMatches": 3,
+          "__typename": "SearchForResultGames",
+          "__typename": "SearchForResultGames"
+        },
+        "videos": {
+          "cursor": "MTA=",
+          "items": [
+            {
+              "contentTags": [
+                {
+                  "id": "d4bb9c58-2141-4881-bcdc-3fe0505457d1",
+                  "isLanguageTag": true,
+                  "localizedName": "Spanish",
+                  "tagName": "auto___lang_es",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                },
+                {
+                  "id": "cc5eabb5-3f2c-41b5-b9b5-399a9b4d40ea",
+                  "isLanguageTag": false,
+                  "localizedName": "Arena",
+                  "tagName": "Arena",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                },
+                {
+                  "id": "ac763b17-7bea-4632-9eb4-d106689ff409",
+                  "isLanguageTag": false,
+                  "localizedName": "Playing with Viewers",
+                  "tagName": "Playing with Viewers",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                }
+              ],
+              "createdAt": "2021-02-28T21:44:31Z",
+              "owner": {
+                "id": "651840933",
+                "displayName": "fortnitemrkos",
+                "login": "fortnitemrkos",
+                "roles": { "isPartner": false, "__typename": "UserRoles" },
+                "__typename": "User"
+              },
+              "id": "932286893",
+              "game": {
+                "id": "33214",
+                "name": "Fortnite",
+                "displayName": "Fortnite",
+                "__typename": "Game"
+              },
+              "lengthSeconds": 322,
+              "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_214x120.png",
+              "title": "BUSCO TRIO SERIO PARA CASH CAUP DE MAÑANA \u003c3",
+              "viewCount": 0,
+              "__typename": "Video",
+              "__typename": "Video"
+            },
+            {
+              "contentTags": [
+                {
+                  "id": "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+                  "isLanguageTag": true,
+                  "localizedName": "English",
+                  "tagName": "auto___lang_en",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                },
+                {
+                  "id": "e659959d-392f-44c5-83a5-fb959cdbaccc",
+                  "isLanguageTag": false,
+                  "localizedName": "100%",
+                  "tagName": "100%",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                },
+                {
+                  "id": "a31daeb5-edc2-4b29-afa1-84c96612836d",
+                  "isLanguageTag": false,
+                  "localizedName": "12 Hour Challenge",
+                  "tagName": "12 Hour Challenge",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                },
+                {
+                  "id": "04c37d08-bdcb-42ed-a0c8-13191d2bce82",
+                  "isLanguageTag": false,
+                  "localizedName": "Mode: Save the World",
+                  "tagName": "Mode: Save the World",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                }
+              ],
+              "createdAt": "2021-02-28T21:37:44Z",
+              "owner": {
+                "id": "448678505",
+                "displayName": "fortniteediterpro",
+                "login": "fortniteediterpro",
+                "roles": { "isPartner": false, "__typename": "UserRoles" },
+                "__typename": "User"
+              },
+              "id": "932279478",
+              "game": {
+                "id": "33214",
+                "name": "Fortnite",
+                "displayName": "Fortnite",
+                "__typename": "Game"
+              },
+              "lengthSeconds": 729,
+              "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_214x120.png",
+              "title": "Fortnite Save the World Massive DropBox \u0026 Traps Giveaway #Giveaway @LiveFortnite",
+              "viewCount": 0,
+              "__typename": "Video",
+              "__typename": "Video"
+            },
+            {
+              "contentTags": [
+                {
+                  "id": "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+                  "isLanguageTag": true,
+                  "localizedName": "English",
+                  "tagName": "auto___lang_en",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                }
+              ],
+              "createdAt": "2021-02-28T21:34:16Z",
+              "owner": {
+                "id": "611319232",
+                "displayName": "fortnitelv99",
+                "login": "fortnitelv99",
+                "roles": { "isPartner": false, "__typename": "UserRoles" },
+                "__typename": "User"
+              },
+              "id": "932275638",
+              "game": {
+                "id": "33214",
+                "name": "Fortnite",
+                "displayName": "Fortnite",
+                "__typename": "Game"
+              },
+              "lengthSeconds": 937,
+              "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_214x120.png",
+              "title": "Duo arena",
+              "viewCount": 0,
+              "__typename": "Video",
+              "__typename": "Video"
+            },
+            {
+              "contentTags": [
+                {
+                  "id": "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+                  "isLanguageTag": true,
+                  "localizedName": "English",
+                  "tagName": "auto___lang_en",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                },
+                {
+                  "id": "ff56eeeb-99ed-4a60-93fc-0b3f05d8661e",
+                  "isLanguageTag": false,
+                  "localizedName": "Multiplayer",
+                  "tagName": "Multiplayer",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                },
+                {
+                  "id": "f6dda089-56ef-4fb5-b06e-ddeba46fb5f2",
+                  "isLanguageTag": false,
+                  "localizedName": "Ballroom Dance",
+                  "tagName": "Ballroom Dance",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                }
+              ],
+              "createdAt": "2021-02-28T21:31:30Z",
+              "owner": {
+                "id": "638281569",
+                "displayName": "fortniteandrew",
+                "login": "fortniteandrew",
+                "roles": { "isPartner": false, "__typename": "UserRoles" },
+                "__typename": "User"
+              },
+              "id": "932272542",
+              "game": {
+                "id": "33214",
+                "name": "Fortnite",
+                "displayName": "Fortnite",
+                "__typename": "Game"
+              },
+              "lengthSeconds": 1103,
+              "previewThumbnailURL": "https://vod-secure.twitch.tv/_404/404_processing_214x120.png",
+              "title": "official V BUCKS GIVEAWAY!!!",
+              "viewCount": 3,
+              "__typename": "Video",
+              "__typename": "Video"
+            },
+            {
+              "contentTags": [
+                {
+                  "id": "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+                  "isLanguageTag": true,
+                  "localizedName": "English",
+                  "tagName": "auto___lang_en",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                },
+                {
+                  "id": "ff56eeeb-99ed-4a60-93fc-0b3f05d8661e",
+                  "isLanguageTag": false,
+                  "localizedName": "Multiplayer",
+                  "tagName": "Multiplayer",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                },
+                {
+                  "id": "f6dda089-56ef-4fb5-b06e-ddeba46fb5f2",
+                  "isLanguageTag": false,
+                  "localizedName": "Ballroom Dance",
+                  "tagName": "Ballroom Dance",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                }
+              ],
+              "createdAt": "2021-02-28T21:25:05Z",
+              "owner": {
+                "id": "638281569",
+                "displayName": "fortniteandrew",
+                "login": "fortniteandrew",
+                "roles": { "isPartner": false, "__typename": "UserRoles" },
+                "__typename": "User"
+              },
+              "id": "932265044",
+              "game": {
+                "id": "33214",
+                "name": "Fortnite",
+                "displayName": "Fortnite",
+                "__typename": "Game"
+              },
+              "lengthSeconds": 375,
+              "previewThumbnailURL": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/83ee7f3a3939eaa3a1c8_fortniteandrew_41875007950_1614547491//thumb/thumb0-214x120.jpg",
+              "title": "official V BUCKS GIVEAWAY!!!",
+              "viewCount": 0,
+              "__typename": "Video",
+              "__typename": "Video"
+            },
+            {
+              "contentTags": [],
+              "createdAt": "2021-02-28T21:23:58Z",
+              "owner": {
+                "id": "529285588",
+                "displayName": "fortnitestreamfordaysboii",
+                "login": "fortnitestreamfordaysboii",
+                "roles": { "isPartner": false, "__typename": "UserRoles" },
+                "__typename": "User"
+              },
+              "id": "932263810",
+              "game": {
+                "id": "33214",
+                "name": "Fortnite",
+                "displayName": "Fortnite",
+                "__typename": "Game"
+              },
+              "lengthSeconds": 153,
+              "previewThumbnailURL": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/1d2fb4ff6a4c0216860f_fortnitestreamfordaysboii_41253611820_1614547427//thumb/thumb0-214x120.jpg",
+              "title": "DONT JOIN",
+              "viewCount": 5,
+              "__typename": "Video",
+              "__typename": "Video"
+            },
+            {
+              "contentTags": [],
+              "createdAt": "2021-02-28T20:22:10Z",
+              "owner": {
+                "id": "656261529",
+                "displayName": "fortnite1233898",
+                "login": "fortnite1233898",
+                "roles": { "isPartner": false, "__typename": "UserRoles" },
+                "__typename": "User"
+              },
+              "id": "932188692",
+              "game": {
+                "id": "33214",
+                "name": "Fortnite",
+                "displayName": "Fortnite",
+                "__typename": "Game"
+              },
+              "lengthSeconds": 77,
+              "previewThumbnailURL": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/a0cbfa44d3606bcd5168_fortnite1233898_40801793725_1614543720//thumb/thumb0-214x120.jpg",
+              "title": "fortnite",
+              "viewCount": 4,
+              "__typename": "Video",
+              "__typename": "Video"
+            },
+            {
+              "contentTags": [],
+              "createdAt": "2021-02-28T20:13:58Z",
+              "owner": {
+                "id": "656261529",
+                "displayName": "fortnite1233898",
+                "login": "fortnite1233898",
+                "roles": { "isPartner": false, "__typename": "UserRoles" },
+                "__typename": "User"
+              },
+              "id": "932178525",
+              "game": {
+                "id": "33214",
+                "name": "Fortnite",
+                "displayName": "Fortnite",
+                "__typename": "Game"
+              },
+              "lengthSeconds": 14,
+              "previewThumbnailURL": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/c0af6df7f7a02589ed91_fortnite1233898_40801666413_1614543229//thumb/thumb0-214x120.jpg",
+              "title": "fortnite",
+              "viewCount": 6,
+              "__typename": "Video",
+              "__typename": "Video"
+            },
+            {
+              "contentTags": [],
+              "createdAt": "2021-02-28T19:56:40Z",
+              "owner": {
+                "id": "656261529",
+                "displayName": "fortnite1233898",
+                "login": "fortnite1233898",
+                "roles": { "isPartner": false, "__typename": "UserRoles" },
+                "__typename": "User"
+              },
+              "id": "932152398",
+              "game": {
+                "id": "33214",
+                "name": "Fortnite",
+                "displayName": "Fortnite",
+                "__typename": "Game"
+              },
+              "lengthSeconds": 24,
+              "previewThumbnailURL": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/350083fe4585bbd03afa_fortnite1233898_40801356861_1614542189//thumb/thumb0-214x120.jpg",
+              "title": "fortnite",
+              "viewCount": 3,
+              "__typename": "Video",
+              "__typename": "Video"
+            },
+            {
+              "contentTags": [
+                {
+                  "id": "6ea6bca4-4712-4ab9-a906-e3336a9d8039",
+                  "isLanguageTag": true,
+                  "localizedName": "English",
+                  "tagName": "auto___lang_en",
+                  "__typename": "Tag",
+                  "__typename": "Tag"
+                }
+              ],
+              "createdAt": "2021-02-28T19:36:23Z",
+              "owner": {
+                "id": "629637986",
+                "displayName": "fortnite31111",
+                "login": "fortnite31111",
+                "roles": { "isPartner": false, "__typename": "UserRoles" },
+                "__typename": "User"
+              },
+              "id": "932126192",
+              "game": {
+                "id": "510218",
+                "name": "Among Us",
+                "displayName": "Among Us",
+                "__typename": "Game"
+              },
+              "lengthSeconds": 90,
+              "previewThumbnailURL": "https://static-cdn.jtvnw.net/cf_vods/d2nvs31859zcd8/fa72b0758fb9e6f143ae_fortnite31111_41873815742_1614540972//thumb/thumb0-214x120.jpg",
+              "title": "fortnite ",
+              "viewCount": 6,
+              "__typename": "Video",
+              "__typename": "Video"
+            }
+          ],
+          "score": 4,
+          "totalMatches": 2203753,
+          "__typename": "SearchForResultVideos",
+          "__typename": "SearchForResultVideos"
+        },
+        "relatedLiveChannels": {
+          "items": [
+            {
+              "id": "32140000",
+              "stream": {
+                "id": "41874908494",
+                "viewersCount": 4337,
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_sypherpk-200x112.jpg",
+                "game": {
+                  "name": "Just Chatting",
+                  "id": "509658",
+                  "__typename": "Game"
+                },
+                "broadcaster": {
+                  "id": "32140000",
+                  "primaryColorHex": "EE2737",
+                  "login": "sypherpk",
+                  "displayName": "SypherPK",
+                  "broadcastSettings": {
+                    "id": "32140000",
+                    "title": "Showing Love to the Community | @SypherPK | 👹",
+                    "__typename": "BroadcastSettings"
+                  },
+                  "roles": { "isPartner": true, "__typename": "UserRoles" },
+                  "__typename": "User"
+                },
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User"
+            },
+            {
+              "id": "96564203",
+              "stream": {
+                "id": "41248624620",
+                "viewersCount": 4205,
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_sujagg-200x112.jpg",
+                "game": {
+                  "name": "Fortnite",
+                  "id": "33214",
+                  "__typename": "Game"
+                },
+                "broadcaster": {
+                  "id": "96564203",
+                  "primaryColorHex": "BD0078",
+                  "login": "sujagg",
+                  "displayName": "sujagg",
+                  "broadcastSettings": {
+                    "id": "96564203",
+                    "title": "🏆DROPS ACTIVADOS🏆 CASTEO FINAL FNCS w/ TheGrefg y Agustin51 !VENTAJAS !SORTEO",
+                    "__typename": "BroadcastSettings"
+                  },
+                  "roles": { "isPartner": true, "__typename": "UserRoles" },
+                  "__typename": "User"
+                },
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User"
+            },
+            {
+              "id": "67931625",
+              "stream": {
+                "id": "40799308509",
+                "viewersCount": 13880,
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_amar-200x112.jpg",
+                "game": {
+                  "name": "Just Chatting",
+                  "id": "509658",
+                  "__typename": "Game"
+                },
+                "broadcaster": {
+                  "id": "67931625",
+                  "primaryColorHex": "47DDFF",
+                  "login": "amar",
+                  "displayName": "Amar",
+                  "broadcastSettings": {
+                    "id": "67931625",
+                    "title": "Reactions fast 9k Subs DANKE!  | !JustLegends !Pc !yfood !sub",
+                    "__typename": "BroadcastSettings"
+                  },
+                  "roles": { "isPartner": true, "__typename": "UserRoles" },
+                  "__typename": "User"
+                },
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User"
+            },
+            {
+              "id": "192678094",
+              "stream": {
+                "id": "40799447773",
+                "viewersCount": 1877,
+                "previewImageURL": "https://static-cdn.jtvnw.net/previews-ttv/live_user_chap-200x112.jpg",
+                "game": {
+                  "name": "VALORANT",
+                  "id": "516575",
+                  "__typename": "Game"
+                },
+                "broadcaster": {
+                  "id": "192678094",
+                  "primaryColorHex": "FF4747",
+                  "login": "chap",
+                  "displayName": "Chap",
+                  "broadcastSettings": {
+                    "id": "192678094",
+                    "title": "NAE FNCS VIEWING PARTY at 5PM ET | !youtooz",
+                    "__typename": "BroadcastSettings"
+                  },
+                  "roles": { "isPartner": true, "__typename": "UserRoles" },
+                  "__typename": "User"
+                },
+                "__typename": "Stream"
+              },
+              "watchParty": null,
+              "__typename": "User"
+            }
+          ],
+          "score": 2,
+          "__typename": "SearchForResultRelatedLiveChannels",
+          "__typename": "SearchForResultRelatedLiveChannels"
+        },
+        "__typename": "SearchFor"
+      }
+    },
+    "extensions": {
+      "durationMilliseconds": 278,
+      "operationName": "SearchResultsPage_SearchResults",
+      "requestID": "01EZN9XN4P1EHKTTGRB7V4BQ90"
+    }
+  }
+]

@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions'
 import cors from 'cors'
 
 import { QueryBuilder } from './utils/queryBuilder'
+import { parseEventbrite, parseTwitch, parseTicketmaster } from './searches'
 import { hasOnlyDigits, isUsState, isCity } from './utils/validators'
 import { ESearchTypes, ESearchParameters } from '../interfaces'
 
@@ -21,7 +22,9 @@ export const search = async (
     status,
     tm: {},
     eb: {},
-    tw: {}
+    ebNew: {},
+    tw: {},
+    twNew: {}
   }
   const { text } = req.query
 
@@ -51,21 +54,26 @@ export const search = async (
     const ticketMasterResponse = await query.searchOne(
       ESearchTypes.TICKET_MASTER
     )
+    const tm = parseTicketmaster(ticketMasterResponse)
 
     // Search Eventbrite
     const eventbriteResponse = await query.searchOne(ESearchTypes.EVENTBRITE)
+    const ebNew = parseEventbrite(eventbriteResponse)
 
     // Search Twitch
     const twitchResponse = await query.searchOne(ESearchTypes.TWITCH)
+    const twNew = parseTwitch(twitchResponse)
 
     // Sending a default success code
     status = 200
     response = {
       status,
       error: '',
-      tm: ticketMasterResponse,
+      tm,
       eb: eventbriteResponse,
-      tw: twitchResponse
+      ebNew,
+      tw: twitchResponse,
+      twNew
     }
   }
 

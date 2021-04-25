@@ -2,6 +2,7 @@
 devops/ansible/venv
 gcp-service-account-key.json
 old_server
+web_old
 client/node_modules
 client/.expo
 client/.expo-shared

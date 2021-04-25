@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import { enumToArray } from './validators'
 
 import {
-  getTicketMasterConfig,
+  getTicketMasterConfigGQL,
   getEventbriteConfig,
   getTwitchConfig
 } from '../searches'
@@ -20,15 +20,16 @@ const GLOBAL_HEADERS = {
 }
 
 export class QueryBuilder {
-  public parameters: IGeneralRequestParams = {}
+  public parameters: IGeneralRequestParams = { keyword: [] }
 
   public add(field: ESearchParameters, value: string) {
     if (field === ESearchParameters.KEYWORD) {
-      this.parameters.keyword = this.parameters.keyword
-        ? this.parameters.keyword + value
-        : value
+      this.parameters[ESearchParameters.KEYWORD] = [
+        ...this.parameters[ESearchParameters.KEYWORD],
+        value
+      ]
     } else {
-      this.parameters[field as keyof IGeneralRequestParams] = value
+      this.parameters[field] = value
     }
   }
 
@@ -48,13 +49,13 @@ export class QueryBuilder {
 
     switch (source) {
       case ESearchTypes.TICKET_MASTER:
-        return _search(await getTicketMasterConfig(this.parameters))
+        return _search(await getTicketMasterConfigGQL(this.parameters))
       case ESearchTypes.EVENTBRITE:
         return _search(await getEventbriteConfig(this.parameters))
       case ESearchTypes.TWITCH:
         return _search(await getTwitchConfig(this.parameters))
       default:
-        return { message: { data: {}, status: 400 } }
+        return { data: {}, status: 400 }
     }
   }
 

@@ -114,13 +114,54 @@ export interface INotification {
 }
 
 export interface IGeneralRequestParams {
-  keyword?: string
-  city?: string
-  state?: string
-  zip?: string
+  [ESearchParameters.KEYWORD]: string[]
+  [ESearchParameters.CITY]?: string
+  [ESearchParameters.STATE]?: string
+  [ESearchParameters.ZIP]?: string
   date?: string
   startDate?: string
   endDate?: string
+}
+
+export interface IWebSearchResponse {
+  data: any
+  status: number
+}
+
+export interface ISearchEvent {
+  name: string
+  url: string
+  date: string
+  img: string
+}
+
+export interface ISearchStream {
+  name: string
+  streamName: string
+  url: string
+  img: string
+}
+
+export interface ITwitchGqlResponse {
+  id: string
+  displayName: string
+  broadcastSettings: {
+    id: string
+    title: string
+  }
+  profileImageURL: string
+}
+
+export interface ITicketMasterGqlResponse {
+  id: string
+  name: string
+  url: string
+  dates: {
+    start: {
+      dateTime: string
+    }
+  }
+  imagesFiltered: Array<{ id: string; url: string }>
 }
 
 export enum EBuckets {
@@ -147,4 +188,9 @@ export enum ESearchParameters {
   ZIP = 'zip',
   CITY = 'city',
   KEYWORD = 'keyword'
+}
+
+export enum ERequestTypes {
+  GQL = 'GQL',
+  REST = 'REST'
 }
