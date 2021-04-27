@@ -1,3 +1,7 @@
+.SearchBar {
+  width: 60vh;
+}
+
 .SearchBar-input-container {
   display: flex;
   align-items: center;
@@ -67,6 +71,8 @@
   border-color: transparent;
   color: #c1c1c1;
   padding: 1em;
+  padding-left: 2em;
+  padding-right: 2em;
   border-radius: 50px;
   margin: 0.2em;
 }
