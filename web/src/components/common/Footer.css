@@ -1,0 +1,74 @@
+p {
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.Footer {
+  background-color: #2a2a2a;
+  padding: 1em 5em;
+}
+
+.Footer-download {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Footer-download-text {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.Footer-download-button-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.Footer-download-button {
+  width: 10vw;
+  height: 3vh;
+  background-color: red;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 10px;
+  border: none;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 1em;
+}
+
+.Footer-divider {
+  border-top: 1px solid #c1c1c1;
+}
+
+.Footer-links {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1em;
+}
+
+.Footer-links-link {
+  padding-right: 3em;
+}
+
+.Footer-follow {
+  display: flex;
+  flex-direction: row;
+}
+
+.Footer-follow-text {
+  margin-right: 5em;
+}
+
+.Footer-follow-button {
+  background-color: red;
+  color: white;
+  border-radius: 50px;
+  width: 4em;
+  aspect-ratio: 1 / 1;
+  border: none;
+  margin-right: 1em;
+}

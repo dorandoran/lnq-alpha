@@ -5,7 +5,7 @@ import { SearchBar, SearchBarProps } from './SearchBar'
 
 export default {
   component: SearchBar,
-  title: 'SearchBar'
+  title: 'search/SearchBar'
 } as Meta
 
 const Template: Story<SearchBarProps> = args => <SearchBar {...args} />
