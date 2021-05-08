@@ -26,18 +26,21 @@ p {
 }
 
 .Footer-download-button {
-  width: 10vw;
-  height: 3vh;
+  width: 165px;
   background-color: red;
   color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
   border-radius: 10px;
   border: none;
   font-family: Arial, Helvetica, sans-serif;
   margin-right: 1em;
+}
+
+.Footer-download-button-inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
 }
 
 .Footer-divider {

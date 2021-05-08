@@ -19,20 +19,24 @@ export const Footer: React.FC<FooterProps> = () => {
 
         <div className='Footer-download-button-container'>
           <button className='Footer-download-button'>
-            <RiAppleFill size='2rem' />
-            <div className='Footer-download-button-text'>
-              Download on the
-              <br />
-              App Store
+            <div className='Footer-download-button-inner'>
+              <RiAppleFill size='2rem' />
+              <div className='Footer-download-button-text'>
+                Download on the
+                <br />
+                App Store
+              </div>
             </div>
           </button>
 
           <button className='Footer-download-button'>
-            <RiGooglePlayFill size='2rem' />
-            <div className='Footer-download-button-text'>
-              Download on
-              <br />
-              Google Play
+            <div className='Footer-download-button-inner'>
+              <RiGooglePlayFill size='2rem' />
+              <div className='Footer-download-button-text'>
+                Download on
+                <br />
+                Google Play
+              </div>
             </div>
           </button>
         </div>

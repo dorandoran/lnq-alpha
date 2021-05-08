@@ -15,15 +15,15 @@ Default.args = {
   data: [
     {
       name: 'Test 1',
-      url: '2021-09-29T22:30:00Z',
-      date: 'Date 1',
+      url: 'www.test1.com',
+      date: '2021-09-29T22:30:00Z',
       img:
         'https://images.unsplash.com/photo-1619525837382-c7015c20e565?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80'
     },
     {
       name: 'Test 2',
-      url: '2021-02-28T21:01:08.918608Z',
-      date: 'Date 2',
+      url: 'www.test2.com',
+      date: '2021-02-28T21:01:08.918608Z',
       img:
         'https://images.unsplash.com/photo-1619299805149-43ddccdc3430?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80'
     },

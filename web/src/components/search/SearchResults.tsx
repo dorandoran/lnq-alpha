@@ -1,4 +1,5 @@
 import React from 'react'
+import dayjs from 'dayjs'
 
 import { BiDollar } from 'react-icons/bi'
 import { MdLocationOn } from 'react-icons/md'
@@ -37,6 +38,10 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
   price,
   location
 }) => {
+  const formatDateTime = (dateTime: string) => {
+    return dayjs(dateTime).format('ddd, MMM D, YYYY | h:mm A')
+  }
+
   return (
     <div className='SearchResultCard'>
       <img
@@ -66,7 +71,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
 
         <div className='SearchResultCard-information-text'>
           <FiClock className='SearchResultCard-information-icon' size='1.5em' />
-          {date}
+          {formatDateTime(date)}
         </div>
       </div>
     </div>

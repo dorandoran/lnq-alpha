@@ -20,7 +20,6 @@ const actions = {
   stopLoading: 'stopLoading',
   loginSuccess: 'loginSuccess',
   loginOAuthSuccess: 'loginOAuthSuccess',
-  loginFacebookSuccess: 'loginFacebookSuccess',
   loginError: 'loginError',
   logout: 'logout',
   resetEmailSuccess: 'resetEmailSuccess'
