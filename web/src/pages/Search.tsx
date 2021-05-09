@@ -1,6 +1,4 @@
 import React from 'react'
-// import axios from 'axios'
-// import { useQuery } from 'react-query'
 
 import { SearchBar } from '../components/search/SearchBar'
 import { SearchResults } from '../components/search/SearchResults'

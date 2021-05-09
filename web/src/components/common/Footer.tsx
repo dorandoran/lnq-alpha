@@ -14,53 +14,55 @@ export interface FooterProps {}
 export const Footer: React.FC<FooterProps> = () => {
   return (
     <div className='Footer'>
-      <div className='Footer-download'>
-        <p className='Footer-download-text'>Download the app</p>
+      <div className='Footer-container'>
+        <div className='Footer-download'>
+          <p className='Footer-download-text'>Download the app</p>
 
-        <div className='Footer-download-button-container'>
-          <button className='Footer-download-button'>
-            <div className='Footer-download-button-inner'>
-              <RiAppleFill size='2rem' />
-              <div className='Footer-download-button-text'>
-                Download on the
-                <br />
-                App Store
+          <div className='Footer-download-button-container'>
+            <button className='Footer-download-button'>
+              <div className='Footer-download-button-inner'>
+                <RiAppleFill size='2rem' />
+                <div className='Footer-download-button-text'>
+                  Download on the
+                  <br />
+                  App Store
+                </div>
               </div>
-            </div>
+            </button>
+
+            <button className='Footer-download-button'>
+              <div className='Footer-download-button-inner'>
+                <RiGooglePlayFill size='2rem' />
+                <div className='Footer-download-button-text'>
+                  Download on
+                  <br />
+                  Google Play
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+        <hr className='Footer-divider' />
+
+        <div className='Footer-links'>
+          <p className='Footer-links-link'>Download the app</p>
+          <p className='Footer-links-link'>Product</p>
+          <p className='Footer-links-link'>Company</p>
+          <p className='Footer-links-link'>Press</p>
+          <p className='Footer-links-link'>Blog</p>
+          <p className='Footer-links-link'>FAQ</p>
+        </div>
+
+        <div className='Footer-follow'>
+          <p className='Footer-follow-text'>Follow Us</p>
+
+          <button className='Footer-follow-button'>
+            <RiFacebookFill size='2em' />
           </button>
-
-          <button className='Footer-download-button'>
-            <div className='Footer-download-button-inner'>
-              <RiGooglePlayFill size='2rem' />
-              <div className='Footer-download-button-text'>
-                Download on
-                <br />
-                Google Play
-              </div>
-            </div>
+          <button className='Footer-follow-button'>
+            <RiInstagramLine size='2em' />
           </button>
         </div>
-      </div>
-      <hr className='Footer-divider' />
-
-      <div className='Footer-links'>
-        <p className='Footer-links-link'>Download the app</p>
-        <p className='Footer-links-link'>Product</p>
-        <p className='Footer-links-link'>Company</p>
-        <p className='Footer-links-link'>Press</p>
-        <p className='Footer-links-link'>Blog</p>
-        <p className='Footer-links-link'>FAQ</p>
-      </div>
-
-      <div className='Footer-follow'>
-        <p className='Footer-follow-text'>Follow Us</p>
-
-        <button className='Footer-follow-button'>
-          <RiFacebookFill size='2em' />
-        </button>
-        <button className='Footer-follow-button'>
-          <RiInstagramLine size='2em' />
-        </button>
       </div>
     </div>
   )

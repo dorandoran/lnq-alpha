@@ -1,4 +1,5 @@
 import React from 'react'
+import useOverlay from '../components/hooks/useOverlay'
 
 export interface ISearchContext {
   updateText: (text: string) => void
@@ -52,6 +53,7 @@ export const SearchProvider = (props: {
   children: React.ReactNode
 }): JSX.Element => {
   const [searchState, dispatch] = React.useReducer(reducer, initialState)
+  const { throwLoading, closeOverlay } = useOverlay()
 
   const updateText = (text: string) => {
     dispatch({ type: SearchActions.UPDATE_TEXT, payload: text })
@@ -72,10 +74,12 @@ export const SearchProvider = (props: {
   }
 
   const runSearch = () => {
+    throwLoading()
     dispatch({ type: SearchActions.UPDATE_SEARCHING, payload: true })
   }
 
   const endSearch = () => {
+    closeOverlay()
     dispatch({ type: SearchActions.UPDATE_SEARCHING, payload: false })
   }
 

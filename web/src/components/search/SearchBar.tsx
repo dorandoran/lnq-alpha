@@ -1,6 +1,7 @@
 import React from 'react'
 
 import useSearch, { ISearchContext } from '../../context/searchContext'
+import useOverlay from '../hooks/useOverlay'
 
 import { FiSearch } from 'react-icons/fi'
 import { IoFilter } from 'react-icons/io5'
@@ -59,6 +60,7 @@ export const SearchBar: React.FC = () => {
     runSearch,
     searchState
   } = useSearch() as ISearchContext
+  const { throwLoading } = useOverlay()
 
   const focusInput = () => {
     if (inputRef && inputRef.current) {
@@ -87,7 +89,14 @@ export const SearchBar: React.FC = () => {
   }
 
   const handleSubmit = () => {
+    throwLoading()
     runSearch()
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
   }
 
   const isSelectedStyles = (value: string) => {
@@ -95,7 +104,7 @@ export const SearchBar: React.FC = () => {
       return { backgroundColor: 'red', color: 'white' }
     }
   }
-
+  console.log(searchState)
   return (
     <div className='SearchBar'>
       <form
@@ -103,13 +112,18 @@ export const SearchBar: React.FC = () => {
         onClick={focusInput}
         onSubmit={handleSubmit}
       >
-        <FiSearch className='SearchBar-search-icon' size='1.5em' />
+        <FiSearch
+          className='SearchBar-search-icon'
+          size='1.5em'
+          onClick={handleSubmit}
+        />
         <input
           ref={inputRef}
           className='SearchBar-input'
           placeholder={SEARCH_INPUT_PLACEHOLDER}
           value={searchState.text}
           onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
         />
         <button className='SearchBar-filter-button' onClick={handleFilterClick}>
           <IoFilter className='SearchBar-filter-icon' size='1.5em' />

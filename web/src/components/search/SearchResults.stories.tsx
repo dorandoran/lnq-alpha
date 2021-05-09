@@ -1,14 +1,14 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react'
 
-import { SearchResults, SearchResultsProps } from './SearchResults'
+import { SearchResults } from './SearchResults'
 
 export default {
   component: SearchResults,
   title: 'search/SearchResults'
 } as Meta
 
-const Template: Story<SearchResultsProps> = args => <SearchResults {...args} />
+const Template: Story = args => <SearchResults {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
