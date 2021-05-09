@@ -1,18 +1,17 @@
 import React from 'react'
 
+import useSearch, { ISearchContext } from '../../context/searchContext'
+
 import { FiSearch } from 'react-icons/fi'
 import { IoFilter } from 'react-icons/io5'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 
 import './searchBar.css'
 
-export interface SearchBarProps {
-  placeholder?: string
-  value: string
-  onChange: React.ChangeEventHandler
-}
+const CATEGORY_SCROLL_OFFSET = 100
+const SEARCH_INPUT_PLACEHOLDER = 'Search'
 
-interface IFiltersState {
+export interface IFiltersState {
   text: string
   categories: string[]
 }
@@ -50,20 +49,16 @@ export function enumToArray(enumeration: any): Array<string> {
   return Array.from(map.values())
 }
 
-const initialFilters = {
-  text: '',
-  categories: []
-}
-
-export const SearchBar: React.FC<SearchBarProps> = ({
-  placeholder,
-  value,
-  onChange
-}) => {
+export const SearchBar: React.FC = () => {
   const [filterOpen, setFilterOpen] = React.useState(false)
-  const [filters, setFilters] = React.useState<IFiltersState>(initialFilters)
   const inputRef = React.useRef<HTMLInputElement>(null)
   const categoryRef = React.useRef<HTMLDivElement>(null)
+  const {
+    updateText,
+    updateCategories,
+    runSearch,
+    searchState
+  } = useSearch() as ISearchContext
 
   const focusInput = () => {
     if (inputRef && inputRef.current) {
@@ -77,48 +72,54 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     }
   }
 
-  const handleFilterClick = () => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    updateText(e.target.value)
+  }
+
+  const handleFilterClick = (e: React.FormEvent) => {
+    e.preventDefault()
     setFilterOpen(!filterOpen)
   }
 
   const handleCategoryClick = (category: string) => {
-    const index = filters.categories.indexOf(category)
-    let categories = []
+    updateCategories(category)
+  }
 
-    if (index > -1) {
-      categories = filters.categories.filter((_, idx) => index !== idx)
-    } else {
-      categories = [category]
-    }
-    setFilters({ ...filters, categories })
+  const handleSubmit = () => {
+    runSearch()
   }
 
   const isSelectedStyles = (value: string) => {
-    if (filters.categories.includes(value)) {
+    if (searchState.categories.includes(value)) {
       return { backgroundColor: 'red', color: 'white' }
     }
   }
 
   return (
     <div className='SearchBar'>
-      <div className='SearchBar-input-container' onClick={focusInput}>
+      <form
+        className='SearchBar-input-container'
+        onClick={focusInput}
+        onSubmit={handleSubmit}
+      >
         <FiSearch className='SearchBar-search-icon' size='1.5em' />
         <input
           ref={inputRef}
           className='SearchBar-input'
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
+          placeholder={SEARCH_INPUT_PLACEHOLDER}
+          value={searchState.text}
+          onChange={handleInputChange}
         />
         <button className='SearchBar-filter-button' onClick={handleFilterClick}>
           <IoFilter className='SearchBar-filter-icon' size='1.5em' />
         </button>
-      </div>
+      </form>
 
       <div className='SearchBar-categories-container'>
         <button
           className='SearchBar-categories-arrow-button'
-          onClick={() => scrollCategory(-100)}
+          onClick={() => scrollCategory(-CATEGORY_SCROLL_OFFSET)}
         >
           <IoIosArrowBack className='SearchBar-categories-icon' />
         </button>
@@ -127,6 +128,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           {enumToArray(SearchBarCategories).map(category => {
             return (
               <button
+                key={category}
                 className='SearchBar-categories-button'
                 style={isSelectedStyles(category)}
                 onClick={() => handleCategoryClick(category)}
@@ -140,7 +142,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         <button className='SearchBar-categories-arrow-button'>
           <IoIosArrowForward
             className='SearchBar-categories-icon'
-            onClick={() => scrollCategory(100)}
+            onClick={() => scrollCategory(CATEGORY_SCROLL_OFFSET)}
           />
         </button>
       </div>

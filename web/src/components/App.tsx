@@ -1,8 +1,8 @@
 import { BrowserRouter, Route } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { Home } from '../pages'
 
-import './App.css'
+import { SearchProvider } from '../context/searchContext'
+import { Home } from '../pages'
 
 const queryClient = new QueryClient()
 
@@ -18,7 +18,9 @@ const Router = () => {
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router />
+      <SearchProvider>
+        <Router />
+      </SearchProvider>
     </QueryClientProvider>
   )
 }

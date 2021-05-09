@@ -2,7 +2,7 @@
 FROM node:lts-alpine
 
 # Set working directory
-WORKDIR /app
+WORKDIR /web
 
 # Install application dependencies
 COPY ./package.json ./

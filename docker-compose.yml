@@ -2,8 +2,8 @@ version: '3.8'
 services:
   web:
     build:
-      dockerfile: Dockerfile.dev
       context: ./web
+      dockerfile: Dockerfile.dev
     volumes:
       - ./web:/web
     ports:
