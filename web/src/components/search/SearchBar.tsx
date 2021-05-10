@@ -17,6 +17,10 @@ export interface IFiltersState {
   categories: string[]
 }
 
+interface SearchBarProps {
+  className?: string
+}
+
 export enum SearchBarCategories {
   NEAR = 'near me',
   SUGGESTED = 'suggested',
@@ -50,7 +54,7 @@ export function enumToArray(enumeration: any): Array<string> {
   return Array.from(map.values())
 }
 
-export const SearchBar: React.FC = () => {
+export const SearchBar: React.FC<SearchBarProps> = props => {
   const [filterOpen, setFilterOpen] = React.useState(false)
   const inputRef = React.useRef<HTMLInputElement>(null)
   const categoryRef = React.useRef<HTMLDivElement>(null)
@@ -106,7 +110,7 @@ export const SearchBar: React.FC = () => {
   }
   console.log(searchState)
   return (
-    <div className='SearchBar'>
+    <div className={`SearchBar ${props.className ? props.className : ''}`}>
       <form
         className='SearchBar-input-container'
         onClick={focusInput}

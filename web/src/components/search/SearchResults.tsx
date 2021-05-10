@@ -6,17 +6,8 @@ import useSearchQuery from '../hooks/useSearchQuery'
 import { BiDollar } from 'react-icons/bi'
 import { MdLocationOn } from 'react-icons/md'
 import { FiClock } from 'react-icons/fi'
-import GridLoader from 'react-spinners/GridLoader'
 
 import './searchResults.css'
-
-const TEST_DATA = {
-  name: 'Test 5',
-  url: 'www.test5.com',
-  date: '2019-10-09T13:00:00Z',
-  img:
-    'https://images.unsplash.com/photo-1619340207451-b8dee65a7546?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
-}
 
 export interface SearchResultCardProps {
   name: string
@@ -28,23 +19,28 @@ export interface SearchResultCardProps {
 }
 
 export const SearchResults: React.FC = () => {
-  const { error, data, isLoading } = useSearchQuery()
-
-  if (isLoading) {
-    return <GridLoader loading={true} color='red' size={100} />
-  }
+  const { error, data } = useSearchQuery()
 
   console.log(data)
   console.log(error)
 
-  return (
-    <React.Fragment>
-      {/* {data?.map((result: JSX.IntrinsicAttributes & SearchResultCardProps & { children?: React.ReactNode; }) => {
-        return <SearchResultCard {...result} />
-      })} */}
-      <SearchResultCard {...TEST_DATA} />
-    </React.Fragment>
-  )
+  if (data?.ebNew) {
+    return (
+      <React.Fragment>
+        {data.ebNew.map(
+          (
+            result: JSX.IntrinsicAttributes &
+              SearchResultCardProps & { children?: React.ReactNode },
+            index: number
+          ) => {
+            return <SearchResultCard key={index} {...result} />
+          }
+        )}
+      </React.Fragment>
+    )
+  }
+
+  return <div />
 }
 
 const SearchResultCard: React.FC<SearchResultCardProps> = ({
@@ -56,7 +52,12 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({
   location
 }) => {
   const formatDateTime = (dateTime: string) => {
-    return dayjs(dateTime).format('ddd, MMM D, YYYY | h:mm A')
+    let date = dayjs(dateTime).format('ddd, MMM D, YYYY | h:mm A')
+
+    if (date === 'Invalid Date') {
+      date = dateTime
+    }
+    return date
   }
 
   return (

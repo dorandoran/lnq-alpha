@@ -9,14 +9,13 @@ const Search = () => {
   return (
     <div className='Search'>
       <header className='Search-header'>
-        <p>LNQ Alpha</p>
+        <p className='Search-header-logo'>LNQ Alpha</p>
 
-        <SearchBar />
-
-        <p />
+        <SearchBar className='Search-header-search-bar' />
       </header>
 
       <div className='Search-results'>
+        <div className='Search-results-header-text'>All Events</div>
         <SearchResults />
       </div>
     </div>

@@ -1,0 +1,27 @@
+.Search-header {
+  display: grid;
+  grid-template-columns: 7.5em auto 7.5em;
+}
+
+.Search-header-logo {
+  grid-column: 1 / span 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Search-header-search-bar {
+  grid-column: 2 / span 1;
+  margin-top: 2em;
+}
+
+.Search-results {
+  margin-left: 7.5em;
+}
+
+.Search-results-header-text {
+  margin-top: 1em;
+  color: white;
+  font-weight: bold;
+  font-size: x-large;
+}
