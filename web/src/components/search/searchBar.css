@@ -4,7 +4,7 @@
 
 .SearchBar-input-container {
   display: flex;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   align-items: center;
   background-color: #2a2a2a;
   border-radius: 50px;
@@ -41,15 +41,40 @@
 .SearchBar-filter-button {
   margin-right: 1em;
   background-color: transparent;
-  border-color: transparent;
+  border: 0;
+  outline: none;
+}
+
+.SearchBar-filter-button:hover,
+.SearchBar-filter-icon:hover {
+  color: white;
 }
 
 .SearchBar-filter-button:active {
   border-color: #c1c1c1;
 }
 
+.SearchBar-filter-menu {
+  color: white;
+}
+
 .SearchBar-filter-icon {
   color: #c1c1c1;
+}
+
+.SearchBar-filter-categories {
+  width: 100%;
+}
+
+.SearchBar-filter-categories-button {
+  width: 100%;
+  height: 50px;
+  border-color: transparent;
+  background-color: red;
+  color: white;
+  border-radius: 50px;
+  font-size: larger;
+  font-weight: bold;
 }
 
 .SearchBar-categories-container {
@@ -93,4 +118,10 @@
 
 .SearchBar-categories-icon {
   color: #c1c1c1;
+}
+
+.cancel {
+  font-size: large;
+  font-weight: bold;
+  color: red;
 }

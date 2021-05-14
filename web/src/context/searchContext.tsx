@@ -12,7 +12,9 @@ export interface ISearchContext {
 export enum SearchActions {
   UPDATE_TEXT = 'updateText',
   UPDATE_CATEGORIES = 'updateCategories',
-  UPDATE_SEARCHING = 'updateSearching'
+  UPDATE_SEARCHING = 'updateSearching',
+  UPDATE_LOCATION = 'updateLocation',
+  UPDATE_DATE = 'updateDate'
 }
 
 type Action = {
@@ -23,13 +25,17 @@ type Action = {
 const initialState = {
   text: '',
   categories: [] as string[],
-  searching: false
+  searching: false,
+  location: '',
+  date: ''
 }
 
 type State = {
   text: string
   categories: string[]
   searching: boolean
+  location: string
+  date: string
 }
 
 const reducer = (state: State, action: Action) => {
@@ -40,6 +46,10 @@ const reducer = (state: State, action: Action) => {
       return { ...state, text: payload }
     case SearchActions.UPDATE_CATEGORIES:
       return { ...state, categories: payload }
+    case SearchActions.UPDATE_LOCATION:
+      return { ...state, location: action.payload }
+    case SearchActions.UPDATE_DATE:
+      return { ...state, date: action.payload }
     case SearchActions.UPDATE_SEARCHING:
       return { ...state, searching: payload }
     default:

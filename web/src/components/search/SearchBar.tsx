@@ -108,7 +108,7 @@ export const SearchBar: React.FC<SearchBarProps> = props => {
       return 'SearchBar-categories-button-selected'
     }
   }
-  console.log(searchState)
+  console.log(filterOpen)
   return (
     <div className={`SearchBar ${props.className ? props.className : ''}`}>
       <form
@@ -130,28 +130,66 @@ export const SearchBar: React.FC<SearchBarProps> = props => {
           onKeyPress={handleKeyPress}
         />
 
-        <button className='SearchBar-filter-button' onClick={handleFilterClick}>
-          <IoFilter className='SearchBar-filter-icon' size='1.5em' />
-        </button>
+        {filterOpen ? (
+          <button
+            className='SearchBar-filter-button cancel'
+            onClick={handleFilterClick}
+          >
+            Cancel
+          </button>
+        ) : (
+          <button
+            className='SearchBar-filter-button'
+            onClick={handleFilterClick}
+          >
+            <IoFilter className='SearchBar-filter-icon' size='1.5em' />
+          </button>
+        )}
       </form>
 
-      <Slider {...sliderSettings}>
-        {enumToArray(SearchBarCategories).map(category => {
-          return (
-            <div className='SearchBar-categories-button-container'>
-              <button
-                key={category}
-                className={`SearchBar-categories-button ${isSelectedStyles(
-                  category
-                )}`}
-                onClick={() => handleCategoryClick(category)}
-              >
-                {category}
-              </button>
+      {filterOpen ? (
+        <React.Fragment>
+          <div className='SearchBar-filter-categories'>
+            <button className='SearchBar-filter-categories-button'>
+              Event
+            </button>
+          </div>
+          <div className='SearchBar-filter-menu'>
+            <div>
+              <h1>Current Location</h1>
+              <button className='SearchBar-filter-menu-button'>Where</button>
             </div>
-          )
-        })}
-      </Slider>
+            <div>
+              <h1>Whenever</h1>
+            </div>
+            <button className='SearchBar-filter-menu-button'>When</button>
+            <div>
+              <h1>Whatever</h1>
+            </div>
+            <button className='SearchBar-filter-menu-button'>What</button>
+          </div>
+        </React.Fragment>
+      ) : (
+        <Slider {...sliderSettings}>
+          {enumToArray(SearchBarCategories).map(category => {
+            return (
+              <div
+                key={category}
+                className='SearchBar-categories-button-container'
+              >
+                <button
+                  className={`SearchBar-categories-button ${isSelectedStyles(
+                    category
+                  )}`}
+                  onClick={() => handleCategoryClick(category)}
+                >
+                  {category}
+                </button>
+              </div>
+            )
+          })}
+        </Slider>
+      )}
     </div>
   )
 }
