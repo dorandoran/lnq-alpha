@@ -8,6 +8,10 @@ import Search from '../pages/Search'
 import { Home } from '../pages'
 import { Footer } from './common/Footer'
 
+// react-slick dependencies
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+
 const queryClient = new QueryClient()
 
 const Router = () => {

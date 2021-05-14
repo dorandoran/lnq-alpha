@@ -6,11 +6,11 @@ WORKDIR /web
 
 # Install application dependencies
 COPY ./package.json ./
-COPY ./package-lock.json ./
-RUN npm install
+COPY ./yarn.lock ./
+RUN yarn install
 
 # Copy over project files
 COPY . .
 
 # Start application
-CMD ["npm", "run", "start"]
+CMD ["yarn", "start"]

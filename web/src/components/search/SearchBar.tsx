@@ -1,15 +1,14 @@
 import React from 'react'
+import Slider from 'react-slick'
 
 import useSearch, { ISearchContext } from '../../context/searchContext'
 import useOverlay from '../hooks/useOverlay'
 
 import { FiSearch } from 'react-icons/fi'
 import { IoFilter } from 'react-icons/io5'
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 
 import './searchBar.css'
 
-const CATEGORY_SCROLL_OFFSET = 100
 const SEARCH_INPUT_PLACEHOLDER = 'Search'
 
 export interface IFiltersState {
@@ -57,7 +56,6 @@ export function enumToArray(enumeration: any): Array<string> {
 export const SearchBar: React.FC<SearchBarProps> = props => {
   const [filterOpen, setFilterOpen] = React.useState(false)
   const inputRef = React.useRef<HTMLInputElement>(null)
-  const categoryRef = React.useRef<HTMLDivElement>(null)
   const {
     updateText,
     updateCategories,
@@ -66,15 +64,16 @@ export const SearchBar: React.FC<SearchBarProps> = props => {
   } = useSearch() as ISearchContext
   const { throwLoading } = useOverlay()
 
+  const sliderSettings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 4
+  }
+
   const focusInput = () => {
     if (inputRef && inputRef.current) {
       inputRef.current.focus()
-    }
-  }
-
-  const scrollCategory = (offset: number) => {
-    if (categoryRef && categoryRef.current) {
-      categoryRef.current.scrollLeft += offset
     }
   }
 
@@ -89,6 +88,7 @@ export const SearchBar: React.FC<SearchBarProps> = props => {
   }
 
   const handleCategoryClick = (category: string) => {
+    console.log('clicked ', category)
     updateCategories(category)
   }
 
@@ -105,7 +105,7 @@ export const SearchBar: React.FC<SearchBarProps> = props => {
 
   const isSelectedStyles = (value: string) => {
     if (searchState.categories.includes(value)) {
-      return { backgroundColor: 'red', color: 'white' }
+      return 'SearchBar-categories-button-selected'
     }
   }
   console.log(searchState)
@@ -129,41 +129,29 @@ export const SearchBar: React.FC<SearchBarProps> = props => {
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
         />
+
         <button className='SearchBar-filter-button' onClick={handleFilterClick}>
           <IoFilter className='SearchBar-filter-icon' size='1.5em' />
         </button>
       </form>
 
-      <div className='SearchBar-categories-container'>
-        <button
-          className='SearchBar-categories-arrow-button'
-          onClick={() => scrollCategory(-CATEGORY_SCROLL_OFFSET)}
-        >
-          <IoIosArrowBack className='SearchBar-categories-icon' />
-        </button>
-
-        <div ref={categoryRef} className='SearchBar-categories-scroll'>
-          {enumToArray(SearchBarCategories).map(category => {
-            return (
+      <Slider {...sliderSettings}>
+        {enumToArray(SearchBarCategories).map(category => {
+          return (
+            <div className='SearchBar-categories-button-container'>
               <button
                 key={category}
-                className='SearchBar-categories-button'
-                style={isSelectedStyles(category)}
+                className={`SearchBar-categories-button ${isSelectedStyles(
+                  category
+                )}`}
                 onClick={() => handleCategoryClick(category)}
               >
                 {category}
               </button>
-            )
-          })}
-        </div>
-
-        <button className='SearchBar-categories-arrow-button'>
-          <IoIosArrowForward
-            className='SearchBar-categories-icon'
-            onClick={() => scrollCategory(CATEGORY_SCROLL_OFFSET)}
-          />
-        </button>
-      </div>
+            </div>
+          )
+        })}
+      </Slider>
     </div>
   )
 }
