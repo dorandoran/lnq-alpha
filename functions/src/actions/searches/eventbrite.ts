@@ -26,7 +26,6 @@ export async function getEventbriteConfig(parameters: IGeneralRequestParams) {
       ''
     )
     config.url = `${EVENTBRITE_URL}/${ONLINE_EVENT_PATH}/${keyword}`
-    console.log('eventbrite ', config.url)
   }
   return config
 }
@@ -58,6 +57,5 @@ export function parseEventbrite(response: IWebSearchResponse) {
     event.img = img && img.dataset && img.dataset.src ? img.dataset.src : ''
     events.push(event)
   })
-  console.log('eventbrite ', events)
   return events
 }

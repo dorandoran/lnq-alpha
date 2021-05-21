@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { SearchBar } from '../components/search/SearchBar'
 import { SearchResults } from '../components/search/SearchResults'
@@ -6,10 +7,18 @@ import { SearchResults } from '../components/search/SearchResults'
 import './Search.css'
 
 const Search = () => {
+  const history = useHistory()
+
+  const handleLogoClick = () => {
+    history.push('/home')
+  }
+
   return (
     <div className='Search'>
       <header className='Search-header'>
-        <p className='Search-header-logo'>LNQ Alpha</p>
+        <button className='Search-header-logo' onClick={handleLogoClick}>
+          LNQ Alpha
+        </button>
 
         <SearchBar className='Search-header-search-bar' />
       </header>

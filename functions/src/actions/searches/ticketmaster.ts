@@ -29,13 +29,23 @@ export async function getTicketMasterConfigGQL(
 ) {
   const keyword = parameters.keyword || ''
   const size = 20
+  const rawCookie = 'user: ' + Math.random().toString(36).substr(2, 12)
+  const encodedCookie = Buffer.from(rawCookie).toString('base64')
 
   let geoPoint = ''
   let config: AxiosRequestConfig = {
     method: 'post',
     url: TICKET_MASTER_GQL_URL,
+    withCredentials: true,
     headers: {
-      'Content-Type': 'application/json'
+      'Accept-Language': 'en-US,en;q=0.9',
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      Cookie: `TMNUO=deast2_/${encodedCookie}; Path=/; Domain=ticketmaster.com; HttpOnly;`,
+      'X-TM-Device': 'Desktop',
+      'X-TM-Distil-Cookie': 'Valid',
+      'X-TM-Unified-Origin': 'deast2',
+      'X-TM-User-Name': 'na'
     }
   }
 
@@ -130,9 +140,11 @@ export function parseTicketmaster(
   response: IWebSearchResponse,
   type?: ERequestTypes
 ) {
+  console.log('tm response ', response)
   if (!response || !response.data || !response.data.data) {
     return []
   }
+  // console.log('tm response 2 ', response.data.data.products)
 
   if (type === ERequestTypes.REST) {
     const dom = new JSDOM(response.data)
@@ -167,7 +179,7 @@ export function parseTicketmaster(
       event.img = img ? img.src : ''
       events.push(event)
     })
-    console.log('ticketmaster ', events)
+    console.log('ticketmaster REST', events)
     return events
   }
 
@@ -177,11 +189,13 @@ export function parseTicketmaster(
   const events: ISearchEvent[] = []
 
   content.forEach(eventElement => {
+    console.log('tm here ', eventElement)
     const event = { name: '', url: '', date: '', img: '' }
     event.name = eventElement.name
     event.url = eventElement.url
     event.date = eventElement.dates.start.dateTime
     event.img = eventElement.imagesFiltered[0].url
+    events.push(event)
   })
   console.log('ticketmaster ', events)
   return events

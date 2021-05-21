@@ -14,9 +14,9 @@ import {
 
 const GLOBAL_HEADERS = {
   'User-Agent':
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36 Edg/88.0.705.81',
-  Accept:
-    'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36 Edg/90.0.818.62',
+  Accept: '*/*',
+  'Accept-Encoding': 'gzip, deflate, br'
 }
 
 export class QueryBuilder {
@@ -36,6 +36,7 @@ export class QueryBuilder {
   public async searchOne(source: string) {
     const _search = async (config: AxiosRequestConfig) => {
       config.headers = { ...config.headers, ...GLOBAL_HEADERS }
+      console.log('tm headers ', config)
       const { data, status } = await axios(config).catch((e: AxiosError) => {
         let error = { data: {}, status: 400 }
         if (e.response) {

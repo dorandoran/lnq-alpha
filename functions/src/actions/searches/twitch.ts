@@ -67,6 +67,5 @@ export function parseTwitch(response: IWebSearchResponse) {
     stream.img = streamElement.profileImageURL
     streams.push(stream)
   })
-  console.log('twitch ', streams)
   return streams
 }

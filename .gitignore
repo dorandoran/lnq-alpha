@@ -1,8 +1,12 @@
+gcp-service-account-key.json
+
 .vscode
 devops/ansible/venv
-gcp-service-account-key.json
 old_server
 web_old
+
+client/config/dev.json
+client/config/prod.json
 client/node_modules
 client/.expo
 client/.expo-shared
@@ -16,10 +20,13 @@ client/*.orig.*
 client/web-build/
 client/web-report/
 client/.idea/*
+
 server/node_modules
 server/src/config/credentials.json
 server/src/config/devTokens.ts
 server/build
+
+functions/src/config/credentials.json
 functions/**/*.js
 functions/**/*.js.map
 functions/!.eslintrc.js
@@ -27,3 +34,5 @@ functions/typings/
 functions/node_modules
 functions/build
 *.log
+client/config/dev.json
+client/config/dev.json

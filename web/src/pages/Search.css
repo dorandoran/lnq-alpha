@@ -4,10 +4,14 @@
 }
 
 .Search-header-logo {
+  height: 100px;
   grid-column: 1 / span 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
+  color: white;
+  outline: none;
 }
 
 .Search-header-search-bar {

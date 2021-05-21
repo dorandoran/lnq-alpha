@@ -3,7 +3,7 @@ import apolloServer from './gql/server'
 
 const app = express()
 const gqlPath = '/gql'
-const port = 3000
+const port = 4000
 
 apolloServer.applyMiddleware({ app, path: gqlPath })
 

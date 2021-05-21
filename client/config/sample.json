@@ -1,0 +1,20 @@
+{
+  "GRAPHQL_ENDPOINT": "http://localhost:4000/gql",
+  "GOOGLE": {
+    "API_KEY": "",
+    "AUTH_DOMAIN": "",
+    "DATABASE_URL": "",
+    "PROJECT_ID": "",
+    "STORAGE_BUCKET": "",
+    "MESSAGING_SENDER_ID": "",
+    "APP_ID": "",
+    "MEASUREMENT_ID": "",
+    "ASYNC_ANDROID_CLIENT_ID": "",
+    "ASYNC_IOS_CLIENT_ID": "",
+    "PLACES_API_KEY": ""
+  },
+  "FACEBOOK_ASYNC_ID": "",
+  "DEVICE": {
+    "NOTCH": false
+  }
+}

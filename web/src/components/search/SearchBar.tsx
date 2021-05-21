@@ -88,7 +88,6 @@ export const SearchBar: React.FC<SearchBarProps> = props => {
   }
 
   const handleCategoryClick = (category: string) => {
-    console.log('clicked ', category)
     updateCategories(category)
   }
 
@@ -99,6 +98,7 @@ export const SearchBar: React.FC<SearchBarProps> = props => {
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+      e.preventDefault()
       handleSubmit()
     }
   }
@@ -108,14 +108,10 @@ export const SearchBar: React.FC<SearchBarProps> = props => {
       return 'SearchBar-categories-button-selected'
     }
   }
-  console.log(filterOpen)
+
   return (
     <div className={`SearchBar ${props.className ? props.className : ''}`}>
-      <form
-        className='SearchBar-input-container'
-        onClick={focusInput}
-        onSubmit={handleSubmit}
-      >
+      <form className='SearchBar-input-container' onSubmit={handleSubmit}>
         <FiSearch
           className='SearchBar-search-icon'
           size='1.5em'
@@ -124,6 +120,7 @@ export const SearchBar: React.FC<SearchBarProps> = props => {
         <input
           ref={inputRef}
           className='SearchBar-input'
+          onClick={focusInput}
           placeholder={SEARCH_INPUT_PLACEHOLDER}
           value={searchState.text}
           onChange={handleInputChange}
