@@ -25,7 +25,7 @@ const ActionSelectMedia = ({
 
   // Camera Roll Permissions
   const getCameraRollPermissions = async () => {
-    const { status } = await ImagePicker.requestCameraRollPermissionsAsync()
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
     if (status !== 'granted') {
       setIsSelected(false)
       // TODO Find a better way to handle this
@@ -35,7 +35,7 @@ const ActionSelectMedia = ({
 
   // Camera Permissions
   const getCameraPermissions = async () => {
-    const { status } = await ImagePicker.requestCameraPermissionsAsync()
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
     if (status !== 'granted') {
       setIsSelected(false)
       // TODO Find a better way to handle this
@@ -104,13 +104,13 @@ const ActionSelectMedia = ({
       {isSelected ? (
         <ActivityIndicator size='small' color={theme.color.tertiary} />
       ) : (
-          <Icon
-            type='material-community'
-            name={type === CAMERA_SELECTION ? 'camera' : 'library-plus'}
-            color={color}
-            size={20}
-          />
-        )}
+        <Icon
+          type='material-community'
+          name={type === CAMERA_SELECTION ? 'camera' : 'library-plus'}
+          color={color}
+          size={20}
+        />
+      )}
     </TouchableOpacity>
   )
 }
