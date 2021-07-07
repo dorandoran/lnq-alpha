@@ -18,13 +18,14 @@ Alpha build for LNQ mobile application
    - client/config
    - functions/src/config
    - server/src/config
+   - server/src/devTokens.ts
 4. Start the server
+   - Run `npm install`
    - (Optional) - A `Dockerfile` and `docker-compose.yml` is provided
      - `docker-compose up --build -d server` from the root directory
    - Without Docker
      1. Change directory into `server`
-     2. Run `npm install`
-     3. Run `npm run start`
+     2. Run `npm run start`
 5. Start the mobile client
    1. Change directory into `client`
    2. Run `npm install`

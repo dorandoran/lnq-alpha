@@ -16,6 +16,7 @@ import { MessageResolvers, MessageType } from './typeDefs/MessageDef'
 
 const OtherType = gql`
   scalar Date
+  scalar Upload
   union Hit = UserHit | EventHit
 
   type Query {

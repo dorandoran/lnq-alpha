@@ -13,6 +13,7 @@ const apolloServer = new ApolloServer({
   resolvers,
   playground: true,
   introspection: true,
+  uploads: false,
   context: async ({ req }) => {
     const token = getToken(req.headers)
     const isNewUser = checkNewUser(req.body)

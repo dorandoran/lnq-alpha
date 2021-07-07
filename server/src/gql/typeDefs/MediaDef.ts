@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express'
+import { GraphQLUpload } from 'graphql-upload'
 import { MediaController } from '../../database/controllers'
 import { IMediaCreate, IMediaRemove, IUser } from '../../database/interfaces'
 
@@ -54,5 +55,6 @@ export const MediaResolvers = {
       return MediaController.remove(args)
     }
   },
-  Media: {}
+  Media: {},
+  Upload: GraphQLUpload
 }

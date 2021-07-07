@@ -35,7 +35,7 @@ const ActionSelectMedia = ({
 
   // Camera Permissions
   const getCameraPermissions = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+    const { status } = await ImagePicker.requestCameraPermissionsAsync()()
     if (status !== 'granted') {
       setIsSelected(false)
       // TODO Find a better way to handle this
@@ -106,7 +106,7 @@ const ActionSelectMedia = ({
       ) : (
         <Icon
           type='material-community'
-          name={type === CAMERA_SELECTION ? 'camera' : 'library-plus'}
+          name={type === CAMERA_SELECTION ? 'camera' : 'image-multiple'}
           color={color}
           size={20}
         />

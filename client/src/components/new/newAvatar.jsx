@@ -52,15 +52,19 @@ const NewAvatar = ({ goNext }) => {
           disabled={loading}
         >
           {avatar ? (
-            <Image source={{ uri: avatar.uri }} style={styles.image} borderRadius={100} />
+            <Image
+              source={{ uri: avatar.uri }}
+              style={styles.image}
+              borderRadius={100}
+            />
           ) : (
-              <Icon
-                type='ionicon'
-                name='ios-contact'
-                color={theme.color.tertiary}
-                size={200}
-              />
-            )}
+            <Icon
+              type='material-community'
+              name='account'
+              color={theme.color.tertiary}
+              size={200}
+            />
+          )}
         </TouchableOpacity>
 
         <View style={styles.actionContainer}>
@@ -79,10 +83,7 @@ const NewAvatar = ({ goNext }) => {
           />
         </View>
       </View>
-      <BottomBar
-        disabled={!avatar}
-        onActionPress={handleNext}
-      />
+      <BottomBar disabled={!avatar} onActionPress={handleNext} />
     </Fragment>
   )
 }
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     height: 200,
     width: 200,
-    marginBottom: '10%',
+    marginBottom: '10%'
   }
 })
 
