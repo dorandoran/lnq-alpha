@@ -1,5 +1,6 @@
 import React from 'react'
 import { LogBox } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { client } from '@services/apollo'
 import { ApolloProvider } from '@apollo/client'
@@ -24,11 +25,13 @@ const App = () => {
 
   return (
     <ApolloProvider client={client}>
-      <AppProviders>
-        <ViewContainer>
-          <AppContainer />
-        </ViewContainer>
-      </AppProviders>
+      <SafeAreaProvider>
+        <AppProviders>
+          <ViewContainer>
+            <AppContainer />
+          </ViewContainer>
+        </AppProviders>
+      </SafeAreaProvider>
     </ApolloProvider>
   )
 }

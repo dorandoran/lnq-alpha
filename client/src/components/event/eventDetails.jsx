@@ -56,16 +56,16 @@ const EventDetails = ({
           <Text style={styles.text}>{`@${event.owner.username}`}</Text>
           <View style={styles.iconView}>
             <Icon
-              type='ionicon'
-              name='ios-more'
+              type='material-community'
+              name='dots-horizontal'
               color={!isComments ? theme.color.secondary : theme.color.accent}
               reverseColor={theme.color.tertiary}
               reverse
               onPress={() => setIsComments(false)}
             />
             <Icon
-              type='ionicon'
-              name='ios-text'
+              type='material-community'
+              name='message-reply'
               color={isComments ? theme.color.secondary : theme.color.accent}
               reverse
               disabled={edit.enabled}

@@ -2,7 +2,7 @@ import React from 'react'
 import { navigationRef } from '@util'
 import { useRouteDispatch } from '@hooks/useRoute'
 import { ProfileProvider } from '@context/profileContext'
-import { TouchableWithoutFeedback, View } from 'react-native'
+import { TouchableWithoutFeedback } from 'react-native'
 
 // Navigators
 import { enableScreens } from 'react-native-screens'
@@ -73,7 +73,7 @@ const AuthenticatedApp = () => {
 
   return (
     <TouchableWithoutFeedback onPressIn={handlePressIn}>
-      <View style={{ flex: 1 }}>
+      <React.Fragment>
         <NavigationContainer
           ref={navigationRef}
           onStateChange={state => {
@@ -113,7 +113,7 @@ const AuthenticatedApp = () => {
         </NavigationContainer>
         <TabBar />
         <AppModal />
-      </View>
+      </React.Fragment>
     </TouchableWithoutFeedback>
   )
 }
