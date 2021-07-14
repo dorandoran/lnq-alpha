@@ -33,7 +33,7 @@ const ProfileMenuModal = ({ modalActions }) => {
         {
           key: 'cancel',
           value: 'Cancel',
-          onPress: modalActions.closeMenu
+          onPress: modalActions.cancelModal
         }
       ]
     }

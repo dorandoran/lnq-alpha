@@ -81,7 +81,7 @@ export const AuthProvider = props => {
   const skip = !authState.userId || createLoading
 
   // Get the user data from store
-  const { data, loading } = useQuery(GetCurrentUser, {
+  const { data, loading, refetch } = useQuery(GetCurrentUser, {
     skip
   })
 
@@ -241,7 +241,8 @@ export const AuthProvider = props => {
         logout,
         resetPassword,
         clearError,
-        reset
+        reset,
+        refetchUser: refetch
       }}
       {...props}
     />

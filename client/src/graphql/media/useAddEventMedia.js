@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 import { useMutation } from '@apollo/client'
 import { CreateMedia } from '@graphql/media/mutations.js'
 
-export default function useCreateMedia({ onCompleted }) {
+export default function useAddEventMedia({ onCompleted }) {
   const [createMedia, { loading }] = useMutation(CreateMedia, {
     onCompleted
   })
