@@ -15,7 +15,7 @@ const ProfileSavesList = () => {
   const noSaves = 'Nothing saved.'
 
   // if (loading) return <Loading />
-  // if (!data?.user.events) {
+  // if (!data?.events) {
   return (
     <View style={styles.noResults}>
       <Text style={[styles.text, styles.noResultsText]}>{noSaves}</Text>
@@ -24,7 +24,7 @@ const ProfileSavesList = () => {
   // }
 
   // return (
-  //   <EventList data={data.user.events} onItemPress={() => {}} hideAvatar />
+  //   <EventList data={data.events} onItemPress={() => {}} hideAvatar />
   // )
 }
 

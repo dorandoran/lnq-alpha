@@ -15,12 +15,9 @@ export const GetCurrentUser = gql`
 export const GetCurrentUserEvents = gql`
   ${searchEventFragment}
 
-  query GetCurrentUserEvents {
-    user {
-      id
-      events {
-        ...searchEventFields
-      }
+  query GetCurrentUserEvents($id: String) {
+    getUserEvents(id: $id) {
+      ...searchEventFields
     }
   }
 `
