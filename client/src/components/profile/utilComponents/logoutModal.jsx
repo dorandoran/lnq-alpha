@@ -18,7 +18,7 @@ const LogoutModal = ({ modalActions }) => {
   }
 
   const handleClose = () => {
-    modalActions.closeMenu()
+    modalActions.cancelModal()
   }
 
   return (

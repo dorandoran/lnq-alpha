@@ -1,23 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import useNotification from '@hooks/useNotification'
-import useCreateMedia from '@graphql/media/useCreateMedia'
+import useAddMedia from '@graphql/media/useAddMedia'
 import ActionSelectMedia from '@components/create/utilComponents/actionSelectMedia'
 
-import { theme, CAMERA_SELECTION, BUCKET } from '@util'
+import { theme, CAMERA_SELECTION } from '@util'
 import { StyleSheet, View, Text } from 'react-native'
 import { Image } from 'react-native-elements'
 import { DialogConfirmActions, Loading } from '@common'
 
-const AddMediaModal = ({ event, modalActions }) => {
+const AddMediaModal = ({
+  entity,
+  bucketType,
+  operation,
+  modalActions,
+  onCompleted
+}) => {
   const [media, setMedia] = React.useState(null)
-  const { throwSuccess } = useNotification()
-  const [addMedia, loading] = useCreateMedia({
-    onCompleted: () => {
-      modalActions.cancelModal()
-      throwSuccess('Media successfully added.')
-    }
+  const [addMedia, loading] = useAddMedia({
+    onCompleted,
+    operation
   })
 
   if (loading) return <Loading backgroundColor='transparent' />
@@ -25,8 +27,8 @@ const AddMediaModal = ({ event, modalActions }) => {
   const handleConfirm = () => {
     if (media.file) {
       addMedia({
-        linkId: event.id,
-        type: BUCKET.USER,
+        linkId: entity.id,
+        type: bucketType,
         image: media.file
       })
     }
@@ -109,7 +111,10 @@ const styles = StyleSheet.create({
 })
 
 AddMediaModal.propTypes = {
-  event: PropTypes.object,
+  entity: PropTypes.object,
+  bucketType: PropTypes.string,
+  operation: PropTypes.string,
+  onCompleted: PropTypes.func,
   modalActions: PropTypes.object
 }
 

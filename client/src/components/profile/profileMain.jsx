@@ -1,5 +1,8 @@
 import React from 'react'
 import { useRouteState } from '@hooks/useRoute'
+import useUser from '@context/userContext'
+import useNotification from '@hooks/useNotification'
+import useAuth from '@context/authContext'
 
 import EventList from '@components/profile/utilComponents/profileEventList'
 import RSVPList from '@components/profile/utilComponents/profileResponseList'
@@ -12,9 +15,10 @@ import ProfileInformation from '@components/profile/profileInformation'
 import ProfileModalContainer from '@components/profile/utilComponents/profileModalContainer'
 import ProfileMenuModal from '@components/profile/utilComponents/profileMenuModal'
 import LogoutModal from '@components/profile/utilComponents/logoutModal'
+import AddMediaModal from '@components/shared/addMediaModal'
 
 import { View, StyleSheet, ImageBackground } from 'react-native'
-import { SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
+import { SCREEN_HEIGHT, SCREEN_WIDTH, BUCKET, OPERATION, theme } from '@util'
 import { TABS } from '@components/profile/utilComponents/profileUtil'
 
 const MODAL = {
@@ -29,6 +33,9 @@ const ProfileMain = () => {
   const [tab, setTab] = React.useState(TABS.EVENTS)
   const [modal, setModal] = React.useState('')
   const [skip, setSkip] = React.useState(true)
+  const user = useUser()
+  const { refetchUser } = useAuth()
+  const { throwSuccess } = useNotification()
 
   React.useEffect(() => {
     if (name === 'Profile') {
@@ -46,7 +53,13 @@ const ProfileMain = () => {
     updatePicture: () => setModal(MODAL.PICTURE),
     updateInformation: () => setModal(MODAL.INFO),
     logout: () => setModal(MODAL.LOGOUT),
-    closeMenu: () => setModal('')
+    cancelModal: () => setModal('')
+  }
+
+  const onAddMediaCompleted = () => {
+    throwSuccess('User avatar updated!')
+    modalActions.cancelModal()
+    refetchUser()
   }
 
   const renderTab = () => {
@@ -69,6 +82,15 @@ const ProfileMain = () => {
       case MODAL.LOGOUT:
         return <LogoutModal modalActions={modalActions} />
       case MODAL.PICTURE:
+        return (
+          <AddMediaModal
+            entity={user}
+            bucketType={BUCKET.USER}
+            operation={OPERATION.UPDATE}
+            modalActions={modalActions}
+            onCompleted={onAddMediaCompleted}
+          />
+        )
       case MODAL.INFO:
       default:
         return <View />

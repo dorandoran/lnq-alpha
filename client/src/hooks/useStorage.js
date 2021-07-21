@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { storage, firestore } from '@services/firebase'
-import useCreateMedia from '@graphql/media/useCreateMedia'
+import useAddEventMedia from '@graphql/media/useAddEventMedia'
 import useUser from '@context/userContext'
 import { BUCKET } from '@util'
 
 const useStorage = ({ uri, bucketName, linkId, skip, onSuccess, onStart }) => {
   const [media, setMedia] = useState(null)
   const [loading, setLoading] = useState(false)
-  const createMedia = useCreateMedia()
+  const createMedia = useAddEventMedia()
   const { id: ownerId } = useUser()
   let newMediaLinkId = linkId
 

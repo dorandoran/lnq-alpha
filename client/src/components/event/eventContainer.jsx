@@ -4,12 +4,13 @@ import PropTypes from 'prop-types'
 import useUser from '@context/userContext'
 import { useQuery } from '@apollo/client'
 import { GetEvent } from '@graphql/event/queries'
+import useNotification from '@hooks/useNotification'
 
 import EventHeader from '@components/event/eventHeader'
 import EventFooter from '@components/event/eventFooter'
 import EventDetails from '@components/event/eventDetails'
 import EventMenuModal from '@components/event/utilComponents/eventMenuModal'
-import AddMediaModal from '@components/event/utilComponents/addMediaModal'
+import AddMediaModal from '@components/shared/addMediaModal'
 import ChangeFeaturedModal from '@components/event/utilComponents/changeFeatureModal'
 import DeleteMediaModal from '@components/event/utilComponents/deleteMediaModal'
 import UpdateEventModal from '@components/event/utilComponents/updateEventModal'
@@ -20,7 +21,7 @@ import Carousel from 'react-native-snap-carousel'
 import { StyleSheet, ScrollView, View } from 'react-native'
 import { Image } from 'react-native-elements'
 import { Loading } from '@common'
-import { theme, SCREEN_WIDTH } from '@util'
+import { theme, SCREEN_WIDTH, BUCKET, OPERATION } from '@util'
 import { adjustedScreenHeight } from '@components/event/utilComponents/eventUtil'
 
 const initialState = {
@@ -47,6 +48,7 @@ const EventContainer = ({ id }) => {
   const carousel = React.useRef(null)
   const user = useUser()
   const editEnabled = state.edit.enabled
+  const { throwSuccess } = useNotification()
   const { data, loading } = useQuery(GetEvent, {
     variables: { id },
     fetchPolicy: 'cache-and-network',
@@ -111,6 +113,11 @@ const EventContainer = ({ id }) => {
     }
   }
 
+  const onAddMediaCompleted = () => {
+    modalActions.cancelModal()
+    throwSuccess('Media successfully added.')
+  }
+
   const renderModal = () => {
     if (state.modal) {
       const media = event.media[carousel.current.currentIndex]
@@ -125,7 +132,15 @@ const EventContainer = ({ id }) => {
           )
         }
         case MODAL.ADD_MEDIA:
-          return <AddMediaModal event={event} modalActions={modalActions} />
+          return (
+            <AddMediaModal
+              entity={event}
+              bucketType={BUCKET.EVENT}
+              operation={OPERATION.CREATE}
+              modalActions={modalActions}
+              onCompleted={onAddMediaCompleted}
+            />
+          )
         case MODAL.CHANGE_FEATURED:
           return (
             <ChangeFeaturedModal

@@ -120,7 +120,10 @@ export async function updateAvatar({
       readStream.pipe(
         storageAvatar
           .createWriteStream({ contentType: mimetype })
-          .on('error', () => reject(false))
+          .on('error', e => {
+            console.log('error', e)
+            reject(false)
+          })
           .on('finish', async () => {
             // get presigned url
             const uriResponse = await storageAvatar.getSignedUrl({
