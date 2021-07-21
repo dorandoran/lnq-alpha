@@ -14,7 +14,9 @@ const ActionSaveEvent = ({ onOpen, onComplete, onSuccess }) => {
   const [actionSelected, setActionSelected] = useState(false)
   const { details } = useCreate()
   const createEvent = useCreateEvent()
-  const { id: ownerId } = useUser()
+  const {
+    user: { id: ownerId }
+  } = useUser()
 
   // If action is selected, run useStorage
   const { media } = useStorage({

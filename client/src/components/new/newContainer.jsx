@@ -20,7 +20,7 @@ export const actions = {
 
 const NewContainer = () => {
   const [index, setIndex] = React.useState(0)
-  const user = useUser()
+  const { user } = useUser()
   const { dispatch, actions } = useOverlay()
   const { closeNotification } = useNotification()
   const [updateUser] = useUpdateUser({

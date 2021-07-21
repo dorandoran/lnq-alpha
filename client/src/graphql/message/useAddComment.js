@@ -3,7 +3,7 @@ import { AddComment } from '@graphql/message/mutations'
 import useUser from '@context/userContext'
 
 export default function useAddComment({ onCompleted }) {
-  const user = useUser()
+  const { user } = useUser()
   const [addComment, { loading }] = useMutation(AddComment, { onCompleted })
 
   return [

@@ -5,7 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { client } from '@services/apollo'
 import { ApolloProvider } from '@apollo/client'
 
-import useUser from '@context/userContext'
+import useAuth from '@context/authContext'
 import AppProviders from '@components/main/appProviders'
 
 import AuthenticatedApp from '@src/router/AuthenticatedApp'
@@ -14,9 +14,9 @@ import UnAuthenticatedApp from '@src/router/UnAuthenticatedApp'
 import ViewContainer from '@components/main/viewContainer'
 
 const AppContainer = () => {
-  const user = useUser()
+  const { authState } = useAuth()
 
-  return user ? <AuthenticatedApp user={user} /> : <UnAuthenticatedApp />
+  return authState.authenticated ? <AuthenticatedApp /> : <UnAuthenticatedApp />
 }
 
 const App = () => {

@@ -12,7 +12,7 @@ import { theme } from '@util'
 
 const EventCommentContainer = ({ event }) => {
   const [text, setText] = React.useState('')
-  const user = useUser()
+  const { user } = useUser()
   const [addComment, loading] = useAddComment({
     onCompleted: () => {
       setText('')

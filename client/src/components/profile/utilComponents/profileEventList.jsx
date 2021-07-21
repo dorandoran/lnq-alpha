@@ -15,7 +15,9 @@ import { theme, BUCKET } from '@util'
 const ProfileEventList = ({ skip }) => {
   const [refreshing, setRefreshing] = React.useState(false)
   const { dispatch, actions } = useOverlay()
-  const { id } = useUser()
+  const {
+    user: { id }
+  } = useUser()
 
   const { data, loading, refetch } = useQuery(GetCurrentUserEvents, {
     variables: { id },
@@ -23,6 +25,7 @@ const ProfileEventList = ({ skip }) => {
     skip
   })
 
+  // eslint-disable-next-line quotes
   const noEvents = "You haven't created any events yet!"
 
   const handleRefresh = () => {

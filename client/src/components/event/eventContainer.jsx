@@ -46,7 +46,7 @@ const MODAL = {
 const EventContainer = ({ id }) => {
   const [state, setState] = React.useState(initialState)
   const carousel = React.useRef(null)
-  const user = useUser()
+  const { user } = useUser()
   const editEnabled = state.edit.enabled
   const { throwSuccess } = useNotification()
   const { data, loading } = useQuery(GetEvent, {

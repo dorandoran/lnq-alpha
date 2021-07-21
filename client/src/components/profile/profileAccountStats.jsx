@@ -5,7 +5,7 @@ import useUser from '@context/userContext'
 import { View, Text, StyleSheet } from 'react-native'
 
 const ProfileAccountStats = () => {
-  const user = useUser()
+  const { user } = useUser()
 
   return (
     <View style={styles.accountStats}>

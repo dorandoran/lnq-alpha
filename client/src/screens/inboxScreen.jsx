@@ -12,7 +12,7 @@ import { theme, goBack } from '@util'
 
 const InboxScreen = () => {
   const { dispatch } = useProfile()
-  const user = useUser()
+  const { user } = useUser()
   const [text, setText] = React.useState('')
   const [selected, setSelected] = React.useState([])
   const [followSelected, setFollowSelected] = React.useState([])

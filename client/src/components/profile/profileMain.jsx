@@ -2,7 +2,6 @@ import React from 'react'
 import { useRouteState } from '@hooks/useRoute'
 import useUser from '@context/userContext'
 import useNotification from '@hooks/useNotification'
-import useAuth from '@context/authContext'
 
 import EventList from '@components/profile/utilComponents/profileEventList'
 import RSVPList from '@components/profile/utilComponents/profileResponseList'
@@ -33,8 +32,7 @@ const ProfileMain = () => {
   const [tab, setTab] = React.useState(TABS.EVENTS)
   const [modal, setModal] = React.useState('')
   const [skip, setSkip] = React.useState(true)
-  const user = useUser()
-  const { refetchUser } = useAuth()
+  const { user, updateUserState } = useUser()
   const { throwSuccess } = useNotification()
 
   React.useEffect(() => {
@@ -56,10 +54,10 @@ const ProfileMain = () => {
     cancelModal: () => setModal('')
   }
 
-  const onAddMediaCompleted = () => {
+  const onAddMediaCompleted = res => {
     throwSuccess('User avatar updated!')
     modalActions.cancelModal()
-    refetchUser()
+    updateUserState({ avatar: res.updateUserAvatar })
   }
 
   const renderTab = () => {
