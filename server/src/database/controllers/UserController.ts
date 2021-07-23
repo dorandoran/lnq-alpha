@@ -46,6 +46,13 @@ export async function update(
   const { id, updates } = userUpdate
 
   try {
+    if (updates?.bookmarkedEvents) {
+      const { bookmarkedEvents } = updates
+      updates.bookmarkedEvents = admin.firestore.FieldValue.arrayUnion(
+        ...(bookmarkedEvents as string[])
+      )
+    }
+
     const update = await Users.doc(id).update(updates)
     if (update) return findById(id)
     return null

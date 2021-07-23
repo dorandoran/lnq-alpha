@@ -3,7 +3,7 @@ import { DeleteEvent } from '@graphql/event/mutations.js'
 import useUser from '@context/userContext'
 
 export default function useDeleteEvent({ onCompleted }) {
-  const { id } = useUser()
+  const { user: { id } } = useUser()
   const [deleteEvent, { loading }] = useMutation(DeleteEvent, { onCompleted })
 
   return [
@@ -43,7 +43,7 @@ export default function useDeleteEvent({ onCompleted }) {
               }
             })
             // eslint-disable-next-line no-empty
-          } catch {}
+          } catch { }
         }
       })
     },

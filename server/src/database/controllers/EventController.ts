@@ -175,6 +175,30 @@ export async function findAllByOwnerId(
   }
 }
 
+export async function findAll(
+  ids: string[] = []
+): Promise<FirebaseFirestore.DocumentData[]> {
+  let events: FirebaseFirestore.DocumentData[] = []
+
+  if (!ids.length) return []
+
+  try {
+    const snapshot = await Events.where('id', 'in', ids).get()
+    if (snapshot) {
+      snapshot.forEach(doc => {
+        let event = doc.data()
+        event.id = doc.id
+        events.push(event)
+      })
+      return events
+    }
+    return []
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+
 export async function addComment({
   eventId,
   ownerId,

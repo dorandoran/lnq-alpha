@@ -11,7 +11,8 @@ import {
   IUserCreate,
   IUserUpdate,
   INewUserUpdate,
-  IUserUpdateAvatar
+  IUserUpdateAvatar,
+  IAddBookmarkedEvent
 } from '../../database/interfaces'
 
 export const UserType = gql`
@@ -36,6 +37,7 @@ export const UserType = gql`
     following: [SocialLink]
     allowFollowers: Boolean
     inbox: [Message]
+    bookmarkedEvents: [Event]
     created_at: Date
   }
 
@@ -91,6 +93,17 @@ export const UserResolvers = {
     ) => {
       const id = args.id || context?.user.id
       return UserController.updateAvatar({ ...args, id })
+    },
+    addBookmarkedEvent: (
+      parent: void,
+      args: IAddBookmarkedEvent,
+      context: { user: IUser }
+    ) => {
+      const userId = args?.userId || context?.user.id
+      const updates = {
+        bookmarkedEvents: [args.eventId]
+      }
+      return UserController.update({ id: userId, updates })
     }
   },
   User: {
@@ -111,6 +124,9 @@ export const UserResolvers = {
     inbox: (parent: void, args: void, context: { user: IUser }) => {
       const id = context.user.id
       return UserController.getInboxById(id)
+    },
+    bookmarkedEvents: (parent: IUser, args: void) => {
+      return EventController.findAll(parent.bookmarkedEvents)
     }
   }
 }

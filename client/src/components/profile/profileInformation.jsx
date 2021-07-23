@@ -8,7 +8,7 @@ import { HeaderButton, Loading } from '@common'
 import { theme, navigate } from '@util'
 
 const ProfileInfo = () => {
-  const user = useUser()
+  const { user } = useUser()
   const name = user.firstName ? `${user.firstName} ${user.lastName}` : user.name
 
   const handleNotificationsPress = () => {

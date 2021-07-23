@@ -56,7 +56,7 @@ const ProfileStack = () => {
 const AuthenticatedApp = () => {
   const { dispatch, actions } = useRouteDispatch()
 
-  console.log('rendered')
+  // console.log('rendered')
 
   const getActiveRouteName = state => {
     const route = state.routes[state.index]

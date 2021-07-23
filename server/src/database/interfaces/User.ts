@@ -13,6 +13,7 @@ export interface IUser {
   new: boolean
   categories?: string[]
   allowFollowers: boolean
+  bookmarkedEvents?: string[]
   created_at?: FirebaseFirestore.Timestamp | Date
 }
 
@@ -36,6 +37,7 @@ export interface IUserUpdate {
     new?: Boolean
     categories?: string[]
     allowFollowers?: Boolean
+    bookmarkedEvents?: string[] | FirebaseFirestore.FieldValue
   }
 }
 
@@ -54,4 +56,9 @@ export interface IUserUpdateAvatar {
 export interface INewUserUpdateResponse {
   response: string
   user: FirebaseFirestore.DocumentData | null
+}
+
+export interface IAddBookmarkedEvent {
+  userId?: string
+  eventId: string
 }

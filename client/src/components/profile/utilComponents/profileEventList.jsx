@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { useQuery } from '@apollo/client'
 import { GetCurrentUserEvents } from '@graphql/user/queries'
 import useOverlay from '@context/overlayContext'
+import useUser from '@context/userContext'
 
 import EventList from '@components/shared/itemList'
 
@@ -14,12 +15,17 @@ import { theme, BUCKET } from '@util'
 const ProfileEventList = ({ skip }) => {
   const [refreshing, setRefreshing] = React.useState(false)
   const { dispatch, actions } = useOverlay()
+  const {
+    user: { id }
+  } = useUser()
 
   const { data, loading, refetch } = useQuery(GetCurrentUserEvents, {
+    variables: { id },
     fetchPolicy: 'cache-and-network',
     skip
   })
 
+  // eslint-disable-next-line quotes
   const noEvents = "You haven't created any events yet!"
 
   const handleRefresh = () => {
@@ -29,7 +35,7 @@ const ProfileEventList = ({ skip }) => {
 
   if (loading) return <Loading position='top' />
   if (refreshing) setRefreshing(false)
-  if (!data?.user.events || !data.user.events.length) {
+  if (!data?.getUserEvents || !data.getUserEvents.length) {
     return (
       <View style={styles.noResults}>
         <Text style={[styles.text, styles.noResultsText]}>{noEvents}</Text>
@@ -46,7 +52,7 @@ const ProfileEventList = ({ skip }) => {
 
   return (
     <EventList
-      data={data.user.events}
+      data={data.getUserEvents}
       onItemPress={handleItemPress}
       hideAvatar
       onRefresh={handleRefresh}

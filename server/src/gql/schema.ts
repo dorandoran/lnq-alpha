@@ -70,6 +70,7 @@ const OtherType = gql`
     updateEvent(id: String!, updates: EventUpdateInput!): Event
     deleteEvent(id: String!): Boolean
     deleteMedia(id: String!, linkId: String!, type: String!): StorageResponse
+    addBookmarkedEvent(userId: String, eventId: String!): User
   }
 
   type Subscription {

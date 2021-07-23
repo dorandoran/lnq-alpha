@@ -1,16 +1,14 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react'
+import React, { createContext, useContext, useReducer } from 'react'
 import * as Google from 'expo-google-app-auth'
 import * as Facebook from 'expo-facebook'
 import { f, auth } from '@services/firebase'
 import config from '@config'
 
-import { useQuery } from '@apollo/client'
-import { GetCurrentUser } from '@graphql/user/queries'
 import useCreateUser from '@graphql/user/useCreateUser'
 import useNotification from '@hooks/useNotification'
 
 import { Loading } from '@common'
-import { navigate, resetNavigate, getOAuthUserInfo } from '@util'
+import { navigate, resetNavigate } from '@util'
 
 const actions = {
   reset: 'resetAuth',
@@ -26,6 +24,7 @@ const actions = {
 }
 
 const initialState = {
+  authenticated: false,
   loading: false,
   error: '',
   userId: null,
@@ -46,6 +45,7 @@ function reducer(state, action) {
     case actions.loginSuccess:
       return {
         ...state,
+        authenticated: true,
         loading: false,
         userId: action.payload.id,
         user: action.payload
@@ -53,6 +53,7 @@ function reducer(state, action) {
     case actions.loginOAuthSuccess:
       return {
         ...state,
+        authenticated: true,
         loading: false,
         userId: action.payload.uid,
         user: action.payload
@@ -60,7 +61,7 @@ function reducer(state, action) {
     case actions.loginError:
       return { ...state, loading: false, error: action.payload }
     case actions.logout:
-      return { ...state, userId: null }
+      return initialState
     case actions.resetEmailSuccess:
       return { ...state, loading: false, resetEmailSent: true }
     default:
@@ -78,27 +79,6 @@ export const AuthProvider = props => {
       dispatch({ type: actions.loginSuccess, payload: user })
     }
   })
-  const skip = !authState.userId || createLoading
-
-  // Get the user data from store
-  const { data, loading, refetch } = useQuery(GetCurrentUser, {
-    skip
-  })
-
-  // Google/Facebook first time sign up
-  useEffect(() => {
-    if (authState.userId && !data?.user) {
-      navigate('Signup', {
-        oauth: true,
-        user: getOAuthUserInfo(authState.user)
-      })
-    }
-  }, [loading])
-
-
-  if (loading || createLoading) {
-    return <Loading fullScreen />
-  }
 
   // Auth Actions
   const reset = () => {
@@ -228,10 +208,13 @@ export const AuthProvider = props => {
     }
   }
 
+  if (createLoading) {
+    return <Loading fullScreen />
+  }
+
   return (
     <AuthContext.Provider
       value={{
-        data,
         authState,
         register,
         login,
@@ -241,8 +224,7 @@ export const AuthProvider = props => {
         logout,
         resetPassword,
         clearError,
-        reset,
-        refetchUser: refetch
+        reset
       }}
       {...props}
     />
