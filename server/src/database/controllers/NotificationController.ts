@@ -1,5 +1,4 @@
 import { firestore, timestamp } from '../firestore/firebase'
-import { pubsub } from '../../gql/server'
 import {
   INotificationCreate,
   INotification,
@@ -26,9 +25,9 @@ export async function create({
   try {
     await notificationRef.doc(id).set(newNotification)
     // Notification publish
-    pubsub.publish(ESubscriptionType.NOTIFICATION_ADDED, {
-      notificationAdded: newNotification
-    })
+    // pubsub.publish(ESubscriptionType.NOTIFICATION_ADDED, {
+    //   notificationAdded: newNotification
+    // })
     return newNotification
   } catch (e) {
     console.log(e)

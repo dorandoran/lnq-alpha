@@ -1,5 +1,4 @@
 import { gql } from 'apollo-server-express'
-import { pubsub } from '../server'
 import { ESubscriptionType } from '../../database/interfaces'
 
 export const NotificationType = gql`
@@ -14,9 +13,9 @@ export const NotificationType = gql`
 
 export const NotificationResolvers = {
   Subscription: {
-    notificationAdded: {
-      subscribe: () =>
-        pubsub.asyncIterator(ESubscriptionType.NOTIFICATION_ADDED)
-    }
+    // notificationAdded: {
+    //   subscribe: () =>
+    //     pubsub.asyncIterator(ESubscriptionType.NOTIFICATION_ADDED)
+    // }
   }
 }
