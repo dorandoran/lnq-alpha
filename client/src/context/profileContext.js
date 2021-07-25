@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
-import { SCREEN } from '@components/profile/utilComponents/profileUtil'
+import useUser from '@context/userContext'
+
+import { getUserFormFields, SCREEN } from '@components/profile/utilComponents/profileUtil'
 
 // Reducer
 export const actions = {
@@ -9,13 +11,12 @@ export const actions = {
   navigateNotifications: 'navigateNotifications',
   navigateInbox: 'navigateInbox',
   navigateNewMessage: 'navigateNewMessage',
-  addMessageRecipients: 'addMessageRecipients'
-}
-
-const initialState = {
-  screen: SCREEN.MAIN,
-  title: '',
-  messageRecipients: []
+  addMessageRecipients: 'addMessageRecipients',
+  navigateEditForm: 'navigateEditForm',
+  updateEditForm: 'updateEditForm',
+  openModal: 'openModal',
+  closeModal: 'closeModal',
+  resetForm: 'resetForm'
 }
 
 function reducer(state, action) {
@@ -24,28 +25,40 @@ function reducer(state, action) {
       return {
         ...state,
         screen: SCREEN.MAIN,
-        title: ''
+        title: '',
+        modal: null,
       }
     }
     case actions.navigateNotifications: {
       return {
         ...state,
         screen: SCREEN.NOTIFICATIONS,
-        title: 'Notifications'
+        title: 'Notifications',
+        modal: null
       }
     }
     case actions.navigateInbox: {
       return {
         ...state,
         screen: SCREEN.INBOX,
-        title: 'Inbox'
+        title: 'Inbox',
+        modal: null
       }
     }
     case actions.navigateNewMessage: {
       return {
         ...state,
         screen: SCREEN.MESSAGE,
-        title: 'Message'
+        title: 'Message',
+        modal: null
+      }
+    }
+    case actions.navigateEditForm: {
+      return {
+        ...state,
+        screen: SCREEN.EDIT,
+        title: 'Edit Profile',
+        modal: null
       }
     }
     case actions.addMessageRecipients: {
@@ -54,6 +67,27 @@ function reducer(state, action) {
         title: action.payload.map(i => `@${i.username}`).join(', '),
         messageRecipients: [...state.messageRecipients, ...action.payload]
       }
+    }
+    case actions.updateEditForm: {
+      return {
+        ...state,
+        form: { ...state.form, ...action.payload }
+      }
+    }
+    case actions.openModal: {
+      return {
+        ...state,
+        modal: action.payload
+      }
+    }
+    case actions.closeModal: {
+      return {
+        ...state,
+        modal: null
+      }
+    }
+    case actions.reset: {
+      return action.payload
     }
     default:
       // TODO: Error handling
@@ -65,10 +99,24 @@ function reducer(state, action) {
 const ProfileContext = createContext()
 
 export const ProfileProvider = ({ children }) => {
+  const { user } = useUser()
+  const initialUser = getUserFormFields(user)
+  const initialState = {
+    screen: SCREEN.MAIN,
+    title: '',
+    messageRecipients: [],
+    initialUser,
+    form: initialUser,
+    modal: null
+  }
   const [profileState, dispatch] = useReducer(reducer, initialState)
 
+  const reset = () => {
+    dispatch({ type: actions.reset, payload: initialState })
+  }
+
   return (
-    <ProfileContext.Provider value={{ profileState, dispatch }}>
+    <ProfileContext.Provider value={{ profileState, dispatch, actions, reset }}>
       {children}
     </ProfileContext.Provider>
   )

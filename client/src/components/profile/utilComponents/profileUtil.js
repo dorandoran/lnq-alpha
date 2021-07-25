@@ -32,5 +32,17 @@ export const SCREEN = {
   MAIN: 'Profile Main',
   NOTIFICATIONS: 'Profile Notifications',
   INBOX: 'Profile Inbox',
-  MESSAGE: 'Profile Message'
+  MESSAGE: 'Profile Message',
+  EDIT: 'Edit Profile'
+}
+
+export const getUserFormFields = user => {
+  return {
+    firstName: user?.firstName,
+    lastName: user?.lastName,
+    username: user?.username,
+    website: user?.website || '',
+    // add this when about field is added to user
+    // about: user?.about || ''
+  }
 }

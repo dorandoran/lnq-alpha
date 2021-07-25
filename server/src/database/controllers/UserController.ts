@@ -81,7 +81,7 @@ export async function updateNewUser({
   } catch (e) {
     console.log(e)
     return {
-      response: e,
+      response: e as string,
       user: null
     }
   }
@@ -94,7 +94,7 @@ export async function updateNewUser({
     }
   } catch (e) {
     return {
-      response: e,
+      response: e as string,
       user: null
     }
   }
