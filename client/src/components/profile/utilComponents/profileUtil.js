@@ -42,7 +42,6 @@ export const getUserFormFields = user => {
     lastName: user?.lastName,
     username: user?.username,
     website: user?.website || '',
-    // add this when about field is added to user
-    // about: user?.about || ''
+    about: user?.about || ''
   }
 }
