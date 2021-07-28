@@ -1,29 +1,84 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import isEqual from 'lodash/isEqual'
+import useUpdateUser from '@graphql/user/useUpdateUser'
+import useNotification from '@hooks/useNotification'
 import useProfile, { actions } from '@context/profileContext'
+import useUser from '@context/userContext'
 
 import { Keyboard, StyleSheet, Text } from 'react-native'
 import { Header, HeaderButton } from '@common'
 import { theme } from '@util'
 import { SCREEN } from '@components/profile/utilComponents/profileUtil'
 
-const ProfileHeader = () => {
-  const { profileState, dispatch } = useProfile()
-  const isInbox = profileState.screen === SCREEN.INBOX
-  const isMessage = profileState.screen === SCREEN.MESSAGE
-
-  const handleBackPress = () => {
-    Keyboard.dismiss()
-    if (isMessage) {
-      dispatch({ type: actions.navigateInbox })
-    } else {
+const ProfileHeader = ({ modalActions }) => {
+  const {
+    profileState: { screen, title, form, initialUser },
+    dispatch,
+    reset
+  } = useProfile()
+  const { user, updateUserState } = useUser()
+  const { throwSuccess, throwLoading } = useNotification()
+  const [updateUser] = useUpdateUser({
+    onCompleted: res => {
+      throwSuccess('Profile updated!')
       dispatch({ type: actions.navigateMain })
+      updateUserState({ ...res.updateUser })
+    }
+  })
+
+  const getRightButtonProps = () => {
+    switch (screen) {
+      case SCREEN.INBOX:
+        return {
+          showRightButton: true,
+          type: 'feather',
+          name: 'plus',
+          color: 'tertiary',
+          backgroundColor: 'shadow',
+          onPress: () => {
+            Keyboard.dismiss()
+            dispatch({ type: actions.navigateNewMessage })
+          },
+          onBackPress: () => dispatch({ type: actions.navigateMain })
+        }
+      case SCREEN.EDIT:
+        return {
+          showRightButton: true,
+          type: 'material',
+          name: 'done',
+          color: 'success',
+          backgroundColor: 'shadow',
+          onPress: () => {
+            Keyboard.dismiss()
+            throwLoading()
+            updateUser({ id: user.id, updates: form })
+            reset()
+          },
+          onBackPress: () => {
+            if (!isEqual(initialUser, form)) {
+              modalActions.openConfirmation()
+            } else {
+              dispatch({ type: actions.navigateMain })
+              reset()
+            }
+          }
+        }
+      case SCREEN.MESSAGE:
+        return {
+          showRightButton: false,
+          onBackPress: () => dispatch({ type: actions.navigateInbox })
+        }
+      default:
+        return {
+          showRightButton: false,
+          onBackPress: () => {}
+        }
     }
   }
 
-  const handleNewMessagePress = () => {
-    Keyboard.dismiss()
-    dispatch({ type: actions.navigateNewMessage })
-  }
+  const { onBackPress, showRightButton, ...rightButtonProps } =
+    getRightButtonProps()
 
   return (
     <Header position='relative' backgroundColor='background'>
@@ -32,19 +87,11 @@ const ProfileHeader = () => {
         name='chevron-left'
         color='tertiary'
         backgroundColor='shadow'
-        onPress={handleBackPress}
+        onPress={onBackPress}
         size={30}
       />
-      <Text style={styles.header}>{profileState.title}</Text>
-      {isInbox && (
-        <HeaderButton
-          type='feather'
-          name='plus'
-          color='tertiary'
-          backgroundColor='shadow'
-          onPress={handleNewMessagePress}
-        />
-      )}
+      <Text style={styles.header}>{title}</Text>
+      {showRightButton && <HeaderButton {...rightButtonProps} />}
     </Header>
   )
 }
@@ -56,5 +103,9 @@ const styles = StyleSheet.create({
     fontSize: 18
   }
 })
+
+ProfileHeader.propTypes = {
+  modalActions: PropTypes.object.isRequired
+}
 
 export default ProfileHeader

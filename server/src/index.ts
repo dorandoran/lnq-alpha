@@ -12,5 +12,5 @@ apolloServer.start().then(() => {
 })
 
 app.listen({ port }, () => {
-  console.log(`Server ready at http://localhost:${port}/${gqlPath}`)
+  console.log(`Server ready at http://localhost:${port}${gqlPath}`)
 })
