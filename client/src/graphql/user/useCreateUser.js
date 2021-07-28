@@ -20,7 +20,7 @@ export default function useCreateUser({ onCompleted }) {
               id: null,
               uri: null
             },
-            description: null,
+            about: null,
             dob: null,
             website: null,
             new: true,

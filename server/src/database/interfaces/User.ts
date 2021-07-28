@@ -7,7 +7,7 @@ export interface IUser {
   lastName: string
   email: string
   dob?: Date
-  description?: string
+  about?: string
   avatar?: IAvatar
   website?: string
   new: boolean
@@ -31,7 +31,7 @@ export interface IUserUpdate {
     firstName?: string
     lastName?: string
     dob?: Date
-    description?: string
+    about?: string
     avatar?: IAvatarInput
     website?: string
     new?: Boolean

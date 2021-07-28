@@ -32,7 +32,7 @@ export interface IUserHit {
     id: string
     uri: string
   }
-  description: string
+  about: string
   isFollowing: boolean
 }
 

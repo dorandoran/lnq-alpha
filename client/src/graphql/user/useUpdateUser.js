@@ -9,7 +9,7 @@ import { UpdateUser } from '@graphql/user/mutations.js'
  *  lastName: string
  *  username: string
  *  dob: Date
- *  description: string
+ *  about: string
  *  avatar: {
  *    id: string
  *    uri: string
@@ -46,7 +46,7 @@ export default function useUpdateUser({ onCompleted }) {
                 firstName
                 lastName
                 dob
-                description
+                about
                 avatar {
                   id
                   uri

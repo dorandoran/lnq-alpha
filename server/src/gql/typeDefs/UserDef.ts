@@ -23,7 +23,7 @@ export const UserType = gql`
     lastName: String!
     dob: Date
     email: String!
-    description: String
+    about: String
     avatar: Avatar
     website: String
     new: Boolean
@@ -51,7 +51,7 @@ export const UserType = gql`
     firstName: String
     lastName: String
     dob: Date
-    description: String
+    about: String
     avatar: AvatarInput
     website: String
     new: Boolean
