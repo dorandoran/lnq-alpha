@@ -1,7 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useRouteState } from '@hooks/useRoute'
-import useUser from '@context/userContext'
-import useNotification from '@hooks/useNotification'
 
 import EventList from '@components/profile/utilComponents/profileEventList'
 import RSVPList from '@components/profile/utilComponents/profileResponseList'
@@ -11,29 +10,14 @@ import ProfileMenu from '@components/profile/profileMenu'
 import ProfileAccountStats from '@components/profile/profileAccountStats'
 import ProfileInformation from '@components/profile/profileInformation'
 
-import ProfileModalContainer from '@components/profile/utilComponents/profileModalContainer'
-import ProfileMenuModal from '@components/profile/utilComponents/profileMenuModal'
-import LogoutModal from '@components/profile/utilComponents/logoutModal'
-import AddMediaModal from '@components/shared/addMediaModal'
-
 import { View, StyleSheet, ImageBackground } from 'react-native'
-import { SCREEN_HEIGHT, SCREEN_WIDTH, BUCKET, OPERATION, theme } from '@util'
+import { SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
 import { TABS } from '@components/profile/utilComponents/profileUtil'
 
-const MODAL = {
-  MENU: 'profileMenu',
-  PICTURE: 'updatePicture',
-  INFO: 'updateInformation',
-  LOGOUT: 'logout'
-}
-
-const ProfileMain = () => {
+const ProfileMain = ({ modalActions }) => {
   const { name } = useRouteState()
   const [tab, setTab] = React.useState(TABS.EVENTS)
-  const [modal, setModal] = React.useState('')
   const [skip, setSkip] = React.useState(true)
-  const { user, updateUserState } = useUser()
-  const { throwSuccess } = useNotification()
 
   React.useEffect(() => {
     if (name === 'Profile') {
@@ -46,20 +30,6 @@ const ProfileMain = () => {
     }
   }, [name])
 
-  const modalActions = {
-    openMenu: () => setModal(MODAL.MENU),
-    updatePicture: () => setModal(MODAL.PICTURE),
-    updateInformation: () => setModal(MODAL.INFO),
-    logout: () => setModal(MODAL.LOGOUT),
-    cancelModal: () => setModal('')
-  }
-
-  const onAddMediaCompleted = res => {
-    throwSuccess('User avatar updated!')
-    modalActions.cancelModal()
-    updateUserState({ avatar: res.updateUserAvatar })
-  }
-
   const renderTab = () => {
     switch (tab) {
       case TABS.EVENTS:
@@ -70,28 +40,6 @@ const ProfileMain = () => {
         return <SavesList />
       default:
         throw new Error('Something went wrong with the ProfileScreen.')
-    }
-  }
-
-  const renderModal = () => {
-    switch (modal) {
-      case MODAL.MENU:
-        return <ProfileMenuModal modalActions={modalActions} />
-      case MODAL.LOGOUT:
-        return <LogoutModal modalActions={modalActions} />
-      case MODAL.PICTURE:
-        return (
-          <AddMediaModal
-            entity={user}
-            bucketType={BUCKET.USER}
-            operation={OPERATION.UPDATE}
-            modalActions={modalActions}
-            onCompleted={onAddMediaCompleted}
-          />
-        )
-      case MODAL.INFO:
-      default:
-        return <View />
     }
   }
 
@@ -111,9 +59,6 @@ const ProfileMain = () => {
           {renderTab()}
         </View>
       </View>
-      <ProfileModalContainer isVisible={!!modal}>
-        {renderModal()}
-      </ProfileModalContainer>
     </React.Fragment>
   )
 }
@@ -134,5 +79,9 @@ const styles = StyleSheet.create({
     marginTop: -20
   }
 })
+
+ProfileMain.propTypes = {
+  modalActions: PropTypes.object.isRequired
+}
 
 export default ProfileMain

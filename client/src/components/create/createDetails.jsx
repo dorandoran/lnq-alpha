@@ -5,7 +5,7 @@ import useCreate from '@context/createContext'
 import DateTimePicker from '@components/create/createDateTimePicker'
 import ImageList from '@components/create/createImageList'
 import Picker from '@components/create/createPicker'
-import DetailModal from '@components/create/createModal'
+import CreateModal from '@components/create/createModal'
 
 import { theme } from '@util'
 import { inputMap } from '@components/create/utilComponents/createUtil'
@@ -96,7 +96,7 @@ const CreateDetails = () => {
         </View>
       </KeyboardAwareScrollView>
 
-      <DetailModal
+      <CreateModal
         modalValue={modalValue}
         clearValue={() => setModalValue(null)}
         detail={details[modalValue?.value]}
