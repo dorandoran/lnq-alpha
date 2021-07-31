@@ -27,7 +27,7 @@ export interface IUser {
   lastName: string
   email: string
   dob?: Date
-  description?: string
+  about?: string
   avatar?: {
     id: string
     uri: string

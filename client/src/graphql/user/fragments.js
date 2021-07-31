@@ -11,7 +11,7 @@ export const allInfoUserFragment = gql`
       id
       uri
     }
-    description
+    about
     dob
     website
     new
@@ -28,7 +28,7 @@ export const userFragment = gql`
     firstName
     lastName
     username
-    description
+    about
     avatar {
       id
       uri

@@ -18,12 +18,11 @@ const inputMap = [
   {
     label: 'Website',
     value: 'website'
+  },
+  {
+    label: 'About',
+    value: 'about'
   }
-  // Add back when "about" field is added to user
-  // {
-  //   label: 'About',
-  //   value: 'about'
-  // }
 ]
 
 const ProfileEditForm = () => {

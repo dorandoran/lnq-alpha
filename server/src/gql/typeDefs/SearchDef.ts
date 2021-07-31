@@ -22,7 +22,7 @@ export const SearchType = gql`
     firstName: String!
     lastName: String!
     avatar: Avatar
-    description: String
+    about: String
     isFollowing: Boolean
   }
 

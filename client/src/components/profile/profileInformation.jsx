@@ -41,8 +41,8 @@ const ProfileInfo = () => {
             {user.username ? `@${user.username}` : 'No Username'}
           </Text>
           <Text style={[styles.text]}>{user.website || 'No Website'}</Text>
-          <Text style={[styles.text, styles.description]} numberOfLines={1}>
-            {user.description || 'No Description'}
+          <Text style={[styles.text, styles.about]} numberOfLines={1}>
+            {user.about || 'No About'}
           </Text>
         </View>
         <View style={styles.iconContainer}>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     color: theme.color.tertiary,
     fontSize: 20
   },
-  description: {
+  about: {
     paddingBottom: '3%'
   },
   buttonMargin: {
