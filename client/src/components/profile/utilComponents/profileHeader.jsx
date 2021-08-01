@@ -52,7 +52,10 @@ const ProfileHeader = ({ modalActions }) => {
           onPress: () => {
             Keyboard.dismiss()
             throwLoading()
-            updateUser({ id: user.id, updates: form })
+            updateUser({
+              id: user.id,
+              updates: { ...form, avatar: form.avatar.file }
+            })
             reset()
           },
           onBackPress: () => {

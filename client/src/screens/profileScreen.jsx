@@ -5,7 +5,7 @@ import useUser from '@context/userContext'
 
 import ProfileMenuModal from '@components/profile/utilComponents/profileMenuModal'
 import LogoutModal from '@components/profile/utilComponents/logoutModal'
-import AddMediaModal from '@components/shared/addMediaModal'
+import MediaSourceSelect from '@components/profile/utilComponents/profileMediaSourceSelect'
 import ConfirmationModal from '@components/shared/confirmationModalView'
 
 import ProfileMain from '@components/profile/profileMain'
@@ -14,13 +14,12 @@ import ProfileEditForm from '@components/profile/profileEditForm'
 import ProfileModalContainer from '@components/profile/utilComponents/profileModalContainer'
 
 import { View, StyleSheet } from 'react-native'
-import { theme, BUCKET, OPERATION } from '@util'
+import { theme } from '@util'
 import { SCREEN } from '@components/profile/utilComponents/profileUtil'
 
 const MODAL = {
   MENU: 'profileMenu',
-  PICTURE: 'updatePicture',
-  INFO: 'updateInformation',
+  AVATAR: 'updateAvatar',
   LOGOUT: 'logout',
   CONFIRMATION: 'confirmation'
 }
@@ -31,16 +30,18 @@ const CONFIRMATION_MODAL_MESSAGE =
 const ProfileScreen = () => {
   const { profileState, dispatch, actions, reset } = useProfile()
   const { throwSuccess } = useNotification()
-  const { user, updateUserState } = useUser()
+  const { updateUserState } = useUser()
   const { modal, screen } = profileState
 
   const modalActions = {
     openMenu: () => dispatch({ type: actions.openModal, payload: MODAL.MENU }),
     openConfirmation: () =>
       dispatch({ type: actions.openModal, payload: MODAL.CONFIRMATION }),
-    updatePicture: () =>
-      dispatch({ type: actions.openModal, payload: MODAL.PICTURE }),
-    updateInformation: () => dispatch({ type: actions.navigateEditForm }),
+    openUpdateAvatar: () =>
+      dispatch({ type: actions.openModal, payload: MODAL.AVATAR }),
+    updateAvatar: avatar =>
+      dispatch({ type: actions.updateEditForm, payload: { avatar } }),
+    navigateEditForm: () => dispatch({ type: actions.navigateEditForm }),
     logout: () => dispatch({ type: actions.openModal, payload: MODAL.LOGOUT }),
     cancelModal: () => dispatch({ type: actions.closeModal })
   }
@@ -51,7 +52,7 @@ const ProfileScreen = () => {
       case SCREEN.MAIN:
         return <ProfileMain modalActions={modalActions} />
       case SCREEN.EDIT:
-        return <ProfileEditForm />
+        return <ProfileEditForm modalActions={modalActions} />
       default:
         return <ProfileMain />
     }
@@ -79,16 +80,8 @@ const ProfileScreen = () => {
         return <ProfileMenuModal modalActions={modalActions} />
       case MODAL.LOGOUT:
         return <LogoutModal modalActions={modalActions} />
-      case MODAL.PICTURE:
-        return (
-          <AddMediaModal
-            entity={user}
-            bucketType={BUCKET.USER}
-            operation={OPERATION.UPDATE}
-            modalActions={modalActions}
-            onCompleted={onAddMediaCompleted}
-          />
-        )
+      case MODAL.AVATAR:
+        return <MediaSourceSelect handleSelect={modalActions.updateAvatar} />
       case MODAL.CONFIRMATION:
         return (
           <ConfirmationModal
@@ -97,7 +90,6 @@ const ProfileScreen = () => {
             handleConfirm={handleConfirmationConfirm}
           />
         )
-      case MODAL.INFO:
       default:
         return <View />
     }
@@ -109,7 +101,10 @@ const ProfileScreen = () => {
         <Header modalActions={modalActions} />
       )}
       {renderScreen()}
-      <ProfileModalContainer isVisible={!!modal}>
+      <ProfileModalContainer
+        isVisible={!!modal}
+        onBackdropPress={modalActions.cancelModal}
+      >
         {renderModal()}
       </ProfileModalContainer>
     </View>

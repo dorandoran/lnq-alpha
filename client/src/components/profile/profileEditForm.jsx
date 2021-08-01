@@ -1,10 +1,17 @@
-import React, { Fragment } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import useProfile from '@context/profileContext'
 
-import { theme } from '@util'
+import { SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { View, StyleSheet } from 'react-native'
-import { StyledInput } from '@common'
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity
+} from 'react-native'
+import { Icon } from 'react-native-elements'
+import { StyledInput, Loading } from '@common'
 
 const inputMap = [
   {
@@ -25,7 +32,7 @@ const inputMap = [
   }
 ]
 
-const ProfileEditForm = () => {
+const ProfileEditForm = ({ modalActions }) => {
   const { profileState, dispatch, actions } = useProfile()
   const { form } = profileState
 
@@ -33,32 +40,55 @@ const ProfileEditForm = () => {
     dispatch({ type: actions.updateEditForm, payload: { [key]: value } })
   }
 
-  return (
-    <Fragment>
-      <KeyboardAwareScrollView
-        enableOnAndroid
-        contentContainerStyle={styles.awareContainer}
+  const AvatarChangeButton = () => {
+    return (
+      <TouchableOpacity
+        style={styles.avatarButton}
+        onPress={modalActions.openUpdateAvatar}
       >
-        <View style={styles.view}>
-          <View style={[styles.formContainer, styles.marginBottom]}>
-            {inputMap.map(({ label, value, ...rest }) => {
-              // About component
-              if (value === 'about') {
-                return (
-                  <StyledInput
-                    key={value}
-                    label={label}
-                    autoCapitalize={value === 'website' ? 'none' : 'words'}
-                    onChange={({ nativeEvent }) =>
-                      updateForm(value, nativeEvent.text)
-                    }
-                    value={form[value]}
-                    {...rest}
-                  />
-                )
-              }
+        <Icon
+          type='material-community'
+          name='camera'
+          color={theme.color.tertiary}
+        />
+      </TouchableOpacity>
+    )
+  }
 
-              // Input components
+  return (
+    <KeyboardAwareScrollView
+      enableOnAndroid
+      contentContainerStyle={styles.awareContainer}
+    >
+      <View style={styles.view}>
+        <ImageBackground
+          source={require('../../../assets/profile-main.png')}
+          style={styles.imageBackground}
+        >
+          <View />
+        </ImageBackground>
+        <View style={styles.imageContainer}>
+          {form.avatar ? (
+            <ImageBackground
+              imageStyle={styles.imageStyle}
+              style={styles.image}
+              source={{ uri: form.avatar.uri }}
+              PlaceholderContent={
+                <Loading size='small' styleProps={styles.loading} />
+              }
+            >
+              <AvatarChangeButton />
+            </ImageBackground>
+          ) : (
+            <View style={[styles.image, styles.imageStyle]}>
+              <AvatarChangeButton />
+            </View>
+          )}
+        </View>
+        <View style={[styles.formContainer, styles.marginBottom]}>
+          {inputMap.map(({ label, value, ...rest }) => {
+            // About component
+            if (value === 'about') {
               return (
                 <StyledInput
                   key={value}
@@ -71,18 +101,59 @@ const ProfileEditForm = () => {
                   {...rest}
                 />
               )
-            })}
-          </View>
+            }
+
+            // Input components
+            return (
+              <StyledInput
+                key={value}
+                label={label}
+                autoCapitalize={value === 'website' ? 'none' : 'words'}
+                onChange={({ nativeEvent }) =>
+                  updateForm(value, nativeEvent.text)
+                }
+                value={form[value]}
+                {...rest}
+              />
+            )
+          })}
         </View>
-      </KeyboardAwareScrollView>
-    </Fragment>
+      </View>
+    </KeyboardAwareScrollView>
   )
 }
 
 const styles = StyleSheet.create({
+  avatarButton: {
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   view: {
     flex: 1,
     alignItems: 'center'
+  },
+  imageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -30
+  },
+  imageBackground: {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT / 4
+  },
+  imageStyle: {
+    borderRadius: 50,
+    borderWidth: 2,
+    backgroundColor: theme.color.background,
+    borderColor: theme.color.background
+  },
+  image: {
+    width: 60,
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   marginBottom: {
     marginBottom: '5%'
@@ -107,7 +178,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     paddingBottom: '1%'
+  },
+  loading: {
+    borderRadius: 50
   }
 })
+
+ProfileEditForm.propTypes = {
+  modalActions: PropTypes.object.isRequired
+}
 
 export default ProfileEditForm

@@ -11,14 +11,9 @@ const ProfileMenuModal = ({ modalActions }) => {
       title: '',
       data: [
         {
-          key: 'updatePicture',
-          value: 'Update Profile Picture',
-          onPress: modalActions.updatePicture
-        },
-        {
           key: 'updateInformation',
           value: 'Update Profile Information',
-          onPress: modalActions.updateInformation
+          onPress: modalActions.navigateEditForm
         }
       ]
     },

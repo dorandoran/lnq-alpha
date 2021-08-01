@@ -52,7 +52,8 @@ export const UserType = gql`
     lastName: String
     dob: Date
     about: String
-    avatar: AvatarInput
+    avatar: Upload
+    bannerAvatar: Upload
     website: String
     new: Boolean
     categories: [String]

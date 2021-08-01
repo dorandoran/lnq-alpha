@@ -71,7 +71,8 @@ function reducer(state, action) {
     case actions.updateEditForm: {
       return {
         ...state,
-        form: { ...state.form, ...action.payload }
+        form: { ...state.form, ...action.payload },
+        modal: null
       }
     }
     case actions.openModal: {
