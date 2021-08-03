@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useRouteState } from '@hooks/useRoute'
 
 import EventList from '@components/profile/utilComponents/profileEventList'
 import RSVPList from '@components/profile/utilComponents/profileResponseList'
@@ -15,25 +14,12 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
 import { TABS } from '@components/profile/utilComponents/profileUtil'
 
 const ProfileMain = ({ modalActions }) => {
-  const { name } = useRouteState()
   const [tab, setTab] = React.useState(TABS.EVENTS)
-  const [skip, setSkip] = React.useState(true)
-
-  React.useEffect(() => {
-    if (name === 'Profile') {
-      setSkip(false)
-    }
-
-    return () => {
-      setTab(TABS.EVENTS)
-      setSkip(true)
-    }
-  }, [name])
 
   const renderTab = () => {
     switch (tab) {
       case TABS.EVENTS:
-        return <EventList skip={skip} />
+        return <EventList />
       case TABS.RSVP:
         return <RSVPList />
       case TABS.SAVES:

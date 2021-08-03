@@ -6,7 +6,8 @@ import {
   IEventCreate,
   IEventUpdate,
   IAddComment,
-  IComment
+  IComment,
+  IEventQueryOptions
 } from '../interfaces'
 import { InviteController, FollowController } from '.'
 
@@ -154,12 +155,18 @@ export async function findById(
 }
 
 export async function findAllByOwnerId(
-  id?: string
+  id?: string,
+  options?: IEventQueryOptions
 ): Promise<FirebaseFirestore.DocumentData[] | null> {
   let events: FirebaseFirestore.DocumentData[] = []
+  let query = Events.where('ownerId', '==', id)
+
+  if (options?.ignoreOld) {
+    query = _ignoreOld(query)
+  }
 
   try {
-    const snapshot = await Events.where('ownerId', '==', id).get()
+    const snapshot = await query.get()
     if (snapshot) {
       snapshot.forEach(doc => {
         let event = doc.data()
@@ -247,4 +254,10 @@ export async function getAllComments(
     console.log(e)
     return null
   }
+}
+
+function _ignoreOld(
+  ref: FirebaseFirestore.Query<FirebaseFirestore.DocumentData>
+): FirebaseFirestore.Query<FirebaseFirestore.DocumentData> {
+  return ref.where('date', '>=', timestamp.now())
 }

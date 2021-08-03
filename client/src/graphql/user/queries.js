@@ -15,8 +15,8 @@ export const GetCurrentUser = gql`
 export const GetCurrentUserEvents = gql`
   ${searchEventFragment}
 
-  query GetCurrentUserEvents($id: String) {
-    getUserEvents(id: $id) {
+  query GetCurrentUserEvents($id: String, $options: EventQueryOptions) {
+    getUserEvents(id: $id, options: $options) {
       ...searchEventFields
     }
   }
