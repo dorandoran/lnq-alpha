@@ -102,17 +102,6 @@ export const UserResolvers = {
     ) => {
       const id = args.id || context?.user.id
       return UserController.updateAvatar({ ...args, id })
-    },
-    addBookmarkEvent: (
-      parent: void,
-      args: IAddBookmarkEvent,
-      context: { user: IUser }
-    ) => {
-      const userId = args?.userId || context?.user.id
-      const updates = {
-        addBookmarkEvents: [args.eventId]
-      }
-      return UserController.update({ id: userId, updates })
     }
   },
   User: {
