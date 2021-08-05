@@ -22,8 +22,8 @@ const ProfileHeader = ({ modalActions }) => {
   const [updateUser] = useUpdateUser({
     onCompleted: res => {
       throwSuccess('Profile updated!')
-      dispatch({ type: actions.navigateMain })
       updateUserState({ ...res.updateUser })
+      dispatch({ type: actions.navigateMain })
     }
   })
 
@@ -52,14 +52,16 @@ const ProfileHeader = ({ modalActions }) => {
           onPress: () => {
             Keyboard.dismiss()
             throwLoading()
-            updateUser({ id: user.id, updates: form })
+            updateUser({
+              id: user.id,
+              updates: { ...form, avatar: form.avatar.file }
+            })
             reset()
           },
           onBackPress: () => {
             if (!isEqual(initialUser, form)) {
               modalActions.openConfirmation()
             } else {
-              dispatch({ type: actions.navigateMain })
               reset()
             }
           }

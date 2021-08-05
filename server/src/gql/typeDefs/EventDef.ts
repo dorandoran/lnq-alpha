@@ -5,8 +5,13 @@ import {
   MediaController,
   InviteController
 } from '../../database/controllers'
-import { IEvent, IEventCreate, IEventUpdate } from '../../database/interfaces'
-import { IUser } from '../../database/interfaces/User'
+import {
+  IUser,
+  IEvent,
+  IEventCreate,
+  IEventUpdate,
+  IEventQueryOptions
+} from '../../database/interfaces'
 
 export const EventType = gql`
   type Event {
@@ -42,6 +47,10 @@ export const EventType = gql`
     plusOne: Boolean
     isPrivate: Boolean
   }
+
+  input EventQueryOptions {
+    ignoreOld: Boolean
+  }
 `
 
 export const EventResolvers = {
@@ -51,11 +60,11 @@ export const EventResolvers = {
     },
     getUserEvents: (
       obj: void,
-      args: { id?: string },
+      args: { id?: string; options?: IEventQueryOptions },
       context: { user: IUser } | null
     ) => {
       const id = args?.id || context?.user.id
-      return EventController.findAllByOwnerId(id)
+      return EventController.findAllByOwnerId(id, args?.options)
     }
   },
 

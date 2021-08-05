@@ -24,6 +24,7 @@ export async function create({
     .storage()
     .bucket()
     .file(`${type}/${newMediaRef.id}`)
+  const linkIds = linkId ? [linkId] : [ownerId]
 
   const { createReadStream, mimetype } = await image
   const readStream = createReadStream(newMediaRef.id)
@@ -59,7 +60,7 @@ export async function create({
     uri,
     ownerId,
     created_at: timestamp.now(),
-    linkIds: [linkId]
+    linkIds
   }
 
   try {
@@ -69,6 +70,8 @@ export async function create({
     }
     return null
   } catch (e) {
+    // If error saving to database, remove from storage
+    await removeMediaFromStorage({ id: newMediaRef.id, bucket: type })
     console.log(e)
     return null
   }
@@ -100,7 +103,7 @@ export async function remove({
     console.log(e)
     return {
       completed: false,
-      error: e
+      error: e as string
     }
   }
 

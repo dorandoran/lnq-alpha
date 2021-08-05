@@ -1,7 +1,7 @@
 export const TABS = {
   EVENTS: 'events',
   RSVP: 'rsvp',
-  SAVES: 'saves'
+  BOOKMARK: 'bookmarks'
 }
 
 export const NOTIFICATION_TABS = {
@@ -19,8 +19,8 @@ export const tabButtonList = [
     value: TABS.RSVP
   },
   {
-    label: 'Saves',
-    value: TABS.SAVES
+    label: 'Bookmarks',
+    value: TABS.BOOKMARK
   }
 ]
 
@@ -42,6 +42,7 @@ export const getUserFormFields = user => {
     lastName: user?.lastName,
     username: user?.username,
     website: user?.website || '',
-    about: user?.about || ''
+    about: user?.about || '',
+    avatar: user?.avatar
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { TouchableOpacity, StyleSheet } from 'react-native'
+import { TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { theme } from '@util'
 
@@ -14,7 +14,8 @@ const HeaderButton = ({
   type,
   name,
   size,
-  disabled
+  disabled,
+  loading
 }) => {
   const extraStyles = {
     backgroundColor: disabled
@@ -31,12 +32,16 @@ const HeaderButton = ({
       onPress={onPress}
       disabled={disabled}
     >
-      <Icon
-        type={type}
-        name={name}
-        color={theme.color[color] || color}
-        size={size}
-      />
+      {loading ? (
+        <ActivityIndicator size='small' color={theme.color.secondary} />
+      ) : (
+        <Icon
+          type={type}
+          name={name}
+          color={theme.color[color] || color}
+          size={size}
+        />
+      )}
     </TouchableOpacity>
   )
 }
@@ -59,7 +64,8 @@ HeaderButton.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string,
   size: PropTypes.number,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  loading: PropTypes.bool
 }
 
 export default HeaderButton

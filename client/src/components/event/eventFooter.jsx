@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import useUser from '@context/userContext'
 import useUpdateUser from '@graphql/user/useUpdateUser'
-import useNotification from '@hooks/useNotification'
 import { useDebounce } from '@hooks/useDebounce'
 
 import { View, StyleSheet, Pressable } from 'react-native'
@@ -13,38 +12,64 @@ import { theme, SCREEN_HEIGHT } from '@util'
 
 const EventFooter = ({ modalActions, event }) => {
   const { user, updateUserState } = useUser()
-  const [currentBookmark, setCurrentBookmark] = React.useState(
-    isBookmarked(event)
-  )
-  const { throwSuccess } = useNotification()
-  const [updateUser] = useUpdateUser({
+  const isBookmarked = checkBookmarked(event)
+  const [bookmarkConfirm, setBookmarkConfirm] = useState(false)
+  const [currentBookmark, setCurrentBookmark] = useState(isBookmarked)
+  const [updateUser, loading] = useUpdateUser({
     onCompleted: res => {
-      const message = currentBookmark
-        ? 'Event bookmarked'
-        : 'Event removed from bookmarks'
-      throwSuccess(message)
+      setBookmarkConfirm(true)
+      setCurrentBookmark(!currentBookmark)
       updateUserState({ ...res.updateUser })
     }
   })
 
   useDebounce(
     () => {
-      if (isBookmarked(event) !== currentBookmark) {
-        const updateKey = isBookmarked(event)
-          ? 'removeBookmarkEvents'
-          : 'addBookmarkEvents'
-
-        updateUser({
-          updates: { [updateKey]: [event.id] }
-        })
+      if (bookmarkConfirm) {
+        setBookmarkConfirm(false)
       }
     },
-    1000,
-    currentBookmark
+    2000,
+    bookmarkConfirm
   )
 
-  function isBookmarked(currentBookmark) {
+  function checkBookmarked(currentBookmark) {
     return !!user.bookmarkEvents.find(event => event.id === currentBookmark.id)
+  }
+
+  const handleBookmarkEvent = () => {
+    const updateKey = isBookmarked
+      ? 'removeBookmarkEvents'
+      : 'addBookmarkEvents'
+
+    updateUser({
+      updates: { [updateKey]: [event.id] }
+    })
+  }
+
+  const BookmarkButton = () => {
+    if (loading || bookmarkConfirm) {
+      return (
+        <HeaderButton
+          type='material'
+          name='done'
+          color='success'
+          backgroundColor={theme.color.shadow}
+          onPress={() => {}}
+          loading={loading}
+        />
+      )
+    }
+    return (
+      <HeaderButton
+        type='material-community'
+        name={currentBookmark ? 'bookmark' : 'bookmark-outline'}
+        color={currentBookmark ? theme.color.secondary : theme.color.tertiary}
+        backgroundColor={theme.color.shadow}
+        onPress={handleBookmarkEvent}
+        size={30}
+      />
+    )
   }
 
   return (
@@ -57,14 +82,7 @@ const EventFooter = ({ modalActions, event }) => {
           backgroundColor='secondary'
           onPress={() => {}}
         />
-        <HeaderButton
-          type='material-community'
-          name={currentBookmark ? 'bookmark' : 'bookmark-outline'}
-          color={currentBookmark ? theme.color.secondary : theme.color.tertiary}
-          backgroundColor={theme.color.shadow}
-          onPress={() => setCurrentBookmark(!currentBookmark)}
-          size={30}
-        />
+        <BookmarkButton />
         <HeaderButton
           type='material-community'
           name='share-outline'

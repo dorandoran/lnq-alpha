@@ -4,6 +4,7 @@ import { firestore, timestamp } from '../firestore/firebase'
 import { MediaController } from '.'
 import { IUserUpdateInput } from '../interfaces/User'
 import {
+  IFile,
   IUser,
   IAvatar,
   IMessage,
@@ -46,12 +47,93 @@ export async function update(
   userUpdate: IUserUpdateInput
 ): Promise<FirebaseFirestore.DocumentData | null> {
   const { id, updates } = userUpdate
+  let mediaResponse
   let userUpdates: IUserUpdate = omit(update, [
     'addBookmarkEvents',
     'removeBookmarkEvents'
   ])
 
+  // Handling Images
+  if (updates.avatar || updates.bannerAvatar) {
+    const avatarPromises = []
+    let bannerAvatarFlag = false
+
+    // Add avatar to promise
+    if (updates.avatar) {
+      avatarPromises.push(
+        MediaController.create({
+          ownerId: id,
+          type: EBuckets.USERS,
+          image: updates.avatar as Promise<IFile>
+        })
+      )
+    }
+    if (updates.bannerAvatar) {
+      bannerAvatarFlag = true
+      avatarPromises.push(
+        MediaController.create({
+          ownerId: id,
+          type: EBuckets.USERS,
+          image: updates.bannerAvatar as Promise<IFile>
+        })
+      )
+    }
+
+    try {
+      mediaResponse = await Promise.all(avatarPromises)
+      // Revert changes if error
+      if (mediaResponse.find(res => res === null)) {
+        console.log('Error updating the avatar!')
+        mediaResponse.forEach(async response => {
+          if (response) {
+            await MediaController.removeMediaFromStorage({
+              id: response.id,
+              bucket: EBuckets.USERS
+            })
+          }
+        })
+        return null
+      }
+
+      // Update the avatar object for database
+      if (bannerAvatarFlag) {
+        // Only bannerAvatar updated
+        if (mediaResponse.length === 1 && mediaResponse[0]) {
+          userUpdates.bannerAvatar = {
+            id: mediaResponse[0].id,
+            uri: mediaResponse[0].uri
+          }
+        } else {
+          // Both avatars updated
+          if (mediaResponse[0] && mediaResponse[1]) {
+            userUpdates.avatar = {
+              id: mediaResponse[0].id,
+              uri: mediaResponse[0].uri
+            }
+            userUpdates.bannerAvatar = {
+              id: mediaResponse[1].id,
+              uri: mediaResponse[1].uri
+            }
+          }
+        }
+      } else {
+        // Only avatar updated
+        if (mediaResponse[0]) {
+          userUpdates.avatar = {
+            id: mediaResponse[0].id,
+            uri: mediaResponse[0].uri
+          }
+        }
+      }
+    } catch (e) {
+      console.log('Error updating the avatar!')
+      console.log(e)
+      return null
+    }
+  }
+
   try {
+    // Handling Event Bookmarks
     if (updates?.addBookmarkEvents) {
       const { addBookmarkEvents } = updates
       userUpdates.bookmarkEvents = admin.firestore.FieldValue.arrayUnion(
@@ -69,6 +151,17 @@ export async function update(
     if (update) return findById(id)
     return null
   } catch (e) {
+    // Remove created media from storage
+    if (mediaResponse) {
+      mediaResponse.forEach(async response => {
+        if (response) {
+          await MediaController.removeMediaFromStorage({
+            id: response.id,
+            bucket: EBuckets.USERS
+          })
+        }
+      })
+    }
     console.log(e)
     return null
   }

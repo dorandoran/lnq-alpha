@@ -9,6 +9,7 @@ export interface IUser {
   dob?: Date
   about?: string
   avatar?: IAvatar
+  bannerAvatar?: IAvatar
   website?: string
   new: boolean
   categories?: string[]
@@ -31,6 +32,7 @@ export interface IUserUpdate {
   dob?: Date
   about?: string
   avatar?: IAvatarInput
+  bannerAvatar?: IAvatarInput
   website?: string
   new?: Boolean
   categories?: string[]
@@ -46,7 +48,8 @@ export interface IUserUpdateInput {
     lastName?: string
     dob?: Date
     about?: string
-    avatar?: IAvatarInput
+    avatar?: Promise<IFile> | IAvatar
+    bannerAvatar?: Promise<IFile> | IAvatar
     website?: string
     new?: Boolean
     categories?: string[]
