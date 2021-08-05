@@ -24,7 +24,7 @@ export const CreateUser = gql`
 export const UpdateUser = gql`
   ${allInfoUserFragment}
 
-  mutation UpdateUser($id: String!, $updates: UserUpdateInput!) {
+  mutation UpdateUser($id: String, $updates: UserUpdateInput!) {
     updateUser(id: $id, updates: $updates) {
       ...allInfoUserFields
     }

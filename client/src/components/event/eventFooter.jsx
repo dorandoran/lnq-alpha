@@ -1,14 +1,51 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import useUser from '@context/userContext'
+import useUpdateUser from '@graphql/user/useUpdateUser'
+import useNotification from '@hooks/useNotification'
+import { useDebounce } from '@hooks/useDebounce'
+
 import { View, StyleSheet, Pressable } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { HeaderButton } from '@common'
 import { theme, SCREEN_HEIGHT } from '@util'
 
-const EventFooter = ({ modalActions }) => {
-  // Temporary save state
-  const [saved, setSaved] = React.useState(false)
+const EventFooter = ({ modalActions, event }) => {
+  const { user, updateUserState } = useUser()
+  const [currentBookmark, setCurrentBookmark] = React.useState(
+    isBookmarked(event)
+  )
+  const { throwSuccess } = useNotification()
+  const [updateUser] = useUpdateUser({
+    onCompleted: res => {
+      const message = currentBookmark
+        ? 'Event bookmarked'
+        : 'Event removed from bookmarks'
+      throwSuccess(message)
+      updateUserState({ ...res.updateUser })
+    }
+  })
+
+  useDebounce(
+    () => {
+      if (isBookmarked(event) !== currentBookmark) {
+        const updateKey = isBookmarked(event)
+          ? 'removeBookmarkEvents'
+          : 'addBookmarkEvents'
+
+        updateUser({
+          updates: { [updateKey]: [event.id] }
+        })
+      }
+    },
+    1000,
+    currentBookmark
+  )
+
+  function isBookmarked(currentBookmark) {
+    return !!user.bookmarkEvents.find(event => event.id === currentBookmark.id)
+  }
 
   return (
     <React.Fragment>
@@ -22,10 +59,10 @@ const EventFooter = ({ modalActions }) => {
         />
         <HeaderButton
           type='material-community'
-          name={saved ? 'bookmark' : 'bookmark-outline'}
-          color={saved ? theme.color.secondary : theme.color.tertiary}
+          name={currentBookmark ? 'bookmark' : 'bookmark-outline'}
+          color={currentBookmark ? theme.color.secondary : theme.color.tertiary}
           backgroundColor={theme.color.shadow}
-          onPress={() => setSaved(!saved)}
+          onPress={() => setCurrentBookmark(!currentBookmark)}
           size={30}
         />
         <HeaderButton
@@ -69,6 +106,7 @@ const styles = StyleSheet.create({
 })
 
 EventFooter.propTypes = {
+  event: PropTypes.object,
   modalActions: PropTypes.object
 }
 

@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express'
+import { IUserUpdateInput } from '../../database/interfaces/User'
 
 import {
   UserController,
@@ -12,7 +13,7 @@ import {
   IUserUpdate,
   INewUserUpdate,
   IUserUpdateAvatar,
-  IAddBookmarkedEvent
+  IAddBookmarkEvent
 } from '../../database/interfaces'
 
 export const UserType = gql`
@@ -37,7 +38,7 @@ export const UserType = gql`
     following: [SocialLink]
     allowFollowers: Boolean
     inbox: [Message]
-    bookmarkedEvents: [Event]
+    bookmarkEvents: [Event]
     created_at: Date
   }
 
@@ -57,6 +58,8 @@ export const UserType = gql`
     new: Boolean
     categories: [String]
     allowFollowers: Boolean
+    addBookmarkEvents: [String]
+    removeBookmarkEvents: [String]
   }
 `
 
@@ -75,8 +78,13 @@ export const UserResolvers = {
     createUser: (parent: void, args: IUserCreate) => {
       return UserController.create(args)
     },
-    updateUser: (parent: void, args: IUserUpdate) => {
-      return UserController.update(args)
+    updateUser: (
+      parent: void,
+      args: IUserUpdateInput,
+      context: { user: IUser }
+    ) => {
+      const id = args.id || context?.user.id
+      return UserController.update({ ...args, id })
     },
     updateNewUser: (
       parent: void,
@@ -94,14 +102,14 @@ export const UserResolvers = {
       const id = args.id || context?.user.id
       return UserController.updateAvatar({ ...args, id })
     },
-    addBookmarkedEvent: (
+    addBookmarkEvent: (
       parent: void,
-      args: IAddBookmarkedEvent,
+      args: IAddBookmarkEvent,
       context: { user: IUser }
     ) => {
       const userId = args?.userId || context?.user.id
       const updates = {
-        bookmarkedEvents: [args.eventId]
+        addBookmarkEvents: [args.eventId]
       }
       return UserController.update({ id: userId, updates })
     }
@@ -125,8 +133,8 @@ export const UserResolvers = {
       const id = context.user.id
       return UserController.getInboxById(id)
     },
-    bookmarkedEvents: (parent: IUser, args: void) => {
-      return EventController.findAll(parent.bookmarkedEvents)
+    bookmarkEvents: (parent: IUser, args: void) => {
+      return EventController.findAll(parent.bookmarkEvents)
     }
   }
 }

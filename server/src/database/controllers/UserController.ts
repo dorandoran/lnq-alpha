@@ -1,6 +1,8 @@
 import admin from 'firebase-admin'
+import { omit } from 'lodash'
 import { firestore, timestamp } from '../firestore/firebase'
 import { MediaController } from '.'
+import { IUserUpdateInput } from '../interfaces/User'
 import {
   IUser,
   IAvatar,
@@ -41,19 +43,29 @@ export async function create(
 }
 
 export async function update(
-  userUpdate: IUserUpdate
+  userUpdate: IUserUpdateInput
 ): Promise<FirebaseFirestore.DocumentData | null> {
   const { id, updates } = userUpdate
+  let userUpdates: IUserUpdate = omit(update, [
+    'addBookmarkEvents',
+    'removeBookmarkEvents'
+  ])
 
   try {
-    if (updates?.bookmarkedEvents) {
-      const { bookmarkedEvents } = updates
-      updates.bookmarkedEvents = admin.firestore.FieldValue.arrayUnion(
-        ...(bookmarkedEvents as string[])
+    if (updates?.addBookmarkEvents) {
+      const { addBookmarkEvents } = updates
+      userUpdates.bookmarkEvents = admin.firestore.FieldValue.arrayUnion(
+        ...(addBookmarkEvents as string[])
+      )
+    }
+    if (updates?.removeBookmarkEvents) {
+      const { removeBookmarkEvents } = updates
+      userUpdates.bookmarkEvents = admin.firestore.FieldValue.arrayRemove(
+        ...(removeBookmarkEvents as string[])
       )
     }
 
-    const update = await Users.doc(id).update(updates)
+    const update = await Users.doc(id).update(userUpdates)
     if (update) return findById(id)
     return null
   } catch (e) {
