@@ -1,4 +1,4 @@
-import { IAvatar, IFile } from '.'
+import { IAvatar, IAvatarInput, IFile } from '.'
 
 export interface IUser {
   id: string
@@ -14,7 +14,7 @@ export interface IUser {
   new: boolean
   categories?: string[]
   allowFollowers: boolean
-  bookmarkedEvents?: string[]
+  bookmarkEvents?: string[]
   created_at?: FirebaseFirestore.Timestamp | Date
 }
 
@@ -26,6 +26,21 @@ export interface IUserCreate {
 }
 
 export interface IUserUpdate {
+  username?: string
+  firstName?: string
+  lastName?: string
+  dob?: Date
+  about?: string
+  avatar?: IAvatarInput
+  bannerAvatar?: IAvatarInput
+  website?: string
+  new?: Boolean
+  categories?: string[]
+  allowFollowers?: Boolean
+  bookmarkEvents?: string[] | FirebaseFirestore.FieldValue
+}
+
+export interface IUserUpdateInput {
   id: string
   updates: {
     username?: string
@@ -33,14 +48,14 @@ export interface IUserUpdate {
     lastName?: string
     dob?: Date
     about?: string
-    description?: string
     avatar?: Promise<IFile> | IAvatar
     bannerAvatar?: Promise<IFile> | IAvatar
     website?: string
     new?: Boolean
     categories?: string[]
     allowFollowers?: Boolean
-    bookmarkedEvents?: string[] | FirebaseFirestore.FieldValue
+    addBookmarkEvents?: string[]
+    removeBookmarkEvents?: string[]
   }
 }
 
@@ -61,7 +76,7 @@ export interface INewUserUpdateResponse {
   user: FirebaseFirestore.DocumentData | null
 }
 
-export interface IAddBookmarkedEvent {
+export interface IAddBookmarkEvent {
   userId?: string
   eventId: string
 }

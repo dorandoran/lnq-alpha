@@ -214,7 +214,7 @@ const EventContainer = ({ id }) => {
           loop
         />
         <EventHeader handleOpenMenu={modalActions.openMenu} />
-        <EventFooter modalActions={modalActions} />
+        <EventFooter event={event} modalActions={modalActions} />
         <EventDetails
           event={event}
           edit={state.edit}

@@ -1,20 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import useUser from '@context/userContext'
+import useOverlay from '@context/overlayContext'
+
 import EventList from '@components/profile/utilComponents/profileEventList'
+import ItemList from '@components/shared/itemList'
 import RSVPList from '@components/profile/utilComponents/profileResponseList'
-import SavesList from '@components/profile/utilComponents/profileSavesList'
 import ProfileTabs from '@components/profile/utilComponents/profileTabs'
 import ProfileMenu from '@components/profile/profileMenu'
 import ProfileAccountStats from '@components/profile/profileAccountStats'
 import ProfileInformation from '@components/profile/profileInformation'
 
 import { View, StyleSheet, ImageBackground } from 'react-native'
-import { SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
+import { BUCKET, SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
 import { TABS } from '@components/profile/utilComponents/profileUtil'
+
+const NO_DATA = {
+  BOOKMARK: 'Nothing bookmarked.'
+}
 
 const ProfileMain = ({ modalActions }) => {
   const [tab, setTab] = React.useState(TABS.EVENTS)
+  const { dispatch: overlayDispatch, actions: overlayActions } = useOverlay()
+  const {
+    user: { bookmarkEvents }
+  } = useUser()
+
+  const handleEventPress = item => {
+    overlayDispatch({
+      type: overlayActions.modal.open,
+      payload: { data: item, type: BUCKET.EVENT }
+    })
+  }
 
   const renderTab = () => {
     switch (tab) {
@@ -22,8 +40,14 @@ const ProfileMain = ({ modalActions }) => {
         return <EventList />
       case TABS.RSVP:
         return <RSVPList />
-      case TABS.SAVES:
-        return <SavesList />
+      case TABS.BOOKMARK:
+        return (
+          <ItemList
+            data={bookmarkEvents}
+            onItemPress={handleEventPress}
+            noDataMessage={NO_DATA.BOOKMARK}
+          />
+        )
       default:
         throw new Error('Something went wrong with the ProfileScreen.')
     }

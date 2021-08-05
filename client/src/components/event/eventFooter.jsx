@@ -1,14 +1,76 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+
+import useUser from '@context/userContext'
+import useUpdateUser from '@graphql/user/useUpdateUser'
+import { useDebounce } from '@hooks/useDebounce'
 
 import { View, StyleSheet, Pressable } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { HeaderButton } from '@common'
 import { theme, SCREEN_HEIGHT } from '@util'
 
-const EventFooter = ({ modalActions }) => {
-  // Temporary save state
-  const [saved, setSaved] = React.useState(false)
+const EventFooter = ({ modalActions, event }) => {
+  const { user, updateUserState } = useUser()
+  const isBookmarked = checkBookmarked(event)
+  const [bookmarkConfirm, setBookmarkConfirm] = useState(false)
+  const [currentBookmark, setCurrentBookmark] = useState(isBookmarked)
+  const [updateUser, loading] = useUpdateUser({
+    onCompleted: res => {
+      setBookmarkConfirm(true)
+      setCurrentBookmark(!currentBookmark)
+      updateUserState({ ...res.updateUser })
+    }
+  })
+
+  useDebounce(
+    () => {
+      if (bookmarkConfirm) {
+        setBookmarkConfirm(false)
+      }
+    },
+    2000,
+    bookmarkConfirm
+  )
+
+  function checkBookmarked(currentBookmark) {
+    return !!user.bookmarkEvents.find(event => event.id === currentBookmark.id)
+  }
+
+  const handleBookmarkEvent = () => {
+    const updateKey = isBookmarked
+      ? 'removeBookmarkEvents'
+      : 'addBookmarkEvents'
+
+    updateUser({
+      updates: { [updateKey]: [event.id] }
+    })
+  }
+
+  const BookmarkButton = () => {
+    if (loading || bookmarkConfirm) {
+      return (
+        <HeaderButton
+          type='material'
+          name='done'
+          color='success'
+          backgroundColor={theme.color.shadow}
+          onPress={() => {}}
+          loading={loading}
+        />
+      )
+    }
+    return (
+      <HeaderButton
+        type='material-community'
+        name={currentBookmark ? 'bookmark' : 'bookmark-outline'}
+        color={currentBookmark ? theme.color.secondary : theme.color.tertiary}
+        backgroundColor={theme.color.shadow}
+        onPress={handleBookmarkEvent}
+        size={30}
+      />
+    )
+  }
 
   return (
     <React.Fragment>
@@ -20,14 +82,7 @@ const EventFooter = ({ modalActions }) => {
           backgroundColor='secondary'
           onPress={() => {}}
         />
-        <HeaderButton
-          type='material-community'
-          name={saved ? 'bookmark' : 'bookmark-outline'}
-          color={saved ? theme.color.secondary : theme.color.tertiary}
-          backgroundColor={theme.color.shadow}
-          onPress={() => setSaved(!saved)}
-          size={30}
-        />
+        <BookmarkButton />
         <HeaderButton
           type='material-community'
           name='share-outline'
@@ -69,6 +124,7 @@ const styles = StyleSheet.create({
 })
 
 EventFooter.propTypes = {
+  event: PropTypes.object,
   modalActions: PropTypes.object
 }
 

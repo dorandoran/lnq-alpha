@@ -1,6 +1,8 @@
 import admin from 'firebase-admin'
+import { omit } from 'lodash'
 import { firestore, timestamp } from '../firestore/firebase'
 import { MediaController } from '.'
+import { IUserUpdateInput } from '../interfaces/User'
 import {
   IFile,
   IUser,
@@ -14,7 +16,6 @@ import {
   ICreateMessage,
   EBuckets
 } from '../interfaces'
-import { response } from 'express'
 
 const Users = firestore().collection('users')
 const Media = firestore().collection('media')
@@ -43,10 +44,14 @@ export async function create(
 }
 
 export async function update(
-  userUpdate: IUserUpdate
+  userUpdate: IUserUpdateInput
 ): Promise<FirebaseFirestore.DocumentData | null> {
   const { id, updates } = userUpdate
   let mediaResponse
+  let userUpdates: IUserUpdate = omit(update, [
+    'addBookmarkEvents',
+    'removeBookmarkEvents'
+  ])
 
   // Handling Images
   if (updates.avatar || updates.bannerAvatar) {
@@ -94,18 +99,18 @@ export async function update(
       if (bannerAvatarFlag) {
         // Only bannerAvatar updated
         if (mediaResponse.length === 1 && mediaResponse[0]) {
-          updates.bannerAvatar = {
+          userUpdates.bannerAvatar = {
             id: mediaResponse[0].id,
             uri: mediaResponse[0].uri
           }
         } else {
           // Both avatars updated
           if (mediaResponse[0] && mediaResponse[1]) {
-            updates.avatar = {
+            userUpdates.avatar = {
               id: mediaResponse[0].id,
               uri: mediaResponse[0].uri
             }
-            updates.bannerAvatar = {
+            userUpdates.bannerAvatar = {
               id: mediaResponse[1].id,
               uri: mediaResponse[1].uri
             }
@@ -114,7 +119,7 @@ export async function update(
       } else {
         // Only avatar updated
         if (mediaResponse[0]) {
-          updates.avatar = {
+          userUpdates.avatar = {
             id: mediaResponse[0].id,
             uri: mediaResponse[0].uri
           }
@@ -129,14 +134,20 @@ export async function update(
 
   try {
     // Handling Event Bookmarks
-    if (updates?.bookmarkedEvents) {
-      const { bookmarkedEvents } = updates
-      updates.bookmarkedEvents = admin.firestore.FieldValue.arrayUnion(
-        ...(bookmarkedEvents as string[])
+    if (updates?.addBookmarkEvents) {
+      const { addBookmarkEvents } = updates
+      userUpdates.bookmarkEvents = admin.firestore.FieldValue.arrayUnion(
+        ...(addBookmarkEvents as string[])
+      )
+    }
+    if (updates?.removeBookmarkEvents) {
+      const { removeBookmarkEvents } = updates
+      userUpdates.bookmarkEvents = admin.firestore.FieldValue.arrayRemove(
+        ...(removeBookmarkEvents as string[])
       )
     }
 
-    const update = await Users.doc(id).update(updates)
+    const update = await Users.doc(id).update(userUpdates)
     if (update) return findById(id)
     return null
   } catch (e) {

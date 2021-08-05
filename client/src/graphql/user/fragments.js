@@ -19,6 +19,26 @@ export const allInfoUserFragment = gql`
     numEvents
     numFollowers
     numFollowing
+    bookmarkEvents {
+      id
+      name
+      avatar {
+        id
+        uri
+      }
+      owner {
+        id
+        avatar {
+          id
+          uri
+        }
+      }
+      location {
+        id
+        text
+      }
+      date
+    }
   }
 `
 
@@ -32,6 +52,9 @@ export const userFragment = gql`
     avatar {
       id
       uri
+    }
+    bookmarkEvents {
+      id
     }
   }
 `

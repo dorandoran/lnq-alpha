@@ -34,7 +34,19 @@ const errorHandling = onError(({ graphQLErrors, networkError }) => {
 const authFlow = sendAuthToken.concat(errorHandling)
 const link = authFlow.concat(uploadLink)
 
-const cache = new InMemoryCache({})
+const cache = new InMemoryCache({
+  typePolicies: {
+    User: {
+      fields: {
+        bookmarkEvents: {
+          merge(existing = [], incoming) {
+            return [...existing, ...incoming]
+          }
+        }
+      }
+    }
+  }
+})
 
 export const client = new ApolloClient({
   link,

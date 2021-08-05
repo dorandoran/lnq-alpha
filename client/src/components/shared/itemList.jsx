@@ -219,13 +219,16 @@ const ItemList = ({
       <FlatList
         style={{ minHeight: 100 }}
         refreshControl={
-          <RefreshControl
-            onRefresh={onRefresh || handleRefresh}
-            refreshing={refreshing || refresh}
-            title='Pull to Refresh'
-            titleColor={theme.color.tertiary}
-            tintColor={theme.color.secondary}
-          />
+          onRefresh ||
+          (query && (
+            <RefreshControl
+              onRefresh={onRefresh || handleRefresh}
+              refreshing={refreshing || refresh}
+              title='Pull to Refresh'
+              titleColor={theme.color.tertiary}
+              tintColor={theme.color.secondary}
+            />
+          ))
         }
         data={listData}
         keyExtractor={event => event.id}

@@ -59,7 +59,7 @@ const OtherType = gql`
     ): Message
     addComment(eventId: String!, comment: String!): Message
     requestFollow(recipientIds: [String!]): [SocialLink]
-    updateUser(id: String!, updates: UserUpdateInput!): User
+    updateUser(id: String, updates: UserUpdateInput!): User
     updateUserAvatar(id: String, image: Upload!): Avatar
     updateNewUser(
       id: String
@@ -70,7 +70,6 @@ const OtherType = gql`
     updateEvent(id: String!, updates: EventUpdateInput!): Event
     deleteEvent(id: String!): Boolean
     deleteMedia(id: String!, linkId: String!, type: String!): StorageResponse
-    addBookmarkedEvent(userId: String, eventId: String!): User
   }
 
   type Subscription {
