@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react'
+import React, { createContext, useContext, useEffect, useReducer } from 'react'
 import PropTypes from 'prop-types'
 
 import useUser from '@context/userContext'
@@ -16,7 +16,8 @@ export const actions = {
   updateEditForm: 'updateEditForm',
   openModal: 'openModal',
   closeModal: 'closeModal',
-  resetForm: 'resetForm'
+  resetForm: 'resetForm',
+  initializeForm: 'initializeForm'
 }
 
 function reducer(state, action) {
@@ -87,8 +88,15 @@ function reducer(state, action) {
         modal: null
       }
     }
-    case actions.reset: {
+    case actions.resetForm: {
       return action.payload
+    }
+    case actions.initializeForm: {
+      return {
+        ...state,
+        initialUser: getUserFormFields(action.payload),
+        form: getUserFormFields(action.payload)
+      }
     }
     default:
       // TODO: Error handling
@@ -112,8 +120,12 @@ export const ProfileProvider = ({ children }) => {
   }
   const [profileState, dispatch] = useReducer(reducer, initialState)
 
+  useEffect(() => {
+    dispatch({ type: actions.initializeForm, payload: getUserFormFields(user) })
+  }, [user])
+
   const reset = () => {
-    dispatch({ type: actions.reset, payload: initialState })
+    dispatch({ type: actions.resetForm, payload: initialState })
   }
 
   return (

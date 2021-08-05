@@ -1,7 +1,5 @@
 import React from 'react'
 import useProfile from '@context/profileContext'
-import useNotification from '@hooks/useNotification'
-import useUser from '@context/userContext'
 
 import ProfileMenuModal from '@components/profile/utilComponents/profileMenuModal'
 import LogoutModal from '@components/profile/utilComponents/logoutModal'
@@ -29,8 +27,6 @@ const CONFIRMATION_MODAL_MESSAGE =
 
 const ProfileScreen = () => {
   const { profileState, dispatch, actions, reset } = useProfile()
-  const { throwSuccess } = useNotification()
-  const { updateUserState } = useUser()
   const { modal, screen } = profileState
 
   const modalActions = {
@@ -56,13 +52,6 @@ const ProfileScreen = () => {
       default:
         return <ProfileMain />
     }
-  }
-
-  // Modal
-  const onAddMediaCompleted = res => {
-    throwSuccess('User avatar updated!')
-    modalActions.cancelModal()
-    updateUserState({ avatar: res.updateUserAvatar })
   }
 
   const handleConfirmationClose = () => {
