@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 50,
     borderWidth: 2,
-    borderColor: theme.color.tertiary
+    borderColor: theme.color.background
   },
   textContainer: {
     width: '80%'

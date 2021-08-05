@@ -1,4 +1,4 @@
-import { IAvatar, IAvatarInput, IFile } from '.'
+import { IAvatar, IFile } from '.'
 
 export interface IUser {
   id: string
@@ -9,6 +9,7 @@ export interface IUser {
   dob?: Date
   about?: string
   avatar?: IAvatar
+  bannerAvatar?: IAvatar
   website?: string
   new: boolean
   categories?: string[]
@@ -32,7 +33,9 @@ export interface IUserUpdate {
     lastName?: string
     dob?: Date
     about?: string
-    avatar?: IAvatarInput
+    description?: string
+    avatar?: Promise<IFile> | IAvatar
+    bannerAvatar?: Promise<IFile> | IAvatar
     website?: string
     new?: Boolean
     categories?: string[]

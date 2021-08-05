@@ -18,7 +18,7 @@ export interface IAvatarInput extends IAvatar {}
 
 export interface IMediaCreate {
   ownerId: string
-  linkId: string
+  linkId?: string
   type: EBuckets
   image: Promise<IFile>
 }

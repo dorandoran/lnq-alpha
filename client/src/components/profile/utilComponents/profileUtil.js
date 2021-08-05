@@ -42,6 +42,7 @@ export const getUserFormFields = user => {
     lastName: user?.lastName,
     username: user?.username,
     website: user?.website || '',
-    about: user?.about || ''
+    about: user?.about || '',
+    avatar: user?.avatar
   }
 }
