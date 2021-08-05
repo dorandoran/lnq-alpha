@@ -1,47 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { StyleSheet, Text, View } from 'react-native'
 
-import { useQuery } from '@apollo/client'
 import { GetCurrentUserEvents } from '@graphql/user/queries'
 import useOverlay from '@context/overlayContext'
-import useUser from '@context/userContext'
 
 import EventList from '@components/shared/itemList'
+import { BUCKET } from '@util'
 
-import { Loading } from '@common'
-import { theme, BUCKET } from '@util'
-
-const ProfileEventList = ({ skip }) => {
-  const [refreshing, setRefreshing] = React.useState(false)
+const ProfileEventList = () => {
   const { dispatch, actions } = useOverlay()
-  const {
-    user: { id }
-  } = useUser()
-
-  const { data, loading, refetch } = useQuery(GetCurrentUserEvents, {
-    variables: { id },
-    fetchPolicy: 'cache-and-network',
-    skip
-  })
-
   // eslint-disable-next-line quotes
-  const noEvents = "You haven't created any events yet!"
-
-  const handleRefresh = () => {
-    setRefreshing(true)
-    refetch()
-  }
-
-  if (loading) return <Loading position='top' />
-  if (refreshing) setRefreshing(false)
-  if (!data?.getUserEvents || !data.getUserEvents.length) {
-    return (
-      <View style={styles.noResults}>
-        <Text style={[styles.text, styles.noResultsText]}>{noEvents}</Text>
-      </View>
-    )
-  }
+  const noEvents = 'You have no upcoming created events!'
 
   const handleItemPress = item => {
     dispatch({
@@ -52,31 +20,13 @@ const ProfileEventList = ({ skip }) => {
 
   return (
     <EventList
-      data={data.getUserEvents}
+      query={GetCurrentUserEvents}
+      variables={{ options: { ignoreOld: true } }}
+      noDataMessage={noEvents}
       onItemPress={handleItemPress}
       hideAvatar
-      onRefresh={handleRefresh}
-      refreshing={refreshing}
     />
   )
-}
-
-const styles = StyleSheet.create({
-  text: {
-    color: theme.color.tertiary
-  },
-  noResults: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 50
-  },
-  noResultsText: {
-    fontSize: 18
-  }
-})
-
-ProfileEventList.propTypes = {
-  skip: PropTypes.bool
 }
 
 export default ProfileEventList

@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { useLazyQuery } from '@apollo/client'
 
 import {
   View,
@@ -16,6 +17,10 @@ import { theme, formatDateTime } from '@util'
 
 const ItemList = ({
   data,
+  query,
+  variables,
+  noDataMessage,
+  filterList,
   onItemPress,
   onFollowPress,
   refreshing,
@@ -25,6 +30,37 @@ const ItemList = ({
   type = 'events',
   hideAvatar = false
 }) => {
+  const [listData, setListData] = useState(data)
+  const [refresh, setRefresh] = useState(false)
+  const [getData, { loading, refetch }] = useLazyQuery(query, {
+    fetchPolicy: 'cache-and-network',
+    onCompleted: res => {
+      let temp = res[Object.keys(res)[0]]
+      if (filterList) {
+        temp = filterList(temp)
+      }
+      setListData(temp)
+    }
+  })
+
+  useEffect(() => {
+    if (query) {
+      getData({
+        variables
+      })
+    }
+
+    if (data) {
+      setListData(data)
+    }
+    return () => setListData([])
+  }, [query, data])
+
+  const handleRefresh = () => {
+    setRefresh(true)
+    refetch()
+  }
+
   const renderItem = item => {
     if (type === 'users') {
       return renderUserListItem(item)
@@ -166,22 +202,32 @@ const ItemList = ({
     )
   }
 
+  // Handle Loading
+  if (listData === undefined || loading) return <Loading position='top' />
+  // Reset Refresh
+  if (refresh) setRefresh(false)
+  if (!listData?.length) {
+    return (
+      <View style={styles.noResults}>
+        <Text style={[styles.text, styles.noResultsText]}>{noDataMessage}</Text>
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
         style={{ minHeight: 100 }}
         refreshControl={
-          onRefresh && (
-            <RefreshControl
-              onRefresh={onRefresh}
-              refreshing={refreshing}
-              title='Pull to Refresh'
-              titleColor={theme.color.tertiary}
-              tintColor={theme.color.secondary}
-            />
-          )
+          <RefreshControl
+            onRefresh={onRefresh || handleRefresh}
+            refreshing={refreshing || refresh}
+            title='Pull to Refresh'
+            titleColor={theme.color.tertiary}
+            tintColor={theme.color.secondary}
+          />
         }
-        data={data}
+        data={listData}
         keyExtractor={event => event.id}
         ListFooterComponent={<View style={styles.image} />}
         renderItem={({ item }) => renderItem(item)}
@@ -276,7 +322,11 @@ const styles = StyleSheet.create({
 
 ItemList.propTypes = {
   data: PropTypes.array,
-  onItemPress: PropTypes.func,
+  query: PropTypes.object,
+  variables: PropTypes.any,
+  noDataMessage: PropTypes.string,
+  filterList: PropTypes.func,
+  onItemPress: PropTypes.func.isRequired,
   onFollowPress: PropTypes.func,
   onRefresh: PropTypes.func,
   refreshing: PropTypes.bool,

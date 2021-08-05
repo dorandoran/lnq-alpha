@@ -45,6 +45,7 @@ export const EventSearch = gql`
         id
         text
       }
+      date
     }
   }
 `

@@ -48,3 +48,7 @@ export interface IEventUpdate {
     isPrivate?: boolean
   }
 }
+
+export interface IEventQueryOptions {
+  ignoreOld?: boolean
+}
