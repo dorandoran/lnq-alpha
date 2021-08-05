@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import useProfile from '@context/profileContext'
 
 import ProfileMenuModal from '@components/profile/utilComponents/profileMenuModal'
@@ -6,7 +6,6 @@ import LogoutModal from '@components/profile/utilComponents/logoutModal'
 import MediaSourceSelect from '@components/profile/utilComponents/profileMediaSourceSelect'
 import ConfirmationModal from '@components/shared/confirmationModalView'
 
-import ProfileMain from '@components/profile/profileMain'
 import Header from '@components/profile/utilComponents/profileHeader'
 import ProfileEditForm from '@components/profile/profileEditForm'
 import ProfileModalContainer from '@components/profile/utilComponents/profileModalContainer'
@@ -14,6 +13,9 @@ import ProfileModalContainer from '@components/profile/utilComponents/profileMod
 import { View, StyleSheet } from 'react-native'
 import { theme } from '@util'
 import { SCREEN } from '@components/profile/utilComponents/profileUtil'
+import { Loading } from '@common'
+
+const ProfileMain = React.lazy(() => import('@components/profile/profileMain'))
 
 const MODAL = {
   MENU: 'profileMenu',
@@ -89,7 +91,7 @@ const ProfileScreen = () => {
       {![SCREEN.MAIN].includes(screen) && (
         <Header modalActions={modalActions} />
       )}
-      {renderScreen()}
+      <Suspense fallback={<Loading />}>{renderScreen()}</Suspense>
       <ProfileModalContainer
         isVisible={!!modal}
         onBackdropPress={modalActions.cancelModal}

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import useUser from '@context/userContext'
 import useOverlay from '@context/overlayContext'
 
-import EventList from '@components/profile/utilComponents/profileEventList'
 import ItemList from '@components/shared/itemList'
 import RSVPList from '@components/profile/utilComponents/profileResponseList'
 import ProfileTabs from '@components/profile/utilComponents/profileTabs'
@@ -17,6 +16,7 @@ import { BUCKET, SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
 import { TABS } from '@components/profile/utilComponents/profileUtil'
 
 const NO_DATA = {
+  EVENTS: 'You have no upcoming created events.',
   BOOKMARK: 'Nothing bookmarked.'
 }
 
@@ -24,7 +24,7 @@ const ProfileMain = ({ modalActions }) => {
   const [tab, setTab] = React.useState(TABS.EVENTS)
   const { dispatch: overlayDispatch, actions: overlayActions } = useOverlay()
   const {
-    user: { bookmarkEvents }
+    user: { events, bookmarkEvents }
   } = useUser()
 
   const handleEventPress = item => {
@@ -37,7 +37,13 @@ const ProfileMain = ({ modalActions }) => {
   const renderTab = () => {
     switch (tab) {
       case TABS.EVENTS:
-        return <EventList />
+        return (
+          <ItemList
+            data={events}
+            onItemPress={handleEventPress}
+            noDataMessage={NO_DATA.EVENTS}
+          />
+        )
       case TABS.RSVP:
         return <RSVPList />
       case TABS.BOOKMARK:

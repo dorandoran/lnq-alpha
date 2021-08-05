@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { LogBox } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -7,11 +7,11 @@ import { ApolloProvider } from '@apollo/client'
 
 import useAuth from '@context/authContext'
 import AppProviders from '@components/main/appProviders'
-
-import AuthenticatedApp from '@src/router/AuthenticatedApp'
-import UnAuthenticatedApp from '@src/router/UnAuthenticatedApp'
-
 import ViewContainer from '@components/main/viewContainer'
+import { Loading } from '@common'
+
+const AuthenticatedApp = React.lazy(() => import('@src/router/AuthenticatedApp'))
+const UnAuthenticatedApp = React.lazy(() => import('@src/router/UnAuthenticatedApp'))
 
 const AppContainer = () => {
   const { authState } = useAuth()
@@ -28,7 +28,9 @@ const App = () => {
       <SafeAreaProvider>
         <AppProviders>
           <ViewContainer>
-            <AppContainer />
+            <Suspense fallback={<Loading fullscreen />}>
+              <AppContainer />
+            </Suspense>
           </ViewContainer>
         </AppProviders>
       </SafeAreaProvider>
