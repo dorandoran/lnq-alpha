@@ -19,6 +19,28 @@ export const allInfoUserFragment = gql`
     numEvents
     numFollowers
     numFollowing
+    events {
+      id
+      avatar {
+        id
+        uri
+      }
+      name
+      type
+      date
+      location {
+        id
+        text
+        latitude
+        longitude
+      }
+      description
+      created_at
+      website
+      likes
+      plusOne
+      isPrivate
+    }
     bookmarkEvents {
       id
       name

@@ -56,7 +56,6 @@ const ProfileHeader = ({ modalActions }) => {
               id: user.id,
               updates: { ...form, avatar: form.avatar.file }
             })
-            reset()
           },
           onBackPress: () => {
             if (!isEqual(initialUser, form)) {
