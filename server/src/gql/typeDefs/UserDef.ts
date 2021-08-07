@@ -1,5 +1,4 @@
 import { gql } from 'apollo-server-express'
-import { IUserUpdateInput } from '../../database/interfaces/User'
 
 import {
   UserController,
@@ -8,12 +7,12 @@ import {
   FollowController
 } from '../../database/controllers'
 import {
+  IEventQueryOptions,
+  IUserUpdateInput,
   IUser,
   IUserCreate,
-  IUserUpdate,
   INewUserUpdate,
-  IUserUpdateAvatar,
-  IAddBookmarkEvent
+  IUserUpdateAvatar
 } from '../../database/interfaces'
 
 export const UserType = gql`
@@ -105,8 +104,8 @@ export const UserResolvers = {
     }
   },
   User: {
-    events: (parent: IUser) => {
-      return EventController.findAllByOwnerId(parent.id)
+    events: (parent: IUser, args: { options?: IEventQueryOptions }) => {
+      return EventController.findAllByOwnerId(parent.id, args?.options)
     },
     invites: (parent: IUser) => {
       return InviteController.findAllByRecipientId(parent.id)

@@ -159,7 +159,7 @@ export async function findAllByOwnerId(
   options?: IEventQueryOptions
 ): Promise<FirebaseFirestore.DocumentData[] | null> {
   let events: FirebaseFirestore.DocumentData[] = []
-  let query = Events.where('ownerId', '==', id)
+  let query = Events.where('ownerId', '==', id).orderBy('date')
 
   if (options?.ignoreOld) {
     query = _ignoreOld(query)

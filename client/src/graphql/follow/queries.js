@@ -2,12 +2,37 @@ import { gql } from '@apollo/client'
 
 export const GetFollowing = gql`
   query GetFollowing {
-    user {
+    getUserFollowing {
       id
-      following {
+      answer
+      recipient {
         id
-        recipientId
-        answer
+        firstName
+        lastName
+        username
+        avatar {
+          id
+          uri
+        }
+      }
+    }
+  }
+`
+
+export const GetFollowers = gql`
+  query GetFollowers {
+    getUserFollowers {
+      id
+      answer
+      sender {
+        id
+        firstName
+        lastName
+        username
+        avatar {
+          id
+          uri
+        }
       }
     }
   }

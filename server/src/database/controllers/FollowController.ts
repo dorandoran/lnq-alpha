@@ -1,5 +1,11 @@
 import { firestore, timestamp } from '../firestore/firebase'
-import { ISocialLink, IFollowRequest, ESocialLinkAnswer } from '../interfaces'
+import { SearchController } from '../../search/algolia'
+import {
+  ISocialLink,
+  IFollowRequest,
+  ESocialLinkAnswer,
+  ESearchUserType
+} from '../interfaces'
 
 const Follows = firestore().collection('follows')
 
@@ -48,7 +54,21 @@ export async function findAllBySenderId(
         follow.id = doc.id
         follows.push(follow)
       })
-      return follows
+
+      const results = await SearchController.user({
+        userId: id,
+        type: ESearchUserType.FOLLOW,
+        filters: follows.map(follow => follow.recipientId)
+      })
+
+      if (results) {
+        return follows.map(follow => {
+          return {
+            ...follow,
+            recipient: results.find(user => user.id === follow.recipientId)
+          }
+        })
+      }
     }
     return null
   } catch (e) {
@@ -70,6 +90,21 @@ export async function findAllByRecipientId(
         follow.id = doc.id
         follows.push(follow)
       })
+
+      const results = await SearchController.user({
+        userId: id,
+        type: ESearchUserType.FOLLOW,
+        filters: follows.map(follow => follow.senderId)
+      })
+
+      if (results) {
+        return follows.map(follow => {
+          return {
+            ...follow,
+            sender: results.find(user => user.id === follow.senderId)
+          }
+        })
+      }
       return follows
     }
     return null

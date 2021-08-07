@@ -21,13 +21,15 @@ const OtherType = gql`
 
   type Query {
     user(id: String): User
-    event(id: String!): Event
+    event(id: String!, options: EventQueryOptions): Event
     media(id: String!): Media
     getUserEvents(id: String, options: EventQueryOptions): [Event]
     homeSearch(page: Int): [EventHit]
     eventSearch(query: String, filters: String, page: Int): [EventHit]
     userSearch(query: String, page: Int, following: [String]): [UserHit]
     locateSearch(page: Int): [EventHit]
+    getUserFollowing(id: String): [Following]
+    getUserFollowers(id: String): [Follower]
   }
 
   type Mutation {

@@ -116,7 +116,7 @@ const ItemList = ({
 
   // User ListItem
   const renderUserListItem = item => {
-    const { firstName, lastName, username, avatar, isFollowing, id } = item
+    const { firstName, lastName, username, avatar, id } = item
     const isFollowSelected = followSelected?.includes(id) || false
     const isSelected = selected?.includes(id) || false
 
@@ -159,45 +159,49 @@ const ItemList = ({
             {`${firstName} ${lastName}`}
           </Text>
         </ListItem.Content>
-        <TouchableOpacity
-          style={[
-            styles.actionButton,
-            {
-              borderColor: isFollowing
-                ? theme.color.tertiary
-                : isFollowSelected
-                ? theme.color.success
-                : theme.color.tertiary,
-              backgroundColor: isFollowing
-                ? theme.color.success
-                : isFollowSelected
-                ? theme.color.tertiary
-                : theme.color.background
-            }
-          ]}
-          onPress={
-            onFollowPress ? () => onFollowPress(item) : () => onItemPress(item)
-          }
-        >
-          <Text
+        {onFollowPress && (
+          <TouchableOpacity
             style={[
-              styles.actionText,
+              styles.actionButton,
               {
-                color: isFollowing
+                borderColor: item?.isFollowing
                   ? theme.color.tertiary
                   : isFollowSelected
-                  ? theme.color.background
-                  : theme.color.tertiary
+                  ? theme.color.success
+                  : theme.color.tertiary,
+                backgroundColor: item?.isFollowing
+                  ? theme.color.success
+                  : isFollowSelected
+                  ? theme.color.tertiary
+                  : theme.color.background
               }
             ]}
+            onPress={
+              onFollowPress
+                ? () => onFollowPress(item)
+                : () => onItemPress(item)
+            }
           >
-            {isFollowing
-              ? 'Following'
-              : isFollowSelected
-              ? 'Pending'
-              : 'Follow'}
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={[
+                styles.actionText,
+                {
+                  color: item?.isFollowing
+                    ? theme.color.tertiary
+                    : isFollowSelected
+                    ? theme.color.background
+                    : theme.color.tertiary
+                }
+              ]}
+            >
+              {item?.isFollowing
+                ? 'Following'
+                : isFollowSelected
+                ? 'Pending'
+                : 'Follow'}
+            </Text>
+          </TouchableOpacity>
+        )}
       </ListItem>
     )
   }
@@ -219,8 +223,7 @@ const ItemList = ({
       <FlatList
         style={{ minHeight: 100 }}
         refreshControl={
-          onRefresh ||
-          (query && (
+          (onRefresh || query) && (
             <RefreshControl
               onRefresh={onRefresh || handleRefresh}
               refreshing={refreshing || refresh}
@@ -228,7 +231,7 @@ const ItemList = ({
               titleColor={theme.color.tertiary}
               tintColor={theme.color.secondary}
             />
-          ))
+          )
         }
         data={listData}
         keyExtractor={event => event.id}

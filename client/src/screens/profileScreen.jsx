@@ -1,10 +1,13 @@
 import React, { Suspense } from 'react'
 import useProfile from '@context/profileContext'
 
+import { GetFollowing, GetFollowers } from '@graphql/follow/queries'
+
 import ProfileMenuModal from '@components/profile/utilComponents/profileMenuModal'
 import LogoutModal from '@components/profile/utilComponents/logoutModal'
 import MediaSourceSelect from '@components/profile/utilComponents/profileMediaSourceSelect'
 import ConfirmationModal from '@components/shared/confirmationModalView'
+import ItemListModal from '@components/shared/itemListModal'
 
 import Header from '@components/profile/utilComponents/profileHeader'
 import ProfileEditForm from '@components/profile/profileEditForm'
@@ -21,7 +24,9 @@ const MODAL = {
   MENU: 'profileMenu',
   AVATAR: 'updateAvatar',
   LOGOUT: 'logout',
-  CONFIRMATION: 'confirmation'
+  CONFIRMATION: 'confirmation',
+  FOLLOWING: 'following',
+  FOLLOWERS: 'followers'
 }
 
 const CONFIRMATION_MODAL_MESSAGE =
@@ -37,6 +42,10 @@ const ProfileScreen = () => {
       dispatch({ type: actions.openModal, payload: MODAL.CONFIRMATION }),
     openUpdateAvatar: () =>
       dispatch({ type: actions.openModal, payload: MODAL.AVATAR }),
+    openFollowing: () =>
+      dispatch({ type: actions.openModal, payload: MODAL.FOLLOWING }),
+    openFollowers: () =>
+      dispatch({ type: actions.openModal, payload: MODAL.FOLLOWERS }),
     updateAvatar: avatar =>
       dispatch({ type: actions.updateEditForm, payload: { avatar } }),
     navigateEditForm: () => dispatch({ type: actions.navigateEditForm }),
@@ -52,11 +61,11 @@ const ProfileScreen = () => {
       case SCREEN.EDIT:
         return <ProfileEditForm modalActions={modalActions} />
       default:
-        return <ProfileMain />
+        return <ProfileMain modalActions={modalActions} />
     }
   }
 
-  const handleConfirmationClose = () => {
+  const handleModalClose = () => {
     modalActions.cancelModal()
   }
 
@@ -64,6 +73,9 @@ const ProfileScreen = () => {
     dispatch({ type: actions.navigateMain })
     reset()
   }
+
+  const filterFollowingList = list => list.map(follow => follow.recipient)
+  const filterFollowerList = list => list.map(follow => follow.sender)
 
   const renderModal = () => {
     switch (modal) {
@@ -77,8 +89,30 @@ const ProfileScreen = () => {
         return (
           <ConfirmationModal
             message={CONFIRMATION_MODAL_MESSAGE}
-            handleClose={handleConfirmationClose}
+            handleClose={handleModalClose}
             handleConfirm={handleConfirmationConfirm}
+          />
+        )
+      case MODAL.FOLLOWING:
+        return (
+          <ItemListModal
+            headerTitle='Following'
+            query={GetFollowing}
+            noDataMessage='Not following anyone!'
+            filterList={filterFollowingList}
+            handleBackPress={handleModalClose}
+            handleItemPress={() => {}}
+          />
+        )
+      case MODAL.FOLLOWERS:
+        return (
+          <ItemListModal
+            headerTitle='Followers'
+            query={GetFollowers}
+            noDataMessage='No followers, yet!'
+            filterList={filterFollowerList}
+            handleBackPress={handleModalClose}
+            handleItemPress={() => {}}
           />
         )
       default:

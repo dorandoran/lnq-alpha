@@ -29,10 +29,10 @@ const UserSearchList = ({
 
   // Filter Accepted Follows
   const following =
-    followData?.user?.following
+    followData?.getUserFollowing
       .map(link => {
         if (link.answer === 'ACCEPTED') {
-          return link.recipientId
+          return link.recipient.id
         }
         return
       })
