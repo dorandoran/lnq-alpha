@@ -77,8 +77,8 @@ const ProfileMain = ({ modalActions }) => {
       <View style={styles.profileContainer}>
         <ProfileInformation />
         <ProfileAccountStats
-          handleOpenFollowing={modalActions.openFollowing}
-          handleOpenFollowers={modalActions.openFollowers}
+          handleOpenFollowing={modalActions.navigateFollowing}
+          handleOpenFollowers={modalActions.navigateFollowers}
         />
         <ProfileTabs currentTab={tab} setTab={setTab} />
         {renderTab()}

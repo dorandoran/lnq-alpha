@@ -65,6 +65,16 @@ const ProfileHeader = ({ modalActions }) => {
             }
           }
         }
+      case SCREEN.FOLLOWING:
+        return {
+          showRightButton: false,
+          onBackPress: () => dispatch({ type: actions.navigateMain })
+        }
+      case SCREEN.FOLLOWERS:
+        return {
+          showRightButton: false,
+          onBackPress: () => dispatch({ type: actions.navigateMain })
+        }
       case SCREEN.MESSAGE:
         return {
           showRightButton: false,

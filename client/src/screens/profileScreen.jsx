@@ -7,7 +7,7 @@ import ProfileMenuModal from '@components/profile/utilComponents/profileMenuModa
 import LogoutModal from '@components/profile/utilComponents/logoutModal'
 import MediaSourceSelect from '@components/profile/utilComponents/profileMediaSourceSelect'
 import ConfirmationModal from '@components/shared/confirmationModalView'
-import ItemListModal from '@components/shared/itemListModal'
+import ItemListView from '@components/shared/itemListView'
 
 import Header from '@components/profile/utilComponents/profileHeader'
 import ProfileEditForm from '@components/profile/profileEditForm'
@@ -24,9 +24,7 @@ const MODAL = {
   MENU: 'profileMenu',
   AVATAR: 'updateAvatar',
   LOGOUT: 'logout',
-  CONFIRMATION: 'confirmation',
-  FOLLOWING: 'following',
-  FOLLOWERS: 'followers'
+  CONFIRMATION: 'confirmation'
 }
 
 const CONFIRMATION_MODAL_MESSAGE =
@@ -42,13 +40,11 @@ const ProfileScreen = () => {
       dispatch({ type: actions.openModal, payload: MODAL.CONFIRMATION }),
     openUpdateAvatar: () =>
       dispatch({ type: actions.openModal, payload: MODAL.AVATAR }),
-    openFollowing: () =>
-      dispatch({ type: actions.openModal, payload: MODAL.FOLLOWING }),
-    openFollowers: () =>
-      dispatch({ type: actions.openModal, payload: MODAL.FOLLOWERS }),
     updateAvatar: avatar =>
       dispatch({ type: actions.updateEditForm, payload: { avatar } }),
     navigateEditForm: () => dispatch({ type: actions.navigateEditForm }),
+    navigateFollowing: () => dispatch({ type: actions.navigateFollowing }),
+    navigateFollowers: () => dispatch({ type: actions.navigateFollowers }),
     logout: () => dispatch({ type: actions.openModal, payload: MODAL.LOGOUT }),
     cancelModal: () => dispatch({ type: actions.closeModal })
   }
@@ -60,6 +56,24 @@ const ProfileScreen = () => {
         return <ProfileMain modalActions={modalActions} />
       case SCREEN.EDIT:
         return <ProfileEditForm modalActions={modalActions} />
+      case SCREEN.FOLLOWING:
+        return (
+          <ItemListView
+            query={GetFollowing}
+            noDataMessage='Not following anyone!'
+            filterList={filterFollowingList}
+            handleItemPress={() => {}}
+          />
+        )
+      case SCREEN.FOLLOWERS:
+        return (
+          <ItemListView
+            query={GetFollowers}
+            noDataMessage='No followers, yet!'
+            filterList={filterFollowerList}
+            handleItemPress={() => {}}
+          />
+        )
       default:
         return <ProfileMain modalActions={modalActions} />
     }
@@ -91,28 +105,6 @@ const ProfileScreen = () => {
             message={CONFIRMATION_MODAL_MESSAGE}
             handleClose={handleModalClose}
             handleConfirm={handleConfirmationConfirm}
-          />
-        )
-      case MODAL.FOLLOWING:
-        return (
-          <ItemListModal
-            headerTitle='Following'
-            query={GetFollowing}
-            noDataMessage='Not following anyone!'
-            filterList={filterFollowingList}
-            handleBackPress={handleModalClose}
-            handleItemPress={() => {}}
-          />
-        )
-      case MODAL.FOLLOWERS:
-        return (
-          <ItemListModal
-            headerTitle='Followers'
-            query={GetFollowers}
-            noDataMessage='No followers, yet!'
-            filterList={filterFollowerList}
-            handleBackPress={handleModalClose}
-            handleItemPress={() => {}}
           />
         )
       default:
