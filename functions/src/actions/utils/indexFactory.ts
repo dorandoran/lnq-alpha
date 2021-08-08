@@ -1,3 +1,4 @@
+import { timestamp } from '../../services/firebase'
 import {
   IAlgoliaUser,
   IAlgoliaEvent,
@@ -13,8 +14,12 @@ const IndexFactory: IIndexFactory = {
   user(data: any): IAlgoliaUser {
     const additionalAttr: IUserAdditionalAttr = {
       objectID: data.id, // Algolia search id key
-      created_at_timestamp: data.created_at.seconds, // Turn firebase Timestamp to seconds
-      created_at: data.created_at.toDate(), // Turn firebase Timestamp to Date
+      created_at_timestamp: data.created_at
+        ? data.created_at.seconds
+        : timestamp.now().seconds, // Turn firebase Timestamp to seconds
+      created_at: data.created_at
+        ? data.created_at.toDate()
+        : timestamp.now().toDate(), // Turn firebase Timestamp to Date
       _tags: [data.id]
     }
 
@@ -29,13 +34,17 @@ const IndexFactory: IIndexFactory = {
   event(data: any): IAlgoliaEvent {
     const additionalAttr = {
       objectID: data.id, // Algolia search id key
-      created_at_timestamp: data.created_at.seconds,
-      created_at: data.created_at.toDate(),
-      date_timestamp: data.date.seconds,
-      date: data.date.toDate(),
+      created_at_timestamp: data.created_at
+        ? data.created_at.seconds
+        : timestamp.now().seconds,
+      created_at: data.created_at
+        ? data.created_at.toDate()
+        : timestamp.now().toDate(),
+      date_timestamp: data.date ? data.date.seconds : timestamp.now().seconds,
+      date: data.date ? data.date.toDate() : timestamp.now().toDate(),
       _geoloc: {
-        lat: data.location.latitude,
-        lng: data.location.longitude
+        lat: data.location ? data.location.latitude : null,
+        lng: data.location ? data.location.longitude : null
       },
       _tags: [data.type] // Algolia reserved word for category searching
     }

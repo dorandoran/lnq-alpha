@@ -69,7 +69,7 @@ export async function removeMedia({
     console.log(e)
     return {
       completed: false,
-      error: e
+      error: e as string
     }
   }
 
