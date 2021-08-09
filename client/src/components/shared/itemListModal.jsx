@@ -7,9 +7,12 @@ import { Header, HeaderButton } from '@common'
 import { theme } from '@util'
 
 const ItemListModal = ({
+  data,
+  type,
   query,
   noDataMessage,
   filterList,
+  hideAvatar,
   handleBackPress,
   handleItemPress,
   handleRightPress,
@@ -38,11 +41,13 @@ const ItemListModal = ({
         )}
       </Header>
       <ItemList
-        type='users'
+        type={type}
+        data={data}
         query={query}
         noDataMessage={noDataMessage}
         filterList={filterList}
         onItemPress={handleItemPress}
+        hideAvatar={hideAvatar}
       />
     </View>
   )
@@ -64,9 +69,12 @@ const styles = StyleSheet.create({
 })
 
 ItemListModal.propTypes = {
+  data: PropTypes.array,
+  type: PropTypes.string,
   query: PropTypes.object,
   noDataMessage: PropTypes.string,
   filterList: PropTypes.func,
+  hideAvatar: PropTypes.bool,
   handleItemPress: PropTypes.func,
   handleBackPress: PropTypes.func.isRequired,
   handleRightPress: PropTypes.func,

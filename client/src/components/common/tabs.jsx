@@ -3,25 +3,32 @@ import PropTypes from 'prop-types'
 
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { theme } from '@util'
-import { tabButtonList } from '@components/profile/utilComponents/profileUtil'
 
-const ProfileTabs = ({ currentTab, setTab }) => {
+const Tabs = ({ currentTab, setTab, tabs }) => {
   const isSelectedStyles = value => {
     if (currentTab === value) {
       return { backgroundColor: theme.color.secondary }
     }
   }
 
+  const extraButtonStyles = {
+    width: `${(100 / tabs.length).toFixed(2)}%`
+  }
+
   return (
     <View style={styles.container}>
-      {tabButtonList.map(tab => {
+      {tabs.map(tab => {
         return (
           <TouchableOpacity
-            key={tab.value}
-            style={[styles.buttonContainer, isSelectedStyles(tab.value)]}
-            onPress={() => setTab(tab.value)}
+            key={tab}
+            style={[
+              styles.buttonContainer,
+              extraButtonStyles,
+              isSelectedStyles(tab)
+            ]}
+            onPress={() => setTab(tab)}
           >
-            <Text style={styles.text}>{tab.label}</Text>
+            <Text style={styles.text}>{tab}</Text>
           </TouchableOpacity>
         )
       })}
@@ -38,7 +45,6 @@ const styles = StyleSheet.create({
     borderRadius: 25
   },
   buttonContainer: {
-    width: '33.33%',
     paddingVertical: 10,
     borderRadius: 25
   },
@@ -49,9 +55,10 @@ const styles = StyleSheet.create({
   }
 })
 
-ProfileTabs.propTypes = {
+Tabs.propTypes = {
+  tabs: PropTypes.array.isRequired,
   currentTab: PropTypes.string,
   setTab: PropTypes.func
 }
 
-export default ProfileTabs
+export default Tabs

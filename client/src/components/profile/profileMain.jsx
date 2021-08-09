@@ -10,11 +10,11 @@ import useOverlay from '@context/overlayContext'
 
 import ItemList from '@components/shared/itemList'
 import RSVPList from '@components/profile/utilComponents/profileResponseList'
-import ProfileTabs from '@components/profile/utilComponents/profileTabs'
 import ProfileMenu from '@components/profile/profileMenu'
 import ProfileAccountStats from '@components/profile/profileAccountStats'
 import ProfileInformation from '@components/profile/profileInformation'
 
+import { Tabs } from '@common'
 import { View, StyleSheet, ImageBackground } from 'react-native'
 import { BUCKET, SCREEN_HEIGHT, SCREEN_WIDTH, theme } from '@util'
 import { TABS } from '@components/profile/utilComponents/profileUtil'
@@ -38,6 +38,7 @@ const ProfileMain = ({ modalActions }) => {
     })
   }
 
+  const tabButtonList = [TABS.EVENTS, TABS.RSVP, TABS.BOOKMARK]
   const currentEvents =
     events?.filter(event => dayjs(event.date).isSameOrAfter(dayjs())) || []
 
@@ -77,10 +78,11 @@ const ProfileMain = ({ modalActions }) => {
       <View style={styles.profileContainer}>
         <ProfileInformation />
         <ProfileAccountStats
+          handleOpenEvents={modalActions.navigatePastEvents}
           handleOpenFollowing={modalActions.navigateFollowing}
           handleOpenFollowers={modalActions.navigateFollowers}
         />
-        <ProfileTabs currentTab={tab} setTab={setTab} />
+        <Tabs tabs={tabButtonList} currentTab={tab} setTab={setTab} />
         {renderTab()}
       </View>
     </View>

@@ -66,11 +66,12 @@ const ProfileHeader = ({ modalActions }) => {
           }
         }
       case SCREEN.FOLLOWING:
+      case SCREEN.FOLLOWERS:
         return {
           showRightButton: false,
           onBackPress: () => dispatch({ type: actions.navigateMain })
         }
-      case SCREEN.FOLLOWERS:
+      case SCREEN.EVENTS:
         return {
           showRightButton: false,
           onBackPress: () => dispatch({ type: actions.navigateMain })

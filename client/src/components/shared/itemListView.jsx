@@ -6,6 +6,8 @@ import { View, StyleSheet } from 'react-native'
 import { theme } from '@util'
 
 const ItemListView = ({
+  type,
+  data,
   query,
   noDataMessage,
   filterList,
@@ -14,7 +16,8 @@ const ItemListView = ({
   return (
     <View style={styles.container}>
       <ItemList
-        type='users'
+        type={type}
+        data={data}
         query={query}
         noDataMessage={noDataMessage}
         filterList={filterList}
@@ -37,13 +40,12 @@ const styles = StyleSheet.create({
 })
 
 ItemListView.propTypes = {
+  type: PropTypes.string,
+  data: PropTypes.array,
   query: PropTypes.object,
   noDataMessage: PropTypes.string,
   filterList: PropTypes.func,
-  handleItemPress: PropTypes.func,
-  handleBackPress: PropTypes.func.isRequired,
-  handleRightPress: PropTypes.func,
-  headerTitle: PropTypes.string
+  handleItemPress: PropTypes.func
 }
 
 export default ItemListView

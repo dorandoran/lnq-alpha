@@ -5,22 +5,26 @@ import useUser from '@context/userContext'
 
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-const ProfileAccountStats = ({ handleOpenFollowing, handleOpenFollowers }) => {
+const ProfileAccountStats = ({
+  handleOpenEvents,
+  handleOpenFollowing,
+  handleOpenFollowers
+}) => {
   const { user } = useUser()
 
   return (
     <View style={styles.accountStats}>
-      <View>
+      <TouchableOpacity onPress={handleOpenEvents}>
         <Text style={styles.statsTextHead}>{user.numEvents}</Text>
         <Text style={styles.statsText}>Events</Text>
-      </View>
-      <TouchableOpacity onPress={handleOpenFollowing}>
-        <Text style={styles.statsTextHead}>{user.numFollowing}</Text>
-        <Text style={styles.statsText}>Following</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={handleOpenFollowers}>
         <Text style={styles.statsTextHead}>{user.numFollowers}</Text>
         <Text style={styles.statsText}>Followers</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleOpenFollowing}>
+        <Text style={styles.statsTextHead}>{user.numFollowing}</Text>
+        <Text style={styles.statsText}>Following</Text>
       </TouchableOpacity>
     </View>
   )
@@ -48,6 +52,7 @@ const styles = StyleSheet.create({
 })
 
 ProfileAccountStats.propTypes = {
+  handleOpenEvents: PropTypes.func.isRequired,
   handleOpenFollowing: PropTypes.func.isRequired,
   handleOpenFollowers: PropTypes.func.isRequired
 }
