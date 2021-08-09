@@ -105,7 +105,9 @@ const ItemList = ({
                 style={styles.avatar}
                 borderRadius={25}
                 placeholderStyle={styles.placeholder}
-                PlaceholderContent={<Loading size='small' />}
+                PlaceholderContent={
+                  <Loading size='small' styleProps={{ borderRadius: 50 }} />
+                }
               />
             ) : null}
           </View>
