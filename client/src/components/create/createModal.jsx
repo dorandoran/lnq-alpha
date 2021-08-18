@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { theme, isIphone } from '@util'
+import { theme } from '@util'
 import {
   View,
   StyleSheet,
@@ -116,8 +116,7 @@ const styles = StyleSheet.create({
     height: SCREEN_HEIGHT / 2.5,
     borderRadius: 25,
     padding: '4%',
-    alignItems: 'center',
-    marginBottom: isIphone() ? SCREEN_HEIGHT / 3 : 0
+    alignItems: 'center'
   },
   label: {
     color: theme.color.tertiary,
