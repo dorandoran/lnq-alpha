@@ -1,28 +1,13 @@
 export const TABS = {
-  EVENTS: 'events',
-  RSVP: 'rsvp',
-  BOOKMARK: 'bookmarks'
+  EVENTS: 'Events',
+  RSVP: 'RSVP',
+  BOOKMARK: 'Bookmarks'
 }
 
 export const NOTIFICATION_TABS = {
   ALL: 'All',
   INVITES: 'Invites'
 }
-
-export const tabButtonList = [
-  {
-    label: 'Events',
-    value: TABS.EVENTS
-  },
-  {
-    label: 'RSVP',
-    value: TABS.RSVP
-  },
-  {
-    label: 'Bookmarks',
-    value: TABS.BOOKMARK
-  }
-]
 
 export const notificationTabList = Object.keys(NOTIFICATION_TABS).map(item => {
   return NOTIFICATION_TABS[item]
@@ -33,6 +18,7 @@ export const SCREEN = {
   EDIT: 'Edit Profile',
   FOLLOWING: 'Following',
   FOLLOWERS: 'Followers',
+  EVENTS: 'Past Events',
   NOTIFICATIONS: 'Profile Notifications',
   INBOX: 'Profile Inbox',
   MESSAGE: 'Profile Message',

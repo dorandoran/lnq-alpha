@@ -30,7 +30,7 @@ const ItemList = ({
   type = 'events',
   hideAvatar = false
 }) => {
-  const [listData, setListData] = useState(data)
+  const [listData, setListData] = useState(data | [])
   const [refresh, setRefresh] = useState(false)
   const [getData, { loading, refetch }] = useLazyQuery(query, {
     fetchPolicy: 'cache-and-network',
@@ -70,7 +70,7 @@ const ItemList = ({
 
   // Event ListItem
   const renderEventListItem = item => {
-    const { name, avatar, location, date, owner } = item
+    const { name, avatar, location, date } = item
 
     return (
       <ListItem
@@ -99,9 +99,9 @@ const ItemList = ({
             </Text>
           </View>
           <View style={styles.avatarContainer}>
-            {!hideAvatar && owner?.avatar ? (
+            {!hideAvatar && item?.owner?.avatar ? (
               <Image
-                source={{ uri: owner.avatar.uri }}
+                source={{ uri: item.owner.avatar.uri }}
                 style={styles.avatar}
                 borderRadius={25}
                 placeholderStyle={styles.placeholder}

@@ -93,12 +93,16 @@ export const SearchController: ISearch = {
     }
 
     const response = await index.search(query, { filters: allFilters, page })
-    return response.hits.map((hit: any) => {
-      return {
-        ...hit,
-        isFollowing: following.includes(hit.id)
+    const returnList: IUserHit[] = []
+    response.hits.forEach((hit: any) => {
+      if (hit?.firstName) {
+        returnList.push({
+          ...hit,
+          isFollowing: following.includes(hit.id)
+        })
       }
     })
+    return returnList
   },
 
   locate: async ({ userId, page }) => {

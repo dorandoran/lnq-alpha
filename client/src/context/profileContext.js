@@ -11,10 +11,8 @@ export const actions = {
   navigateNotifications: 'navigateNotifications',
   navigateInbox: 'navigateInbox',
   navigateNewMessage: 'navigateNewMessage',
-  navigateFollowing: 'navigateFollowing',
-  navigateFollowers: 'navigateFollowers',
+  navigate: 'navigate',
   addMessageRecipients: 'addMessageRecipients',
-  navigateEditForm: 'navigateEditForm',
   updateEditForm: 'updateEditForm',
   openModal: 'openModal',
   closeModal: 'closeModal',
@@ -56,27 +54,11 @@ function reducer(state, action) {
         modal: null
       }
     }
-    case actions.navigateEditForm: {
+    case actions.navigate: {
       return {
         ...state,
-        screen: SCREEN.EDIT,
-        title: 'Edit Profile',
-        modal: null
-      }
-    }
-    case actions.navigateFollowing: {
-      return {
-        ...state,
-        screen: SCREEN.FOLLOWING,
-        title: 'Following',
-        modal: null
-      }
-    }
-    case actions.navigateFollowers: {
-      return {
-        ...state,
-        screen: SCREEN.FOLLOWERS,
-        title: 'Followers',
+        screen: action.payload?.screen || action.payload,
+        title: action.payload?.title || action.payload,
         modal: null
       }
     }
