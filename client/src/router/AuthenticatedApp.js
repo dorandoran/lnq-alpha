@@ -21,6 +21,7 @@ import InboxScreen from '@screens/inboxScreen'
 
 import AppModal from '@components/overlay/appModal'
 import TabBar from '@components/main/tabBar'
+import TabBarFab from '@components/main/tabBarFab'
 
 enableScreens()
 const Tab = createBottomTabNavigator()
@@ -112,6 +113,7 @@ const AuthenticatedApp = () => {
           </Tab.Navigator>
         </NavigationContainer>
         <TabBar />
+        <TabBarFab />
         <AppModal />
       </React.Fragment>
     </TouchableWithoutFeedback>

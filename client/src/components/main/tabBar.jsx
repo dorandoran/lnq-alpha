@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
-import Fab from '@components/main/tabBarFab'
 
 import { theme, navigate, SCREEN_HEIGHT } from '@util'
 
@@ -64,9 +63,6 @@ const TabBar = () => {
           onPress={handlePress}
         />
       </View>
-      <View style={styles.createContainer}>
-        <Fab />
-      </View>
     </View>
   )
 }
@@ -76,7 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    bottom: SCREEN_HEIGHT / 30,
+    bottom: SCREEN_HEIGHT / 15,
     left: SCREEN_HEIGHT / 30,
     height: '6%',
     width: '100%'
@@ -89,10 +85,6 @@ const styles = StyleSheet.create({
     width: '65%',
     backgroundColor: theme.color.primary,
     borderRadius: 25
-  },
-  createContainer: {
-    width: '26%',
-    alignItems: 'center'
   },
   iconContainer: {
     height: '90%',

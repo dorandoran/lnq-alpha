@@ -13,8 +13,5 @@
     "ASYNC_IOS_CLIENT_ID": "",
     "PLACES_API_KEY": ""
   },
-  "FACEBOOK_ASYNC_ID": "",
-  "DEVICE": {
-    "NOTCH": false
-  }
+  "FACEBOOK_ASYNC_ID": ""
 }
