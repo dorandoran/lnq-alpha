@@ -30,10 +30,12 @@ export const notificationTabList = Object.keys(NOTIFICATION_TABS).map(item => {
 
 export const SCREEN = {
   MAIN: 'Profile Main',
+  EDIT: 'Edit Profile',
+  FOLLOWING: 'Following',
+  FOLLOWERS: 'Followers',
   NOTIFICATIONS: 'Profile Notifications',
   INBOX: 'Profile Inbox',
   MESSAGE: 'Profile Message',
-  EDIT: 'Edit Profile'
 }
 
 export const getUserFormFields = user => {

@@ -1,10 +1,13 @@
 import React, { Suspense } from 'react'
 import useProfile from '@context/profileContext'
 
+import { GetFollowing, GetFollowers } from '@graphql/follow/queries'
+
 import ProfileMenuModal from '@components/profile/utilComponents/profileMenuModal'
 import LogoutModal from '@components/profile/utilComponents/logoutModal'
 import MediaSourceSelect from '@components/profile/utilComponents/profileMediaSourceSelect'
 import ConfirmationModal from '@components/shared/confirmationModalView'
+import ItemListView from '@components/shared/itemListView'
 
 import Header from '@components/profile/utilComponents/profileHeader'
 import ProfileEditForm from '@components/profile/profileEditForm'
@@ -40,6 +43,8 @@ const ProfileScreen = () => {
     updateAvatar: avatar =>
       dispatch({ type: actions.updateEditForm, payload: { avatar } }),
     navigateEditForm: () => dispatch({ type: actions.navigateEditForm }),
+    navigateFollowing: () => dispatch({ type: actions.navigateFollowing }),
+    navigateFollowers: () => dispatch({ type: actions.navigateFollowers }),
     logout: () => dispatch({ type: actions.openModal, payload: MODAL.LOGOUT }),
     cancelModal: () => dispatch({ type: actions.closeModal })
   }
@@ -51,12 +56,30 @@ const ProfileScreen = () => {
         return <ProfileMain modalActions={modalActions} />
       case SCREEN.EDIT:
         return <ProfileEditForm modalActions={modalActions} />
+      case SCREEN.FOLLOWING:
+        return (
+          <ItemListView
+            query={GetFollowing}
+            noDataMessage='Not following anyone!'
+            filterList={filterFollowingList}
+            handleItemPress={() => {}}
+          />
+        )
+      case SCREEN.FOLLOWERS:
+        return (
+          <ItemListView
+            query={GetFollowers}
+            noDataMessage='No followers, yet!'
+            filterList={filterFollowerList}
+            handleItemPress={() => {}}
+          />
+        )
       default:
-        return <ProfileMain />
+        return <ProfileMain modalActions={modalActions} />
     }
   }
 
-  const handleConfirmationClose = () => {
+  const handleModalClose = () => {
     modalActions.cancelModal()
   }
 
@@ -64,6 +87,9 @@ const ProfileScreen = () => {
     dispatch({ type: actions.navigateMain })
     reset()
   }
+
+  const filterFollowingList = list => list.map(follow => follow.recipient)
+  const filterFollowerList = list => list.map(follow => follow.sender)
 
   const renderModal = () => {
     switch (modal) {
@@ -77,7 +103,7 @@ const ProfileScreen = () => {
         return (
           <ConfirmationModal
             message={CONFIRMATION_MODAL_MESSAGE}
-            handleClose={handleConfirmationClose}
+            handleClose={handleModalClose}
             handleConfirm={handleConfirmationConfirm}
           />
         )

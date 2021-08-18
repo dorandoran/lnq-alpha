@@ -1,6 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import plugin from 'dayjs/plugin/isSameOrAfter'
+import dayjs from 'dayjs'
+dayjs.extend(plugin)
+
 import useUser from '@context/userContext'
 import useOverlay from '@context/overlayContext'
 
@@ -34,12 +38,15 @@ const ProfileMain = ({ modalActions }) => {
     })
   }
 
+  const currentEvents =
+    events?.filter(event => dayjs(event.date).isSameOrAfter(dayjs())) || []
+
   const renderTab = () => {
     switch (tab) {
       case TABS.EVENTS:
         return (
           <ItemList
-            data={events}
+            data={currentEvents}
             onItemPress={handleEventPress}
             noDataMessage={NO_DATA.EVENTS}
           />
@@ -60,22 +67,23 @@ const ProfileMain = ({ modalActions }) => {
   }
 
   return (
-    <React.Fragment>
-      <View style={styles.container}>
-        <ImageBackground
-          source={require('../../../assets/profile-main.png')}
-          style={styles.image}
-        >
-          <ProfileMenu handlePress={modalActions.openMenu} />
-        </ImageBackground>
-        <View style={styles.profileContainer}>
-          <ProfileInformation />
-          <ProfileAccountStats />
-          <ProfileTabs currentTab={tab} setTab={setTab} />
-          {renderTab()}
-        </View>
+    <View style={styles.container}>
+      <ImageBackground
+        source={require('../../../assets/profile-main.png')}
+        style={styles.image}
+      >
+        <ProfileMenu handlePress={modalActions.openMenu} />
+      </ImageBackground>
+      <View style={styles.profileContainer}>
+        <ProfileInformation />
+        <ProfileAccountStats
+          handleOpenFollowing={modalActions.navigateFollowing}
+          handleOpenFollowers={modalActions.navigateFollowers}
+        />
+        <ProfileTabs currentTab={tab} setTab={setTab} />
+        {renderTab()}
       </View>
-    </React.Fragment>
+    </View>
   )
 }
 

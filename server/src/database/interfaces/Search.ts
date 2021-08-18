@@ -8,9 +8,11 @@ export interface ISearchEvent {
 
 export interface ISearchUser {
   userId: string
-  query: string
-  page: number
-  following: string[]
+  type?: ESearchUserType
+  query?: string
+  page?: number
+  following?: string[]
+  filters?: string[]
 }
 
 export interface ISearchHome {
@@ -59,4 +61,8 @@ export interface IEventHit {
 export enum EBuckets {
   USERS = 'users',
   EVENTS = 'events'
+}
+
+export enum ESearchUserType {
+  FOLLOW = 'follow'
 }

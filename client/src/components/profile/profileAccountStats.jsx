@@ -1,10 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import useUser from '@context/userContext'
 
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-const ProfileAccountStats = () => {
+const ProfileAccountStats = ({ handleOpenFollowing, handleOpenFollowers }) => {
   const { user } = useUser()
 
   return (
@@ -13,14 +14,14 @@ const ProfileAccountStats = () => {
         <Text style={styles.statsTextHead}>{user.numEvents}</Text>
         <Text style={styles.statsText}>Events</Text>
       </View>
-      <View>
+      <TouchableOpacity onPress={handleOpenFollowing}>
         <Text style={styles.statsTextHead}>{user.numFollowing}</Text>
         <Text style={styles.statsText}>Following</Text>
-      </View>
-      <View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleOpenFollowers}>
         <Text style={styles.statsTextHead}>{user.numFollowers}</Text>
         <Text style={styles.statsText}>Followers</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -45,5 +46,10 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 })
+
+ProfileAccountStats.propTypes = {
+  handleOpenFollowing: PropTypes.func.isRequired,
+  handleOpenFollowers: PropTypes.func.isRequired
+}
 
 export default ProfileAccountStats

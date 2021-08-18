@@ -39,10 +39,47 @@ export const SocialLinkType = gql`
     answer: SocialLinkAnswer!
     updated_at: Date!
   }
+
+  type Following {
+    id: String!
+    recipientId: String!
+    recipient: User
+    message: String
+    answer: SocialLinkAnswer!
+    updated_at: Date!
+    created_at: Date!
+  }
+
+  type Follower {
+    id: String!
+    senderId: String!
+    sender: User
+    message: String
+    answer: SocialLinkAnswer!
+    updated_at: Date!
+    created_at: Date!
+  }
 `
 
 export const SocialLinkResolvers = {
-  Query: {},
+  Query: {
+    getUserFollowing: (
+      parent: void,
+      args: { id: string },
+      context: { user: IUser }
+    ) => {
+      const id = args?.id || context.user.id
+      return FollowController.findAllBySenderId(id)
+    },
+    getUserFollowers: (
+      parent: void,
+      args: { id: string },
+      context: { user: IUser }
+    ) => {
+      const id = args?.id || context.user.id
+      return FollowController.findAllByRecipientId(id)
+    }
+  },
   Mutation: {
     createInvites: (
       parent: void,

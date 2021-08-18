@@ -11,6 +11,8 @@ export const actions = {
   navigateNotifications: 'navigateNotifications',
   navigateInbox: 'navigateInbox',
   navigateNewMessage: 'navigateNewMessage',
+  navigateFollowing: 'navigateFollowing',
+  navigateFollowers: 'navigateFollowers',
   addMessageRecipients: 'addMessageRecipients',
   navigateEditForm: 'navigateEditForm',
   updateEditForm: 'updateEditForm',
@@ -59,6 +61,22 @@ function reducer(state, action) {
         ...state,
         screen: SCREEN.EDIT,
         title: 'Edit Profile',
+        modal: null
+      }
+    }
+    case actions.navigateFollowing: {
+      return {
+        ...state,
+        screen: SCREEN.FOLLOWING,
+        title: 'Following',
+        modal: null
+      }
+    }
+    case actions.navigateFollowers: {
+      return {
+        ...state,
+        screen: SCREEN.FOLLOWERS,
+        title: 'Followers',
         modal: null
       }
     }
