@@ -13,7 +13,7 @@ const initialState = {
   name: 'Home',
   tabBar: {
     show: true,
-    fabButton: false
+    fab: false
   },
   selected: null
 }
@@ -34,7 +34,7 @@ const reducer = (state, action) => {
         name: action.payload,
         tabBar: {
           show: !disableTabBar.includes(action.payload),
-          fabButton: false
+          fab: false
         }
       }
     case actions.openModal:
@@ -44,12 +44,12 @@ const reducer = (state, action) => {
     case actions.toggleFab:
       return {
         ...state,
-        tabBar: { ...state.tabBar, fabButton: !state.tabBar.fabButton }
+        tabBar: { ...state.tabBar, fab: !state.tabBar.fab }
       }
     case actions.closeFab:
       return {
         ...state,
-        tabBar: { ...state.tabBar, fabButton: false }
+        tabBar: { ...state.tabBar, fab: false }
       }
     default:
       throw new Error('Something happened with the route context!')
