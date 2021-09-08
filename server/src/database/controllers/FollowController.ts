@@ -47,7 +47,9 @@ export async function findAllBySenderId(
   let follows: FirebaseFirestore.DocumentData[] = []
 
   try {
-    const snapshot = await Follows.where('senderId', '==', id).get()
+    const snapshot = await Follows.where('senderId', '==', id)
+      .where('answer', '==', ESocialLinkAnswer.ACCEPTED)
+      .get()
     if (snapshot) {
       snapshot.forEach(doc => {
         let follow = doc.data()
@@ -83,7 +85,9 @@ export async function findAllByRecipientId(
   let follows: FirebaseFirestore.DocumentData[] = []
 
   try {
-    const snapshot = await Follows.where('recipientId', '==', id).get()
+    const snapshot = await Follows.where('recipientId', '==', id)
+      .where('answer', '==', ESocialLinkAnswer.ACCEPTED)
+      .get()
     if (snapshot) {
       snapshot.forEach(doc => {
         let follow = doc.data()

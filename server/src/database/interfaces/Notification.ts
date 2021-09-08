@@ -1,21 +1,33 @@
 export interface INotificationCreate {
   ownerId: string
-  senderId: string
+  socialLinkId: string
+  senderId?: string
   type: ENotificationType
 }
 
-export interface INotification {
+export type INotification = {
   id: string
   senderId: string
   type: ENotificationType
   viewed: boolean
   created_at: FirebaseFirestore.Timestamp
+  updated_at: FirebaseFirestore.Timestamp
+  socialLinkId?: string
+}
+
+export interface ISocialLinkNotification extends INotification {
+  socialLinkId: string
 }
 
 export enum ENotificationType {
-  INVITE = 'INVITE',
-  COHOST = 'COHOST',
-  FOLLOW = 'FOLLOW',
+  INVITE = 'Invite',
+  COHOST = 'Cohost',
+  FOLLOW = 'Follow',
   RSVP = 'RSVP',
-  COMMENT = 'COMMENT'
+  COMMENT = 'Comment',
+  NEW_EVENT = 'NewEvent'
+}
+
+export enum ENotification {
+  SOCIAL_LINK = 'SocialLinkNotification'
 }
