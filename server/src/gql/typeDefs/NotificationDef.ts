@@ -7,13 +7,15 @@ import {
 } from '../../database/interfaces'
 import {
   InviteController,
-  NotificationController
+  NotificationController,
+  UserController
 } from '../../database/controllers'
 
 export const NotificationType = gql`
   interface Notification {
     id: String!
     senderId: String!
+    sender: User
     type: String!
     viewed: Boolean
     created_at: Date
@@ -23,6 +25,7 @@ export const NotificationType = gql`
   type SocialLinkNotification implements Notification {
     id: String!
     senderId: String!
+    sender: User
     type: String!
     viewed: Boolean
     created_at: Date
@@ -44,6 +47,9 @@ export const NotificationResolvers = {
     }
   },
   SocialLinkNotification: {
+    sender: (parent: INotification) => {
+      return UserController.findById(parent.senderId)
+    },
     socialLink: (parent: ISocialLinkNotification) => {
       return InviteController.findById(parent.socialLinkId)
     }
