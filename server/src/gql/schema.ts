@@ -30,6 +30,7 @@ const OtherType = gql`
     locateSearch(page: Int): [EventHit]
     getUserFollowing(id: String): [Following]
     getUserFollowers(id: String): [Follower]
+    getUserNotifications(id: String): [Notification]
   }
 
   type Mutation {
@@ -53,7 +54,7 @@ const OtherType = gql`
       followIds: [String]
     ): Event
     createMedia(linkId: String!, type: String!, image: Upload!): Media
-    createInvites(recipientIds: [String!], eventId: String!): [SocialLink]
+    createInvites(recipientIds: [String!], eventId: String!): [Invite]
     createMessage(
       conversationId: String
       recipientIds: [String!]

@@ -1,17 +1,67 @@
 import { gql } from 'apollo-server-express'
-import { ESubscriptionType } from '../../database/interfaces'
+import {
+  IUser,
+  INotification,
+  ISocialLinkNotification,
+  ENotification
+} from '../../database/interfaces'
+import {
+  InviteController,
+  NotificationController,
+  UserController
+} from '../../database/controllers'
 
 export const NotificationType = gql`
-  type Notification {
+  interface Notification {
     id: String!
     senderId: String!
-    type: String
+    sender: User
+    type: String!
     viewed: Boolean
     created_at: Date
+    updated_at: Date
+  }
+
+  type SocialLinkNotification implements Notification {
+    id: String!
+    senderId: String!
+    sender: User
+    type: String!
+    viewed: Boolean
+    created_at: Date
+    updated_at: Date
+    socialLinkId: String
+    socialLink: SocialLink
   }
 `
 
 export const NotificationResolvers = {
+  Query: {
+    getUserNotifications: (
+      parent: void,
+      args: { id: string },
+      context: { user: IUser }
+    ) => {
+      const id = args?.id || context.user.id
+      return NotificationController.getAllByUserId(id)
+    }
+  },
+  SocialLinkNotification: {
+    sender: (parent: INotification) => {
+      return UserController.findById(parent.senderId)
+    },
+    socialLink: (parent: ISocialLinkNotification) => {
+      return InviteController.findById(parent.socialLinkId)
+    }
+  },
+  Notification: {
+    __resolveType(obj: INotification) {
+      if (obj.socialLinkId) {
+        return ENotification.SOCIAL_LINK
+      }
+      return null // GraphQLError is thrown
+    }
+  },
   Subscription: {
     // notificationAdded: {
     //   subscribe: () =>

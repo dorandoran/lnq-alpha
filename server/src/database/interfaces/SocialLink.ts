@@ -1,12 +1,19 @@
-export interface ISocialLink {
+import { IEvent } from '.'
+
+export type ISocialLink = {
   id: string
   recipientId: string
   senderId: string
-  eventId?: string
   message?: string
   answer: ESocialLinkAnswer
   updated_at: FirebaseFirestore.Timestamp
   created_at: FirebaseFirestore.Timestamp
+  eventId?: string
+}
+
+export interface IInvite extends ISocialLink {
+  eventId: string
+  event: IEvent
 }
 
 export interface IInvitesCreate {

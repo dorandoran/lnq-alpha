@@ -9,7 +9,9 @@ import {
   ISocialLink,
   IUser,
   IInvitesCreate,
-  IFollowRequest
+  IFollowRequest,
+  IInvite,
+  ENotificationType
 } from '../../database/interfaces'
 
 export const SocialLinkType = gql`
@@ -26,38 +28,46 @@ export const SocialLinkType = gql`
     FOLLOW
   }
 
-  type SocialLink {
+  interface SocialLink {
     id: String!
     type: SocialLinkType!
+    message: String
+    answer: SocialLinkAnswer!
+    updated_at: Date!
+    created_at: Date!
+  }
+
+  type Following implements SocialLink {
+    id: String!
+    type: SocialLinkType!
+    message: String
+    answer: SocialLinkAnswer!
+    updated_at: Date!
+    created_at: Date!
     recipientId: String!
     recipient: User
+  }
+
+  type Follower implements SocialLink {
+    id: String!
+    type: SocialLinkType!
+    message: String
+    answer: SocialLinkAnswer!
+    updated_at: Date!
+    created_at: Date!
     senderId: String!
     sender: User
-    eventId: String
+  }
+
+  type Invite implements SocialLink {
+    id: String!
+    type: SocialLinkType!
+    message: String
+    answer: SocialLinkAnswer!
+    updated_at: Date!
+    created_at: Date!
+    eventId: String!
     event: Event
-    message: String
-    answer: SocialLinkAnswer!
-    updated_at: Date!
-  }
-
-  type Following {
-    id: String!
-    recipientId: String!
-    recipient: User
-    message: String
-    answer: SocialLinkAnswer!
-    updated_at: Date!
-    created_at: Date!
-  }
-
-  type Follower {
-    id: String!
-    senderId: String!
-    sender: User
-    message: String
-    answer: SocialLinkAnswer!
-    updated_at: Date!
-    created_at: Date!
   }
 `
 
@@ -98,14 +108,30 @@ export const SocialLinkResolvers = {
       return FollowController.saveAll(args)
     }
   },
+  SocialLinkType: {
+    INVITE: ENotificationType.INVITE,
+    FOLLOW: ENotificationType.FOLLOW
+  },
   SocialLink: {
+    __resolveType(obj: ISocialLink) {
+      if (obj.eventId) {
+        return ENotificationType.INVITE
+      }
+      return null // GraphQLError is thrown
+    }
+  },
+  Following: {
     recipient: (parent: ISocialLink) => {
       return UserController.findById(parent.recipientId)
-    },
+    }
+  },
+  Follower: {
     sender: (parent: ISocialLink) => {
       return UserController.findById(parent.senderId)
-    },
-    event: (parent: ISocialLink) => {
+    }
+  },
+  Invite: {
+    event: (parent: IInvite) => {
       if (parent.eventId) {
         return EventController.findById(parent.eventId)
       }

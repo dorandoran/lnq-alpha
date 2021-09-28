@@ -8,6 +8,7 @@ import {
   ENotificationType
 } from '../interfaces'
 
+const Users = firestore().collection('users')
 const Invites = firestore().collection('invites')
 
 export async function saveAll({
@@ -15,11 +16,14 @@ export async function saveAll({
   recipientIds,
   eventId
 }: IInvitesCreate): Promise<ISocialLink[] | null> {
+  const inviteRef = Invites.doc()
   const batch = firestore().batch()
   let invites: ISocialLink[] = []
 
   recipientIds.forEach(async recipientId => {
-    const inviteRef = Invites.doc()
+    const notificationRef = Users.doc(recipientId)
+      .collection('notifications')
+      .doc()
     const invite = {
       id: inviteRef.id,
       senderId,
@@ -31,17 +35,16 @@ export async function saveAll({
     }
     // Add notification
     const notification = {
-      ownerId: recipientId,
+      id: notificationRef.id,
       senderId,
-      type: ENotificationType.INVITE
+      type: ENotificationType.INVITE,
+      viewed: false,
+      socialLinkId: inviteRef.id,
+      updated_at: timestamp.now(),
+      created_at: timestamp.now()
     }
 
-    try {
-      await NotificationController.create(notification)
-    } catch (e) {
-      console.log(e)
-    }
-
+    batch.set(notificationRef, notification)
     batch.set(inviteRef, invite)
     invites.push(invite)
   })
@@ -53,6 +56,17 @@ export async function saveAll({
     console.log(e)
     return null
   }
+}
+
+export async function findById(
+  id: string
+): Promise<FirebaseFirestore.DocumentData | null> {
+  const doc = await Invites.doc(id).get()
+  if (doc.exists) {
+    const invite = doc.data()
+    if (invite) return invite
+  }
+  return null
 }
 
 export async function findAllByEventId(
