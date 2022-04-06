@@ -1,0 +1,16 @@
+# Pull base image
+FROM node:lts-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install application dependencies
+COPY ./package.json ./
+COPY ./package-lock.json ./
+RUN npm install
+
+# Copy over project files
+COPY . .
+
+# Start application
+CMD ["npm", "run", "start"]

@@ -2,8 +2,6 @@ gcp-service-account-key.json
 
 .vscode
 devops/ansible/venv
-old_server
-web_old
 
 client/config/dev.json
 client/config/prod.json
