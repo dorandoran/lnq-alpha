@@ -6,12 +6,10 @@ import {
   IMediaRemove,
   IMediaRemoveFromStorage,
   IMediaFindByLinkId,
-  IStorageResponse,
-  EBuckets
+  IStorageResponse
 } from '../interfaces'
 
 const Media = firestore().collection('media')
-const Events = firestore().collection('events')
 
 export async function create({
   ownerId,

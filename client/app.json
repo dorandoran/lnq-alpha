@@ -1,14 +1,10 @@
 {
   "expo": {
     "name": "LNQ: Where the party at?",
-    "slug": "lnq",
+    "slug": "lnq-alpha",
     "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "1.0.0",
+    "platforms": ["ios", "android", "web"],
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -19,16 +15,20 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
+      "bundleIdentifier": "io.lnq.app",
+      "buildNumber": "0.1.0",
       "config": {
         "googleSignIn": {
           "reservedClientId": "com.googleusercontent.apps.650252507366-a7r20o66k8jqekuajbmkcr6vjpairhsp"
         }
       }
+    },
+    "android": {
+      "package": "io.lnq.app",
+      "versionCode": 1
     }
   }
 }

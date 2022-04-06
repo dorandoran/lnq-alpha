@@ -3,10 +3,12 @@ import credentials from '../config/credentials.json'
 
 const serviceAccount = credentials.google as admin.ServiceAccount
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  storageBucket: 'lnq-alpha.appspot.com'
-})
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    storageBucket: 'lnq-alpha.appspot.com'
+  })
+}
 
 export const auth = admin.auth
 export const firestore = admin.firestore

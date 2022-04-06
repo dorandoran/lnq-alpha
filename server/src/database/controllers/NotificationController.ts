@@ -1,9 +1,5 @@
 import { firestore, timestamp } from '../firestore/firebase'
-import {
-  INotificationCreate,
-  INotification,
-  ESubscriptionType
-} from '../interfaces'
+import { INotificationCreate, INotification } from '../interfaces'
 
 const Users = firestore().collection('users')
 

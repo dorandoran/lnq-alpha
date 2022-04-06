@@ -16,7 +16,7 @@ const InboxScreen = () => {
   const [text, setText] = React.useState('')
   const [selected, setSelected] = React.useState([])
   const [followSelected, setFollowSelected] = React.useState([])
-  const [userModal, setUserModal] = React.useState(true)
+  const [userModal, setUserModal] = React.useState(false)
 
   const handleItemPress = ({ item, state }) => {
     const index = findIndex(state, { id: item.id })

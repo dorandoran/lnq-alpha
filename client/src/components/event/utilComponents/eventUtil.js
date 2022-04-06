@@ -1,7 +1,8 @@
+import { Platform } from 'react-native'
 import Constants from 'expo-constants'
 import { formatDateTime, SCREEN_HEIGHT, EVENT_TYPES } from '@util'
 
-export const adjustedScreenHeight = SCREEN_HEIGHT - Constants.statusBarHeight
+export const adjustedScreenHeight = Platform.OS === 'ios' ? SCREEN_HEIGHT - Constants.statusBarHeight : SCREEN_HEIGHT
 
 export const eventDetails = [
   {

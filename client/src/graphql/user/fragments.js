@@ -50,6 +50,7 @@ export const allInfoUserFragment = gql`
       }
       owner {
         id
+        username
         avatar {
           id
           uri

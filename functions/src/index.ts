@@ -1,4 +1,5 @@
 import * as functions from 'firebase-functions'
+import Server from './server'
 import {
   deleteMediaFromEvents,
   deleteMediaFromStorage,
@@ -6,7 +7,9 @@ import {
 } from './actions/consistency'
 import { indexAll, updateUserIndex, updateEventIndex } from './actions/algolia'
 import { automaticallyAllowFollowers } from './actions/automatedTasks'
-import { search } from './actions/search'
+// import { search } from './actions/search'
+
+exports.app = functions.https.onRequest(Server)
 
 /** Firebase Consistency Functions */
 exports.deleteMediaFromEvents = deleteMediaFromEvents
@@ -22,4 +25,4 @@ exports.updateEventIndex = updateEventIndex
 exports.allowFollowers = automaticallyAllowFollowers
 
 /** Search Functions */
-exports.search = functions.https.onRequest(search)
+// exports.search = functions.https.onRequest(search)

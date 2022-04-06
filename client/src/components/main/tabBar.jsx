@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouteState } from '@hooks/useRoute'
 import PropTypes from 'prop-types'
 
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, StatusBar } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 import { theme, navigate, SCREEN_HEIGHT } from '@util'
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    bottom: SCREEN_HEIGHT / 15,
+    bottom: SCREEN_HEIGHT / 15 - StatusBar.currentHeight,
     left: SCREEN_HEIGHT / 30,
     height: '6%',
     width: '100%'

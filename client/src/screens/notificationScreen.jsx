@@ -1,21 +1,42 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import { GetUserNotifications } from '@graphql/notifications/queries'
 import { View, StyleSheet, Text } from 'react-native'
-import NotificationTabs from '@components/profile/utilComponents/notificationTabs'
-import { NOTIFICATION_TABS } from '@components/profile/utilComponents/profileUtil'
-import { Header, HeaderButton } from '@common'
+
+import SocialItemList from '@components/shared/socialItemList'
+import { Header, HeaderButton, Tabs } from '@common'
 import { theme, goBack } from '@util'
 
 const ProfileNotifications = () => {
-  const [tab, setTab] = React.useState(NOTIFICATION_TABS.ALL)
-
+  const [currentTab, setCurrentTab] = useState()
   const handleBackPress = () => {
     goBack()
   }
 
+  // Create new list component - datedItemList
+  // Based on itemList
+  // Accounts for the date and separates with divider (toggle?)
+  // Allows for social link answers
+  // Make it work
+  const TABS = {
+    ALL: {
+      label: 'All',
+      filterList: null,
+      noDataMessage: 'No notifications to show',
+      handleItemPress: () => {}
+    },
+    INVITES: {
+      label: 'Invites',
+      filterList: list => list.filter(item => item.type === 'INVITE'),
+      noDataMessage: 'No invites to show',
+      handleItemPress: () => {}
+    }
+  }
+  const tabList = Object.keys(TABS).map(tab => TABS[tab].label)
+
   return (
     <View style={styles.container}>
       <Header position='relative' backgroundColor='background'>
+        <Tabs tabs={tabList} />
         <HeaderButton
           type='material'
           name='chevron-left'
@@ -24,9 +45,13 @@ const ProfileNotifications = () => {
           onPress={handleBackPress}
           size={30}
         />
-        <Text style={styles.header}>{tab}</Text>
+        <Text style={styles.header}>Notifications</Text>
       </Header>
-      <NotificationTabs currentTab={tab} setTab={setTab} />
+      <SocialItemList
+        query={GetUserNotifications}
+        noDataMessage='No data!'
+        onItemPress={() => {}}
+      />
     </View>
   )
 }

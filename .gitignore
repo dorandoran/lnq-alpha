@@ -33,6 +33,5 @@ functions/!.eslintrc.js
 functions/typings/
 functions/node_modules
 functions/build
+functions/src/server
 *.log
-client/config/dev.json
-client/config/dev.json

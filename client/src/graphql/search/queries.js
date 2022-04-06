@@ -36,6 +36,7 @@ export const EventSearch = gql`
       }
       owner {
         id
+        username
         avatar {
           id
           uri

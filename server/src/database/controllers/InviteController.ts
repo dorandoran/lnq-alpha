@@ -1,5 +1,4 @@
 import { firestore, timestamp } from '../firestore/firebase'
-import { NotificationController } from '../controllers'
 import {
   ISocialLink,
   IInvitesCreate,

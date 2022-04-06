@@ -8,12 +8,13 @@ import {
   FlatList,
   Text,
   RefreshControl,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground
 } from 'react-native'
 import { ListItem, Image } from 'react-native-elements'
 import { Loading } from '@common'
 
-import { theme, formatDateTime } from '@util'
+import { theme, formatDateTime, SCREEN_WIDTH } from '@util'
 
 const ItemList = ({
   data,
@@ -70,6 +71,7 @@ const ItemList = ({
 
   // Event ListItem
   const renderEventListItem = item => {
+    // console.log('item ', item)
     const { name, avatar, location, date } = item
 
     return (
@@ -77,29 +79,9 @@ const ItemList = ({
         onPress={() => onItemPress(item)}
         containerStyle={styles.containerStyle}
       >
-        {avatar && (
-          <Image
-            source={{ uri: avatar.uri }}
-            style={styles.image}
-            borderRadius={10}
-            PlaceholderContent={<Loading size='small' />}
-            placeholderStyle={styles.placeholder}
-          />
-        )}
-        <ListItem.Content>
-          <View style={styles.textContainer}>
-            <Text style={styles.title} numberOfLines={2}>
-              {name}
-            </Text>
-            <Text style={styles.text} numberOfLines={1}>
-              {location.text}
-            </Text>
-            <Text style={styles.text} numberOfLines={1}>
-              {formatDateTime({ date })}
-            </Text>
-          </View>
-          <View style={styles.avatarContainer}>
-            {!hideAvatar && item?.owner?.avatar ? (
+        <View style={styles.avatarContainer}>
+          {!hideAvatar && item?.owner?.avatar ? (
+            <>
               <Image
                 source={{ uri: item.owner.avatar.uri }}
                 style={styles.avatar}
@@ -109,9 +91,32 @@ const ItemList = ({
                   <Loading size='small' styleProps={{ borderRadius: 50 }} />
                 }
               />
-            ) : null}
-          </View>
-        </ListItem.Content>
+              <Text style={styles.text}>@{item?.owner?.username}</Text>
+            </>
+          ) : (
+            <View />
+          )}
+        </View>
+        {avatar && (
+          <ImageBackground
+            source={{ uri: avatar.uri }}
+            style={styles.image}
+            borderRadius={10}
+            PlaceholderContent={<Loading size='small' />}
+            placeholderStyle={styles.placeholder}
+          />
+        )}
+        <View style={styles.textContainer}>
+          <Text style={styles.title} numberOfLines={2}>
+            {name}
+          </Text>
+          <Text style={styles.text} numberOfLines={2}>
+            {location.text}
+          </Text>
+          <Text style={styles.text} numberOfLines={2}>
+            {formatDateTime({ date })}
+          </Text>
+        </View>
       </ListItem>
     )
   }
@@ -224,6 +229,8 @@ const ItemList = ({
     <View style={styles.container}>
       <FlatList
         style={{ minHeight: 100 }}
+        columnWrapperStyle={{ justifyContent: 'space-evenly' }}
+        numColumns={2}
         refreshControl={
           (onRefresh || query) && (
             <RefreshControl
@@ -247,14 +254,14 @@ const ItemList = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10
+    marginTop: 10
   },
   containerStyle: {
+    flexDirection: 'column',
     borderRadius: 10,
     backgroundColor: theme.color.accent,
     margin: 5,
-    paddingVertical: 0,
-    paddingHorizontal: 10
+    paddingHorizontal: 5
   },
   userContainerStyle: {
     borderRadius: 10,
@@ -276,9 +283,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10
   },
   avatarContainer: {
-    position: 'absolute',
-    top: 10,
-    right: 0
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    paddingBottom: 5
   },
   placeholder: {
     backgroundColor: 'transparent',
@@ -290,14 +298,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   text: {
+    width: SCREEN_WIDTH / 2.7,
     color: theme.color.placeholder
   },
   actionText: {
     color: theme.color.tertiary
   },
   image: {
-    height: 80,
-    width: 80
+    aspectRatio: 3 / 4,
+    width: SCREEN_WIDTH / 2.2
   },
   userImage: {
     height: 50,
@@ -308,7 +317,8 @@ const styles = StyleSheet.create({
   },
   avatar: {
     height: 25,
-    width: 25
+    width: 25,
+    marginRight: 5
   },
   noResults: {
     flex: 1,
